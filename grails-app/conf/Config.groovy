@@ -108,7 +108,9 @@ log4j = {
         'net.sf.ehcache',
         'grails.util',
         'org.apache',
-        'grails.plugin'
+        'grails.plugin',
+        'grails.app.resourceMappers',
+        'grails.app.taglib'
 }
 
 // Added by the Spring Security Core plugin:
