@@ -77,19 +77,43 @@ log4j = {
   appenders {
     // file name:'file', file:'/tmp/bitsapi.log'
     console name: 'stdout', layout: pattern(conversionPattern: '%d{ISO8601}\t%p\t%c:%L\t%m%n'), threshold: org.apache.log4j.Level.ERROR
-    appender new DailyRollingFileAppender(name: 'file', file: logDirectory + "${appName}.log",
+    appender new DailyRollingFileAppender(name: 'file', file: logDirectory + "siyen.log",
         datePattern: '\'_\'yyyy-MM-dd', layout: pattern(conversionPattern: '%d{ISO8601}\t%p\t%c:%L\t%m%n'))
   }
 
-  error 'org.codehaus.groovy.grails.web.servlet',        // controllers
-        'org.codehaus.groovy.grails.web.pages',          // GSP
-        'org.codehaus.groovy.grails.web.sitemesh',       // layouts
+  root {
+    debug 'stdout', 'file'
+    additivity = true
+  }
+
+  debug 'grails.app.controllers.com.siyen',
+        'grails.app.taglib.com.siyen',
+        'grails.app.services.com.siyen',
+        'grails.app.domain.com.siyen',
+        'grails.app.jobs.com.siyen'
+        'grails.app.conf'
+
+  error 'org.codehaus.groovy.grails.web.servlet',  //  controllers
+        'org.codehaus.groovy.grails.web.pages', //  GSP
+        'org.codehaus.groovy.grails.web.sitemesh', //  layouts
         'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
-        'org.codehaus.groovy.grails.web.mapping',        // URL mapping
-        'org.codehaus.groovy.grails.commons',            // core / classloading
-        'org.codehaus.groovy.grails.plugins',            // plugins
-        'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
-        'org.springframework',
-        'org.hibernate',
-        'net.sf.ehcache.hibernate'
+        'org.codehaus.groovy.grails.web.mapping', // URL mapping
+        'org.codehaus.groovy.grails.commons', // core / classloading
+        'org.codehaus.groovy.grails.plugins', // plugins
+        'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
+        'org.grails.plugin',
+        'grails.plugin.webxml',
+        'org.codehaus',
+        'grails.spring',
+        'net.sf.ehcache',
+        'grails.util',
+        'org.apache',
+        'grails.plugin'
 }
+
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.siyen.User'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.siyen.UserRole'
+grails.plugins.springsecurity.authority.className = 'com.siyen.Role'
+grails.plugins.springsecurity.requestMap.className = 'com.siyen.RequestMap'
+grails.plugins.springsecurity.securityConfigType = 'Requestmap'
