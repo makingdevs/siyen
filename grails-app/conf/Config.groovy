@@ -106,7 +106,8 @@ log4j = {
         'org.apache',
         'grails.plugin',
         'grails.app.resourceMappers',
-        'grails.app.taglib'
+        'grails.app.taglib',
+        'org.grails.datastore.mapping.core'
 }
 
 // Added by the Spring Security Core plugin:
