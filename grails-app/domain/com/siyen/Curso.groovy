@@ -6,6 +6,7 @@ class Curso {
   String nombre
   Integer duracion // dias
   String libreta
+  Boolean activo = true
 
   static constraints = {
     clave size:1..30, blank:false, unique:true

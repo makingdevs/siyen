@@ -4,6 +4,7 @@ class Instructor {
 
   String nombre
   String numeroDeOficio
+  Boolean activo = true
 
   static constraints = {
     nombre size:1..255, blank:false
