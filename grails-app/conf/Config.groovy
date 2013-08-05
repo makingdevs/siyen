@@ -1,16 +1,12 @@
+import grails.util.Environment
 import org.apache.log4j.DailyRollingFileAppender
-// locations to search for config files that get merged into the main config;
-// config files can be ConfigSlurper scripts, Java properties files, or classes
-// in the classpath in ConfigSlurper format
 
-// grails.config.locations = [ "classpath:${appName}-config.properties",
-//                             "classpath:${appName}-config.groovy",
-//                             "file:${userHome}/.grails/${appName}-config.properties",
-//                             "file:${userHome}/.grails/${appName}-config.groovy"]
+def configLocations = []
+def archivoDeConfiguracion = "${appName}-${Environment.current}-config.groovy"
+configLocations << "file:${userHome}/.grails/${archivoDeConfiguracion}"
+grails.config.locations = configLocations
 
-// if (System.properties["${appName}.config.location"]) {
-//    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
-// }
+log.debug "Archivos de configuración: " + configLocations
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
