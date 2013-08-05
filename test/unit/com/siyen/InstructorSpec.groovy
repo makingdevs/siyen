@@ -10,7 +10,7 @@ class InstructorSpec extends Specification {
     setup:
     def instructor = new Instructor(
       nombre : nombre_,
-      numOficio : numOficio_ )
+      numeroDeOficio : numeroDeOficio_ )
 
     when:
       instructor.save()
@@ -19,7 +19,7 @@ class InstructorSpec extends Specification {
       assert instructor.errors.allErrors*.code == expected
 
     where:
-      nombre_         | numOficio_           || expected
+      nombre_         | numeroDeOficio_           || expected
       null            | null                 || ["nullable"]*2
       ""              | ""                   || ["blank"]*2
       "1"*256         | "1"*51               || ["size.toobig"]*2
