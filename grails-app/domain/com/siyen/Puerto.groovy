@@ -6,6 +6,7 @@ class Puerto {
   String puerto
   String estado
   String direccion
+  Boolean activo = true
 
   static constraints = {
     clave size:1..4, blank:false, unique:true
