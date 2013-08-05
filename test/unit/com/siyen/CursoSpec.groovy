@@ -3,18 +3,31 @@ package com.siyen
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 
-/**
- * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
- */
 @TestFor(Curso)
 class CursoSpec extends Specification {
 
-	def setup() {
-	}
+  void "Validando constraints"() {
+    setup:
+      def curso = new Curso(
+        clave : clave_,
+        nombre : nombre_,
+        duracion : duracion_,
+        libreta : libreta_
+      )
 
-	def cleanup() {
-	}
+    when:
+      curso.save()
 
-	void "test something"() {
-	}
+    then:
+      assert curso.errors.allErrors*.code == expected
+
+    where:
+    clave_ | nombre_ | duracion_ | libreta_   || expected
+    null   | null    | null      | null       || ["nullable"] * 4
+    ""     | ""      | 1         | ""         || ["blank"] * 3
+    "1"*31 | "1"*256 | 1         | "12"       || ["size.toobig"] * 3
+    "1"    | "10"    | 6         | "1"        || ["max.exceeded"]
+    "1"    | "10"    | 5         | "1"        || []
+  }
+
 }
