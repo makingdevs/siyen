@@ -11,11 +11,7 @@ class Puerto {
     clave size:1..4, blank:false, unique:true
     puerto size:1..35, blank:false
     estado size:1..30, blank:false
-    direccion blank: false
+    direccion size:1..500, blank: true
   }
 
-  static mapping = {
-   direccion type: 'text'
-  }
-  
 }
