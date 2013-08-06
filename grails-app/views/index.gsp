@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="layout" content="twitterBottstrapSiyen"/>
+    <meta name="layout" content="twitterBootstrapSiyen"/>
     <title>Welcome to Grails</title>
     <style type="text/css" media="screen">
       #status {
