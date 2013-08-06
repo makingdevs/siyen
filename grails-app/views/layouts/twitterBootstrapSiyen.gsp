@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <r:require modules="bootstrap" />
+    <r:require module="bootstrap" />
     <g:layoutHead/>
     <r:layoutResources />
   </head>
@@ -15,11 +15,14 @@
   <body>
 
     <div class="container">
-      
       <g:layoutBody/>
 
-    </div> <!-- /container -->
+      <hr>
+      <div class="footer">
+        <p>&copy; Siyen 2013</p>
+      </div>
 
+    </div> <!-- /container -->
     <r:layoutResources />
   </body>
 </html>
