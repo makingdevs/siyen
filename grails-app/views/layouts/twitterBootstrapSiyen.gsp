@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <r:require module="bootstrap" />
+    <r:require modules="bootstrap, application" />
     <g:layoutHead/>
     <r:layoutResources />
   </head>
