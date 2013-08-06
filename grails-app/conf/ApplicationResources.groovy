@@ -9,7 +9,7 @@ modules = {
     resource url:'js/bootstrap/bootstrap.min.js'
   }
 
-  ember {
+  emberjs {
     dependsOn 'jquery'
     resource url:'js/ember/ember-1.0.0-rc.6.1.js'
     resource url:'js/ember/ember-data.js'
