@@ -18,9 +18,11 @@
       <g:layoutBody/>
 
       <hr>
-      <div class="footer">
-        <p>&copy; Siyen 2013</p>
-      </div>
+      <footer>
+        <div class="footer">
+          <p>&copy; Siyen 2013</p>
+        </div>
+      </footer>
 
     </div> <!-- /container -->
     <r:layoutResources />
