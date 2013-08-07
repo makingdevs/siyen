@@ -5,6 +5,12 @@
     <title>Registro de un curso</title> <!-- CursoProgramado -->
 
     <r:require module="emberjs" />
+
+    <r:script>
+      $(function() {
+        $(".page-header").after($(".ember-view"));
+      });
+    </r:script>
   </head>
 
   <body>
@@ -12,7 +18,7 @@
     <div class="page-header">
       <h1>Registro de curso</h1>
     </div>
-    
+
     <script type="text/x-handlebars">
       <div class="row-fluid">
         <div class="span12">
@@ -47,11 +53,10 @@
             </div>
 
             <button class="btn btn-large btn-block btn-primary" type="button">Guardar</button>
-            
           </form>
         </div>
       </div>
-    </script> 
+    </script>
 
   </body>
 
