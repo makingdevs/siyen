@@ -10,21 +10,46 @@
     <r:require modules="bootstrap, emberjs, application" />
     <g:layoutHead/>
     <r:layoutResources />
+
   </head>
 
   <body>
-
-    <div class="container">
-      <g:layoutBody/>
-
-      <hr>
-      <footer>
-        <div class="footer">
-          <p>&copy; Siyen 2013</p>
+    <script type="text/x-handlebars" data-template-name="application">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">Siyen</a>
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <!-- BEGIN: Menu de opciones -->
+                  <li>
+                    {{#linkTo "registros" }}Cursos programados{{/linkTo}}
+                  </li>
+                <!-- END: Menu de opciones -->
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
         </div>
-      </footer>
+      </div>
 
-    </div> <!-- /container -->
+      <div class="container">
+        {{ outlet }}
+
+        <hr>
+        <footer>
+          <div class="footer">
+            <p>&copy; Siyen 2013</p>
+          </div>
+        </footer>
+
+      </div>
+    </script>
+    
     <r:layoutResources />
   </body>
 </html>
