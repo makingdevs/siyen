@@ -2,12 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
     <title>. : Bienvenido a Siyen - <g:layoutTitle default="Principal"/> : .</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <r:require modules="bootstrap, emberjs, application" />
+
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+
     <g:layoutHead/>
     <r:layoutResources />
 
@@ -28,7 +36,8 @@
               <ul class="nav">
                 <!-- BEGIN: Menu de opciones -->
                   <li>
-                    {{#linkTo "registros" }}Cursos programados{{/linkTo}}
+                    {{#linkTo "cursosProgramados" }}Cursos programados{{/linkTo}}
+
                   </li>
                 <!-- END: Menu de opciones -->
               </ul>
@@ -49,7 +58,45 @@
 
       </div>
     </script>
-    
+
+    <script type="text/x-handlebars" data-template-name="cursosProgramados">
+      <div class="page-header">
+        <h1>Cursos programados</h1>
+
+        {{ controller.model.length }}
+        {{#each cursoProgramado in controller}}
+          <label> Fecha De Inicio : {{ cursoProgramado.fechaDeInicio }} </label>
+          <label> Fecha De Termino : {{ cursoProgramado.fechaDeTermino }} </label>
+          <label> Feacha por registro : {{ cursoProgramado.dateCreated }} </label>
+
+          <label> Puerto : {{ cursoProgramado.puerto.length }} </label>
+          <label> Curso : {{ cursoProgramado.curso }} </label>
+          <label> Instructor : {{ cursoProgramado.instructor.id }} </label>
+
+          <label> Estado : {{ cursoProgramado.statusCurso.name }} </label>
+
+        {{/each}}
+          <!-- cursoProgramado.fechaDeInicio -->
+          <!-- fechaDeTermino -->
+          <!-- dateCreated -->
+          <!-- puerto -->
+          <!-- curso -->
+          <!-- instructor -->
+          <!-- statusCurso -->
+      </div>
+    </script>
+
     <r:layoutResources />
   </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
