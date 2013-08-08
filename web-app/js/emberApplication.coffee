@@ -1,1 +1,5 @@
-App = Ember.Application.create()
+window.App = Ember.Application.create()
+
+App.Router.map -> 
+  @.resource "registros"
+
