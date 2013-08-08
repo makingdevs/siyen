@@ -20,7 +20,7 @@ class CursoProgramadoController {
 
 
     render(contentType:"text/json") {
-      [curso_programados: listados, puertos:Puerto.list()]
+      [curso_programados: listados, puertos:Puerto.list(), cursos: Curso.list(), instructors: Instructor.list() ]
     }
   }
 
