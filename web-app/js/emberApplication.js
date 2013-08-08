@@ -3,7 +3,60 @@
   window.App = Ember.Application.create();
 
   App.Router.map(function() {
-    return this.resource("registros");
+    return this.resource("cursosProgramados");
+  });
+
+  App.CursosProgramadosRoute = Ember.Route.extend({
+    model: function() {
+      return App.CursoProgramado.find();
+    }
+  });
+
+  App.Store = DS.Store.extend({
+    revision: 13,
+    adapter: DS.RESTAdapter.reopen({
+      namespace: "siyen"
+    })
+  });
+
+  App.CursoProgramado = DS.Model.extend({
+    fechaDeInicio: DS.attr('date'),
+    fechaDeTermino: DS.attr('date'),
+    dateCreated: DS.attr('date'),
+    puerto: DS.belongsTo('App.Puerto'),
+    curso: DS.belongsTo('App.Curso'),
+    instructor: DS.belongsTo('App.Instructor'),
+    statusCurso: DS.attr('string')
+  });
+
+  App.Puerto = DS.Model.extend({
+    clave: DS.attr('string'),
+    puerto: DS.attr('string')
+  });
+
+  App.Curso = DS.Model.extend({
+    clave: DS.attr('string'),
+    nombre: DS.attr('string')
+  });
+
+  App.Instructor = DS.Model.extend({
+    nombre: DS.attr('string'),
+    numeroDeOficio: DS.attr('string')
+  });
+
+  DS.RESTAdapter.map('App.CursoProgramado', {
+    fechaDeInicio: {
+      key: 'fechaDeInicio'
+    },
+    fechaDeTermino: {
+      key: 'fechaDeTermino'
+    },
+    dateCreated: {
+      key: 'dateCreated'
+    },
+    statusCurso: {
+      key: 'statusCurso'
+    }
   });
 
 }).call(this);
