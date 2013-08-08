@@ -63,26 +63,18 @@
       <div class="page-header">
         <h1>Cursos programados</h1>
 
-        {{ controller.model.length }}
         {{#each cursoProgramado in controller}}
           <label> Fecha De Inicio : {{ cursoProgramado.fechaDeInicio }} </label>
           <label> Fecha De Termino : {{ cursoProgramado.fechaDeTermino }} </label>
           <label> Feacha por registro : {{ cursoProgramado.dateCreated }} </label>
 
-          <label> Puerto : {{ cursoProgramado.puerto.length }} </label>
-          <label> Curso : {{ cursoProgramado.curso }} </label>
-          <label> Instructor : {{ cursoProgramado.instructor.id }} </label>
+          <label> Puerto : {{ cursoProgramado.puerto.puerto }} </label>
+          <label> Curso : {{ cursoProgramado.curso.nombre }} </label>
+          <label> Instructor : {{ cursoProgramado.instructor.nombre }} </label>
 
-          <label> Estado : {{ cursoProgramado.statusCurso.name }} </label>
+          <label> Estado : {{ cursoProgramado.statusCurso }} </label>
 
         {{/each}}
-          <!-- cursoProgramado.fechaDeInicio -->
-          <!-- fechaDeTermino -->
-          <!-- dateCreated -->
-          <!-- puerto -->
-          <!-- curso -->
-          <!-- instructor -->
-          <!-- statusCurso -->
       </div>
     </script>
 
