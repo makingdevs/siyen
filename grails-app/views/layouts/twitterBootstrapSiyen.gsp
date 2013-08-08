@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <r:require modules="bootstrap, application" />
+    <r:require modules="bootstrap, emberjs, application" />
     <g:layoutHead/>
     <r:layoutResources />
   </head>
