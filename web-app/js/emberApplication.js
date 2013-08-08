@@ -44,6 +44,10 @@
     numeroDeOficio: DS.attr('string')
   });
 
+  App.StatusCurso = DS.Model.extend({
+    name: DS.attr('string')
+  });
+
   DS.RESTAdapter.map('App.CursoProgramado', {
     fechaDeInicio: {
       key: 'fechaDeInicio'
@@ -53,6 +57,15 @@
     },
     dateCreated: {
       key: 'dateCreated'
+    },
+    puerto: {
+      key: 'puerto'
+    },
+    curso: {
+      key: 'curso'
+    },
+    instructor: {
+      key: 'instructor'
     },
     statusCurso: {
       key: 'statusCurso'
