@@ -8,6 +8,17 @@ App.CursosProgramadosRoute = Ember.Route.extend
   model: ->
     App.CursoProgramado.find()
 
+
+App.CursosProgramadosNuevoController = Ember.ObjectController.extend
+  puertos: []
+
+App.CursosProgramadosNuevoRoute = Ember.Route.extend
+  setupController: (controller, model) ->
+    console.log controller
+    console.log controller.get('puertos')
+    controller.set('puertos', App.Puerto.find())
+
+
 App.Store = DS.Store.extend
   revision: 13,
   adapter: DS.RESTAdapter.reopen

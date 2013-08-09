@@ -103,7 +103,9 @@
         <h1>Programar nuevo curso</h1>
       </div>
 
-      <h1> LOL </h1>
+      {{ view Ember.Select contentBinding="puertos"
+        optionLabelPath="content.clave"
+        optionValuePath="content.puerto" }}
 
       {{#linkTo "cursosProgramados.index" class="btn btn-primary" }} Ocultar {{/linkTo}}
     </script>
