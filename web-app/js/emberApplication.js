@@ -73,7 +73,7 @@
   });
 
   Ember.Handlebars.registerBoundHelper('date', function(date) {
-    return moment().format('DD/MMMM/YYYY, HH:mm:ss');
+    return moment().format('DD/MMMM/YYYY');
   });
 
 }).call(this);

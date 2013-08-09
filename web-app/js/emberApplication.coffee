@@ -53,7 +53,7 @@ DS.RESTAdapter.map 'App.CursoProgramado',
 
 
 Ember.Handlebars.registerBoundHelper 'date', (date) ->
-  moment().format('DD/MMMM/YYYY, HH:mm:ss')
+  moment().format('DD/MMMM/YYYY')
 
 
 
