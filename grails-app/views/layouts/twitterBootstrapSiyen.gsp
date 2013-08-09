@@ -62,20 +62,38 @@
     <script type="text/x-handlebars" data-template-name="cursosProgramados">
       <div class="page-header">
         <h1>Cursos programados</h1>
-
-        {{#each cursoProgramado in controller}}
-          <label> Fecha de inicio : {{ date cursoProgramado.fechaDeInicio }} </label>
-          <label> Fecha de termino : {{ date cursoProgramado.fechaDeTermino }} </label>
-          <label> Feacha de registro : {{ date cursoProgramado.dateCreated }} </label>
-
-          <label> Puerto : {{ cursoProgramado.puerto.puerto }} </label>
-          <label> Curso : {{ cursoProgramado.curso.nombre }} </label>
-          <label> Instructor : {{ cursoProgramado.instructor.nombre }} </label>
-
-          <label> Estado : {{ cursoProgramado.statusCurso }} </label>
-        {{/each}}
-
       </div>
+
+      <table class="table table-condensed table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Fecha de inicio</th>
+            <th>Fecha de termino</th>
+            <th>Fecha de registro</th>
+            <th>Puerto</th>
+            <th>Curso</th>
+            <th>Instructor</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {{#each cursoProgramado in controller}}
+              <td> {{ date cursoProgramado.fechaDeInicio }} </td>
+              <td> {{ date cursoProgramado.fechaDeTermino }} </td>
+              <td> {{ date cursoProgramado.dateCreated }} </td>
+
+              <td> {{ cursoProgramado.puerto.puerto }} </td>
+              <td> {{ cursoProgramado.curso.nombre }} </td>
+              <td> {{ cursoProgramado.instructor.nombre }} </td>
+
+              <td> {{ cursoProgramado.statusCurso }} </td>
+            {{/each}}
+            </tr>
+          </tr>
+        </tbody>
+      </table>
+
     </script>
 
     <r:layoutResources />
