@@ -37,7 +37,6 @@
                 <!-- BEGIN: Menu de opciones -->
                   <li>
                     {{#linkTo "cursosProgramados" }}Cursos programados{{/linkTo}}
-
                   </li>
                 <!-- END: Menu de opciones -->
               </ul>
@@ -77,8 +76,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            {{#each cursoProgramado in controller}}
+          {{#each cursoProgramado in controller}}
+            <tr>
               <td> {{ date cursoProgramado.fechaDeInicio }} </td>
               <td> {{ date cursoProgramado.fechaDeTermino }} </td>
               <td> {{ date cursoProgramado.dateCreated }} </td>
@@ -89,11 +88,24 @@
 
               <td> {{ cursoProgramado.statusCurso }} </td>
             {{/each}}
-            </tr>
           </tr>
         </tbody>
       </table>
 
+      {{#linkTo "cursosProgramados.nuevo" class="btn btn-primary" }} Nuevo {{/linkTo}}
+
+      {{ outlet }}
+
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="cursosProgramados/nuevo">
+      <div class="page-header">
+        <h1>Programar nuevo curso</h1>
+      </div>
+
+      <h1> LOL </h1>
+
+      {{#linkTo "cursosProgramados.index" class="btn btn-primary" }} Ocultar {{/linkTo}}
     </script>
 
     <r:layoutResources />
