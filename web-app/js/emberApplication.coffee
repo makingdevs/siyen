@@ -1,12 +1,12 @@
 window.App = Ember.Application.create()
 
 App.Router.map -> 
-  @.resource "cursosProgramados"
+  @.resource 'cursosProgramados', ->
+    @.route 'nuevo'
 
 App.CursosProgramadosRoute = Ember.Route.extend
   model: ->
-    return App.CursoProgramado.find()
-
+    App.CursoProgramado.find()
 
 App.Store = DS.Store.extend
   revision: 13,
