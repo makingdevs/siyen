@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <r:require modules="bootstrap, emberjs, application" />
+    <r:require modules="bootstrap, emberjs, application, momentjs" />
 
     <style>
       body {
@@ -64,17 +64,17 @@
         <h1>Cursos programados</h1>
 
         {{#each cursoProgramado in controller}}
-          <label> Fecha De Inicio : {{ cursoProgramado.fechaDeInicio }} </label>
-          <label> Fecha De Termino : {{ cursoProgramado.fechaDeTermino }} </label>
-          <label> Feacha por registro : {{ cursoProgramado.dateCreated }} </label>
+          <label> Fecha de inicio : {{ date cursoProgramado.fechaDeInicio }} </label>
+          <label> Fecha de termino : {{ date cursoProgramado.fechaDeTermino }} </label>
+          <label> Feacha de registro : {{ date cursoProgramado.dateCreated }} </label>
 
           <label> Puerto : {{ cursoProgramado.puerto.puerto }} </label>
           <label> Curso : {{ cursoProgramado.curso.nombre }} </label>
           <label> Instructor : {{ cursoProgramado.instructor.nombre }} </label>
 
           <label> Estado : {{ cursoProgramado.statusCurso }} </label>
-
         {{/each}}
+
       </div>
     </script>
 

@@ -21,7 +21,7 @@ App.CursoProgramado = DS.Model.extend
   puerto: DS.belongsTo('App.Puerto')
   curso : DS.belongsTo('App.Curso')
   instructor : DS.belongsTo('App.Instructor')
-  
+
   statusCurso : DS.attr('string')
 
 App.Puerto = DS.Model.extend
@@ -50,3 +50,14 @@ DS.RESTAdapter.map 'App.CursoProgramado',
   instructor : { key : 'instructor' }
 
   statusCurso: { key: 'statusCurso' }
+
+
+Ember.Handlebars.registerBoundHelper 'date', (date) ->
+  moment().format('DD/MMMM/YYYY, HH:mm:ss')
+
+
+
+
+
+
+
