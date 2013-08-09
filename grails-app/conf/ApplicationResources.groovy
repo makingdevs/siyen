@@ -16,4 +16,9 @@ modules = {
     resource url:'js/ember/ember-data.js'
   }
 
+  momentjs {
+    resource url:'js/momentjs/moment.js'
+    resource url:'js/momentjs/lang/es.js'
+  }
+
 }
