@@ -10,14 +10,15 @@ App.CursosProgramadosRoute = Ember.Route.extend
 
 
 App.CursosProgramadosNuevoController = Ember.ObjectController.extend
-  puertos: []
+  instructores: []
+  puertos : []
+  cursos : []
 
 App.CursosProgramadosNuevoRoute = Ember.Route.extend
   setupController: (controller, model) ->
-    console.log controller
-    console.log controller.get('puertos')
+    controller.set('instructores', App.Instructor.find())
     controller.set('puertos', App.Puerto.find())
-
+    controller.set('cursos', App.Curso.find())
 
 App.Store = DS.Store.extend
   revision: 13,

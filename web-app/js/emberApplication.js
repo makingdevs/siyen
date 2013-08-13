@@ -15,14 +15,16 @@
   });
 
   App.CursosProgramadosNuevoController = Ember.ObjectController.extend({
-    puertos: []
+    instructores: [],
+    puertos: [],
+    cursos: []
   });
 
   App.CursosProgramadosNuevoRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-      console.log(controller);
-      console.log(controller.get('puertos'));
-      return controller.set('puertos', App.Puerto.find());
+      controller.set('instructores', App.Instructor.find());
+      controller.set('puertos', App.Puerto.find());
+      return controller.set('cursos', App.Curso.find());
     }
   });
 
