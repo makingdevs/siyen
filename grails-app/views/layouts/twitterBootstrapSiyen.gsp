@@ -103,20 +103,34 @@
         <h1>Programar nuevo curso</h1>
       </div>
 
-       {{view Ember.Select contentBinding="puertos"
-         optionValuePath="content.clave"
-         optionLabelPath="content.puerto" }}
+        <div class="control-group">
+          <label class="control-label" for="puerto">Puerto :</label>
+          <div class="controls">
+            {{view Ember.Select contentBinding="puertos" optionValuePath="content.clave" optionLabelPath="content.puerto" name="puerto" }}
+          </div>
+        </div>
 
-      {{ view Ember.Select contentBinding="instructores"
-        optionValuePath="content.numeroDeOficio"
-        optionLabelPath="content.nombre" }}
+        <div class="control-group">
+          <label class="control-label" for="instructores">Instructor :</label>
+          <div class="controls">
+            {{ view Ember.Select contentBinding="instructores" optionValuePath="content.numeroDeOficio" optionLabelPath="content.nombre" }}
+          </div>
+        </div>
 
-      {{ view Ember.Select contentBinding="cursos"
-        optionValuePath="content.clave"
-        optionLabelPath="content.nombre" }}
+        <div class="control-group">
+          <label class="control-label" for="instructores">Instructor :</label>
+          <div class="controls">
+            {{ view Ember.Select contentBinding="cursos" optionValuePath="content.clave" optionLabelPath="content.nombre" }}
+          </div>
+        </div>
 
-      {{#linkTo "cursosProgramados.index" class="btn btn-primary" }} Guardar {{/linkTo}}
-      {{#linkTo "cursosProgramados.index" class="btn btn-primary" }} Cancelar {{/linkTo}}
+        <div class="form-actions">
+          {{#linkTo "cursosProgramados.index" class="btn btn-primary" }} Guardar {{/linkTo}}
+          {{#linkTo "cursosProgramados.index" class="btn btn-primary" }} Cancelar {{/linkTo}}
+        </div>
+
+      </div>
+
     </script>
 
     <r:layoutResources />
