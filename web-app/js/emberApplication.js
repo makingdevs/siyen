@@ -92,4 +92,15 @@
     return moment().format('DD/MMMM/YYYY');
   });
 
+  $(function() {
+    return ($('#datepicker')).datepicker({
+      format: "dd/MM/yyyy",
+      autoclose: true,
+      todayHighlight: true,
+      language: 'es',
+      startDate: '1d',
+      weekStart: '0'
+    });
+  });
+
 }).call(this);
