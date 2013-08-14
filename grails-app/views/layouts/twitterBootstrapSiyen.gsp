@@ -106,10 +106,7 @@
         <div class="control-group">
           <label class="control-label" for="datepicker">Fecha de inicio :</label>
           <div class="controls">
-            <div class="input-append date" id="datepicker" >
-              <input size="16" type="text" readonly>
-              <span class="add-on"><i class="icon-th"></i></span>
-            </div>
+            {{ view App.DatePickerView valueBinding="date" }}
           </div>
         </div>
 
