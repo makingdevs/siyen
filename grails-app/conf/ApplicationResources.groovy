@@ -21,4 +21,10 @@ modules = {
     resource url:'js/momentjs/lang/es.js'
   }
 
+  datepicker {
+    resource url:'css/datepicker/datepicker.css'
+    resource url:'js/datepicker/bootstrap-datepicker.js'
+    resource url:'js/datepicker/locales/bootstrap-datepicker.es.js'
+  }
+
 }

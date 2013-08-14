@@ -3,12 +3,51 @@
   window.App = Ember.Application.create();
 
   App.Router.map(function() {
-    return this.resource("cursosProgramados");
+    return this.resource('cursosProgramados', function() {
+      return this.route('nuevo');
+    });
   });
 
   App.CursosProgramadosRoute = Ember.Route.extend({
     model: function() {
       return App.CursoProgramado.find();
+    }
+  });
+
+  App.CursosProgramadosNuevoController = Ember.ObjectController.extend({
+    instructores: [],
+    puertos: [],
+    cursos: [],
+    puertoSelected: null,
+    instructorSelected: null,
+    cursoSelected: null,
+    fechaDeInicio: null,
+    guardar: function() {
+      var cursoProgramado, dateCreated, fechaDeInicio, fechaDeTermino, _ref;
+      console.log("guardando");
+      fechaDeInicio = moment((_ref = this.fechaDeInicio) != null ? _ref : moment(), 'DD/MMMM/YYYY');
+      fechaDeTermino = fechaDeInicio.clone().add('days', 4);
+      dateCreated = fechaDeInicio;
+      console.log("fechaDeInicio : " + fechaDeInicio);
+      console.log("fechaDeTermino : " + fechaDeTermino);
+      console.log("dateCreated : " + dateCreated);
+      return cursoProgramado = App.CursoProgramado.createRecord({
+        fechaDeInicio: fechaDeInicio,
+        fechaDeTermino: fechaDeTermino,
+        dateCreated: dateCreated,
+        puerto: this.puertoSelected,
+        instructor: this.instructorSelected,
+        curso: this.cursoSelected,
+        statusCurso: "NUEVO"
+      });
+    }
+  });
+
+  App.CursosProgramadosNuevoRoute = Ember.Route.extend({
+    setupController: function(controller, model) {
+      controller.set('instructores', App.Instructor.find());
+      controller.set('puertos', App.Puerto.find());
+      return controller.set('cursos', App.Curso.find());
     }
   });
 
@@ -73,7 +112,22 @@
   });
 
   Ember.Handlebars.registerBoundHelper('date', function(date) {
-    return moment().format('DD/MMMM/YYYY');
+    return moment(date).format('DD/MMMM/YYYY');
+  });
+
+  App.DatePickerView = Ember.View.extend({
+    template: Ember.Handlebars.compile('<div class="input-append date" id="datepicker" >' + '{{ view Ember.TextField valueBinding="fechaDeInicio" }}' + '<span class="add-on"><i class="icon-th"></i></span>' + '</div>'),
+    didInsertElement: function() {
+      ($('#datepicker')).datepicker({
+        format: "dd/MM/yyyy",
+        autoclose: true,
+        todayHighlight: true,
+        language: 'es',
+        startDate: '1d'
+      });
+      ($("#datepicker > input")).attr('readonly', 'true');
+      return ($("#datepicker > input")).val(moment().format('DD/MMMM/YYYY'));
+    }
   });
 
 }).call(this);

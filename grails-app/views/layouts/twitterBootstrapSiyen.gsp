@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <r:require modules="bootstrap, emberjs, application, momentjs" />
+    <r:require modules="bootstrap, emberjs, application, momentjs, datepicker" />
 
     <style>
       body {
@@ -37,7 +37,6 @@
                 <!-- BEGIN: Menu de opciones -->
                   <li>
                     {{#linkTo "cursosProgramados" }}Cursos programados{{/linkTo}}
-
                   </li>
                 <!-- END: Menu de opciones -->
               </ul>
@@ -77,8 +76,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            {{#each cursoProgramado in controller}}
+          {{#each cursoProgramado in controller}}
+            <tr>
               <td> {{ date cursoProgramado.fechaDeInicio }} </td>
               <td> {{ date cursoProgramado.fechaDeTermino }} </td>
               <td> {{ date cursoProgramado.dateCreated }} </td>
@@ -88,25 +87,71 @@
               <td> {{ cursoProgramado.instructor.nombre }} </td>
 
               <td> {{ cursoProgramado.statusCurso }} </td>
-            {{/each}}
             </tr>
-          </tr>
+          {{/each}}
         </tbody>
       </table>
+
+      {{#linkTo "cursosProgramados.nuevo" class="btn btn-primary" }} Nuevo {{/linkTo}}
+
+      {{ outlet }}
+
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="cursosProgramados/nuevo">
+      <div class="page-header">
+        <h1>Programar nuevo curso</h1>
+      </div>
+
+      <div class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label" for="datepicker">Fecha de inicio :</label>
+          <div class="controls">
+            {{ view App.DatePickerView }}
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="puerto">Puerto :</label>
+          <div class="controls">
+            {{ view Ember.Select prompt="Selecciona un puerto : "
+                                 contentBinding="puertos"
+                                 optionValuePath="content.clave"
+                                 optionLabelPath="content.puerto"
+                                 selectionBinding="puertoSelected" }}
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="instructores">Instructor :</label>
+          <div class="controls">
+            {{ view Ember.Select prompt="Selecciona un instructor : "
+                                 contentBinding="instructores"
+                                 optionValuePath="content.numeroDeOficio"
+                                 optionLabelPath="content.nombre"
+                                 selectionBinding="instructorSelected" }}
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="cursos">Curso :</label>
+          <div class="controls">
+            {{ view Ember.Select prompt="Selecciona un curso : "
+                                 contentBinding="cursos"
+                                 optionValuePath="content.clave"
+                                 optionLabelPath="content.nombre"
+                                 selectionBinding="cursoSelected" }}
+          </div>
+        </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" {{ action "guardar" }}> Guardar </button>
+            {{#linkTo "cursosProgramados.index" class="btn btn-primary" }} Cancelar {{/linkTo}}
+          </div>
+        </div>
 
     </script>
 
     <r:layoutResources />
   </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-

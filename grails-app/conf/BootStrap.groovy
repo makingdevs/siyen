@@ -45,8 +45,16 @@ class BootStrap {
       curso : curso,
       instructor : instructor,
       statusCurso : StatusCurso.NUEVO )
-
     cursoProgramado.save()
+
+    CursoProgramado cursoProgramado2 = new CursoProgramado (
+      fechaDeInicio : new Date() + 1,
+      fechaDeTermino : new Date() + 5,
+      puerto : puerto,
+      curso : curso,
+      instructor : instructor,
+      statusCurso : StatusCurso.NUEVO )
+    cursoProgramado2.save()
   }
 
   def destroy = {
