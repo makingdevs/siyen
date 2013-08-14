@@ -18,25 +18,18 @@ App.CursosProgramadosNuevoController = Ember.ObjectController.extend
   fechaDeInicio : null
 
   guardar : ->
-    console.log "guardando"
     fechaDeInicio = moment(@.fechaDeInicio ? moment(), 'DD/MMMM/YYYY')
     fechaDeTermino = fechaDeInicio.clone().add('days', 4)
-    dateCreated = fechaDeInicio
-
-    console.log "fechaDeInicio : #{fechaDeInicio}"
-    console.log "fechaDeTermino : #{fechaDeTermino}"
-    console.log "dateCreated : #{dateCreated}"
 
     cursoProgramado = App.CursoProgramado.createRecord
       fechaDeInicio   : fechaDeInicio
       fechaDeTermino  : fechaDeTermino
-      dateCreated     : dateCreated
       puerto          : @.puertoSelected
       instructor      : @.instructorSelected
       curso           : @.cursoSelected
       statusCurso     : "NUEVO"
 
-    # @.get('store').commit()
+    @.get('store').commit()
 
 
 App.CursosProgramadosNuevoRoute = Ember.Route.extend
@@ -51,9 +44,8 @@ App.Store = DS.Store.extend
     namespace: "siyen"
 
 App.CursoProgramado = DS.Model.extend
-  fechaDeInicio : DS.attr('date')
-  fechaDeTermino : DS.attr('date')
-  dateCreated : DS.attr('date')
+  fechaDeInicio : DS.attr('string')
+  fechaDeTermino : DS.attr('string')
 
   puerto: DS.belongsTo('App.Puerto')
   curso : DS.belongsTo('App.Curso')
