@@ -25,6 +25,8 @@ class CursoProgramadoController {
   }
 
   def save() {
+    log.debug "salvando"
+    log.debug "params : ${params['curso_programado']}"
   }
 
 }
