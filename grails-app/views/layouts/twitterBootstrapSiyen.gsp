@@ -87,8 +87,8 @@
               <td> {{ cursoProgramado.instructor.nombre }} </td>
 
               <td> {{ cursoProgramado.statusCurso }} </td>
-            {{/each}}
-          </tr>
+            </tr>
+          {{/each}}
         </tbody>
       </table>
 
