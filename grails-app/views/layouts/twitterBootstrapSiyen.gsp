@@ -107,7 +107,7 @@
         <div class="control-group">
           <label class="control-label" for="datepicker">Fecha de inicio :</label>
           <div class="controls">
-            {{ view App.DatePickerView valueBinding="fechaDeInicio" }}
+            {{ view App.DatePickerView }}
           </div>
         </div>
 

@@ -25,8 +25,8 @@
     guardar: function() {
       var dateCreated, fechaDeInicio, fechaDeTermino, _ref;
       console.log("guardando");
-      fechaDeInicio = (_ref = this.fechaDeInicio) != null ? _ref : moment();
-      fechaDeTermino = moment(fechaDeInicio).add('days', 4);
+      fechaDeInicio = moment((_ref = this.fechaDeInicio) != null ? _ref : moment(), 'DD/MMMM/YYYY');
+      fechaDeTermino = fechaDeInicio.clone().add('days', 4);
       dateCreated = fechaDeInicio;
       console.log("fechaDeInicio : " + fechaDeInicio);
       console.log("fechaDeTermino : " + fechaDeTermino);
@@ -116,20 +116,16 @@
   });
 
   App.DatePickerView = Ember.View.extend({
-    template: Ember.Handlebars.compile('<div class="input-append date" id="datepicker" >' + '<input size="16" type="text" readonly>' + '<span class="add-on"><i class="icon-th"></i></span>' + '</div>'),
+    template: Ember.Handlebars.compile('<div class="input-append date" id="datepicker" >' + '{{ view Ember.TextField valueBinding="fechaDeInicio" }}' + '<span class="add-on"><i class="icon-th"></i></span>' + '</div>'),
     didInsertElement: function() {
-      var onChangeDate,
-        _this = this;
-      onChangeDate = function(ev) {
-        return _this.set("value", moment(ev.date));
-      };
       ($('#datepicker')).datepicker({
         format: "dd/MM/yyyy",
         autoclose: true,
         todayHighlight: true,
         language: 'es',
         startDate: '1d'
-      }).on("changeDate", onChangeDate);
+      });
+      ($("#datepicker > input")).attr('readonly', 'true');
       return ($("#datepicker > input")).val(moment().format('DD/MMMM/YYYY'));
     }
   });

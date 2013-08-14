@@ -19,8 +19,8 @@ App.CursosProgramadosNuevoController = Ember.ObjectController.extend
 
   guardar : ->
     console.log "guardando"
-    fechaDeInicio = (@.fechaDeInicio ? moment())
-    fechaDeTermino = moment(fechaDeInicio).add('days', 4)
+    fechaDeInicio = moment(@.fechaDeInicio ? moment(), 'DD/MMMM/YYYY')
+    fechaDeTermino = fechaDeInicio.clone().add('days', 4)
     dateCreated = fechaDeInicio
 
     console.log "fechaDeInicio : #{fechaDeInicio}"
@@ -95,23 +95,20 @@ Ember.Handlebars.registerBoundHelper 'date', (date) ->
 App.DatePickerView = Ember.View.extend
   template: Ember.Handlebars.compile(
     '<div class="input-append date" id="datepicker" >' +
-      '<input size="16" type="text" readonly>' +
+      '{{ view Ember.TextField valueBinding="fechaDeInicio" }}' +
       '<span class="add-on"><i class="icon-th"></i></span>' +
     '</div>'
     )
 
   didInsertElement: ->
-    onChangeDate = (ev) =>
-      @.set "value", moment(ev.date)
-
-    ($ '#datepicker').datepicker(
+    ($ '#datepicker').datepicker
       format          : "dd/MM/yyyy"
       autoclose       : true
       todayHighlight  : true
       language        : 'es'
       startDate       : '1d'
-      ).on "changeDate", onChangeDate
 
+    ($ "#datepicker > input").attr('readonly', 'true')
     ($ "#datepicker > input").val(moment().format('DD/MMMM/YYYY'))
 
 
