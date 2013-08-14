@@ -23,7 +23,7 @@
     cursoSelected: null,
     fechaDeInicio: null,
     guardar: function() {
-      var dateCreated, fechaDeInicio, fechaDeTermino, _ref;
+      var cursoProgramado, dateCreated, fechaDeInicio, fechaDeTermino, _ref;
       console.log("guardando");
       fechaDeInicio = moment((_ref = this.fechaDeInicio) != null ? _ref : moment(), 'DD/MMMM/YYYY');
       fechaDeTermino = fechaDeInicio.clone().add('days', 4);
@@ -31,13 +31,13 @@
       console.log("fechaDeInicio : " + fechaDeInicio);
       console.log("fechaDeTermino : " + fechaDeTermino);
       console.log("dateCreated : " + dateCreated);
-      return App.CursoProgramado.createRecord({
+      return cursoProgramado = App.CursoProgramado.createRecord({
         fechaDeInicio: fechaDeInicio,
         fechaDeTermino: fechaDeTermino,
         dateCreated: dateCreated,
         puerto: this.puertoSelected,
-        curso: this.instructorSelected,
-        instructor: this.cursoSelected,
+        instructor: this.instructorSelected,
+        curso: this.cursoSelected,
         statusCurso: "NUEVO"
       });
     }

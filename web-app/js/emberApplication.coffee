@@ -27,13 +27,13 @@ App.CursosProgramadosNuevoController = Ember.ObjectController.extend
     console.log "fechaDeTermino : #{fechaDeTermino}"
     console.log "dateCreated : #{dateCreated}"
 
-    App.CursoProgramado.createRecord
+    cursoProgramado = App.CursoProgramado.createRecord
       fechaDeInicio   : fechaDeInicio
       fechaDeTermino  : fechaDeTermino
       dateCreated     : dateCreated
       puerto          : @.puertoSelected
-      curso           : @.instructorSelected
-      instructor      : @.cursoSelected
+      instructor      : @.instructorSelected
+      curso           : @.cursoSelected
       statusCurso     : "NUEVO"
 
     # @.get('store').commit()
