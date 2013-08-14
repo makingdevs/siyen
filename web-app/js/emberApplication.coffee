@@ -19,9 +19,13 @@ App.CursosProgramadosNuevoController = Ember.ObjectController.extend
 
   guardar : ->
     console.log "guardando"
-    fechaDeInicio = @.fechaDeInicio ? moment()
+    fechaDeInicio = (@.fechaDeInicio ? moment())
     fechaDeTermino = moment(fechaDeInicio).add('days', 4)
     dateCreated = fechaDeInicio
+
+    console.log "fechaDeInicio : #{fechaDeInicio}"
+    console.log "fechaDeTermino : #{fechaDeTermino}"
+    console.log "dateCreated : #{dateCreated}"
 
     App.CursoProgramado.createRecord
       fechaDeInicio   : fechaDeInicio
@@ -31,6 +35,8 @@ App.CursosProgramadosNuevoController = Ember.ObjectController.extend
       curso           : @.instructorSelected
       instructor      : @.cursoSelected
       statusCurso     : "NUEVO"
+
+    # @.get('store').commit()
 
 
 App.CursosProgramadosNuevoRoute = Ember.Route.extend
@@ -96,7 +102,7 @@ App.DatePickerView = Ember.View.extend
 
   didInsertElement: ->
     onChangeDate = (ev) =>
-      @.set "value", moment.utc(ev.date).format("DD/MM/YYYY")
+      @.set "value", moment(ev.date)
 
     ($ '#datepicker').datepicker(
       format          : "dd/MM/yyyy"

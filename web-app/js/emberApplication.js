@@ -28,6 +28,9 @@
       fechaDeInicio = (_ref = this.fechaDeInicio) != null ? _ref : moment();
       fechaDeTermino = moment(fechaDeInicio).add('days', 4);
       dateCreated = fechaDeInicio;
+      console.log("fechaDeInicio : " + fechaDeInicio);
+      console.log("fechaDeTermino : " + fechaDeTermino);
+      console.log("dateCreated : " + dateCreated);
       return App.CursoProgramado.createRecord({
         fechaDeInicio: fechaDeInicio,
         fechaDeTermino: fechaDeTermino,
@@ -118,7 +121,7 @@
       var onChangeDate,
         _this = this;
       onChangeDate = function(ev) {
-        return _this.set("value", moment.utc(ev.date).format("DD/MM/YYYY"));
+        return _this.set("value", moment(ev.date));
       };
       ($('#datepicker')).datepicker({
         format: "dd/MM/yyyy",
