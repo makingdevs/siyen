@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <r:require modules="bootstrap, emberjs, application, momentjs" />
+    <r:require modules="bootstrap, emberjs, application, momentjs, datepicker" />
 
     <style>
       body {
@@ -102,6 +102,16 @@
       <div class="page-header">
         <h1>Programar nuevo curso</h1>
       </div>
+
+        <div class="control-group">
+          <label class="control-label" for="datepicker">Fecha de inicio :</label>
+          <div class="controls">
+            <div class="input-append date" id="datepicker" >
+              <input size="16" type="text" readonly>
+              <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+          </div>
+        </div>
 
         <div class="control-group">
           <label class="control-label" for="puerto">Puerto :</label>
