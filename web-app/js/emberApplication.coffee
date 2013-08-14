@@ -19,10 +19,18 @@ App.CursosProgramadosNuevoController = Ember.ObjectController.extend
 
   guardar : ->
     console.log "guardando"
-    console.log "fechaDeInicio : #{@.fechaDeInicio ? moment().format('DD/MMMM/YYYY')}"
-    console.log "puerto seleccionado : #{@.puertoSelected}"
-    console.log "puerto seleccionado : #{@.instructorSelected}"
-    console.log "puerto seleccionado : #{@.cursoSelected}"
+    fechaDeInicio = @.fechaDeInicio ? moment()
+    fechaDeTermino = moment(fechaDeInicio).add('days', 4)
+    dateCreated = fechaDeInicio
+
+    App.CursoProgramado.createRecord
+      fechaDeInicio   : fechaDeInicio
+      fechaDeTermino  : fechaDeTermino
+      dateCreated     : dateCreated
+      puerto          : @.puertoSelected
+      curso           : @.instructorSelected
+      instructor      : @.cursoSelected
+      statusCurso     : "NUEVO"
 
 
 App.CursosProgramadosNuevoRoute = Ember.Route.extend
