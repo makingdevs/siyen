@@ -65,14 +65,27 @@ DS.RESTAdapter.map 'App.CursoProgramado',
 
 
 Ember.Handlebars.registerBoundHelper 'date', (date) ->
-  moment().format('DD/MMMM/YYYY')
+  moment(date).format('DD/MMMM/YYYY')
 
-$ ->
-  ($ '#datepicker').datepicker
-    format          : "dd/MM/yyyy"
-    autoclose       : true
-    todayHighlight  : true
-    language        : 'es'
-    startDate       : '1d'
-    weekStart       : '0'
+App.DatePickerView = Ember.View.extend
+  template: Ember.Handlebars.compile(
+    '<div class="input-append date" id="datepicker" >' +
+      '<input size="16" type="text" readonly>' +
+      '<span class="add-on"><i class="icon-th"></i></span>' +
+    '</div>'
+    )
+  didInsertElement: ->
+    ($ '#datepicker').datepicker
+      format          : "dd/MM/yyyy"
+      autoclose       : true
+      todayHighlight  : true
+      language        : 'es'
+      startDate       : '1d'
+
+    ($ "#datepicker > input").val(moment().format('DD/MMMM/YYYY'))
+  
+
+
+
+
 

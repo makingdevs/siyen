@@ -89,18 +89,21 @@
   });
 
   Ember.Handlebars.registerBoundHelper('date', function(date) {
-    return moment().format('DD/MMMM/YYYY');
+    return moment(date).format('DD/MMMM/YYYY');
   });
 
-  $(function() {
-    return ($('#datepicker')).datepicker({
-      format: "dd/MM/yyyy",
-      autoclose: true,
-      todayHighlight: true,
-      language: 'es',
-      startDate: '1d',
-      weekStart: '0'
-    });
+  App.DatePickerView = Ember.View.extend({
+    template: Ember.Handlebars.compile('<div class="input-append date" id="datepicker" >' + '<input size="16" type="text" readonly>' + '<span class="add-on"><i class="icon-th"></i></span>' + '</div>'),
+    didInsertElement: function() {
+      ($('#datepicker')).datepicker({
+        format: "dd/MM/yyyy",
+        autoclose: true,
+        todayHighlight: true,
+        language: 'es',
+        startDate: '1d'
+      });
+      return ($("#datepicker > input")).val(moment().format('DD/MMMM/YYYY'));
+    }
   });
 
 }).call(this);
