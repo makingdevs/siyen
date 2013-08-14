@@ -8,11 +8,20 @@ App.CursosProgramadosRoute = Ember.Route.extend
   model: ->
     App.CursoProgramado.find()
 
-
 App.CursosProgramadosNuevoController = Ember.ObjectController.extend
   instructores: []
   puertos : []
   cursos : []
+  puertoSelected : null
+  instructorSelected : null
+  cursoSelected : null
+
+  guardar : ->
+    console.log "guardando"
+    console.log "puerto seleccionado : #{@.puertoSelected}"
+    console.log "puerto seleccionado : #{@.instructorSelected}"
+    console.log "puerto seleccionado : #{@.cursoSelected}"
+
 
 App.CursosProgramadosNuevoRoute = Ember.Route.extend
   setupController: (controller, model) ->
@@ -70,10 +79,11 @@ Ember.Handlebars.registerBoundHelper 'date', (date) ->
 App.DatePickerView = Ember.View.extend
   template: Ember.Handlebars.compile(
     '<div class="input-append date" id="datepicker" >' +
-      '<input size="16" type="text" readonly>' +
+      '<input size="16" type="text" name="date" readonly>' +
       '<span class="add-on"><i class="icon-th"></i></span>' +
     '</div>'
     )
+
   didInsertElement: ->
     ($ '#datepicker').datepicker
       format          : "dd/MM/yyyy"
@@ -83,7 +93,7 @@ App.DatePickerView = Ember.View.extend
       startDate       : '1d'
 
     ($ "#datepicker > input").val(moment().format('DD/MMMM/YYYY'))
-  
+
 
 
 
