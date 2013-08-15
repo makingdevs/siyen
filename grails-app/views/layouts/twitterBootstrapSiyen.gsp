@@ -68,7 +68,6 @@
           <tr>
             <th>Fecha de inicio</th>
             <th>Fecha de termino</th>
-            <th>Fecha de registro</th>
             <th>Puerto</th>
             <th>Curso</th>
             <th>Instructor</th>
@@ -80,7 +79,6 @@
             <tr>
               <td> {{ date cursoProgramado.fechaDeInicio }} </td>
               <td> {{ date cursoProgramado.fechaDeTermino }} </td>
-              <td> {{ date cursoProgramado.dateCreated }} </td>
 
               <td> {{ cursoProgramado.puerto.puerto }} </td>
               <td> {{ cursoProgramado.curso.nombre }} </td>
