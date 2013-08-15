@@ -19,11 +19,9 @@ App.CursosProgramadosNuevoController = Ember.ObjectController.extend
 
   guardar : ->
     fechaDeInicio = moment(@.fechaDeInicio ? moment(), 'DD/MMMM/YYYY')
-    fechaDeTermino = fechaDeInicio.clone().add('days', 4)
 
     App.CursoProgramado.createRecord
       fechaDeInicio   : fechaDeInicio
-      fechaDeTermino  : fechaDeTermino
       puerto          : @.puertoSelected
       instructor      : @.instructorSelected
       curso           : @.cursoSelected

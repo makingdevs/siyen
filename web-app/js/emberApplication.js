@@ -23,12 +23,10 @@
     cursoSelected: null,
     fechaDeInicio: null,
     guardar: function() {
-      var fechaDeInicio, fechaDeTermino, _ref;
+      var fechaDeInicio, _ref;
       fechaDeInicio = moment((_ref = this.fechaDeInicio) != null ? _ref : moment(), 'DD/MMMM/YYYY');
-      fechaDeTermino = fechaDeInicio.clone().add('days', 4);
       App.CursoProgramado.createRecord({
         fechaDeInicio: fechaDeInicio,
-        fechaDeTermino: fechaDeTermino,
         puerto: this.puertoSelected,
         instructor: this.instructorSelected,
         curso: this.cursoSelected,
