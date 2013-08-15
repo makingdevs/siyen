@@ -27,52 +27,19 @@ class CursoProgramadoController {
   }
 
   def save() {
-    CursoProgramadoCommand cursoProgramadoCommand = new CursoProgramadoCommand( params['curso_programado'] )
+    Map cursoProgramadoParams = params['curso_programado']
+    Date fechaDeInicio = Date.parse("E. MMM. dd yyyy", cursoProgramadoParams.fechaDeInicio)
 
-    log.debug cursoProgramadoCommand.fechaDeInicio.getClass()
-    log.debug cursoProgramadoCommand.puerto.getClass()
+    CursoProgramado cursoProgramado = new CursoProgramado()
+    cursoProgramado.fechaDeInicio = fechaDeInicio
+    cursoProgramado.puerto = Puerto.get(cursoProgramadoParams.puerto.toLong())
+    cursoProgramado.curso = Curso.get(cursoProgramadoParams.curso.toLong())
+    cursoProgramado.instructor = Instructor.get(cursoProgramadoParams.instructor.toLong())
+    cursoProgramado.fechaDeTermino = fechaDeInicio.plus( cursoProgramado.curso.duracion )
 
-  }
+    cursoProgramado.save()
 
-}
-
-class CursoProgramadoCommand {
-
-  String fechaDeInicio // Vie. Ago. 30 2013 00:00:00 GMT-0500
-  String fechaDeTermino // Mar. Sep. 03 2013 00:00:00 GMT-0500
-
-  String puerto // 1L
-  String curso // 1L
-  String instructor // 1L
-
-  String statusCurso // NUEVO
-
-  static constraints = {
-    fechaDeInicio nullable : false
-    puerto nullable : false
-    curso nullable : false
-    instructor nullable : false
-    statusCurso nullable : false
-  }
-
-  Date getFechaDeInicio() {
-    Date.parse("E. MMM. dd yyyy", fechaDeInicio)
-  }
-
-  Date getFechaDeTermino() {
-    new Date(fechaDeTermino)
-  }
-
-  Long getPuerto() {
-    puerto.toLong()
-  }
-
-  Long getCurso() {
-    curso.toLong()
-  }
-
-  Long getInstructor() {
-    instructor.toLong()
+    render(status:200)
   }
 
 }
