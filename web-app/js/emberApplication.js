@@ -23,23 +23,16 @@
     cursoSelected: null,
     fechaDeInicio: null,
     guardar: function() {
-      var cursoProgramado, dateCreated, fechaDeInicio, fechaDeTermino, _ref;
-      console.log("guardando");
+      var fechaDeInicio, _ref;
       fechaDeInicio = moment((_ref = this.fechaDeInicio) != null ? _ref : moment(), 'DD/MMMM/YYYY');
-      fechaDeTermino = fechaDeInicio.clone().add('days', 4);
-      dateCreated = fechaDeInicio;
-      console.log("fechaDeInicio : " + fechaDeInicio);
-      console.log("fechaDeTermino : " + fechaDeTermino);
-      console.log("dateCreated : " + dateCreated);
-      return cursoProgramado = App.CursoProgramado.createRecord({
+      App.CursoProgramado.createRecord({
         fechaDeInicio: fechaDeInicio,
-        fechaDeTermino: fechaDeTermino,
-        dateCreated: dateCreated,
         puerto: this.puertoSelected,
         instructor: this.instructorSelected,
         curso: this.cursoSelected,
         statusCurso: "NUEVO"
       });
+      return this.get('store').commit();
     }
   });
 
@@ -59,9 +52,8 @@
   });
 
   App.CursoProgramado = DS.Model.extend({
-    fechaDeInicio: DS.attr('date'),
-    fechaDeTermino: DS.attr('date'),
-    dateCreated: DS.attr('date'),
+    fechaDeInicio: DS.attr('string'),
+    fechaDeTermino: DS.attr('string'),
     puerto: DS.belongsTo('App.Puerto'),
     curso: DS.belongsTo('App.Curso'),
     instructor: DS.belongsTo('App.Instructor'),
