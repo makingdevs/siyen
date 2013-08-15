@@ -19,9 +19,11 @@ App.CursosProgramadosNuevoController = Ember.ObjectController.extend
 
   guardar : ->
     fechaDeInicio = moment(@.fechaDeInicio ? moment(), 'DD/MMMM/YYYY')
+    fechaDeTermino = moment(fechaDeInicio).add('days', @.cursoSelected.get('duracion'))
 
     App.CursoProgramado.createRecord
       fechaDeInicio   : fechaDeInicio
+      fechaDeTermino  : fechaDeTermino
       puerto          : @.puertoSelected
       instructor      : @.instructorSelected
       curso           : @.cursoSelected
@@ -58,6 +60,7 @@ App.Puerto = DS.Model.extend
 App.Curso = DS.Model.extend
   clave : DS.attr('string')
   nombre : DS.attr('string')
+  duracion : DS.attr('number')
 
 App.Instructor = DS.Model.extend
   nombre : DS.attr('string')
@@ -77,7 +80,6 @@ DS.RESTAdapter.map 'App.CursoProgramado',
   instructor : { key : 'instructor' }
 
   statusCurso: { key: 'statusCurso' }
-
 
 Ember.Handlebars.registerBoundHelper 'date', (date) ->
   moment(date).format('DD/MMMM/YYYY')

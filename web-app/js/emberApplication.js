@@ -23,10 +23,12 @@
     cursoSelected: null,
     fechaDeInicio: null,
     guardar: function() {
-      var fechaDeInicio, _ref;
+      var fechaDeInicio, fechaDeTermino, _ref;
       fechaDeInicio = moment((_ref = this.fechaDeInicio) != null ? _ref : moment(), 'DD/MMMM/YYYY');
+      fechaDeTermino = moment(fechaDeInicio).add('days', this.cursoSelected.get('duracion'));
       App.CursoProgramado.createRecord({
         fechaDeInicio: fechaDeInicio,
+        fechaDeTermino: fechaDeTermino,
         puerto: this.puertoSelected,
         instructor: this.instructorSelected,
         curso: this.cursoSelected,
@@ -67,7 +69,8 @@
 
   App.Curso = DS.Model.extend({
     clave: DS.attr('string'),
-    nombre: DS.attr('string')
+    nombre: DS.attr('string'),
+    duracion: DS.attr('number')
   });
 
   App.Instructor = DS.Model.extend({
