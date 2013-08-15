@@ -8,10 +8,8 @@ class UrlMappings {
 
     "/curso_programados"(resource: "cursoProgramado")
 
-    "/cursos"(resource:"cursos")
-    "/cursos/$id"(controller:"curso", action:"mostrar")
-
-    "/puertos"(resource:"puertos")
+    "/cursos"(controller:"curso", action:"jsonList")
+    "/puertos"(controller:"puerto", action:"jsonList")
 
     "/"(view:"/index")
     "500"(view:'/error')

@@ -4,9 +4,9 @@ class CursoController {
 
   static scaffold = true
 
-  def mostrar(Long id) {
+  def jsonList() {
     render(contentType:"text/json") {
-      [ curso : Curso.get(id) ]
+      [ cursos : Curso.list() ]
     }
   }
 
