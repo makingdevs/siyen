@@ -23,7 +23,7 @@ App.CursosProgramadosNuevoController = Ember.ObjectController.extend
     fechaDeInicio = moment(@.fechaDeInicio ? moment(), 'DD/MMMM/YYYY')
     fechaDeTermino = moment(fechaDeInicio).add('days', @.cursoSelected.get('duracion'))
 
-    App.CursoProgramado.createRecord
+    cursoProgramado = App.CursoProgramado.createRecord
       fechaDeInicio   : fechaDeInicio
       fechaDeTermino  : fechaDeTermino
       puerto          : @.puertoSelected
@@ -32,6 +32,14 @@ App.CursosProgramadosNuevoController = Ember.ObjectController.extend
       statusCurso     : "NUEVO"
 
     @.get('store').commit()
+
+App.CursoProgramadoController = Ember.ObjectController.extend
+  agregar : ->
+    alumno = App.Alumno.createRecord
+      nombreCompleto : @.get('nombreCompleto')
+      observaciones : @.get('observaciones')
+
+    @.get('alumnos').pushObject( alumno )
 
 
 App.CursosProgramadosNuevoRoute = Ember.Route.extend
@@ -55,6 +63,8 @@ App.CursoProgramado = DS.Model.extend
 
   statusCurso : DS.attr('string')
 
+  alumnos : DS.hasMany('App.Alumno')
+
 App.Puerto = DS.Model.extend
   clave : DS.attr('string')
   puerto : DS.attr('string')
@@ -70,6 +80,10 @@ App.Instructor = DS.Model.extend
 
 App.StatusCurso = DS.Model.extend
   name : DS.attr('string')
+
+App.Alumno = DS.Model.extend
+  nombreCompleto : DS.attr('string')
+  observaciones : DS.attr('string')
 
 
 DS.RESTAdapter.map 'App.CursoProgramado',
