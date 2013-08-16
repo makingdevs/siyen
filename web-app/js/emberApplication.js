@@ -3,6 +3,7 @@
   window.App = Ember.Application.create();
 
   App.Router.map(function() {
+    this.resource('cursosNuevos');
     return this.resource('cursosProgramados', function() {
       this.route('nuevo');
       return this.resource('cursoProgramado', {
