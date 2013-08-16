@@ -19,12 +19,13 @@ class CursoProgramadoController {
         puerto : cursoProgramado.puerto.id,
         curso : cursoProgramado.curso.id,
         instructor : cursoProgramado.instructor.id,
-        statusCurso : cursoProgramado.statusCurso.key ]
+        statusCurso : cursoProgramado.statusCurso.key,
+        alumnos : cursoProgramado.alumnos ?: [] ]
     }
 
 
     render(contentType:"text/json") {
-      [curso_programados: listados, puertos:Puerto.list(), cursos: Curso.list(), instructors: Instructor.list() ]
+      [curso_programados: listados, puertos:Puerto.list(), cursos: Curso.list(), instructors: Instructor.list(), alumnos : Alumno.list() ]
     }
   }
 
