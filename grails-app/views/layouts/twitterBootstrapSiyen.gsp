@@ -158,21 +158,21 @@
         <div class="row-fluid">
           <div class="span6">
             <div class="page-header">
-              <h1>Agregar alumnos al curso : <small>{{ curso.nombre }}</small> </h1>
+              <h1>Agregar alumno al curso : <small>{{ curso.nombre }}</small> </h1>
             </div>
 
-            <form>
-              <label class="control-label" for="nombreCompleto">Nombre Completo :</label>
-              <input type="text" id="nombreCompleto" placeholder="Nombre Completo">
+            <label class="control-label" for="nombreCompleto">Nombre Completo :</label>
+            {{ view Ember.TextField valueBinding="nombreCompleto" placeholder="Nombre Completo"}}
 
-              <label class="control-label" for="observaciones">Observaciones :</label>
-              <textarea id="observaciones" name="observaciones"> </textarea>
+            <label class="control-label" for="observaciones">Observaciones :</label>
+            {{ view Ember.TextArea valueBinding="observaciones" placeholder="Observaciones" }}
 
-              <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Agregar</button>
-                {{#linkTo "cursosProgramados.index" class="btn" }} Cancelar {{/linkTo}}
-              </div>
-            </form>
+            {{ cursoProgramado.alumnos }}
+
+            <div class="form-actions">
+              <button class="btn btn-primary" {{ action "agregar" }}> Agregar </button>
+              {{#linkTo "cursosProgramados.index" class="btn" }} Cancelar {{/linkTo}}
+            </div>
           </div>
         </div>
       </div>
