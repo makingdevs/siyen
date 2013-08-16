@@ -5,6 +5,7 @@ App.Router.map ->
     @.route 'nuevo'
     @.resource('cursoProgramado', { path : ':curso_programado_id' } )
 
+
 App.CursosProgramadosRoute = Ember.Route.extend
   model: ->
     App.CursoProgramado.find()
