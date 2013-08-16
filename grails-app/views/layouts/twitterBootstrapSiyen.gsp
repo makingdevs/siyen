@@ -72,6 +72,7 @@
             <th>Curso</th>
             <th>Instructor</th>
             <th>Estado</th>
+            <th>Participantes</th>
           </tr>
         </thead>
         <tbody>
@@ -85,6 +86,7 @@
               <td> {{ cursoProgramado.instructor.nombre }} </td>
 
               <td> {{ cursoProgramado.statusCurso }} </td>
+              <td> {{#linkTo "cursoProgramado" cursoProgramado }} Agregar/Lista {{/linkTo}} </td>
             </tr>
           {{/each}}
         </tbody>
@@ -148,6 +150,11 @@
           </div>
         </div>
 
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="cursoProgramado">
+      <h1> Hello world </h1>
+      {{#linkTo "cursosProgramados.index" class="btn btn-primary" }} Cancelar {{/linkTo}}
     </script>
 
     <r:layoutResources />
