@@ -26,10 +26,10 @@
     cursoSelected: null,
     fechaDeInicio: null,
     guardar: function() {
-      var fechaDeInicio, fechaDeTermino, _ref;
+      var cursoProgramado, fechaDeInicio, fechaDeTermino, _ref;
       fechaDeInicio = moment((_ref = this.fechaDeInicio) != null ? _ref : moment(), 'DD/MMMM/YYYY');
       fechaDeTermino = moment(fechaDeInicio).add('days', this.cursoSelected.get('duracion'));
-      App.CursoProgramado.createRecord({
+      cursoProgramado = App.CursoProgramado.createRecord({
         fechaDeInicio: fechaDeInicio,
         fechaDeTermino: fechaDeTermino,
         puerto: this.puertoSelected,
@@ -38,6 +38,17 @@
         statusCurso: "NUEVO"
       });
       return this.get('store').commit();
+    }
+  });
+
+  App.CursoProgramadoController = Ember.ObjectController.extend({
+    agregar: function() {
+      var alumno;
+      alumno = App.Alumno.createRecord({
+        nombreCompleto: this.get('nombreCompleto'),
+        observaciones: this.get('observaciones')
+      });
+      return this.get('alumnos').pushObject(alumno);
     }
   });
 
@@ -62,7 +73,8 @@
     puerto: DS.belongsTo('App.Puerto'),
     curso: DS.belongsTo('App.Curso'),
     instructor: DS.belongsTo('App.Instructor'),
-    statusCurso: DS.attr('string')
+    statusCurso: DS.attr('string'),
+    alumnos: DS.hasMany('App.Alumno')
   });
 
   App.Puerto = DS.Model.extend({
@@ -83,6 +95,11 @@
 
   App.StatusCurso = DS.Model.extend({
     name: DS.attr('string')
+  });
+
+  App.Alumno = DS.Model.extend({
+    nombreCompleto: DS.attr('string'),
+    observaciones: DS.attr('string')
   });
 
   DS.RESTAdapter.map('App.CursoProgramado', {
