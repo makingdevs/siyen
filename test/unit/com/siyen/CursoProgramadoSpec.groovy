@@ -1,20 +1,41 @@
 package com.siyen
 
-import grails.test.mixin.TestFor
+import grails.test.mixin.*
 import spock.lang.Specification
 
-/**
- * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
- */
 @TestFor(CursoProgramado)
+@Mock([Puerto, Curso, Instructor, Alumno])
 class CursoProgramadoSpec extends Specification {
 
-	def setup() {
+	void "Crear nuevo curso con un alumno"() {
+    setup : "Inicializando catálogos"
+      Puerto puerto = new Puerto().save(validate:false)
+      Curso curso = new Curso().save(validate:false)
+      Instructor instructor = new Instructor().save(validate:false)
+
+    and : "Creando un alumno"
+      Alumno alumno = new Alumno(nombreCompleto:"Roger Waters", observaciones:"PULSE")
+
+    when :
+      CursoProgramado cursoProgramado = new CursoProgramado(
+        fechaDeInicio : fechaDeInicio_,
+        fechaDeTermino : fechaDeTermino_,
+        puerto : puerto,
+        curso : curso,
+        instructor : instructor)
+
+      cursoProgramado.addToAlumnos(alumno)
+      cursoProgramado.save()
+
+    then :
+      assert cursoProgramado.id
+      assert cursoProgramado.alumnos
+      assert cursoProgramado.alumnos.size() == 1
+
+    where :
+      fechaDeInicio_ | fechaDeTermino_      || totalDeAlumnos
+      new Date()     | new Date().plus(1)   || 1
+
 	}
 
-	def cleanup() {
-	}
-
-	void "test something"() {
-	}
 }
