@@ -36,7 +36,10 @@
               <ul class="nav">
                 <!-- BEGIN: Menu de opciones -->
                   <li>
-                    {{#linkTo "cursosProgramados" }}Cursos programados{{/linkTo}}
+                    {{#linkTo "cursosNuevos" }}Crear curso{{/linkTo}}
+                  </li>
+                  <li>
+                    {{#linkTo "cursosProgramados" }}Cursos autorizados{{/linkTo}}
                   </li>
                 <!-- END: Menu de opciones -->
               </ul>
@@ -55,6 +58,12 @@
           </div>
         </footer>
 
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="cursosNuevos">
+      <div class="page-header">
+        <h1>Nuevos cursos</h1>
       </div>
     </script>
 
