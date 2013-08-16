@@ -72,6 +72,7 @@
             <th>Curso</th>
             <th>Instructor</th>
             <th>Estado</th>
+            <th>Participantes</th>
           </tr>
         </thead>
         <tbody>
@@ -85,6 +86,7 @@
               <td> {{ cursoProgramado.instructor.nombre }} </td>
 
               <td> {{ cursoProgramado.statusCurso }} </td>
+              <td> {{#linkTo "cursoProgramado" cursoProgramado }} Agregar/Lista {{/linkTo}} </td>
             </tr>
           {{/each}}
         </tbody>
@@ -144,9 +146,36 @@
 
           <div class="form-actions">
             <button class="btn btn-primary" {{ action "guardar" }}> Guardar </button>
-            {{#linkTo "cursosProgramados.index" class="btn btn-primary" }} Cancelar {{/linkTo}}
+            {{#linkTo "cursosProgramados.index" class="btn" }} Cancelar {{/linkTo}}
           </div>
         </div>
+
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="cursoProgramado">
+
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="span6">
+            <div class="page-header">
+              <h1>Agregar alumnos al curso : <small>{{ curso.nombre }}</small> </h1>
+            </div>
+
+            <form>
+              <label class="control-label" for="nombreCompleto">Nombre Completo :</label>
+              <input type="text" id="nombreCompleto" placeholder="Nombre Completo">
+
+              <label class="control-label" for="observaciones">Observaciones :</label>
+              <textarea id="observaciones" name="observaciones"> </textarea>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Agregar</button>
+                {{#linkTo "cursosProgramados.index" class="btn" }} Cancelar {{/linkTo}}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
 
     </script>
 

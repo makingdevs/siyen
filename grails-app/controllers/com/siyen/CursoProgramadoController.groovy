@@ -11,7 +11,9 @@ class CursoProgramadoController {
     def listados = []
 
     cursosProgramados.each { cursoProgramado ->
-      listados << [ fechaDeInicio : cursoProgramado.fechaDeInicio,
+      listados << [
+        id : cursoProgramado.id,
+        fechaDeInicio : cursoProgramado.fechaDeInicio,
         fechaDeTermino : cursoProgramado.fechaDeTermino,
         dateCreated : cursoProgramado.dateCreated,
         puerto : cursoProgramado.puerto.id,

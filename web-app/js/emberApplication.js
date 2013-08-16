@@ -4,7 +4,10 @@
 
   App.Router.map(function() {
     return this.resource('cursosProgramados', function() {
-      return this.route('nuevo');
+      this.route('nuevo');
+      return this.resource('cursoProgramado', {
+        path: ':curso_programado_id'
+      });
     });
   });
 

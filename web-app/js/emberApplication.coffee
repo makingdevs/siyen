@@ -3,6 +3,8 @@ window.App = Ember.Application.create()
 App.Router.map -> 
   @.resource 'cursosProgramados', ->
     @.route 'nuevo'
+    @.resource('cursoProgramado', { path : ':curso_programado_id' } )
+
 
 App.CursosProgramadosRoute = Ember.Route.extend
   model: ->
