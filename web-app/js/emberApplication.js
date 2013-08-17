@@ -3,13 +3,18 @@
   window.App = Ember.Application.create();
 
   App.Router.map(function() {
-    this.resource('cursosNuevos');
+    this.resource('cursosNuevos', function() {
+      return this.route('nuevo');
+    });
     return this.resource('cursosProgramados', function() {
-      this.route('nuevo');
       return this.resource('cursoProgramado', {
         path: ':curso_programado_id'
       });
     });
+  });
+
+  App.CursosNuevosController = Ember.ArrayController.extend({
+    content: []
   });
 
   App.CursosProgramadosRoute = Ember.Route.extend({

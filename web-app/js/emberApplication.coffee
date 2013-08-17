@@ -1,12 +1,14 @@
 window.App = Ember.Application.create()
 
 App.Router.map -> 
-  @.resource 'cursosNuevos'
+  @.resource 'cursosNuevos', ->
+    @.route 'nuevo'
 
   @.resource 'cursosProgramados', ->
-    @.route 'nuevo'
     @.resource('cursoProgramado', { path : ':curso_programado_id' } )
 
+App.CursosNuevosController = Ember.ArrayController.extend
+  content : []
 
 App.CursosProgramadosRoute = Ember.Route.extend
   model: ->
