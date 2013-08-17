@@ -65,6 +65,38 @@
       <div class="page-header">
         <h1>Nuevos cursos</h1>
       </div>
+
+      <table class="table table-condensed table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Fecha de inicio</th>
+            <th>Puerto</th>
+            <th>Curso</th>
+            <th>Instructor</th>
+            <th>Participantes</th>
+            <th>Autorizar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each cursoProgramado in controller}}
+            <tr>
+              <td> {{ date cursoProgramado.fechaDeInicio }} </td>
+
+              <td> {{ cursoProgramado.puerto.clave }} - {{ cursoProgramado.puerto.puerto }} </td>
+              <td> {{ cursoProgramado.curso.clave }} </td>
+              <td> {{ cursoProgramado.instructor.nombre }} </td>
+
+              <td> {{ cursoProgramado.alumnos.length }} </td>
+              <td> botón </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+
+      {{#linkTo "cursosNuevos.nuevo" class="btn btn-primary" }} Nuevo {{/linkTo}}
+
+      {{ outlet }}
+
     </script>
 
     <script type="text/x-handlebars" data-template-name="cursosProgramados">
@@ -101,13 +133,11 @@
         </tbody>
       </table>
 
-      {{#linkTo "cursosProgramados.nuevo" class="btn btn-primary" }} Nuevo {{/linkTo}}
-
       {{ outlet }}
 
     </script>
 
-    <script type="text/x-handlebars" data-template-name="cursosProgramados/nuevo">
+    <script type="text/x-handlebars" data-template-name="cursosNuevos/nuevo">
       <div class="page-header">
         <h1>Programar nuevo curso</h1>
       </div>
@@ -155,7 +185,7 @@
 
           <div class="form-actions">
             <button class="btn btn-primary" {{ action "guardar" }}> Guardar </button>
-            {{#linkTo "cursosProgramados.index" class="btn" }} Cancelar {{/linkTo}}
+            {{#linkTo "cursosNuevos.index" class="btn" }} Cancelar {{/linkTo}}
           </div>
         </div>
 
