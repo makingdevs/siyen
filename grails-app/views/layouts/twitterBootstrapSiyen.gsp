@@ -151,9 +151,28 @@
         </div>
     </script>
 
-    <script type="text/x-handlebars" data-template-name="cursosNuevos/participantes">
-      <div class="page-header">
-        <h1>Agregar participantes</h1>
+    <script type="text/x-handlebars" data-template-name="participante">
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="span6">
+            <div class="page-header">
+              <h1>Agregar participantes al curso<small> {{ curso.nombre }} </small></h1>
+            </div>
+
+            <label class="control-label" for="nombreCompleto">Nombre Completo :</label>
+            {{ view Ember.TextField valueBinding="nombreCompleto" placeholder="Nombre Completo"}}
+
+            <label class="control-label" for="observaciones">Observaciones :</label>
+            {{ view Ember.TextArea valueBinding="observaciones" placeholder="Observaciones" }}
+
+            {{ cursoProgramado.alumnos }}
+
+            <div class="form-actions">
+              <button class="btn btn-primary" {{ action "agregar" }}> Agregar </button>
+              {{#linkTo "cursosNuevos.index" class="btn" }} Cancelar {{/linkTo}}
+            </div>
+          </div>
+        </div>
       </div>
 
 

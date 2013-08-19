@@ -3,7 +3,7 @@ window.App = Ember.Application.create()
 App.Router.map -> 
   @.resource 'cursosNuevos', ->
     @.route 'crear'
-    @.route 'participantes'
+    @.resource 'participante', { path : ":curso_programado"}
 
 App.CursosNuevosController = Ember.ArrayController.extend
   content : []
@@ -26,25 +26,44 @@ App.CursosNuevosCrearController = Ember.ObjectController.extend
 
   crear : ->
     fechaDeInicio = moment(@.fechaDeInicio ? moment(), 'DD/MMMM/YYYY')
+    cursosNuevosController = @.get('controllers.cursosNuevos')
+    temporalId = cursosNuevosController.get('content.length') + 1
 
     cursoProgramado = App.CursoProgramado.createRecord
+      id              : temporalId
       fechaDeInicio   : fechaDeInicio
       puerto          : @.puertoSelected
       instructor      : @.instructorSelected
       curso           : @.cursoSelected
 
-    cursosNuevosController = @.get('controllers.cursosNuevos')
     cursosNuevosController.get('content').pushObject(cursoProgramado)
 
-    @.set 'puertoSelected', null
-    @.set 'instructorSelected', null
-    @.set 'cursoSelected', null
+    @.set('puertoSelected', null)
+    @.set('instructorSelected', null)
+    @.set('cursoSelected', null)
+    @.set('fechaDeInicio', moment().format('DD/MMMM/YYYY'))
 
-    @.transitionToRoute('cursosNuevos.participantes')
+    @.transitionToRoute('participante', cursoProgramado.id)
+
+App.ParticipanteController = Ember.ObjectController.extend
+  needs : ['cursosNuevos']
+  nombreCompleto : null
+  observaciones : null
+
+  agregar : ->
+    console.log "agregando"
+    cursosNuevosController = @.get('controllers.cursosNuevos')
+    cursoProgramado = cursosNuevosController.get('content').get(@.get('content') - 1)
+
+    alumno = App.Alumno.createRecord
+      nombreCompleto : @.get('nombreCompleto')
+      observaciones : @.get('observaciones')
+
+    cursoProgramado.get('alumnos').pushObject(alumno)
 
 
 DS.RESTAdapter.configure "plurals",
-  instructor: "instructores",
+  instructor: "instructores"
 
 DS.RESTAdapter.map 'App.CursoProgramado',
   fechaDeInicio: { key: 'fechaDeInicio' }

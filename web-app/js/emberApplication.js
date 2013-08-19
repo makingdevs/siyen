@@ -5,7 +5,9 @@
   App.Router.map(function() {
     return this.resource('cursosNuevos', function() {
       this.route('crear');
-      return this.route('participantes');
+      return this.resource('participante', {
+        path: ":curso_programado"
+      });
     });
   });
 
@@ -29,20 +31,40 @@
       return this.set('cursos', App.Curso.find());
     },
     crear: function() {
-      var cursoProgramado, cursosNuevosController, fechaDeInicio, _ref;
+      var cursoProgramado, cursosNuevosController, fechaDeInicio, temporalId, _ref;
       fechaDeInicio = moment((_ref = this.fechaDeInicio) != null ? _ref : moment(), 'DD/MMMM/YYYY');
+      cursosNuevosController = this.get('controllers.cursosNuevos');
+      temporalId = cursosNuevosController.get('content.length') + 1;
       cursoProgramado = App.CursoProgramado.createRecord({
+        id: temporalId,
         fechaDeInicio: fechaDeInicio,
         puerto: this.puertoSelected,
         instructor: this.instructorSelected,
         curso: this.cursoSelected
       });
-      cursosNuevosController = this.get('controllers.cursosNuevos');
       cursosNuevosController.get('content').pushObject(cursoProgramado);
       this.set('puertoSelected', null);
       this.set('instructorSelected', null);
       this.set('cursoSelected', null);
-      return this.transitionToRoute('cursosNuevos.participantes');
+      this.set('fechaDeInicio', moment().format('DD/MMMM/YYYY'));
+      return this.transitionToRoute('participante', cursoProgramado.id);
+    }
+  });
+
+  App.ParticipanteController = Ember.ObjectController.extend({
+    needs: ['cursosNuevos'],
+    nombreCompleto: null,
+    observaciones: null,
+    agregar: function() {
+      var alumno, cursoProgramado, cursosNuevosController;
+      console.log("agregando");
+      cursosNuevosController = this.get('controllers.cursosNuevos');
+      cursoProgramado = cursosNuevosController.get('content').get(this.get('content') - 1);
+      alumno = App.Alumno.createRecord({
+        nombreCompleto: this.get('nombreCompleto'),
+        observaciones: this.get('observaciones')
+      });
+      return cursoProgramado.get('alumnos').pushObject(alumno);
     }
   });
 
