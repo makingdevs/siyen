@@ -3,18 +3,13 @@ window.App = Ember.Application.create()
 App.Router.map -> 
   @.resource 'cursosNuevos', ->
     @.route 'crear'
-
-  @.resource 'cursosProgramados', ->
-    @.resource('cursoProgramado', { path : ':curso_programado_id' } )
+    @.route 'participantes'
 
 App.CursosNuevosController = Ember.ArrayController.extend
   content : []
 
-App.CursosProgramadosRoute = Ember.Route.extend
-  model: ->
-    App.CursoProgramado.find()
-
-App.CursosProgramadosNuevoController = Ember.ObjectController.extend
+App.CursosNuevosCrearController = Ember.ObjectController.extend
+  needs : ['cursosNuevos']
   instructores: []
   puertos : []
   cursos : []
@@ -23,34 +18,44 @@ App.CursosProgramadosNuevoController = Ember.ObjectController.extend
   cursoSelected : null
   fechaDeInicio : null
 
-  guardar : ->
+  init : ->
+      @._super()
+      @.set 'instructores', App.Instructor.find()
+      @.set 'puertos', App.Puerto.find()
+      @.set 'cursos', App.Curso.find()
+
+  crear : ->
     fechaDeInicio = moment(@.fechaDeInicio ? moment(), 'DD/MMMM/YYYY')
-    fechaDeTermino = moment(fechaDeInicio).add('days', @.cursoSelected.get('duracion'))
 
     cursoProgramado = App.CursoProgramado.createRecord
       fechaDeInicio   : fechaDeInicio
-      fechaDeTermino  : fechaDeTermino
       puerto          : @.puertoSelected
       instructor      : @.instructorSelected
       curso           : @.cursoSelected
-      statusCurso     : "NUEVO"
 
-    @.get('store').commit()
+    cursosNuevosController = @.get('controllers.cursosNuevos')
+    cursosNuevosController.get('content').pushObject(cursoProgramado)
 
-App.CursoProgramadoController = Ember.ObjectController.extend
-  agregar : ->
-    alumno = App.Alumno.createRecord
-      nombreCompleto : @.get('nombreCompleto')
-      observaciones : @.get('observaciones')
+    @.set 'puertoSelected', null
+    @.set 'instructorSelected', null
+    @.set 'cursoSelected', null
 
-    @.get('alumnos').pushObject( alumno )
+    @.transitionToRoute('cursosNuevos.participantes')
 
 
-App.CursosProgramadosNuevoRoute = Ember.Route.extend
-  setupController: (controller, model) ->
-    controller.set('instructores', App.Instructor.find())
-    controller.set('puertos', App.Puerto.find())
-    controller.set('cursos', App.Curso.find())
+DS.RESTAdapter.configure "plurals",
+  instructor: "instructores",
+
+DS.RESTAdapter.map 'App.CursoProgramado',
+  fechaDeInicio: { key: 'fechaDeInicio' }
+  fechaDeTermino: { key: 'fechaDeTermino' }
+  dateCreated: { key: 'dateCreated' }
+
+  puerto : { key: 'puerto' }
+  curso : { key : 'curso' }
+  instructor : { key : 'instructor' }
+
+  statusCurso: { key: 'statusCurso' }
 
 App.Store = DS.Store.extend
   revision: 13,
@@ -88,18 +93,6 @@ App.StatusCurso = DS.Model.extend
 App.Alumno = DS.Model.extend
   nombreCompleto : DS.attr('string')
   observaciones : DS.attr('string')
-
-
-DS.RESTAdapter.map 'App.CursoProgramado',
-  fechaDeInicio: { key: 'fechaDeInicio' }
-  fechaDeTermino: { key: 'fechaDeTermino' }
-  dateCreated: { key: 'dateCreated' }
-
-  puerto : { key: 'puerto' }
-  curso : { key : 'curso' }
-  instructor : { key : 'instructor' }
-
-  statusCurso: { key: 'statusCurso' }
 
 Ember.Handlebars.registerBoundHelper 'date', (date) ->
   moment(date).format('DD/MMMM/YYYY')
