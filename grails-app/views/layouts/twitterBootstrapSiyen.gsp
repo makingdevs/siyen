@@ -39,7 +39,6 @@
                     {{#linkTo "cursosNuevos" }}Crear curso{{/linkTo}}
                   </li>
                   <li>
-                    {{#linkTo "cursosProgramados" }}Cursos autorizados{{/linkTo}}
                   </li>
                 <!-- END: Menu de opciones -->
               </ul>
@@ -65,49 +64,41 @@
       <div class="page-header">
         <h1>Nuevos cursos</h1>
       </div>
-    </script>
-
-    <script type="text/x-handlebars" data-template-name="cursosProgramados">
-      <div class="page-header">
-        <h1>Cursos programados</h1>
-      </div>
 
       <table class="table table-condensed table-striped table-hover">
         <thead>
           <tr>
             <th>Fecha de inicio</th>
-            <th>Fecha de termino</th>
             <th>Puerto</th>
             <th>Curso</th>
             <th>Instructor</th>
-            <th>Estado</th>
             <th>Participantes</th>
+            <th>Autorizar</th>
           </tr>
         </thead>
         <tbody>
           {{#each cursoProgramado in controller}}
             <tr>
               <td> {{ date cursoProgramado.fechaDeInicio }} </td>
-              <td> {{ date cursoProgramado.fechaDeTermino }} </td>
 
-              <td> {{ cursoProgramado.puerto.puerto }} </td>
-              <td> {{ cursoProgramado.curso.nombre }} </td>
+              <td> {{ cursoProgramado.puerto.clave }} - {{ cursoProgramado.puerto.puerto }} </td>
+              <td> {{ cursoProgramado.curso.clave }} </td>
               <td> {{ cursoProgramado.instructor.nombre }} </td>
 
-              <td> {{ cursoProgramado.statusCurso }} </td>
-              <td> {{#linkTo "cursoProgramado" cursoProgramado }} Agregar/Lista {{/linkTo}} </td>
+              <td> {{ cursoProgramado.alumnos.length }} </td>
+              <td> botón </td>
             </tr>
           {{/each}}
         </tbody>
       </table>
 
-      {{#linkTo "cursosProgramados.nuevo" class="btn btn-primary" }} Nuevo {{/linkTo}}
+      {{#linkTo "cursosNuevos.crear" class="btn btn-primary" }} Nuevo {{/linkTo}}
 
       {{ outlet }}
 
     </script>
 
-    <script type="text/x-handlebars" data-template-name="cursosProgramados/nuevo">
+    <script type="text/x-handlebars" data-template-name="cursosNuevos/crear">
       <div class="page-header">
         <h1>Programar nuevo curso</h1>
       </div>
@@ -154,20 +145,18 @@
         </div>
 
           <div class="form-actions">
-            <button class="btn btn-primary" {{ action "guardar" }}> Guardar </button>
-            {{#linkTo "cursosProgramados.index" class="btn" }} Cancelar {{/linkTo}}
+            <button class="btn btn-primary" {{ action "crear" }}> Crear </button>
+            {{#linkTo "cursosNuevos.index" class="btn" }} Cancelar {{/linkTo}}
           </div>
         </div>
-
     </script>
 
-    <script type="text/x-handlebars" data-template-name="cursoProgramado">
-
+    <script type="text/x-handlebars" data-template-name="participante">
       <div class="container-fluid">
         <div class="row-fluid">
           <div class="span6">
             <div class="page-header">
-              <h1>Agregar alumno al curso : <small>{{ curso.nombre }}</small> </h1>
+              <h1>Agregar participantes al curso<small>  </small></h1>
             </div>
 
             <label class="control-label" for="nombreCompleto">Nombre Completo :</label>
@@ -176,16 +165,31 @@
             <label class="control-label" for="observaciones">Observaciones :</label>
             {{ view Ember.TextArea valueBinding="observaciones" placeholder="Observaciones" }}
 
-            {{ cursoProgramado.alumnos }}
-
             <div class="form-actions">
               <button class="btn btn-primary" {{ action "agregar" }}> Agregar </button>
-              {{#linkTo "cursosProgramados.index" class="btn" }} Cancelar {{/linkTo}}
+              {{#linkTo "cursosNuevos.index" class="btn" }} Cancelar {{/linkTo}}
             </div>
           </div>
-        </div>
-      </div>
 
+          <div class="span6">
+            <div class="page-header">
+              <h1> Lista de participantes </h1>
+            </div>
+
+            <ul>
+              {{#each participante in controller.participantes}}
+                <li> <h4>{{ participante.nombreCompleto }} - <small>{{ participante.observaciones }}</small></h4> </li>
+              {{/each}}
+            </ul>
+
+          </div>
+        </div>
+
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name='participantes'>
+      <h1> {{ controller }} </h1>
     </script>
 
     <r:layoutResources />
