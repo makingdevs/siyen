@@ -4,7 +4,7 @@
 
   App.Router.map(function() {
     this.resource('cursosNuevos', function() {
-      return this.route('nuevo');
+      return this.route('crear');
     });
     return this.resource('cursosProgramados', function() {
       return this.resource('cursoProgramado', {

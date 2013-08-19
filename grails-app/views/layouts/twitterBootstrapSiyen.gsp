@@ -93,7 +93,7 @@
         </tbody>
       </table>
 
-      {{#linkTo "cursosNuevos.nuevo" class="btn btn-primary" }} Nuevo {{/linkTo}}
+      {{#linkTo "cursosNuevos.crear" class="btn btn-primary" }} Nuevo {{/linkTo}}
 
       {{ outlet }}
 
@@ -137,7 +137,7 @@
 
     </script>
 
-    <script type="text/x-handlebars" data-template-name="cursosNuevos/nuevo">
+    <script type="text/x-handlebars" data-template-name="cursosNuevos/crear">
       <div class="page-header">
         <h1>Programar nuevo curso</h1>
       </div>
