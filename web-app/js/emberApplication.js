@@ -45,7 +45,6 @@
       cursosNuevosController.get('content').pushObject(cursoProgramado);
       this.set('puertoSelected', null);
       this.set('instructorSelected', null);
-      this.set('cursoSelected', null);
       this.set('fechaDeInicio', moment().format('DD/MMMM/YYYY'));
       return this.transitionToRoute('participante', cursoProgramado.id);
     }
@@ -53,11 +52,11 @@
 
   App.ParticipanteController = Ember.ObjectController.extend({
     needs: ['cursosNuevos'],
+    content: [],
     nombreCompleto: null,
     observaciones: null,
     agregar: function() {
       var alumno, cursoProgramado, cursosNuevosController;
-      console.log("agregando");
       cursosNuevosController = this.get('controllers.cursosNuevos');
       cursoProgramado = cursosNuevosController.get('content').get(this.get('content') - 1);
       alumno = App.Alumno.createRecord({
@@ -65,7 +64,13 @@
         observaciones: this.get('observaciones')
       });
       return cursoProgramado.get('alumnos').pushObject(alumno);
-    }
+    },
+    participantes: (function() {
+      var cursoProgramado, cursosNuevosController;
+      cursosNuevosController = this.get('controllers.cursosNuevos');
+      cursoProgramado = cursosNuevosController.get('content').get(this.get('content') - 1);
+      return cursoProgramado.get('alumnos');
+    }).property("cursoProgramado.alumnos")
   });
 
   DS.RESTAdapter.configure("plurals", {

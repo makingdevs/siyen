@@ -40,18 +40,18 @@ App.CursosNuevosCrearController = Ember.ObjectController.extend
 
     @.set('puertoSelected', null)
     @.set('instructorSelected', null)
-    @.set('cursoSelected', null)
+    # @.set('cursoSelected', null)
     @.set('fechaDeInicio', moment().format('DD/MMMM/YYYY'))
 
     @.transitionToRoute('participante', cursoProgramado.id)
 
 App.ParticipanteController = Ember.ObjectController.extend
   needs : ['cursosNuevos']
+  content : []
   nombreCompleto : null
   observaciones : null
 
   agregar : ->
-    console.log "agregando"
     cursosNuevosController = @.get('controllers.cursosNuevos')
     cursoProgramado = cursosNuevosController.get('content').get(@.get('content') - 1)
 
@@ -60,6 +60,12 @@ App.ParticipanteController = Ember.ObjectController.extend
       observaciones : @.get('observaciones')
 
     cursoProgramado.get('alumnos').pushObject(alumno)
+
+  participantes : (->
+    cursosNuevosController = @.get('controllers.cursosNuevos')
+    cursoProgramado = cursosNuevosController.get('content').get(@.get('content') - 1)
+    cursoProgramado.get('alumnos')
+  ).property("cursoProgramado.alumnos")
 
 
 DS.RESTAdapter.configure "plurals",

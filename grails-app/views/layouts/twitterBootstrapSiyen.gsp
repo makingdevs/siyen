@@ -156,7 +156,7 @@
         <div class="row-fluid">
           <div class="span6">
             <div class="page-header">
-              <h1>Agregar participantes al curso<small> {{ curso.nombre }} </small></h1>
+              <h1>Agregar participantes al curso<small>  </small></h1>
             </div>
 
             <label class="control-label" for="nombreCompleto">Nombre Completo :</label>
@@ -165,18 +165,31 @@
             <label class="control-label" for="observaciones">Observaciones :</label>
             {{ view Ember.TextArea valueBinding="observaciones" placeholder="Observaciones" }}
 
-            {{ cursoProgramado.alumnos }}
-
             <div class="form-actions">
               <button class="btn btn-primary" {{ action "agregar" }}> Agregar </button>
               {{#linkTo "cursosNuevos.index" class="btn" }} Cancelar {{/linkTo}}
             </div>
           </div>
+
+          <div class="span6">
+            <div class="page-header">
+              <h1> Lista de participantes </h1>
+            </div>
+
+            <ul>
+              {{#each participante in controller.participantes}}
+                <li> <h4>{{ participante.nombreCompleto }} - <small>{{ participante.observaciones }}</small></h4> </li>
+              {{/each}}
+            </ul>
+
+          </div>
         </div>
+
       </div>
+    </script>
 
-
-
+    <script type="text/x-handlebars" data-template-name='participantes'>
+      <h1> {{ controller }} </h1>
     </script>
 
     <r:layoutResources />
