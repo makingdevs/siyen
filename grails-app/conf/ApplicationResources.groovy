@@ -6,7 +6,7 @@ modules = {
     resource url:'js/emberApplication/model/store.js'
     resource url:'js/emberApplication/model/model.js'
     resource url:'js/emberApplication/helper/dateFormat.js'
-    resource url:'js/emberApplication/view/datepickerview.js'
+    resource url:'js/emberApplication/view/view.js'
   }
 
   bootstrap {
