@@ -22,7 +22,7 @@ App.DatePickerView = Ember.View.extend
 
 App.CursoNuevoListView = Ember.View.extend
   elementId: 'cursoNuevoList'
-  tagName : 'tr'
+  tagName : ''
   template: Ember.Handlebars.compile('' +
     '{{#each controller}}' +
       '{{ view App.CursoNuevoItemView contentBinding="this" }}' +
@@ -31,8 +31,14 @@ App.CursoNuevoListView = Ember.View.extend
 App.CursoNuevoItemView = Ember.View.extend
   tagName : ''
   template : Ember.Handlebars.compile('' +
-    '<td> {{ date fechaDeInicio }} </td>' +
-    '<td> {{ puerto.clave }} </td>'
+    '<tr>' +
+      '<td> {{ date fechaDeInicio }} </td>' +
+      '<td> {{ puerto.clave }} - {{ puerto.puerto }} </td>' +
+      '<td> {{ curso.clave }} </td>' +
+      '<td> {{ instructor.nombre }} </td>' +
+      '<td> {{ alumnos.length }} </td>' +
+      '<td> <button class="btn btn-warning"> Autorizar </button> </td>' +
+    '</tr>'
   )
 
 
