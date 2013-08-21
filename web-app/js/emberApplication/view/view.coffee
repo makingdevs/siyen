@@ -37,7 +37,13 @@ App.CursoNuevoItemView = Ember.View.extend
       '<td> {{ curso.clave }} </td>' +
       '<td> {{ instructor.nombre }} </td>' +
       '<td> {{ alumnos.length }} </td>' +
-      '<td> <button class="btn btn-warning"> Autorizar </button> </td>' +
+      '<td>
+        {{#if alumnos.length}}
+          <button class="btn btn-warning"> Autorizar </button>
+        {{else}}
+          <button class="btn btn-warning disabled"> Autorizar </button>
+        {{/if}}
+      </td>' +
     '</tr>'
   )
 
