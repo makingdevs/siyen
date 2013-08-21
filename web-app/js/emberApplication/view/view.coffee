@@ -41,8 +41,6 @@ App.CursoNuevoItemView = Ember.View.extend
     '</tr>'
   )
 
-
-
 Ember.TEMPLATES['cursosNuevos'] = Ember.Handlebars.compile('' +
   '<div class="page-header">' +
     '<h1>Nuevos cursos</h1>' +
@@ -127,7 +125,21 @@ Ember.TEMPLATES['crear/participantes'] = Ember.Handlebars.compile('' +
   '<div class="page-header">' +
     '<h1>Participantes</h1>' +
   '</div>' +
-  '<div>' +
+  '<div class="form-horizontal">' +
+    '<div class="control-group">' +
+      '<label class="control-label" for="nombreCompleto">Nombre Completo :</label>' +
+      '<div class="controls">' +
+        '{{ view App.TextField target="controller" action="agregarParticipante" valueBinding="controller.nombreCompleto" placeholder="Nombre completo" }}' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="control-group">' +
+      '<label class="control-label" for="observaciones">Observaciones :</label>' +
+      '<div class="controls">' +
+        '{{ view Ember.TextArea valueBinding="observaciones" placeholder="Observaciones" }}' +
+      '</div>' +
+    '</div>' +
+
     '<div class="form-actions">' +
       '{{#linkTo "crear.index" class="btn" }} Ocultar {{/linkTo}}' +
       '<button class="btn btn-primary" {{ action "agregar" }}> Agregar </button>' +
@@ -135,7 +147,10 @@ Ember.TEMPLATES['crear/participantes'] = Ember.Handlebars.compile('' +
   '</div>'
   )
 
-
+App.TextField = Ember.TextField.extend(Ember.TargetActionSupport,
+  insertNewline : ->
+    this.triggerAction()
+)
 
 
 
