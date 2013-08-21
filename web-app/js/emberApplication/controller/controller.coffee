@@ -39,5 +39,6 @@ App.CrearParticipantesController = Ember.ObjectController.extend
   nombreCompleto : null
   observaciones : null
 
-  agregarParticipante : ->
+  agregar : ->
     console.log @.nombreCompleto
+    console.log @.get('controllers.cursosNuevos').get('lastObject').get('fechaDeInicio')
