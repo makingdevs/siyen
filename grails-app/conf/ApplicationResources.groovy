@@ -5,7 +5,7 @@ modules = {
     resource url:'js/emberApplication/controller/Controller.js'
     resource url:'js/emberApplication/model/store.js'
     resource url:'js/emberApplication/model/model.js'
-    resource url:'js/emberApplication/helper/dateFormat.js'
+    resource url:'js/emberApplication/helper/helper.js'
     resource url:'js/emberApplication/view/view.js'
   }
 
