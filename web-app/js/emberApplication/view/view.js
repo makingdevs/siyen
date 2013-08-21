@@ -27,13 +27,7 @@
 
   App.CursoNuevoItemView = Ember.View.extend({
     tagName: '',
-    template: Ember.Handlebars.compile('' + '<tr>' + '<td> {{ date fechaDeInicio }} </td>' + '<td> {{ puerto.clave }} - {{ puerto.puerto }} </td>' + '<td> {{ curso.clave }} </td>' + '<td> {{ instructor.nombre }} </td>' + '<td> {{ alumnos.length }} </td>' + '<td>\
-        {{#if alumnos.length}}\
-          <button class="btn btn-warning"> Autorizar </button>\
-        {{else}}\
-          <button class="btn btn-warning disabled"> Autorizar </button>\
-        {{/if}}\
-      </td>' + '</tr>')
+    template: Ember.Handlebars.compile('' + '<tr>' + '<td> {{ date fechaDeInicio }} </td>' + '<td> {{ puerto.clave }} - {{ puerto.puerto }} </td>' + '<td> {{ curso.clave }} </td>' + '<td> {{ instructor.nombre }} </td>' + '<td> {{ alumnos.length }} </td>' + '<td> {{ showButton alumnos.length }} </td>' + '</tr>')
   });
 
   Ember.TEMPLATES['cursosNuevos'] = Ember.Handlebars.compile('' + '<div class="page-header">' + '<h1>Nuevos cursos</h1>' + '</div>' + '<table class="table table-condensed table-striped table-hover">' + '<thead>' + '<tr>' + '<th>Fecha de inicio</th>' + '<th>Puerto</th>' + '<th>Curso</th>' + '<th>Instructor</th>' + '<th>Participantes</th>' + '<th>Autorizar</th>' + '</tr>' + '</thead>' + '<tbody>' + '{{ view App.CursoNuevoListView }}' + '</tbody>' + '</table>' + '{{#linkTo "crear" class="btn btn-primary" }} Nuevo {{/linkTo}}' + '{{ outlet }}');
