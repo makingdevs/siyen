@@ -40,8 +40,9 @@
     needs: ["cursosNuevos"],
     nombreCompleto: null,
     observaciones: null,
-    agregarParticipante: function() {
-      return console.log(this.nombreCompleto);
+    agregar: function() {
+      console.log(this.nombreCompleto);
+      return console.log(this.get('controllers.cursosNuevos').get('lastObject').get('fechaDeInicio'));
     }
   });
 
