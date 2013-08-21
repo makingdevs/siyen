@@ -4,15 +4,17 @@
     content: []
   });
 
-  App.CursosNuevosCrearController = Ember.ObjectController.extend({
-    needs: ['cursosNuevos'],
+  App.CursosNuevosCrearController = Ember.ObjectController.extend();
+
+  App.CrearController = Ember.ObjectController.extend({
+    needs: ["cursosNuevos"],
     instructores: [],
     puertos: [],
     cursos: [],
+    fechaDeInicio: null,
     puertoSelected: null,
     instructorSelected: null,
     cursoSelected: null,
-    fechaDeInicio: null,
     init: function() {
       this._super();
       this.set('instructores', App.Instructor.find());
@@ -20,46 +22,18 @@
       return this.set('cursos', App.Curso.find());
     },
     crear: function() {
-      var cursoProgramado, cursosNuevosController, fechaDeInicio, temporalId, _ref;
-      fechaDeInicio = moment((_ref = this.fechaDeInicio) != null ? _ref : moment(), 'DD/MMMM/YYYY');
+      var content, cursosNuevosController, _ref;
       cursosNuevosController = this.get('controllers.cursosNuevos');
-      temporalId = cursosNuevosController.get('content.length') + 1;
-      cursoProgramado = App.CursoProgramado.createRecord({
-        id: temporalId,
-        fechaDeInicio: fechaDeInicio,
-        puerto: this.puertoSelected,
-        instructor: this.instructorSelected,
-        curso: this.cursoSelected
-      });
-      cursosNuevosController.get('content').pushObject(cursoProgramado);
-      this.set('puertoSelected', null);
-      this.set('instructorSelected', null);
-      this.set('fechaDeInicio', moment().format('DD/MMMM/YYYY'));
-      return this.transitionToRoute('participante', cursoProgramado.id);
+      content = cursosNuevosController.get('content');
+      content.pushObject(Ember.Object.create({
+        "fechaDeInicio": moment((_ref = this.fechaDeInicio) != null ? _ref : moment(), 'DD/MMMM/YYYY'),
+        "puerto": this.get('puertoSelected'),
+        "instructor": this.get('instructorSelected'),
+        "curso": this.get('cursoSelected'),
+        "alumnos": []
+      }));
+      return this.transitionToRoute('crear.participantes');
     }
-  });
-
-  App.ParticipanteController = Ember.ObjectController.extend({
-    needs: ['cursosNuevos'],
-    content: [],
-    nombreCompleto: null,
-    observaciones: null,
-    agregar: function() {
-      var alumno, cursoProgramado, cursosNuevosController;
-      cursosNuevosController = this.get('controllers.cursosNuevos');
-      cursoProgramado = cursosNuevosController.get('content').get(this.get('content') - 1);
-      alumno = App.Alumno.createRecord({
-        nombreCompleto: this.get('nombreCompleto'),
-        observaciones: this.get('observaciones')
-      });
-      return cursoProgramado.get('alumnos').pushObject(alumno);
-    },
-    participantes: (function() {
-      var cursoProgramado, cursosNuevosController;
-      cursosNuevosController = this.get('controllers.cursosNuevos');
-      cursoProgramado = cursosNuevosController.get('content').get(this.get('content') - 1);
-      return cursoProgramado.get('alumnos');
-    }).property("cursoProgramado.alumnos")
   });
 
 }).call(this);

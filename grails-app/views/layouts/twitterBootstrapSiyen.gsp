@@ -50,6 +50,8 @@
       <div class="container">
         {{ outlet }}
 
+        {{ render cursoNuevo }}
+
         <hr>
         <footer>
           <div class="footer">
@@ -58,138 +60,6 @@
         </footer>
 
       </div>
-    </script>
-
-    <script type="text/x-handlebars" data-template-name="cursosNuevos">
-      <div class="page-header">
-        <h1>Nuevos cursos</h1>
-      </div>
-
-      <table class="table table-condensed table-striped table-hover">
-        <thead>
-          <tr>
-            <th>Fecha de inicio</th>
-            <th>Puerto</th>
-            <th>Curso</th>
-            <th>Instructor</th>
-            <th>Participantes</th>
-            <th>Autorizar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each cursoProgramado in controller}}
-            <tr>
-              <td> {{ date cursoProgramado.fechaDeInicio }} </td>
-
-              <td> {{ cursoProgramado.puerto.clave }} - {{ cursoProgramado.puerto.puerto }} </td>
-              <td> {{ cursoProgramado.curso.clave }} </td>
-              <td> {{ cursoProgramado.instructor.nombre }} </td>
-
-              <td> {{ cursoProgramado.alumnos.length }} </td>
-              <td> botón </td>
-            </tr>
-          {{/each}}
-        </tbody>
-      </table>
-
-      {{#linkTo "cursosNuevos.crear" class="btn btn-primary" }} Nuevo {{/linkTo}}
-
-      {{ outlet }}
-
-    </script>
-
-    <script type="text/x-handlebars" data-template-name="cursosNuevos/crear">
-      <div class="page-header">
-        <h1>Programar nuevo curso</h1>
-      </div>
-
-      <div class="form-horizontal">
-        <div class="control-group">
-          <label class="control-label" for="datepicker">Fecha de inicio :</label>
-          <div class="controls">
-            {{ view App.DatePickerView }}
-          </div>
-        </div>
-
-        <div class="control-group">
-          <label class="control-label" for="puerto">Puerto :</label>
-          <div class="controls">
-            {{ view Ember.Select prompt="Selecciona un puerto : "
-                                 contentBinding="puertos"
-                                 optionValuePath="content.clave"
-                                 optionLabelPath="content.puerto"
-                                 selectionBinding="puertoSelected" }}
-          </div>
-        </div>
-
-        <div class="control-group">
-          <label class="control-label" for="instructores">Instructor :</label>
-          <div class="controls">
-            {{ view Ember.Select prompt="Selecciona un instructor : "
-                                 contentBinding="instructores"
-                                 optionValuePath="content.numeroDeOficio"
-                                 optionLabelPath="content.nombre"
-                                 selectionBinding="instructorSelected" }}
-          </div>
-        </div>
-
-        <div class="control-group">
-          <label class="control-label" for="cursos">Curso :</label>
-          <div class="controls">
-            {{ view Ember.Select prompt="Selecciona un curso : "
-                                 contentBinding="cursos"
-                                 optionValuePath="content.clave"
-                                 optionLabelPath="content.nombre"
-                                 selectionBinding="cursoSelected" }}
-          </div>
-        </div>
-
-          <div class="form-actions">
-            <button class="btn btn-primary" {{ action "crear" }}> Crear </button>
-            {{#linkTo "cursosNuevos.index" class="btn" }} Cancelar {{/linkTo}}
-          </div>
-        </div>
-    </script>
-
-    <script type="text/x-handlebars" data-template-name="participante">
-      <div class="container-fluid">
-        <div class="row-fluid">
-          <div class="span6">
-            <div class="page-header">
-              <h1>Agregar participantes al curso<small>  </small></h1>
-            </div>
-
-            <label class="control-label" for="nombreCompleto">Nombre Completo :</label>
-            {{ view Ember.TextField valueBinding="nombreCompleto" placeholder="Nombre Completo"}}
-
-            <label class="control-label" for="observaciones">Observaciones :</label>
-            {{ view Ember.TextArea valueBinding="observaciones" placeholder="Observaciones" }}
-
-            <div class="form-actions">
-              <button class="btn btn-primary" {{ action "agregar" }}> Agregar </button>
-              {{#linkTo "cursosNuevos.index" class="btn" }} Cancelar {{/linkTo}}
-            </div>
-          </div>
-
-          <div class="span6">
-            <div class="page-header">
-              <h1> Lista de participantes </h1>
-            </div>
-
-            <ul>
-              {{#each participante in controller.participantes}}
-                <li> <h4>{{ participante.nombreCompleto }} - <small>{{ participante.observaciones }}</small></h4> </li>
-              {{/each}}
-            </ul>
-
-          </div>
-        </div>
-
-      </div>
-    </script>
-
-    <script type="text/x-handlebars" data-template-name='participantes'>
-      <h1> {{ controller }} </h1>
     </script>
 
     <r:layoutResources />

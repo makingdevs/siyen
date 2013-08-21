@@ -2,11 +2,12 @@
 (function() {
   App.Router.map(function() {
     return this.resource('cursosNuevos', function() {
-      this.route('crear');
-      return this.resource('participante', {
-        path: ":curso_programado"
+      return this.resource('crear', function() {
+        return this.route('participantes');
       });
     });
   });
+
+  App.CursosNuevosRoute = Ember.Route.extend();
 
 }).call(this);
