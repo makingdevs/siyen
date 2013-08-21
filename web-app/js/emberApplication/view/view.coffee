@@ -129,7 +129,7 @@ Ember.TEMPLATES['crear/participantes'] = Ember.Handlebars.compile('' +
     '<div class="control-group">' +
       '<label class="control-label" for="nombreCompleto">Nombre Completo :</label>' +
       '<div class="controls">' +
-        '{{ view App.TextField target="controller" action="agregarParticipante" valueBinding="controller.nombreCompleto" placeholder="Nombre completo" }}' +
+        '{{ view App.TextField target="controller" action="agregar" valueBinding="controller.nombreCompleto" placeholder="Nombre completo" }}' +
       '</div>' +
     '</div>' +
 
