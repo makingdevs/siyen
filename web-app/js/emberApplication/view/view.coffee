@@ -36,10 +36,13 @@ App.CursoNuevoItemView = Ember.View.extend
       '<td> {{ puerto.clave }} - {{ puerto.puerto }} </td>' +
       '<td> {{ curso.clave }} </td>' +
       '<td> {{ instructor.nombre }} </td>' +
-      '<td> {{ alumnos.length }} <a href="#"><i class="icon-eye-open"></i></a> </td>' +
+      '<td> {{ alumnos.length }} <a href="#" class="btn"><i class="icon-eye-open"></i></a> </td>' +
       '<td> {{ showButton alumnos.length }} </td>' +
     '</tr>'
   )
+  click: -> 
+    console.log @.get('controller')
+    @.get('controller').set('currentCurso', this.get('content'));
 
 Ember.TEMPLATES['cursosNuevos'] = Ember.Handlebars.compile('' +
   '<div class="page-header">' +
