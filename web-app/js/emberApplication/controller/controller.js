@@ -41,8 +41,12 @@
     nombreCompleto: null,
     observaciones: null,
     agregar: function() {
-      console.log(this.nombreCompleto);
-      return console.log(this.get('controllers.cursosNuevos').get('lastObject').get('fechaDeInicio'));
+      var cursoNuevo;
+      cursoNuevo = this.get('controllers.cursosNuevos').get('lastObject');
+      return cursoNuevo.get('alumnos').pushObject(Ember.Object.create({
+        nombreCompleto: this.nombreCompleto,
+        observaciones: this.observaciones
+      }));
     }
   });
 

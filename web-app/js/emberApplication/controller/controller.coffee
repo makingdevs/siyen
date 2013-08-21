@@ -24,13 +24,13 @@ App.CrearController = Ember.ObjectController.extend
     cursosNuevosController = @.get('controllers.cursosNuevos')
     content = cursosNuevosController.get('content')
 
-    content.pushObject(Ember.Object.create(
+    content.pushObject(Ember.Object.create
       "fechaDeInicio": moment(@.fechaDeInicio ? moment(), 'DD/MMMM/YYYY')
       "puerto" : @.get('puertoSelected')
       "instructor" : @.get('instructorSelected')
       "curso" : @.get('cursoSelected')
       "alumnos" : []
-    ))
+    )
 
     @.transitionToRoute('crear.participantes')
 
@@ -40,5 +40,8 @@ App.CrearParticipantesController = Ember.ObjectController.extend
   observaciones : null
 
   agregar : ->
-    console.log @.nombreCompleto
-    console.log @.get('controllers.cursosNuevos').get('lastObject').get('fechaDeInicio')
+    cursoNuevo = @.get('controllers.cursosNuevos').get('lastObject')
+    cursoNuevo.get('alumnos').pushObject(Ember.Object.create
+      nombreCompleto : @.nombreCompleto
+      observaciones : @.observaciones
+    )
