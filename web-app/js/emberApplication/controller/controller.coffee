@@ -33,3 +33,11 @@ App.CrearController = Ember.ObjectController.extend
     ))
 
     @.transitionToRoute('crear.participantes')
+
+App.CrearParticipantesController = Ember.ObjectController.extend
+  needs : ["cursosNuevos"]
+  nombreCompleto : null
+  observaciones : null
+
+  agregarParticipante : ->
+    console.log @.nombreCompleto

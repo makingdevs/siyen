@@ -36,4 +36,13 @@
     }
   });
 
+  App.CrearParticipantesController = Ember.ObjectController.extend({
+    needs: ["cursosNuevos"],
+    nombreCompleto: null,
+    observaciones: null,
+    agregarParticipante: function() {
+      return console.log(this.nombreCompleto);
+    }
+  });
+
 }).call(this);
