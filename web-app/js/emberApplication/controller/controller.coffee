@@ -1,11 +1,6 @@
 App.CursosNuevosController = Ember.ArrayController.extend
   content : []
 
-App.CurrentCursoNuevoController = Ember.ObjectController.extend
-  needs : "cursosNuevos"
-  contentBinding : 'cursosNuevosController.cursoNuevo'
-  cursosNuevosController : null
-
 App.CursosNuevosCrearController = Ember.ObjectController.extend()
 
 App.CrearController = Ember.ObjectController.extend
@@ -35,7 +30,6 @@ App.CrearController = Ember.ObjectController.extend
       "instructor" : @.get('instructorSelected')
       "curso" : @.get('cursoSelected')
       "alumnos" : []
-      "currentCurso" : true
     ))
 
-    # @.transitionToRoute('crear.participantes')
+    @.transitionToRoute('crear.participantes')
