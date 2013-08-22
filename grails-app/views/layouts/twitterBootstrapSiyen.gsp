@@ -47,19 +47,14 @@
         </div>
       </div>
 
-      <div class="container">
-        {{ outlet }}
+      {{ outlet }}
 
-        {{ render cursoNuevo }}
-
-        <hr>
-        <footer>
-          <div class="footer">
-            <p>&copy; Siyen 2013</p>
-          </div>
-        </footer>
-
-      </div>
+      <hr>
+      <footer>
+        <div class="footer">
+          <p>&copy; Siyen 2013</p>
+        </div>
+      </footer>
     </script>
 
     <r:layoutResources />

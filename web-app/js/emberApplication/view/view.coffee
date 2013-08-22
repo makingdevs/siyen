@@ -29,17 +29,18 @@ App.CursoNuevoListView = Ember.View.extend
     '{{/each}}')
 
 App.CursoNuevoItemView = Ember.View.extend
-  tagName : ''
+  tagName : 'tr'
   template : Ember.Handlebars.compile('' +
-    '<tr>' +
       '<td> {{ date fechaDeInicio }} </td>' +
       '<td> {{ puerto.clave }} - {{ puerto.puerto }} </td>' +
       '<td> {{ curso.clave }} </td>' +
       '<td> {{ instructor.nombre }} </td>' +
-      '<td> {{ alumnos.length }} </td>' +
-      '<td> {{ showButton alumnos.length }} </td>' +
-    '</tr>'
+      '<td> {{ alumnos.length }}' +
+      '<td> {{ showButton alumnos.length }} </td>'
   )
+
+  click: -> 
+    @.get('controller').set('currentCurso', @.get('content'))
 
 Ember.TEMPLATES['cursosNuevos'] = Ember.Handlebars.compile('' +
   '<div class="page-header">' +
@@ -66,11 +67,11 @@ Ember.TEMPLATES['cursosNuevos'] = Ember.Handlebars.compile('' +
 Ember.TEMPLATES['crear'] = Ember.Handlebars.compile('' +
   '<div class="container-fluid">' +
     '<div class="row-fluid">' +
-      '<div class="span6">' +
+      '<div class="span4">' +
         '<div class="page-header">' +
           '<h1>Programar nuevo curso</h1>' +
         '</div>' +
-        '<div class="form-horizontal">' +
+        '<div>' +
           '<div class="control-group">' +
             '<label class="control-label" for="datepicker">Fecha de inicio :</label>' +
             '<div class="controls">' +
@@ -114,55 +115,60 @@ Ember.TEMPLATES['crear'] = Ember.Handlebars.compile('' +
           '{{#linkTo "cursosNuevos.index" class="btn btn-success" }} Finalizar {{/linkTo}}' +
         '</div>' +
       '</div>' +
-      '<div class="span6">' +
-        '{{ outlet }}' +
-      '</div>' +
+      '{{ outlet }}' +
     '</div>' +
   '</div>')
 
 
 Ember.TEMPLATES['crear/participantes'] = Ember.Handlebars.compile('' +
-  '<div class="page-header">' +
-    '<h1>Participantes</h1>' +
+  '<div class="span4">' +
+    '<div class="page-header">' +
+      '<h1>Participante</h1>' +
+    '</div>' +
+    '<div>' +
+      '<div class="control-group">' +
+        '<label class="control-label" for="nombreCompleto">Nombre Completo :</label>' +
+        '<div class="controls">' +
+          '{{ view App.TextField target="controller" action="agregar" valueBinding="controller.nombreCompleto" placeholder="Nombre completo" }}' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="control-group">' +
+        '<label class="control-label" for="observaciones">Observaciones :</label>' +
+        '<div class="controls">' +
+          '{{ view Ember.TextArea valueBinding="observaciones" placeholder="Observaciones" }}' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="form-actions">' +
+        '{{#linkTo "crear.index" class="btn" }} Ocultar {{/linkTo}}' +
+        '<button class="btn btn-primary" {{ action "agregar" }}> Agregar </button>' +
+      '</div>' +
+    '</div>' +
   '</div>' +
-  '<div class="form-horizontal">' +
-    '<div class="control-group">' +
-      '<label class="control-label" for="nombreCompleto">Nombre Completo :</label>' +
-      '<div class="controls">' +
-        '{{ view App.TextField target="controller" action="agregar" valueBinding="controller.nombreCompleto" placeholder="Nombre completo" }}' +
-      '</div>' +
+  '<div class="span4" >' +
+    '<div class="page-header">' +
+      '<h1>Lista de participantes</h1>' +
     '</div>' +
-
-    '<div class="control-group">' +
-      '<label class="control-label" for="observaciones">Observaciones :</label>' +
-      '<div class="controls">' +
-        '{{ view Ember.TextArea valueBinding="observaciones" placeholder="Observaciones" }}' +
-      '</div>' +
-    '</div>' +
-
-    '<div class="form-actions">' +
-      '{{#linkTo "crear.index" class="btn" }} Ocultar {{/linkTo}}' +
-      '<button class="btn btn-primary" {{ action "agregar" }}> Agregar </button>' +
-    '</div>' +
+    '{{ view App.ParticipantesView }}'
   '</div>'
   )
+
+App.ParticipantesView = Ember.View.extend
+  elementId: 'participantes'
+  tagName : 'ul'
+  template: Ember.Handlebars.compile('' +
+    '{{#each participante in controllers.cursosNuevos.currentCurso.alumnos }}' +
+      '<li>
+        {{ view App.ParticipanteView }}
+      </li>' +
+    '{{/each}}')
+
+App.ParticipanteView = Ember.View.extend
+  template: Ember.Handlebars.compile('' +
+    '{{ participante.nombreCompleto }}{{#if participante.observaciones}} - <small>{{ participante.observaciones }}</small>{{/if}}' )
 
 App.TextField = Ember.TextField.extend(Ember.TargetActionSupport,
   insertNewline : ->
     this.triggerAction()
 )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
