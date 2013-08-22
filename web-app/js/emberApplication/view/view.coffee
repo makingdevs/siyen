@@ -150,15 +150,23 @@ Ember.TEMPLATES['crear/participantes'] = Ember.Handlebars.compile('' +
     '<div class="page-header">' +
       '<h1>Lista de participantes</h1>' +
     '</div>' +
-    '<ul>' +
-      '{{#each participante in controllers.cursosNuevos.currentCurso.alumnos }}' +
-        '<li>
-          {{ participante.nombreCompleto }}{{#if participante.observaciones}} - <small>{{ participante.observaciones }}</small>{{/if}}
-        </li>' +
-      '{{/each}}' +
-    '</ul>' +
+    '{{ view App.ParticipantesView }}'
   '</div>'
   )
+
+App.ParticipantesView = Ember.View.extend
+  elementId: 'participantes'
+  tagName : 'ul'
+  template: Ember.Handlebars.compile('' +
+    '{{#each participante in controllers.cursosNuevos.currentCurso.alumnos }}' +
+      '<li>
+        {{ view App.ParticipanteView }}
+      </li>' +
+    '{{/each}}')
+
+App.ParticipanteView = Ember.View.extend
+  template: Ember.Handlebars.compile('' +
+    '{{ participante.nombreCompleto }}{{#if participante.observaciones}} - <small>{{ participante.observaciones }}</small>{{/if}}' )
 
 App.TextField = Ember.TextField.extend(Ember.TargetActionSupport,
   insertNewline : ->
