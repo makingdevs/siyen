@@ -40,6 +40,7 @@ App.CursoNuevoItemView = Ember.View.extend
   )
 
   click: -> 
+    console.log @.get('controller')
     @.get('controller').set('currentCurso', @.get('content'))
 
 Ember.TEMPLATES['cursosNuevos'] = Ember.Handlebars.compile('' +
@@ -112,7 +113,8 @@ Ember.TEMPLATES['crear'] = Ember.Handlebars.compile('' +
         '<div class="form-actions">' +
           # '{{#linkTo "crear.participantes" class="btn btn-info" }} Crear y agregar participantes {{/linkTo}}' +
           '<button {{ action "crear" }} class="btn btn-primary" > Crear y agregar participantes </button>' +
-          '{{#linkTo "cursosNuevos.index" class="btn btn-success" }} Finalizar {{/linkTo}}' +
+          '<button {{ action "finalizar" }} class="btn btn-success" > Finalizar </button>' +
+          # '{{#linkTo "cursosNuevos.index" class="btn btn-success" }} Finalizar {{/linkTo}}' +
         '</div>' +
       '</div>' +
       '{{ outlet }}' +
@@ -159,9 +161,7 @@ App.ParticipantesView = Ember.View.extend
   tagName : 'ul'
   template: Ember.Handlebars.compile('' +
     '{{#each participante in controllers.cursosNuevos.currentCurso.alumnos }}' +
-      '<li>
-        {{ view App.ParticipanteView }}
-      </li>' +
+      '<li> {{ view App.ParticipanteView }} </li>' +
     '{{/each}}')
 
 App.ParticipanteView = Ember.View.extend
