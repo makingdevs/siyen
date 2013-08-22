@@ -4,7 +4,9 @@
     content: [],
     currentCurso: null,
     currentCursoObserves: (function() {
-      return this.transitionToRoute('crear.participantes');
+      if (this.currentCurso) {
+        return this.transitionToRoute('crear.participantes');
+      }
     }).observes('currentCurso')
   });
 
@@ -38,6 +40,16 @@
       });
       content.pushObject(cursoProgramado);
       return cursosNuevosController.set('currentCurso', cursoProgramado);
+    },
+    finalizar: function() {
+      var cursosNuevosController;
+      cursosNuevosController = this.get('controllers.cursosNuevos');
+      cursosNuevosController.set('currentCurso', null);
+      this.set("fechaDeInicio", moment().format('DD/MMMM/YYYY'));
+      this.set("puertoSelected", null);
+      this.set("instructorSelected", null);
+      this.set("cursoSelected", null);
+      return this.transitionToRoute('cursosNuevos.index');
     }
   });
 

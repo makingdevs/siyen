@@ -3,7 +3,7 @@ App.CursosNuevosController = Ember.ArrayController.extend
   currentCurso : null
 
   currentCursoObserves : (->
-    @.transitionToRoute('crear.participantes')
+    @.transitionToRoute('crear.participantes') if @.currentCurso
   ).observes('currentCurso')
 
 App.CursosNuevosCrearController = Ember.ObjectController.extend()
@@ -38,6 +38,18 @@ App.CrearController = Ember.ObjectController.extend
 
     content.pushObject( cursoProgramado )
     cursosNuevosController.set( 'currentCurso', cursoProgramado )
+
+  finalizar : ->
+    cursosNuevosController = @.get('controllers.cursosNuevos')
+    cursosNuevosController.set( 'currentCurso', null )
+
+    @.set("fechaDeInicio", moment().format('DD/MMMM/YYYY'))
+    @.set("puertoSelected", null)
+    @.set("instructorSelected", null)
+    @.set("cursoSelected", null)
+
+    @.transitionToRoute('cursosNuevos.index')
+
 
 App.CrearParticipantesController = Ember.ObjectController.extend
   needs : "cursosNuevos"
