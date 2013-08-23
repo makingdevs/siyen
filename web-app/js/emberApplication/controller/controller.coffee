@@ -62,7 +62,6 @@ App.CrearController = Ember.ObjectController.extend
 
     @.transitionToRoute('cursosNuevos.index')
 
-
 App.CrearParticipantesController = Ember.ObjectController.extend
   needs : "cursosNuevos"
 
@@ -88,3 +87,5 @@ App.CrearParticipantesController = Ember.ObjectController.extend
 
     @.set("nombreCompleto", null)
     @.set("observaciones", null)
+
+App.ArchivoController = Ember.ObjectController.extend()

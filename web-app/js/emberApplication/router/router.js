@@ -15,6 +15,6 @@
 
   App.CrearParticipantesRoute = Ember.Route.extend();
 
-  App.ArchivoController = Ember.Route.extend();
+  App.ArchivoRoute = Ember.Route.extend();
 
 }).call(this);
