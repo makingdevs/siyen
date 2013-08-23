@@ -29,7 +29,6 @@
     tagName: 'tr',
     template: Ember.Handlebars.compile('' + '<td> {{ date fechaDeInicio }} </td>' + '<td> {{ puerto.clave }} - {{ puerto.puerto }} </td>' + '<td> {{ curso.clave }} </td>' + '<td> {{ instructor.nombre }} </td>' + '<td> {{ alumnos.length }}' + '<td> {{ showButton alumnos.length }} </td>'),
     click: function() {
-      console.log(this.get('controller'));
       return this.get('controller').set('currentCurso', this.get('content'));
     }
   });

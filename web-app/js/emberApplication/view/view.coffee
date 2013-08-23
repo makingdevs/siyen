@@ -40,7 +40,6 @@ App.CursoNuevoItemView = Ember.View.extend
   )
 
   click: -> 
-    console.log @.get('controller')
     @.get('controller').set('currentCurso', @.get('content'))
 
 Ember.TEMPLATES['cursosNuevos'] = Ember.Handlebars.compile('' +
