@@ -24,13 +24,13 @@ App.DropzoneView = Ember.View.extend
   template : Ember.Handlebars.compile('<div id="dropzone" class="dropzone"> </div>')
 
   didInsertElement: ->
-    Dropzone.options.dropzone = {
-      url : "/upload"
+    $('div#dropzone').dropzone(
+      url : "upload"
       addRemoveLinks : true
       maxFiles : 1
-      acceptedFiles : "image/*, application/xml"
+      acceptedFiles : "application/xml"
       autoProcessQueue : false
-    }
+    )
 
 App.CursoNuevoListView = Ember.View.extend
   elementId: 'cursoNuevoList'
@@ -193,10 +193,7 @@ Ember.TEMPLATES['archivo'] = Ember.Handlebars.compile('' +
 
         '<div class="span6">' +
           '{{ view App.DropzoneView }}' +
-          # '<div class="form-actions">' +
-            # '<button {{ action "crear" }} class="btn btn-primary" > Procesar </button>' +
-            '<button class="btn btn-large btn-block btn-primary" type="button"> Procesar </button>' +
-          # '</div>' +
+            '<button class="btn btn-large btn-block btn-primary" {{ action "procesarArchivo" }} > Procesar </button>' +
         '</div>' +
       '</div>' +
       '{{ outlet }}' +
