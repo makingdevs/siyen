@@ -88,4 +88,7 @@ App.CrearParticipantesController = Ember.ObjectController.extend
     @.set("nombreCompleto", null)
     @.set("observaciones", null)
 
-App.ArchivoController = Ember.ObjectController.extend()
+App.ArchivoController = Ember.ObjectController.extend
+  procesarArchivo : ->
+    dropzone = Dropzone.forElement("div#dropzone.dropzone")
+    dropzone.processQueue()

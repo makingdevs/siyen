@@ -89,6 +89,12 @@
     }
   });
 
-  App.ArchivoController = Ember.ObjectController.extend();
+  App.ArchivoController = Ember.ObjectController.extend({
+    procesarArchivo: function() {
+      var dropzone;
+      dropzone = Dropzone.forElement("div#dropzone.dropzone");
+      return dropzone.processQueue();
+    }
+  });
 
 }).call(this);
