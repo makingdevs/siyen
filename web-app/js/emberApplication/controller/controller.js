@@ -4,7 +4,9 @@
     content: [],
     currentCurso: null,
     currentCursoObserves: (function() {
-      return this.transitionToRoute('crear.participantes');
+      if (this.currentCurso) {
+        return this.transitionToRoute('crear.participantes');
+      }
     }).observes('currentCurso')
   });
 
@@ -19,6 +21,17 @@
     puertoSelected: null,
     instructorSelected: null,
     cursoSelected: null,
+    currentCursoObserves: (function() {
+      var currentCurso, cursosNuevosController;
+      cursosNuevosController = this.get('controllers.cursosNuevos');
+      currentCurso = cursosNuevosController.get('currentCurso');
+      if (currentCurso) {
+        this.set("fechaDeInicio", currentCurso.get('fechaDeInicio').format('DD/MMMM/YYYY'));
+        this.set("puertoSelected", currentCurso.get('puerto'));
+        this.set("instructorSelected", currentCurso.get('instructor'));
+        return this.set("cursoSelected", currentCurso.get('curso'));
+      }
+    }).observes('controllers.cursosNuevos.currentCurso'),
     init: function() {
       this._super();
       this.set('instructores', App.Instructor.find());
@@ -38,6 +51,16 @@
       });
       content.pushObject(cursoProgramado);
       return cursosNuevosController.set('currentCurso', cursoProgramado);
+    },
+    finalizar: function() {
+      var cursosNuevosController;
+      cursosNuevosController = this.get('controllers.cursosNuevos');
+      cursosNuevosController.set('currentCurso', null);
+      this.set("fechaDeInicio", moment().format('DD/MMMM/YYYY'));
+      this.set("puertoSelected", null);
+      this.set("instructorSelected", null);
+      this.set("cursoSelected", null);
+      return this.transitionToRoute('cursosNuevos.index');
     }
   });
 
@@ -45,13 +68,24 @@
     needs: "cursosNuevos",
     nombreCompleto: null,
     observaciones: null,
+    currentCursoObserves: (function() {
+      var currentCurso, cursosNuevosController;
+      cursosNuevosController = this.get('controllers.cursosNuevos');
+      currentCurso = cursosNuevosController.get('currentCurso');
+      if (currentCurso) {
+        this.set("nombreCompleto", null);
+        return this.set("observaciones", null);
+      }
+    }).observes('controllers.cursosNuevos.currentCurso'),
     agregar: function() {
       var currentCurso;
       currentCurso = this.get('controllers.cursosNuevos').get('currentCurso');
-      return currentCurso.get('alumnos').pushObject(Ember.Object.create({
+      currentCurso.get('alumnos').pushObject(Ember.Object.create({
         nombreCompleto: this.nombreCompleto,
         observaciones: this.observaciones
       }));
+      this.set("nombreCompleto", null);
+      return this.set("observaciones", null);
     }
   });
 
