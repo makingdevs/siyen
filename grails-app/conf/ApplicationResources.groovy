@@ -9,6 +9,12 @@ modules = {
     resource url:'js/emberApplication/view/view.js'
   }
 
+  dropzonejs {
+    resource url:'css/dropzone/basic.css'
+    resource url:'css/dropzone/dropzone.css'
+    resource url:'js/dropzone/dropzone.js'
+  }
+
   bootstrap {
     dependsOn 'jquery'
     resource url:'css/bootstrap/bootstrap.min.css'

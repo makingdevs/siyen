@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <r:require modules="bootstrap, emberjs, application, momentjs, datepicker" />
+    <r:require modules="bootstrap, emberjs, application, momentjs, datepicker, dropzonejs" />
 
     <style>
       body {
