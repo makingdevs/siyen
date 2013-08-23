@@ -89,4 +89,6 @@
     }
   });
 
+  App.ArchivoController = Ember.ObjectController.extend();
+
 }).call(this);

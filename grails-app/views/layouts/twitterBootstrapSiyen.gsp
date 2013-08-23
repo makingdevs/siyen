@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <r:require modules="bootstrap, emberjs, application, momentjs, datepicker" />
+    <r:require modules="bootstrap, emberjs, application, momentjs, datepicker, dropzonejs" />
 
     <style>
       body {
@@ -39,6 +39,7 @@
                     {{#linkTo "cursosNuevos" }}Crear curso{{/linkTo}}
                   </li>
                   <li>
+                    {{#linkTo "archivo" }}Procesar archivo{{/linkTo}}
                   </li>
                 <!-- END: Menu de opciones -->
               </ul>

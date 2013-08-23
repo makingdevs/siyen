@@ -20,6 +20,18 @@ App.DatePickerView = Ember.View.extend
     ($ "#datepicker > input").attr('readonly', 'true')
     ($ "#datepicker > input").val(moment().format('DD/MMMM/YYYY'))
 
+App.DropzoneView = Ember.View.extend
+  template : Ember.Handlebars.compile('<div id="dropzone" class="dropzone"> </div>')
+
+  didInsertElement: ->
+    Dropzone.options.dropzone = {
+      url : "/upload"
+      addRemoveLinks : true
+      maxFiles : 1
+      acceptedFiles : "image/*, application/xml"
+      autoProcessQueue : false
+    }
+
 App.CursoNuevoListView = Ember.View.extend
   elementId: 'cursoNuevoList'
   tagName : ''
@@ -41,6 +53,23 @@ App.CursoNuevoItemView = Ember.View.extend
 
   click: -> 
     @.get('controller').set('currentCurso', @.get('content'))
+
+App.ParticipantesView = Ember.View.extend
+  elementId: 'participantes'
+  tagName : 'ul'
+  template: Ember.Handlebars.compile('' +
+    '{{#each participante in controllers.cursosNuevos.currentCurso.alumnos }}' +
+      '<li> {{ view App.ParticipanteView }} </li>' +
+    '{{/each}}')
+
+App.ParticipanteView = Ember.View.extend
+  template: Ember.Handlebars.compile('' +
+    '{{ participante.nombreCompleto }}{{#if participante.observaciones}} - <small>{{ participante.observaciones }}</small>{{/if}}' )
+
+App.TextField = Ember.TextField.extend(Ember.TargetActionSupport,
+  insertNewline : ->
+    this.triggerAction()
+)
 
 Ember.TEMPLATES['cursosNuevos'] = Ember.Handlebars.compile('' +
   '<div class="page-header">' +
@@ -120,7 +149,6 @@ Ember.TEMPLATES['crear'] = Ember.Handlebars.compile('' +
     '</div>' +
   '</div>')
 
-
 Ember.TEMPLATES['crear/participantes'] = Ember.Handlebars.compile('' +
   '<div class="span4">' +
     '<div class="page-header">' +
@@ -155,19 +183,22 @@ Ember.TEMPLATES['crear/participantes'] = Ember.Handlebars.compile('' +
   '</div>'
   )
 
-App.ParticipantesView = Ember.View.extend
-  elementId: 'participantes'
-  tagName : 'ul'
-  template: Ember.Handlebars.compile('' +
-    '{{#each participante in controllers.cursosNuevos.currentCurso.alumnos }}' +
-      '<li> {{ view App.ParticipanteView }} </li>' +
-    '{{/each}}')
+Ember.TEMPLATES['archivo'] = Ember.Handlebars.compile('' +
+  '<div class="container-fluid">' +
+    '<div class="row-fluid">' +
+      '<div class="span12">' +
+        '<div class="page-header">' +
+          '<h1>Procesar archivo</h1>' +
+        '</div>' +
 
-App.ParticipanteView = Ember.View.extend
-  template: Ember.Handlebars.compile('' +
-    '{{ participante.nombreCompleto }}{{#if participante.observaciones}} - <small>{{ participante.observaciones }}</small>{{/if}}' )
-
-App.TextField = Ember.TextField.extend(Ember.TargetActionSupport,
-  insertNewline : ->
-    this.triggerAction()
-)
+        '<div class="span6">' +
+          '{{ view App.DropzoneView }}' +
+          # '<div class="form-actions">' +
+            # '<button {{ action "crear" }} class="btn btn-primary" > Procesar </button>' +
+            '<button class="btn btn-large btn-block btn-primary" type="button"> Procesar </button>' +
+          # '</div>' +
+        '</div>' +
+      '</div>' +
+      '{{ outlet }}' +
+    '</div>' +
+  '</div>')
