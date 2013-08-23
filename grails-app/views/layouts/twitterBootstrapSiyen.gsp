@@ -39,6 +39,7 @@
                     {{#linkTo "cursosNuevos" }}Crear curso{{/linkTo}}
                   </li>
                   <li>
+                    {{#linkTo "archivo" }}Procesar archivo{{/linkTo}}
                   </li>
                 <!-- END: Menu de opciones -->
               </ul>
