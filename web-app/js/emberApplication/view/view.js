@@ -22,13 +22,13 @@
   App.DropzoneView = Ember.View.extend({
     template: Ember.Handlebars.compile('<div id="dropzone" class="dropzone"> </div>'),
     didInsertElement: function() {
-      return Dropzone.options.dropzone = {
-        url: "/upload",
+      return $('div#dropzone').dropzone({
+        url: "upload",
         addRemoveLinks: true,
         maxFiles: 1,
-        acceptedFiles: "image/*, application/xml",
+        acceptedFiles: "application/xml",
         autoProcessQueue: false
-      };
+      });
     }
   });
 
@@ -68,6 +68,6 @@
 
   Ember.TEMPLATES['crear/participantes'] = Ember.Handlebars.compile('' + '<div class="span4">' + '<div class="page-header">' + '<h1>Participante</h1>' + '</div>' + '<div>' + '<div class="control-group">' + '<label class="control-label" for="nombreCompleto">Nombre Completo :</label>' + '<div class="controls">' + '{{ view App.TextField target="controller" action="agregar" valueBinding="controller.nombreCompleto" placeholder="Nombre completo" }}' + '</div>' + '</div>' + '<div class="control-group">' + '<label class="control-label" for="observaciones">Observaciones :</label>' + '<div class="controls">' + '{{ view Ember.TextArea valueBinding="observaciones" placeholder="Observaciones" }}' + '</div>' + '</div>' + '<div class="form-actions">' + '{{#linkTo "crear.index" class="btn" }} Ocultar {{/linkTo}}' + '<button class="btn btn-primary" {{ action "agregar" }}> Agregar </button>' + '</div>' + '</div>' + '</div>' + '<div class="span4" >' + '<div class="page-header">' + '<h1>Lista de participantes</h1>' + '</div>' + '{{ view App.ParticipantesView }}', '</div>');
 
-  Ember.TEMPLATES['archivo'] = Ember.Handlebars.compile('' + '<div class="container-fluid">' + '<div class="row-fluid">' + '<div class="span12">' + '<div class="page-header">' + '<h1>Procesar archivo</h1>' + '</div>' + '<div class="span6">' + '{{ view App.DropzoneView }}' + '<button class="btn btn-large btn-block btn-primary" type="button"> Procesar </button>' + '</div>' + '</div>' + '{{ outlet }}' + '</div>' + '</div>');
+  Ember.TEMPLATES['archivo'] = Ember.Handlebars.compile('' + '<div class="container-fluid">' + '<div class="row-fluid">' + '<div class="span12">' + '<div class="page-header">' + '<h1>Procesar archivo</h1>' + '</div>' + '<div class="span6">' + '{{ view App.DropzoneView }}' + '<button class="btn btn-large btn-block btn-primary" {{ action "procesarArchivo" }} > Procesar </button>' + '</div>' + '</div>' + '{{ outlet }}' + '</div>' + '</div>');
 
 }).call(this);
