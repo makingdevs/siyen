@@ -19,6 +19,18 @@ App.CrearController = Ember.ObjectController.extend
   instructorSelected : null
   cursoSelected : null
 
+  currentCursoObserves : (->
+    cursosNuevosController = @.get('controllers.cursosNuevos')
+    currentCurso = cursosNuevosController.get('currentCurso')
+
+    if currentCurso
+      @.set("fechaDeInicio", currentCurso.get('fechaDeInicio').format('DD/MMMM/YYYY'))
+      @.set("puertoSelected", currentCurso.get('puerto'))
+      @.set("instructorSelected", currentCurso.get('instructor'))
+      @.set("cursoSelected", currentCurso.get('curso'))
+
+  ).observes('controllers.cursosNuevos.currentCurso')
+
   init : ->
     @._super()
     @.set 'instructores', App.Instructor.find()
@@ -57,6 +69,16 @@ App.CrearParticipantesController = Ember.ObjectController.extend
   nombreCompleto : null
   observaciones : null
 
+  currentCursoObserves : (->
+    cursosNuevosController = @.get('controllers.cursosNuevos')
+    currentCurso = cursosNuevosController.get('currentCurso')
+
+    if currentCurso
+      @.set("nombreCompleto", null)
+      @.set("observaciones", null)
+
+  ).observes('controllers.cursosNuevos.currentCurso')
+
   agregar : ->
     currentCurso = @.get('controllers.cursosNuevos').get('currentCurso')
     currentCurso.get('alumnos').pushObject(Ember.Object.create
@@ -64,18 +86,5 @@ App.CrearParticipantesController = Ember.ObjectController.extend
       observaciones : @.observaciones
     )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @.set("nombreCompleto", null)
+    @.set("observaciones", null)
