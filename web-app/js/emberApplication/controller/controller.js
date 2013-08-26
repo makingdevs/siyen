@@ -90,10 +90,27 @@
   });
 
   App.ArchivoController = Ember.ObjectController.extend({
+    participantes: [],
     procesarArchivo: function() {
-      var dropzone;
+      var dropzone,
+        _this = this;
       dropzone = Dropzone.forElement("div#dropzone.dropzone");
-      return dropzone.processQueue();
+      dropzone.processQueue();
+      return dropzone.on("success", function(file, response) {
+        var fila, _i, _len, _ref, _results;
+        file.previewElement.classList.add("dz-success");
+        console.log(_this.participantes);
+        _ref = response.contenidoDeFilas;
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          fila = _ref[_i];
+          _results.push(_this.participantes.pushObject(Ember.Object.create({
+            nombreCompleto: fila.get(1),
+            observaciones: fila.get(2)
+          })));
+        }
+        return _results;
+      });
     }
   });
 

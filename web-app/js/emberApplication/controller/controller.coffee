@@ -89,6 +89,18 @@ App.CrearParticipantesController = Ember.ObjectController.extend
     @.set("observaciones", null)
 
 App.ArchivoController = Ember.ObjectController.extend
+
+  participantes : []
+
   procesarArchivo : ->
     dropzone = Dropzone.forElement("div#dropzone.dropzone")
     dropzone.processQueue()
+
+    dropzone.on "success", (file, response) =>
+      file.previewElement.classList.add("dz-success")
+      console.log @.participantes
+      for fila in response.contenidoDeFilas
+        @.participantes.pushObject( Ember.Object.create
+          nombreCompleto : fila.get(1)
+          observaciones : fila.get(2)
+        )
