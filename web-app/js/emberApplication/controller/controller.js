@@ -99,7 +99,6 @@
       return dropzone.on("success", function(file, response) {
         var fila, _i, _len, _ref, _results;
         file.previewElement.classList.add("dz-success");
-        console.log(_this.participantes);
         _ref = response.contenidoDeFilas;
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {

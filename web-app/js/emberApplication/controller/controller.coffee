@@ -98,7 +98,6 @@ App.ArchivoController = Ember.ObjectController.extend
 
     dropzone.on "success", (file, response) =>
       file.previewElement.classList.add("dz-success")
-      console.log @.participantes
       for fila in response.contenidoDeFilas
         @.participantes.pushObject( Ember.Object.create
           nombreCompleto : fila.get(1)

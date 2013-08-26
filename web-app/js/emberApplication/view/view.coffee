@@ -199,7 +199,11 @@ Ember.TEMPLATES['archivo'] = Ember.Handlebars.compile('' +
           '</div>' +
 
           '<div class="span6">' +
-            '<h1> {{ participantes.length }} </h1>' +
+            '<ul>' +
+              '{{#each participante in participantes }}' +
+                '<li> {{ view App.ParticipanteView }} </li>' +
+              '{{/each}}' +
+            '</ul>' +
           '</div>' +
         '</div>' +
 
