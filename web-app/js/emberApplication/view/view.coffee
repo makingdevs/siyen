@@ -25,10 +25,10 @@ App.DropzoneView = Ember.View.extend
 
   didInsertElement: ->
     $('div#dropzone').dropzone(
-      url : "upload"
+      url : "procesarArchivo"
       addRemoveLinks : true
       maxFiles : 1
-      acceptedFiles : "application/xml"
+      maxFilesize: 3
       autoProcessQueue : false
     )
 
@@ -185,17 +185,28 @@ Ember.TEMPLATES['crear/participantes'] = Ember.Handlebars.compile('' +
 
 Ember.TEMPLATES['archivo'] = Ember.Handlebars.compile('' +
   '<div class="container-fluid">' +
+
     '<div class="row-fluid">' +
       '<div class="span12">' +
         '<div class="page-header">' +
           '<h1>Procesar archivo</h1>' +
         '</div>' +
 
-        '<div class="span6">' +
-          '{{ view App.DropzoneView }}' +
+        '<div class="row-fluid">' +
+          '<div class="span6">' +
+            '{{ view App.DropzoneView }}' +
             '<button class="btn btn-large btn-block btn-primary" {{ action "procesarArchivo" }} > Procesar </button>' +
+          '</div>' +
+
+          '<div class="span6">' +
+            '<ul>' +
+              '{{#each participante in participantes }}' +
+                '<li> {{ view App.ParticipanteView }} </li>' +
+              '{{/each}}' +
+            '</ul>' +
+          '</div>' +
         '</div>' +
+
       '</div>' +
-      '{{ outlet }}' +
     '</div>' +
   '</div>')
