@@ -48,11 +48,26 @@ App.CursoNuevoItemView = Ember.View.extend
       '<td> {{ curso.clave }} </td>' +
       '<td> {{ instructor.nombre }} </td>' +
       '<td> {{ alumnos.length }}' +
-      '<td> {{ showButton alumnos.length }} </td>'
+      '<td> {{ view App.AutorizarView }} </td>'
   )
 
   click: -> 
     @.get('controller').set('currentCurso', @.get('content'))
+
+App.AutorizarView = Ember.View.extend
+  tagName : 'button'
+  classNames : ['btn', 'btn-warning']
+  classNameBindings : ['isDisabled']
+
+  isDisabled: (->
+    "disabled" unless @.get('context.alumnos.length')
+  ).property("context.alumnos.length")
+
+  template : Ember.Handlebars.compile('Autorizar')
+
+  click : (event) ->
+    event.stopPropagation()
+    @.get('controller').autorizar()
 
 App.ParticipantesView = Ember.View.extend
   elementId: 'participantes'

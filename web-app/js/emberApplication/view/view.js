@@ -40,9 +40,25 @@
 
   App.CursoNuevoItemView = Ember.View.extend({
     tagName: 'tr',
-    template: Ember.Handlebars.compile('' + '<td> {{ date fechaDeInicio }} </td>' + '<td> {{ puerto.clave }} - {{ puerto.puerto }} </td>' + '<td> {{ curso.clave }} </td>' + '<td> {{ instructor.nombre }} </td>' + '<td> {{ alumnos.length }}' + '<td> {{ showButton alumnos.length }} </td>'),
+    template: Ember.Handlebars.compile('' + '<td> {{ date fechaDeInicio }} </td>' + '<td> {{ puerto.clave }} - {{ puerto.puerto }} </td>' + '<td> {{ curso.clave }} </td>' + '<td> {{ instructor.nombre }} </td>' + '<td> {{ alumnos.length }}' + '<td> {{ view App.AutorizarView }} </td>'),
     click: function() {
       return this.get('controller').set('currentCurso', this.get('content'));
+    }
+  });
+
+  App.AutorizarView = Ember.View.extend({
+    tagName: 'button',
+    classNames: ['btn', 'btn-warning'],
+    classNameBindings: ['isDisabled'],
+    isDisabled: (function() {
+      if (!this.get('context.alumnos.length')) {
+        return "disabled";
+      }
+    }).property("context.alumnos.length"),
+    template: Ember.Handlebars.compile('Autorizar'),
+    click: function(event) {
+      event.stopPropagation();
+      return this.get('controller').autorizar();
     }
   });
 
