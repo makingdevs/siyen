@@ -6,6 +6,9 @@ App.CursosNuevosController = Ember.ArrayController.extend
     @.transitionToRoute('crear.participantes') if @.currentCurso
   ).observes('currentCurso')
 
+  autorizar : ->
+    console.log "autorizando"
+
 App.CursosNuevosCrearController = Ember.ObjectController.extend()
 
 App.CrearController = Ember.ObjectController.extend

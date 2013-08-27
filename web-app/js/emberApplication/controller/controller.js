@@ -7,7 +7,10 @@
       if (this.currentCurso) {
         return this.transitionToRoute('crear.participantes');
       }
-    }).observes('currentCurso')
+    }).observes('currentCurso'),
+    autorizar: function() {
+      return console.log("autorizando");
+    }
   });
 
   App.CursosNuevosCrearController = Ember.ObjectController.extend();
