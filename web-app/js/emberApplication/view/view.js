@@ -58,7 +58,8 @@
     template: Ember.Handlebars.compile('Autorizar'),
     click: function(event) {
       event.stopPropagation();
-      return this.get('controller').autorizar(this.get('context'));
+      this.get('controller').set('autorizarCurso', this.get('context'));
+      return this.get('controller').autorizar();
     }
   });
 

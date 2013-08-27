@@ -67,8 +67,8 @@ App.AutorizarView = Ember.View.extend
 
   click : (event) ->
     event.stopPropagation()
-    @.get('controller').autorizar( @.get('context') )
-
+    @.get('controller').set( 'autorizarCurso', @.get('context') )
+    @.get('controller').autorizar()
 
 App.ParticipantesView = Ember.View.extend
   elementId: 'participantes'
