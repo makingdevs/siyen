@@ -9,7 +9,23 @@
       }
     }).observes('currentCurso'),
     autorizar: function() {
-      return console.log("autorizando");
+      var alumno, cursoProgramado, _i, _len, _ref, _results;
+      cursoProgramado = App.CursoProgramado.createRecord({
+        fechaDeInicio: this.get('currentCurso.fechaDeInicio').format('DD/MMMM/YYYY'),
+        puertoSelected: this.get('currentCurso.puerto'),
+        instructorSelected: this.get('currentCurso.instructor'),
+        cursoSelected: this.get('currentCurso.curso')
+      });
+      _ref = this.get('currentCurso.alumnos');
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        alumno = _ref[_i];
+        _results.push(cursoProgramado.get('alumnos').pushObject(App.Alumno.createRecord({
+          nombreCompleto: alumno.get('nombreCompleto'),
+          observaciones: alumno.get('observaciones')
+        })));
+      }
+      return _results;
     }
   });
 

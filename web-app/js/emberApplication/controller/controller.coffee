@@ -7,7 +7,16 @@ App.CursosNuevosController = Ember.ArrayController.extend
   ).observes('currentCurso')
 
   autorizar : ->
-    console.log "autorizando"
+    cursoProgramado = App.CursoProgramado.createRecord
+      fechaDeInicio : @.get('currentCurso.fechaDeInicio').format('DD/MMMM/YYYY')
+      puertoSelected : @.get('currentCurso.puerto')
+      instructorSelected : @.get('currentCurso.instructor')
+      cursoSelected : @.get('currentCurso.curso')
+
+    for alumno in @.get('currentCurso.alumnos')
+      cursoProgramado.get('alumnos').pushObject( App.Alumno.createRecord
+        nombreCompleto : alumno.get('nombreCompleto')
+        observaciones : alumno.get('observaciones') )
 
 App.CursosNuevosCrearController = Ember.ObjectController.extend()
 
