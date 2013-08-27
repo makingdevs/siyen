@@ -6,14 +6,14 @@ App.CursosNuevosController = Ember.ArrayController.extend
     @.transitionToRoute('crear.participantes') if @.currentCurso
   ).observes('currentCurso')
 
-  autorizar : ->
+  autorizar : (currentCurso)->
     cursoProgramado = App.CursoProgramado.createRecord
-      fechaDeInicio : @.get('currentCurso.fechaDeInicio').format('DD/MMMM/YYYY')
-      puertoSelected : @.get('currentCurso.puerto')
-      instructorSelected : @.get('currentCurso.instructor')
-      cursoSelected : @.get('currentCurso.curso')
+      fechaDeInicio : currentCurso.get('fechaDeInicio').format('DD/MMMM/YYYY')
+      puertoSelected : currentCurso.get('puerto')
+      instructorSelected : currentCurso.get('instructor')
+      cursoSelected : currentCurso.get('curso')
 
-    for alumno in @.get('currentCurso.alumnos')
+    for alumno in currentCurso.get('alumnos')
       cursoProgramado.get('alumnos').pushObject( App.Alumno.createRecord
         nombreCompleto : alumno.get('nombreCompleto')
         observaciones : alumno.get('observaciones') )

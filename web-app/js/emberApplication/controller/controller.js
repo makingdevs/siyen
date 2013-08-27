@@ -8,15 +8,15 @@
         return this.transitionToRoute('crear.participantes');
       }
     }).observes('currentCurso'),
-    autorizar: function() {
+    autorizar: function(currentCurso) {
       var alumno, cursoProgramado, _i, _len, _ref, _results;
       cursoProgramado = App.CursoProgramado.createRecord({
-        fechaDeInicio: this.get('currentCurso.fechaDeInicio').format('DD/MMMM/YYYY'),
-        puertoSelected: this.get('currentCurso.puerto'),
-        instructorSelected: this.get('currentCurso.instructor'),
-        cursoSelected: this.get('currentCurso.curso')
+        fechaDeInicio: currentCurso.get('fechaDeInicio').format('DD/MMMM/YYYY'),
+        puertoSelected: currentCurso.get('puerto'),
+        instructorSelected: currentCurso.get('instructor'),
+        cursoSelected: currentCurso.get('curso')
       });
-      _ref = this.get('currentCurso.alumnos');
+      _ref = currentCurso.get('alumnos');
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         alumno = _ref[_i];
