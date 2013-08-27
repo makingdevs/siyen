@@ -4,10 +4,4 @@
     return moment(date).format('DD/MMMM/YYYY');
   });
 
-  Ember.Handlebars.registerBoundHelper('showButton', function(length) {
-    var button;
-    button = "<button class='btn btn-warning " + (!length ? 'disabled' : void 0) + "'> Autorizar </button>";
-    return new Handlebars.SafeString(button);
-  });
-
 }).call(this);
