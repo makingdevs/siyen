@@ -7,11 +7,12 @@ App.CursosNuevosController = Ember.ArrayController.extend
     @.transitionToRoute('crear.participantes') if @.currentCurso
   ).observes('currentCurso')
 
-  autorizar : (currentCurso)->
+  autorizar : ->
     ($ "#confirmarAutorizacionDialog").modal( show: true )
 
   doCancelAutorizacion : ->
     ($ "#confirmarAutorizacionDialog").modal('hide')
+    @.set( 'autorizarCurso', null )
 
   doRealizarAutorizacion : ->
     cursoAutorizado = @.get('autorizarCurso')
@@ -26,6 +27,7 @@ App.CursosNuevosController = Ember.ArrayController.extend
         nombreCompleto : alumno.get('nombreCompleto')
         observaciones : alumno.get('observaciones') )
 
+    @.set( 'autorizarCurso', null )
     ($ "#confirmarAutorizacionDialog").modal('hide')
 
 App.CursosNuevosCrearController = Ember.ObjectController.extend()

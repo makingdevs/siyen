@@ -9,13 +9,14 @@
         return this.transitionToRoute('crear.participantes');
       }
     }).observes('currentCurso'),
-    autorizar: function(currentCurso) {
+    autorizar: function() {
       return ($("#confirmarAutorizacionDialog")).modal({
         show: true
       });
     },
     doCancelAutorizacion: function() {
-      return ($("#confirmarAutorizacionDialog")).modal('hide');
+      ($("#confirmarAutorizacionDialog")).modal('hide');
+      return this.set('autorizarCurso', null);
     },
     doRealizarAutorizacion: function() {
       var alumno, cursoAutorizado, cursoProgramado, _i, _len, _ref;
@@ -34,6 +35,7 @@
           observaciones: alumno.get('observaciones')
         }));
       }
+      this.set('autorizarCurso', null);
       return ($("#confirmarAutorizacionDialog")).modal('hide');
     }
   });
