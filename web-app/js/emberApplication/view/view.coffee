@@ -107,7 +107,68 @@ Ember.TEMPLATES['cursosNuevos'] = Ember.Handlebars.compile('' +
     '</tbody>' +
   '</table>' +
   '{{#linkTo "crear" class="btn btn-primary" }} Nuevo {{/linkTo}}' +
-  '{{ outlet }}')
+  '{{ outlet }}' +
+
+  '{{view App.ConfirmDialogView ' +
+      'elementId="confirmarAutorizacionDialog" ' +
+      'okAction="doRealizarAutorizacion" ' +
+      'cancelAction="doCancelAutorizacion" ' +
+      'target="controller" ' +
+      'header="¿Autorizar curso?" ' +
+      'message="¿Está seguro de autorizar el curso? ¡Esta acción no se puede deshacer!"' +
+  '}}' )
+
+App.ConfirmDialogView = Ember.View.extend
+  templateName: 'confirmDialog'
+  classNames: ['modal', 'hide']
+  cancelButtonLabel: 'Cancel'
+  cancelAction: null
+  okButtonLabel: "Confirmar"
+  okAction: null
+  header: null
+  message: null
+  target: null
+
+
+Ember.TEMPLATES['confirmDialog'] = Ember.Handlebars.compile(
+  '<div class="modal-header centerAlign">' +
+    '<button type="button" class="close" data-dismiss="modal" class="floatRight">×</button>' +
+    '<h1 class="centerAlign">{{view.header}}</h1>' +
+  '</div>' +
+  '<div class="modal-body">' +
+    '{{view.message}}' +
+  '</div>' +
+  '<div class="modal-footer">' +
+    '{{#if view.cancelAction}}' +
+      '{{ view App.BootstrapButton ' +
+              'contentBinding="view.cancelButtonLabel" ' +
+              'actionBinding="view.cancelAction"' +
+              'targetBinding="view.target"'  +
+      '}}' +
+    '{{/if}}' +
+    '{{#if view.okAction}}' +
+      '{{ view App.BootstrapButton ' +
+              'contentBinding="view.okButtonLabel" ' +
+              'actionBinding="view.okAction" ' +
+              'targetBinding="view.target" ' +
+              'iconName="icon-exclamation-sign icon-white" ' +
+              'classNames="btn-warning"' +
+      '}}' +
+    '{{/if}}' +
+  '</div>'
+)
+
+App.BootstrapButton = Ember.View.extend(Ember.TargetActionSupport,
+  tagName: 'button',
+  classNames: ['btn']
+  iconName : null
+  disabled: false,
+  click: ->
+    if !@.get('disabled')
+      @.triggerAction()
+
+  template: Ember.Handlebars.compile('{{#if view.iconName}}<i {{bindAttr class="view.iconName"}}></i>{{/if}} {{view.content}}')
+)
 
 Ember.TEMPLATES['crear'] = Ember.Handlebars.compile('' +
   '<div class="container-fluid">' +
