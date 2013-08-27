@@ -7,16 +7,25 @@ App.CursosNuevosController = Ember.ArrayController.extend
   ).observes('currentCurso')
 
   autorizar : (currentCurso)->
-    cursoProgramado = App.CursoProgramado.createRecord
-      fechaDeInicio : currentCurso.get('fechaDeInicio').format('DD/MMMM/YYYY')
-      puertoSelected : currentCurso.get('puerto')
-      instructorSelected : currentCurso.get('instructor')
-      cursoSelected : currentCurso.get('curso')
+    ($ "#confirmarAutorizacionDialog").modal( show: true )
 
-    for alumno in currentCurso.get('alumnos')
-      cursoProgramado.get('alumnos').pushObject( App.Alumno.createRecord
-        nombreCompleto : alumno.get('nombreCompleto')
-        observaciones : alumno.get('observaciones') )
+  doCancelAutorizacion : ->
+    ($ "#confirmarAutorizacionDialog").modal('hide')
+
+  doRealizarAutorizacion : ->
+    console.log @
+#    cursoProgramado = App.CursoProgramado.createRecord
+#      fechaDeInicio : currentCurso.get('fechaDeInicio').format('DD/MMMM/YYYY')
+#      puertoSelected : currentCurso.get('puerto')
+#      instructorSelected : currentCurso.get('instructor')
+#      cursoSelected : currentCurso.get('curso')
+#
+#    for alumno in currentCurso.get('alumnos')
+#      cursoProgramado.get('alumnos').pushObject( App.Alumno.createRecord
+#        nombreCompleto : alumno.get('nombreCompleto')
+#        observaciones : alumno.get('observaciones') )
+#
+#    ($ "#confirmarAutorizacionDialog").modal('hide')
 
 App.CursosNuevosCrearController = Ember.ObjectController.extend()
 
