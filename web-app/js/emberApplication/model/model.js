@@ -32,7 +32,8 @@
 
   App.Alumno = DS.Model.extend({
     nombreCompleto: DS.attr('string'),
-    observaciones: DS.attr('string')
+    observaciones: DS.attr('string'),
+    cursoProgramado: DS.belongsTo('App.CursoProgramado')
   });
 
 }).call(this);

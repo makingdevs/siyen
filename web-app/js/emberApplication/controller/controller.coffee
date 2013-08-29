@@ -16,19 +16,22 @@ App.CursosNuevosController = Ember.ArrayController.extend
 
   doRealizarAutorizacion : ->
     cursoAutorizado = @.get('autorizarCurso')
-    cursoProgramado = App.CursoProgramado.createRecord
+    
+    transaction = @store.transaction()
+    cursoProgramado = transaction.createRecord( App.CursoProgramado,
       fechaDeInicio : cursoAutorizado.get('fechaDeInicio').format('DD/MMMM/YYYY')
       puertoSelected : cursoAutorizado.get('puerto')
       instructorSelected : cursoAutorizado.get('instructor')
-      cursoSelected : cursoAutorizado.get('curso')
+      cursoSelected : cursoAutorizado.get('curso') )
 
     for alumno in cursoAutorizado.get('alumnos')
-      cursoProgramado.get('alumnos').pushObject( App.Alumno.createRecord
+      cursoProgramado.get('alumnos').createRecord
         nombreCompleto : alumno.get('nombreCompleto')
-        observaciones : alumno.get('observaciones') )
+        observaciones : alumno.get('observaciones')
 
-    @.set( 'autorizarCurso', null )
     ($ "#confirmarAutorizacionDialog").modal('hide')
+    console.log transaction
+    transaction.commit()
 
 App.CursosNuevosCrearController = Ember.ObjectController.extend()
 

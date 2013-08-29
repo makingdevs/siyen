@@ -19,9 +19,10 @@
       return this.set('autorizarCurso', null);
     },
     doRealizarAutorizacion: function() {
-      var alumno, cursoAutorizado, cursoProgramado, _i, _len, _ref;
+      var alumno, cursoAutorizado, cursoProgramado, transaction, _i, _len, _ref;
       cursoAutorizado = this.get('autorizarCurso');
-      cursoProgramado = App.CursoProgramado.createRecord({
+      transaction = this.store.transaction();
+      cursoProgramado = transaction.createRecord(App.CursoProgramado, {
         fechaDeInicio: cursoAutorizado.get('fechaDeInicio').format('DD/MMMM/YYYY'),
         puertoSelected: cursoAutorizado.get('puerto'),
         instructorSelected: cursoAutorizado.get('instructor'),
@@ -30,13 +31,14 @@
       _ref = cursoAutorizado.get('alumnos');
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         alumno = _ref[_i];
-        cursoProgramado.get('alumnos').pushObject(App.Alumno.createRecord({
+        cursoProgramado.get('alumnos').createRecord({
           nombreCompleto: alumno.get('nombreCompleto'),
           observaciones: alumno.get('observaciones')
-        }));
+        });
       }
-      this.set('autorizarCurso', null);
-      return ($("#confirmarAutorizacionDialog")).modal('hide');
+      ($("#confirmarAutorizacionDialog")).modal('hide');
+      console.log(transaction);
+      return transaction.commit();
     }
   });
 

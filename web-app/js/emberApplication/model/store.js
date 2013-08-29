@@ -25,13 +25,34 @@
     },
     statusCurso: {
       key: 'statusCurso'
+    },
+    alumnos: {
+      embedded: 'always'
+    },
+    keyForAttributeName: function(type, name) {
+      console.log("keyForAttributeName");
+      return name.underscore.toUpperCase();
     }
   });
 
   App.Store = DS.Store.extend({
     revision: 13,
     adapter: DS.RESTAdapter.reopen({
-      namespace: "siyen"
+      namespace: "siyen",
+      serializer: DS.RESTSerializer.create({
+        keyForBelongsTo: function(type, name) {
+          console.log("keyForBelongsTo");
+          return this.keyForAttributeName(type, name) + "Id";
+        },
+        keyForAttributeName: function(type, name) {
+          return name;
+        },
+        keyForHasMany: function(type, name) {
+          console.log("keyForHasMany");
+          console.log("" + name);
+          return this.keyForAttributeName(type, name);
+        }
+      })
     })
   });
 
