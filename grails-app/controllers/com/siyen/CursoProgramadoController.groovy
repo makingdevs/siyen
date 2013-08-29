@@ -30,19 +30,20 @@ class CursoProgramadoController {
   }
 
   def save() {
-    Map cursoProgramadoParams = params['curso_programado']
-    Date fechaDeInicio = Date.parse("E. MMM. dd yyyy", cursoProgramadoParams.fechaDeInicio)
-
-    CursoProgramado cursoProgramado = new CursoProgramado()
-    cursoProgramado.fechaDeInicio = fechaDeInicio
-    cursoProgramado.puerto = Puerto.get(cursoProgramadoParams.puerto.toLong())
-    cursoProgramado.curso = Curso.get(cursoProgramadoParams.curso.toLong())
-    cursoProgramado.instructor = Instructor.get(cursoProgramadoParams.instructor.toLong())
-    cursoProgramado.fechaDeTermino = fechaDeInicio.plus( cursoProgramado.curso.duracion )
-
-    cursoProgramado.save()
-
-    render(status:200)
+    log.debug "Salvando cursoProgramado"
+    params.each { k, v ->
+      log.debug k
+    }
+    // Map cursoProgramadoParams = params['curso_programado']
+    // Date fechaDeInicio = Date.parse("E. MMM. dd yyyy", cursoProgramadoParams.fechaDeInicio)
+    // CursoProgramado cursoProgramado = new CursoProgramado()
+    // cursoProgramado.fechaDeInicio = fechaDeInicio
+    // cursoProgramado.puerto = Puerto.get(cursoProgramadoParams.puerto.toLong())
+    // cursoProgramado.curso = Curso.get(cursoProgramadoParams.curso.toLong())
+    // cursoProgramado.instructor = Instructor.get(cursoProgramadoParams.instructor.toLong())
+    // cursoProgramado.fechaDeTermino = fechaDeInicio.plus( cursoProgramado.curso.duracion )
+    // cursoProgramado.save()
+    // render(status:200)
   }
 
 }
