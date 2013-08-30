@@ -1,6 +1,7 @@
 package com.siyen
 
 import java.text.SimpleDateFormat
+import grails.converters.*
 
 class CursoProgramadoController {
 
@@ -29,11 +30,12 @@ class CursoProgramadoController {
     }
   }
 
-  def save() {
+  def save(CursoProgramadoCommand cmd) {
     log.debug "Salvando cursoProgramado"
-    params.each { k, v ->
-      log.debug k
-    }
+    log.debug params as JSON
+
+    log.debug cmd.hasErrors()
+    log.debug cmd.errors
     // Map cursoProgramadoParams = params['curso_programado']
     // Date fechaDeInicio = Date.parse("E. MMM. dd yyyy", cursoProgramadoParams.fechaDeInicio)
     // CursoProgramado cursoProgramado = new CursoProgramado()
@@ -46,4 +48,20 @@ class CursoProgramadoController {
     // render(status:200)
   }
 
+}
+
+class CursoProgramadoCommand {
+  String fechaDeInicio
+  Long puerto
+  Long curso
+  Long instructor
+  List alumnos
+
+  static constraints = {
+    fechaDeInicio nullable: false
+    puerto nullable: false
+    curso nullable: false
+    instructor nullable: false
+    alumnos nullable: false
+  }
 }
