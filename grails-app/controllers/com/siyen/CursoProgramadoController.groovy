@@ -26,13 +26,11 @@ class CursoProgramadoController {
 
 
     render(contentType:"text/json") {
-      [curso_programados: listados, puertos:Puerto.list(), cursos: Curso.list(), instructores: Instructor.list(), alumnos : Alumno.list() ]
+      [cursosProgramados: listados, puertos:Puerto.list(), cursos: Curso.list(), instructores: Instructor.list(), alumnos : Alumno.list() ]
     }
   }
 
   def save(CursoProgramadoCommand cmd) {
-    log.debug "Salvando cursoProgramado"
-
     if(cmd.hasErrors()) {
       render (status : 400)
     }
