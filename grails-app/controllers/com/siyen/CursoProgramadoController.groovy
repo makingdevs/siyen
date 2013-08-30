@@ -52,9 +52,7 @@ class CursoProgramadoController {
 
     cursoProgramado.save(failOnError:true)
 
-    render(contentType:"text/json") {
-      [ cursoProgramado : cursoProgramado ]
-    }
+    render(status:200)
   }
 
 }
