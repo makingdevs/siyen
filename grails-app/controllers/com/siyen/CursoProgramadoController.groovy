@@ -26,13 +26,15 @@ class CursoProgramadoController {
 
 
     render(contentType:"text/json") {
-      [cursosProgramados: listados, puertos:Puerto.list(), cursos: Curso.list(), instructores: Instructor.list(), alumnos : Alumno.list() ]
+      [cursosProgramados: listados, puertos:Puerto.list(), cursos: Curso.list(), instructores: Instructor.list()]
     }
   }
 
   def save(CursoProgramadoCommand cmd) {
     if(cmd.hasErrors()) {
-      render (status : 400)
+      render (status : 400, contentType:"text/json") {
+        [ errors : cmd.hasErrors() ]
+      }
     }
 
     CursoProgramado cursoProgramado = new CursoProgramado()
@@ -48,9 +50,11 @@ class CursoProgramadoController {
       cursoProgramado.addToAlumnos(alumno)
     }
 
-    cursoProgramado.save()
+    cursoProgramado.save(failOnError:true)
 
-    render(status:200)
+    render(contentType:"text/json") {
+      [ cursoProgramado : cursoProgramado ]
+    }
   }
 
 }

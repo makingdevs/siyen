@@ -87,6 +87,10 @@ App.TextField = Ember.TextField.extend(Ember.TargetActionSupport,
     this.triggerAction()
 )
 
+App.CursosAutorizados = Ember.View.extend()
+
+Ember.TEMPLATES['cursosAutorizados'] = Ember.Handlebars.compile('<h1> Cursos Autorizados </h1>')
+
 Ember.TEMPLATES['cursosNuevos'] = Ember.Handlebars.compile('' +
   '<div class="page-header">' +
     '<h1>Nuevos cursos</h1>' +

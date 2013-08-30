@@ -6,7 +6,8 @@
         return this.route('participantes');
       });
     });
-    return this.resource('archivo');
+    this.resource('archivo');
+    return this.resource('cursosAutorizados');
   });
 
   App.CursosNuevosRoute = Ember.Route.extend();
