@@ -36,6 +36,8 @@ App.CursosNuevosController = Ember.ArrayController.extend
     ($ "#confirmarAutorizacionDialog").modal('hide')
     transaction.commit()
 
+App.CursosAutorizadosController = Ember.ArrayController.extend()
+
 App.CursosNuevosCrearController = Ember.ObjectController.extend()
 
 App.CrearController = Ember.ObjectController.extend
