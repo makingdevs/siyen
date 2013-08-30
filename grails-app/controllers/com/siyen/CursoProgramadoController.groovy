@@ -32,20 +32,27 @@ class CursoProgramadoController {
 
   def save(CursoProgramadoCommand cmd) {
     log.debug "Salvando cursoProgramado"
-    log.debug params as JSON
 
-    log.debug cmd.hasErrors()
-    log.debug cmd.errors
-    // Map cursoProgramadoParams = params['curso_programado']
-    // Date fechaDeInicio = Date.parse("E. MMM. dd yyyy", cursoProgramadoParams.fechaDeInicio)
-    // CursoProgramado cursoProgramado = new CursoProgramado()
-    // cursoProgramado.fechaDeInicio = fechaDeInicio
-    // cursoProgramado.puerto = Puerto.get(cursoProgramadoParams.puerto.toLong())
-    // cursoProgramado.curso = Curso.get(cursoProgramadoParams.curso.toLong())
-    // cursoProgramado.instructor = Instructor.get(cursoProgramadoParams.instructor.toLong())
-    // cursoProgramado.fechaDeTermino = fechaDeInicio.plus( cursoProgramado.curso.duracion )
-    // cursoProgramado.save()
-    // render(status:200)
+    if(cmd.hasErrors()) {
+      render (status : 400)
+    }
+
+    CursoProgramado cursoProgramado = new CursoProgramado()
+    Date fechaDeInicio = Date.parse("dd/MMM/yyyy", cmd.fechaDeInicio)
+    cursoProgramado.fechaDeInicio = fechaDeInicio
+    cursoProgramado.puerto = Puerto.get(cmd.puerto)
+    cursoProgramado.curso = Curso.get(cmd.curso)
+    cursoProgramado.instructor = Instructor.get(cmd.instructor)
+    cursoProgramado.fechaDeTermino = fechaDeInicio.clone().plus( cursoProgramado.curso.duracion )
+
+    cmd.alumnos.each {
+      Alumno alumno = new Alumno( nombreCompleto : it.nombre_completo, observaciones : it.observaciones )
+      cursoProgramado.addToAlumnos(alumno)
+    }
+
+    cursoProgramado.save()
+
+    render(status:200)
   }
 
 }
