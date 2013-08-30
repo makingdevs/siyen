@@ -18,4 +18,10 @@
 
   App.ArchivoRoute = Ember.Route.extend();
 
+  App.CursosAutorizadosRoute = Ember.Route.extend({
+    model: function() {
+      return App.CursoProgramado.find();
+    }
+  });
+
 }).call(this);
