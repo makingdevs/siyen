@@ -20,9 +20,9 @@ App.CursosNuevosController = Ember.ArrayController.extend
     transaction = @store.transaction()
     cursoProgramado = transaction.createRecord( App.CursoProgramado,
       fechaDeInicio : cursoAutorizado.get('fechaDeInicio').format('DD/MMMM/YYYY')
-      puertoSelected : cursoAutorizado.get('puerto')
-      instructorSelected : cursoAutorizado.get('instructor')
-      cursoSelected : cursoAutorizado.get('curso') )
+      puerto : cursoAutorizado.get('puerto')
+      instructor : cursoAutorizado.get('instructor')
+      curso : cursoAutorizado.get('curso') )
 
     for alumno in cursoAutorizado.get('alumnos')
       cursoProgramado.get('alumnos').createRecord
@@ -30,7 +30,6 @@ App.CursosNuevosController = Ember.ArrayController.extend
         observaciones : alumno.get('observaciones')
 
     ($ "#confirmarAutorizacionDialog").modal('hide')
-    console.log transaction
     transaction.commit()
 
 App.CursosNuevosCrearController = Ember.ObjectController.extend()

@@ -24,9 +24,9 @@
       transaction = this.store.transaction();
       cursoProgramado = transaction.createRecord(App.CursoProgramado, {
         fechaDeInicio: cursoAutorizado.get('fechaDeInicio').format('DD/MMMM/YYYY'),
-        puertoSelected: cursoAutorizado.get('puerto'),
-        instructorSelected: cursoAutorizado.get('instructor'),
-        cursoSelected: cursoAutorizado.get('curso')
+        puerto: cursoAutorizado.get('puerto'),
+        instructor: cursoAutorizado.get('instructor'),
+        curso: cursoAutorizado.get('curso')
       });
       _ref = cursoAutorizado.get('alumnos');
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -37,7 +37,6 @@
         });
       }
       ($("#confirmarAutorizacionDialog")).modal('hide');
-      console.log(transaction);
       return transaction.commit();
     }
   });
