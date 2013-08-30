@@ -14,24 +14,20 @@ DS.RESTAdapter.map 'App.CursoProgramado',
 
   alumnos : { embedded: 'always' }
 
-  keyForAttributeName: (type, name) ->
-    console.log "keyForAttributeName"
-    return name.underscore.toUpperCase()
-
 App.Store = DS.Store.extend
   revision: 13,
   adapter: DS.RESTAdapter.reopen
     namespace: "siyen"
-    serializer: DS.RESTSerializer.create
-      keyForBelongsTo: (type, name) ->
-        console.log "keyForBelongsTo"
-        return @.keyForAttributeName(type, name) + "Id"
 
-      keyForAttributeName: (type, name) ->
-        return name
+    createRecord : (store, type, record) ->
+      root = @rootForType(type)
+      adapter = @
+      data = {}
+      data = @serialize( record, includeId: true )
 
-      keyForHasMany : (type, name) ->
-        console.log "keyForHasMany"
-        console.log "#{name}"
-        return @.keyForAttributeName(type, name)
-
+      @ajax(@buildURL(root), "POST", data: data ).then((json) ->
+        adapter.didCreateRecord( store, type, record, json )
+      , (xhr) ->
+        adapter.didError store, type, record, xhr
+        throw xhr
+      ).then( null, DS.rejectionHandler )

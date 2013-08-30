@@ -28,10 +28,6 @@
     },
     alumnos: {
       embedded: 'always'
-    },
-    keyForAttributeName: function(type, name) {
-      console.log("keyForAttributeName");
-      return name.underscore.toUpperCase();
     }
   });
 
@@ -39,20 +35,23 @@
     revision: 13,
     adapter: DS.RESTAdapter.reopen({
       namespace: "siyen",
-      serializer: DS.RESTSerializer.create({
-        keyForBelongsTo: function(type, name) {
-          console.log("keyForBelongsTo");
-          return this.keyForAttributeName(type, name) + "Id";
-        },
-        keyForAttributeName: function(type, name) {
-          return name;
-        },
-        keyForHasMany: function(type, name) {
-          console.log("keyForHasMany");
-          console.log("" + name);
-          return this.keyForAttributeName(type, name);
-        }
-      })
+      createRecord: function(store, type, record) {
+        var adapter, data, root;
+        root = this.rootForType(type);
+        adapter = this;
+        data = {};
+        data = this.serialize(record, {
+          includeId: true
+        });
+        return this.ajax(this.buildURL(root), "POST", {
+          data: data
+        }).then(function(json) {
+          return adapter.didCreateRecord(store, type, record, json);
+        }, function(xhr) {
+          adapter.didError(store, type, record, xhr);
+          throw xhr;
+        }).then(null, DS.rejectionHandler);
+      }
     })
   });
 
