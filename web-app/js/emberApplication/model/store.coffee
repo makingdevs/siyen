@@ -1,5 +1,7 @@
 DS.RESTAdapter.configure "plurals",
   instructor: "instructores"
+  cursoProgramado : "cursosProgramados"
+  curso_programado : "cursos_programados"
 
 DS.RESTAdapter.map 'App.CursoProgramado',
   fechaDeInicio: { key: 'fechaDeInicio' }
@@ -16,7 +18,7 @@ DS.RESTAdapter.map 'App.CursoProgramado',
 
 App.Store = DS.Store.extend
   revision: 13,
-  adapter: DS.RESTAdapter.reopen
+  adapter: DS.RESTAdapter.extend
     namespace: "siyen"
 
     createRecord : (store, type, record) ->
