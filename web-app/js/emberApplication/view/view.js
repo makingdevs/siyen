@@ -79,6 +79,10 @@
     }
   });
 
+  App.CursosAutorizados = Ember.View.extend();
+
+  Ember.TEMPLATES['cursosAutorizados'] = Ember.Handlebars.compile('<h1> Cursos Autorizados </h1>');
+
   Ember.TEMPLATES['cursosNuevos'] = Ember.Handlebars.compile('' + '<div class="page-header">' + '<h1>Nuevos cursos</h1>' + '</div>' + '<table class="table table-condensed table-striped table-hover">' + '<thead>' + '<tr>' + '<th>Fecha de inicio</th>' + '<th>Puerto</th>' + '<th>Curso</th>' + '<th>Instructor</th>' + '<th>Participantes</th>' + '<th>Autorizar</th>' + '</tr>' + '</thead>' + '<tbody>' + '{{ view App.CursoNuevoListView }}' + '</tbody>' + '</table>' + '{{#linkTo "crear" class="btn btn-primary" }} Nuevo {{/linkTo}}' + '{{ outlet }}' + '{{view App.ConfirmDialogView ' + 'elementId="confirmarAutorizacionDialog" ' + 'okAction="doRealizarAutorizacion" ' + 'cancelAction="doCancelAutorizacion" ' + 'target="controller" ' + 'header="¿Autorizar curso?" ' + 'message="¿Está seguro de autorizar el curso? ¡Esta acción no se puede deshacer!"' + '}}');
 
   App.ConfirmDialogView = Ember.View.extend({

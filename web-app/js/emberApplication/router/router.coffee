@@ -5,6 +5,8 @@ App.Router.map ->
 
   @.resource 'archivo'
 
+  @resource 'cursosAutorizados'
+
 App.CursosNuevosRoute = Ember.Route.extend()
 App.CursosNuevosCrearRoute = Ember.Route.extend()
 App.CrearParticipantesRoute = Ember.Route.extend()

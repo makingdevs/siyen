@@ -29,6 +29,10 @@ App.CursosNuevosController = Ember.ArrayController.extend
         nombreCompleto : alumno.get('nombreCompleto')
         observaciones : alumno.get('observaciones')
 
+    cursoProgramado.on('didCreate', =>
+      @transitionToRoute('cursosAutorizados')
+    )
+
     ($ "#confirmarAutorizacionDialog").modal('hide')
     transaction.commit()
 
