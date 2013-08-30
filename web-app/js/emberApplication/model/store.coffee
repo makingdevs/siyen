@@ -12,7 +12,22 @@ DS.RESTAdapter.map 'App.CursoProgramado',
 
   statusCurso: { key: 'statusCurso' }
 
+  alumnos : { embedded: 'always' }
+
 App.Store = DS.Store.extend
   revision: 13,
   adapter: DS.RESTAdapter.reopen
     namespace: "siyen"
+
+    createRecord : (store, type, record) ->
+      root = @rootForType(type)
+      adapter = @
+      data = {}
+      data = @serialize( record, includeId: true )
+
+      @ajax(@buildURL(root), "POST", data: data ).then((json) ->
+        adapter.didCreateRecord( store, type, record, json )
+      , (xhr) ->
+        adapter.didError store, type, record, xhr
+        throw xhr
+      ).then( null, DS.rejectionHandler )

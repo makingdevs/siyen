@@ -25,13 +25,33 @@
     },
     statusCurso: {
       key: 'statusCurso'
+    },
+    alumnos: {
+      embedded: 'always'
     }
   });
 
   App.Store = DS.Store.extend({
     revision: 13,
     adapter: DS.RESTAdapter.reopen({
-      namespace: "siyen"
+      namespace: "siyen",
+      createRecord: function(store, type, record) {
+        var adapter, data, root;
+        root = this.rootForType(type);
+        adapter = this;
+        data = {};
+        data = this.serialize(record, {
+          includeId: true
+        });
+        return this.ajax(this.buildURL(root), "POST", {
+          data: data
+        }).then(function(json) {
+          return adapter.didCreateRecord(store, type, record, json);
+        }, function(xhr) {
+          adapter.didError(store, type, record, xhr);
+          throw xhr;
+        }).then(null, DS.rejectionHandler);
+      }
     })
   });
 

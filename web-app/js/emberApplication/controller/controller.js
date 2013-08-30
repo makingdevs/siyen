@@ -3,11 +3,42 @@
   App.CursosNuevosController = Ember.ArrayController.extend({
     content: [],
     currentCurso: null,
+    autorizarCurso: null,
     currentCursoObserves: (function() {
       if (this.currentCurso) {
         return this.transitionToRoute('crear.participantes');
       }
-    }).observes('currentCurso')
+    }).observes('currentCurso'),
+    autorizar: function() {
+      return ($("#confirmarAutorizacionDialog")).modal({
+        show: true
+      });
+    },
+    doCancelAutorizacion: function() {
+      ($("#confirmarAutorizacionDialog")).modal('hide');
+      return this.set('autorizarCurso', null);
+    },
+    doRealizarAutorizacion: function() {
+      var alumno, cursoAutorizado, cursoProgramado, transaction, _i, _len, _ref;
+      cursoAutorizado = this.get('autorizarCurso');
+      transaction = this.store.transaction();
+      cursoProgramado = transaction.createRecord(App.CursoProgramado, {
+        fechaDeInicio: cursoAutorizado.get('fechaDeInicio').format('DD/MMMM/YYYY'),
+        puerto: cursoAutorizado.get('puerto'),
+        instructor: cursoAutorizado.get('instructor'),
+        curso: cursoAutorizado.get('curso')
+      });
+      _ref = cursoAutorizado.get('alumnos');
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        alumno = _ref[_i];
+        cursoProgramado.get('alumnos').createRecord({
+          nombreCompleto: alumno.get('nombreCompleto'),
+          observaciones: alumno.get('observaciones')
+        });
+      }
+      ($("#confirmarAutorizacionDialog")).modal('hide');
+      return transaction.commit();
+    }
   });
 
   App.CursosNuevosCrearController = Ember.ObjectController.extend();

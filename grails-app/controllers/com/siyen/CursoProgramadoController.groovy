@@ -1,6 +1,7 @@
 package com.siyen
 
 import java.text.SimpleDateFormat
+import grails.converters.*
 
 class CursoProgramadoController {
 
@@ -29,20 +30,45 @@ class CursoProgramadoController {
     }
   }
 
-  def save() {
-    Map cursoProgramadoParams = params['curso_programado']
-    Date fechaDeInicio = Date.parse("E. MMM. dd yyyy", cursoProgramadoParams.fechaDeInicio)
+  def save(CursoProgramadoCommand cmd) {
+    log.debug "Salvando cursoProgramado"
+
+    if(cmd.hasErrors()) {
+      render (status : 400)
+    }
 
     CursoProgramado cursoProgramado = new CursoProgramado()
+    Date fechaDeInicio = Date.parse("dd/MMM/yyyy", cmd.fechaDeInicio)
     cursoProgramado.fechaDeInicio = fechaDeInicio
-    cursoProgramado.puerto = Puerto.get(cursoProgramadoParams.puerto.toLong())
-    cursoProgramado.curso = Curso.get(cursoProgramadoParams.curso.toLong())
-    cursoProgramado.instructor = Instructor.get(cursoProgramadoParams.instructor.toLong())
-    cursoProgramado.fechaDeTermino = fechaDeInicio.plus( cursoProgramado.curso.duracion )
+    cursoProgramado.puerto = Puerto.get(cmd.puerto)
+    cursoProgramado.curso = Curso.get(cmd.curso)
+    cursoProgramado.instructor = Instructor.get(cmd.instructor)
+    cursoProgramado.fechaDeTermino = fechaDeInicio.clone().plus( cursoProgramado.curso.duracion )
+
+    cmd.alumnos.each {
+      Alumno alumno = new Alumno( nombreCompleto : it.nombre_completo, observaciones : it.observaciones )
+      cursoProgramado.addToAlumnos(alumno)
+    }
 
     cursoProgramado.save()
 
     render(status:200)
   }
 
+}
+
+class CursoProgramadoCommand {
+  String fechaDeInicio
+  Long puerto
+  Long curso
+  Long instructor
+  List alumnos
+
+  static constraints = {
+    fechaDeInicio nullable: false
+    puerto nullable: false
+    curso nullable: false
+    instructor nullable: false
+    alumnos nullable: false
+  }
 }
