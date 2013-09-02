@@ -93,7 +93,7 @@ App.CrearController = Ember.ObjectController.extend
     @.set("instructorSelected", null)
     @.set("cursoSelected", null)
 
-    @.transitionToRoute('cursosNuevos.index')
+    @transitionToRoute('cursosNuevos.index')
 
 App.CrearParticipantesController = Ember.ObjectController.extend
   needs : "cursosNuevos"
@@ -122,6 +122,7 @@ App.CrearParticipantesController = Ember.ObjectController.extend
     @.set("observaciones", null)
 
 App.ArchivoController = Ember.ObjectController.extend
+  needs : ["cursosNuevos"]
   instructores : []
   puertos : []
   cursos : []
@@ -152,4 +153,16 @@ App.ArchivoController = Ember.ObjectController.extend
         )
 
   finalizar : ->
-    console.log "finalizar"
+    cursosNuevosController = @.get('controllers.cursosNuevos')
+    content = cursosNuevosController.get('content')
+
+    cursoProgramado = Ember.Object.create
+      "fechaDeInicio": moment(@.fechaDeInicio ? moment(), 'DD/MMMM/YYYY')
+      "puerto" : @get('puertoSelected')
+      "instructor" : @get('instructorSelected')
+      "curso" : @get('cursoSelected')
+      "alumnos" : @get('participantes')
+
+    content.pushObject( cursoProgramado )
+    cursosNuevosController.set( 'currentCurso', null )
+    @transitionToRoute('cursosNuevos.index')

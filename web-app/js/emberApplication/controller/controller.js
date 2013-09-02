@@ -127,6 +127,7 @@
   });
 
   App.ArchivoController = Ember.ObjectController.extend({
+    needs: ["cursosNuevos"],
     instructores: [],
     puertos: [],
     cursos: [],
@@ -162,7 +163,19 @@
       });
     },
     finalizar: function() {
-      return console.log("finalizar");
+      var content, cursoProgramado, cursosNuevosController, _ref;
+      cursosNuevosController = this.get('controllers.cursosNuevos');
+      content = cursosNuevosController.get('content');
+      cursoProgramado = Ember.Object.create({
+        "fechaDeInicio": moment((_ref = this.fechaDeInicio) != null ? _ref : moment(), 'DD/MMMM/YYYY'),
+        "puerto": this.get('puertoSelected'),
+        "instructor": this.get('instructorSelected'),
+        "curso": this.get('cursoSelected'),
+        "alumnos": this.get('participantes')
+      });
+      content.pushObject(cursoProgramado);
+      cursosNuevosController.set('currentCurso', null);
+      return this.transitionToRoute('cursosNuevos.index');
     }
   });
 
