@@ -206,53 +206,11 @@ App.BootstrapButton = Ember.View.extend(Ember.TargetActionSupport,
 Ember.TEMPLATES['crear'] = Ember.Handlebars.compile('' +
   '<div class="container-fluid">' +
     '<div class="row-fluid">' +
-
-      '<div class="span4">' +
-        '<div class="page-header">' +
-          '<h1>Programar nuevo curso</h1>' +
-        '</div>' +
-        '<div class="control-group">' +
-          '<label class="control-label" for="datepicker">Fecha de inicio :</label>' +
-          '<div class="controls">' +
-            '{{ view App.DatePickerView }}' +
-          '</div>' +
-        '</div>' +
-        '<div class="control-group">' +
-          '<label class="control-label" for="puerto">Puerto :</label>' +
-          '<div class="controls">' +
-            '{{ view Ember.Select prompt="Selecciona un puerto : "' +
-                                 'contentBinding="puertos"' +
-                                 'optionValuePath="content.clave"' +
-                                 'optionLabelPath="content.puerto"' +
-                                 'selectionBinding="puertoSelected" }}' +
-          '</div>' +
-        '</div>' +
-        '<div class="control-group">' +
-          '<label class="control-label" for="instructores">Instructor :</label>' +
-          '<div class="controls">' +
-            '{{ view Ember.Select prompt="Selecciona un instructor : "' +
-                                 'contentBinding="instructores"' +
-                                 'optionValuePath="content.numeroDeOficio"' +
-                                 'optionLabelPath="content.nombre"' +
-                                 'selectionBinding="instructorSelected" }}' +
-          '</div>' +
-        '</div>' +
-        '<div class="control-group">' +
-          '<label class="control-label" for="cursos">Curso :</label>' +
-          '<div class="controls">' +
-            '{{ view Ember.Select prompt="Selecciona un curso : "' +
-                                 'contentBinding="cursos"' +
-                                 'optionValuePath="content.clave"' +
-                                 'optionLabelPath="content.nombre"' +
-                                 'selectionBinding="cursoSelected" }}' +
-          '</div>' +
-        '</div>' +
-        '<div class="form-actions">' +
-          '<button {{ action "crear" }} class="btn btn-primary" > Crear y agregar participantes </button>' +
-          '<button {{ action "finalizar" }} class="btn btn-success" > Finalizar </button>' +
-        '</div>' +
-      '</div>' +
-
+      '{{ view App.CursoNuevoFormulario ' +
+              'crearAgregarAction="crear" ' +
+              'target="controller" ' +
+              'header="Programar nuevo curso" ' +
+      '}}' +
       '{{ outlet }}' +
     '</div>' +
   '</div>')
@@ -313,19 +271,28 @@ Ember.TEMPLATES['archivo'] = Ember.Handlebars.compile('' +
       '</div>' +
 
       '{{#if participantes}}' +
-        '{{ view App.CursoNuevoFormulario }}' +
+        '{{ view App.CursoNuevoFormulario ' +
+            'target="controller" ' +
+            'header="Datos del curso" ' +
+        '}}' +
       '{{/if}}' +
     '</div>' +
   '</div>' )
 
 App.CursoNuevoFormulario = Ember.View.extend
   templateName: 'cursoNuevoForm'
+  finalizarButtonLabel: "Finalizar"
+  finalizarAction: "finalizar"
+  crearAgregarButtonLabel: "Crear y agregar participantes"
+  crearAgregarAction: null
+  header: null
+  target: null
 
 
 Ember.TEMPLATES['cursoNuevoForm'] = Ember.Handlebars.compile(
     '<div class="span4">' +
       '<div class="page-header">' +
-        '<h1>Datos del curso 1</h1>' +
+        '<h1> {{ view.header }} </h1>' +
       '</div>' +
       '<div class="control-group">' +
         '<label class="control-label" for="datepicker">Fecha de inicio :</label>' +
@@ -364,6 +331,19 @@ Ember.TEMPLATES['cursoNuevoForm'] = Ember.Handlebars.compile(
         '</div>' +
       '</div>' +
       '<div class="form-actions">' +
-        '<button {{ action "finalizar" }} class="btn btn-success" > Finalizar </button>' +
+        '{{ view App.BootstrapButton ' +
+                'contentBinding="view.finalizarButtonLabel" ' +
+                'actionBinding="view.finalizarAction" ' +
+                'targetBinding="view.target" ' +
+                'classNames="btn-success"' +
+        '}}' +
+        '{{#if view.crearAgregarAction}}' +
+          '{{ view App.BootstrapButton ' +
+                  'contentBinding="view.crearAgregarButtonLabel" ' +
+                  'actionBinding="view.crearAgregarAction" ' +
+                  'targetBinding="view.target" ' +
+                  'classNames="btn-primary btn"' +
+          '}}' +
+        '{{/if}}' +
       '</div>' +
     '</div>' )
