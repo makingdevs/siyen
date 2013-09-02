@@ -312,52 +312,55 @@ Ember.TEMPLATES['archivo'] = Ember.Handlebars.compile('' +
         '</ul>' +
       '</div>' +
 
-      '<div class="span4">' +
-        '{{#if participantes}}' +
-          '<div class="page-header">' +
-            '<h1>Datos del curso</h1>' +
-          '</div>' +
-          '<div class="control-group">' +
-            '<label class="control-label" for="datepicker">Fecha de inicio :</label>' +
-            '<div class="controls">' +
-              '{{ view App.DatePickerView }}' +
-            '</div>' +
-          '</div>' +
-          '<div class="control-group">' +
-            '<label class="control-label" for="puerto">Puerto :</label>' +
-            '<div class="controls">' +
-              '{{ view Ember.Select prompt="Selecciona un puerto : "' +
-                                   'contentBinding="puertos"' +
-                                   'optionValuePath="content.clave"' +
-                                   'optionLabelPath="content.puerto"' +
-                                   'selectionBinding="puertoSelected" }}' +
-            '</div>' +
-          '</div>' +
-          '<div class="control-group">' +
-            '<label class="control-label" for="instructores">Instructor :</label>' +
-            '<div class="controls">' +
-              '{{ view Ember.Select prompt="Selecciona un instructor : "' +
-                                   'contentBinding="instructores"' +
-                                   'optionValuePath="content.numeroDeOficio"' +
-                                   'optionLabelPath="content.nombre"' +
-                                   'selectionBinding="instructorSelected" }}' +
-            '</div>' +
-          '</div>' +
-          '<div class="control-group">' +
-            '<label class="control-label" for="cursos">Curso :</label>' +
-            '<div class="controls">' +
-              '{{ view Ember.Select prompt="Selecciona un curso : "' +
-                                   'contentBinding="cursos"' +
-                                   'optionValuePath="content.clave"' +
-                                   'optionLabelPath="content.nombre"' +
-                                   'selectionBinding="cursoSelected" }}' +
-            '</div>' +
-          '</div>' +
-          '<div class="form-actions">' +
-            '<button {{ action "finalizar" }} class="btn btn-success" > Finalizar </button>' +
-          '</div>' +
-        '{{/if}}' +
-      '</div>' +
+      '{{#if participantes}}' +
+        '{{ view App.CursoNuevoFormulario }}' +
+      '{{/if}}' +
     '</div>' +
   '</div>' )
 
+App.CursoNuevoFormulario = Ember.View.extend
+  template : Ember.Handlebars.compile('' +
+    '<div class="span4">' +
+      '<div class="page-header">' +
+        '<h1>Datos del curso</h1>' +
+      '</div>' +
+      '<div class="control-group">' +
+        '<label class="control-label" for="datepicker">Fecha de inicio :</label>' +
+        '<div class="controls">' +
+          '{{ view App.DatePickerView }}' +
+        '</div>' +
+      '</div>' +
+      '<div class="control-group">' +
+        '<label class="control-label" for="puerto">Puerto :</label>' +
+        '<div class="controls">' +
+          '{{ view Ember.Select prompt="Selecciona un puerto : "' +
+                               'contentBinding="puertos"' +
+                               'optionValuePath="content.clave"' +
+                               'optionLabelPath="content.puerto"' +
+                               'selectionBinding="puertoSelected" }}' +
+        '</div>' +
+      '</div>' +
+      '<div class="control-group">' +
+        '<label class="control-label" for="instructores">Instructor :</label>' +
+        '<div class="controls">' +
+          '{{ view Ember.Select prompt="Selecciona un instructor : "' +
+                               'contentBinding="instructores"' +
+                               'optionValuePath="content.numeroDeOficio"' +
+                               'optionLabelPath="content.nombre"' +
+                               'selectionBinding="instructorSelected" }}' +
+        '</div>' +
+      '</div>' +
+      '<div class="control-group">' +
+        '<label class="control-label" for="cursos">Curso :</label>' +
+        '<div class="controls">' +
+          '{{ view Ember.Select prompt="Selecciona un curso : "' +
+                               'contentBinding="cursos"' +
+                               'optionValuePath="content.clave"' +
+                               'optionLabelPath="content.nombre"' +
+                               'selectionBinding="cursoSelected" }}' +
+        '</div>' +
+      '</div>' +
+      '<div class="form-actions">' +
+        '<button {{ action "finalizar" }} class="btn btn-success" > Finalizar </button>' +
+      '</div>' +
+    '</div>' )
