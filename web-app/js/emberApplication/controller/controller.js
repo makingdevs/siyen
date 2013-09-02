@@ -127,7 +127,21 @@
   });
 
   App.ArchivoController = Ember.ObjectController.extend({
+    needs: ["cursosNuevos"],
+    instructores: [],
+    puertos: [],
+    cursos: [],
+    fechaDeInicio: null,
+    puertoSelected: null,
+    instructorSelected: null,
+    cursoSelected: null,
     participantes: [],
+    init: function() {
+      this._super();
+      this.set('instructores', App.Instructor.find());
+      this.set('puertos', App.Puerto.find());
+      return this.set('cursos', App.Curso.find());
+    },
     procesarArchivo: function() {
       var dropzone,
         _this = this;
@@ -149,7 +163,19 @@
       });
     },
     finalizar: function() {
-      return console.log("finalizar");
+      var content, cursoProgramado, cursosNuevosController, _ref;
+      cursosNuevosController = this.get('controllers.cursosNuevos');
+      content = cursosNuevosController.get('content');
+      cursoProgramado = Ember.Object.create({
+        "fechaDeInicio": moment((_ref = this.fechaDeInicio) != null ? _ref : moment(), 'DD/MMMM/YYYY'),
+        "puerto": this.get('puertoSelected'),
+        "instructor": this.get('instructorSelected'),
+        "curso": this.get('cursoSelected'),
+        "alumnos": this.get('participantes')
+      });
+      content.pushObject(cursoProgramado);
+      cursosNuevosController.set('currentCurso', null);
+      return this.transitionToRoute('cursosNuevos.index');
     }
   });
 
