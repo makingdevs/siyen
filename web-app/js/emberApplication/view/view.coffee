@@ -142,13 +142,13 @@ Ember.TEMPLATES['cursosNuevos'] = Ember.Handlebars.compile('' +
   '{{#linkTo "crear" class="btn btn-primary" }} Nuevo {{/linkTo}}' +
   '{{ outlet }}' +
 
-  '{{view App.ConfirmDialogView ' +
-      'elementId="confirmarAutorizacionDialog" ' +
-      'okAction="doRealizarAutorizacion" ' +
-      'cancelAction="doCancelAutorizacion" ' +
-      'target="controller" ' +
-      'header="¿Autorizar curso?" ' +
-      'message="¿Está seguro de autorizar el curso? ¡Esta acción no se puede deshacer!"' +
+  '{{ view App.ConfirmDialogView ' +
+       'elementId="confirmarAutorizacionDialog" ' +
+       'okAction="doRealizarAutorizacion" ' +
+       'cancelAction="doCancelAutorizacion" ' +
+       'target="controller" ' +
+       'header="¿Autorizar curso?" ' +
+       'message="¿Está seguro de autorizar el curso? ¡Esta acción no se puede deshacer!"' +
   '}}' )
 
 App.ConfirmDialogView = Ember.View.extend
@@ -319,10 +319,13 @@ Ember.TEMPLATES['archivo'] = Ember.Handlebars.compile('' +
   '</div>' )
 
 App.CursoNuevoFormulario = Ember.View.extend
-  template : Ember.Handlebars.compile('' +
+  templateName: 'cursoNuevoForm'
+
+
+Ember.TEMPLATES['cursoNuevoForm'] = Ember.Handlebars.compile(
     '<div class="span4">' +
       '<div class="page-header">' +
-        '<h1>Datos del curso</h1>' +
+        '<h1>Datos del curso 1</h1>' +
       '</div>' +
       '<div class="control-group">' +
         '<label class="control-label" for="datepicker">Fecha de inicio :</label>' +
