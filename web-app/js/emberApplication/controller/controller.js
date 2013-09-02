@@ -142,7 +142,7 @@
           fila = _ref[_i];
           _results.push(_this.participantes.pushObject(Ember.Object.create({
             nombreCompleto: fila.get(1),
-            observaciones: fila.get(2)
+            observaciones: $.trim(fila.get(2))
           })));
         }
         return _results;
