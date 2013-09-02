@@ -134,5 +134,8 @@ App.ArchivoController = Ember.ObjectController.extend
       for fila in response.contenidoDeFilas
         @.participantes.pushObject( Ember.Object.create
           nombreCompleto : fila.get(1)
-          observaciones : fila.get(2)
+          observaciones : $.trim(fila.get(2))
         )
+
+  finalizar : ->
+    console.log "finalizar"

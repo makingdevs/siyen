@@ -5,8 +5,6 @@ import jxl.*
 class ProcesarArchivoController {
 
   def procesarArchivo() {
-
-    log.debug "params : $params"
     FileInputStream excelParaProcesar = params.file.inputStream
     WorkbookSettings ws = new WorkbookSettings()
     ws.setEncoding("Cp1252")
