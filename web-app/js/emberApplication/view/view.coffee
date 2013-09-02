@@ -89,7 +89,36 @@ App.TextField = Ember.TextField.extend(Ember.TargetActionSupport,
 
 App.CursosAutorizados = Ember.View.extend()
 
-Ember.TEMPLATES['cursosAutorizados'] = Ember.Handlebars.compile('<h1> Cursos Autorizados </h1>')
+Ember.TEMPLATES['cursosAutorizados'] = Ember.Handlebars.compile('' +
+  '<div class="page-header">' +
+    '<h1>Cursos programados</h1>' +
+  '</div>' +
+  '<table class="table table-condensed table-striped table-hover">' +
+    '<thead>' +
+      '<tr>' +
+        '<th>Fecha de inicio</th>' +
+        '<th>Fecha de termino</th>' +
+        '<th>Puerto</th>' +
+        '<th>Curso</th>' +
+        '<th>Instructor</th>' +
+        '<th>Estado</th>' +
+        '<th>Participantes</th>' +
+      '</tr>' +
+    '</thead>' +
+    '<tbody>' +
+      '{{#each cursoProgramado in controller}}' +
+        '<tr>' +
+          '<td> {{ date cursoProgramado.fechaDeInicio }} </td>' +
+          '<td> {{ date cursoProgramado.fechaDeTermino }} </td>' +
+          '<td> {{ cursoProgramado.puerto.puerto }} </td>' +
+          '<td> {{ cursoProgramado.curso.nombre }} </td>' +
+          '<td> {{ cursoProgramado.instructor.nombre }} </td>' +
+          '<td> {{ cursoProgramado.statusCurso }} </td>' +
+          '<td> {{ cursoProgramado.alumnos.length }} </td>' +
+        '</tr>' +
+      '{{/each}}' +
+    '</tbody>' +
+  '</table>' )
 
 Ember.TEMPLATES['cursosNuevos'] = Ember.Handlebars.compile('' +
   '<div class="page-header">' +

@@ -26,7 +26,7 @@ class CursoProgramadoController {
 
 
     render(contentType:"text/json") {
-      [cursosProgramados: listados, puertos:Puerto.list(), cursos: Curso.list(), instructores: Instructor.list()]
+      [cursos_programados: listados, puertos:Puerto.list(), cursos: Curso.list(), instructores: Instructor.list()]
     }
   }
 
@@ -52,8 +52,19 @@ class CursoProgramadoController {
 
     cursoProgramado.save(failOnError:true)
 
+    def listado = [:]
+    listado.id = cursoProgramado.id
+    listado.fechaDeInicio = cursoProgramado.fechaDeInicio
+    listado.fechaDeTermino = cursoProgramado.fechaDeTermino
+    listado.dateCreated = cursoProgramado.dateCreated
+    listado.puerto = cursoProgramado.puerto.id
+    listado.curso = cursoProgramado.curso.id
+    listado.instructor = cursoProgramado.instructor.id
+    listado.statusCurso = cursoProgramado.statusCurso.key
+    listado.alumnos = cursoProgramado.alumnos
+
     render(contentType:"text/json") {
-      [ cursoProgramado : cursoProgramado ]
+      [curso_programado: listado, puertos:Puerto.list(), cursos: Curso.list(), instructores: Instructor.list()]
     }
   }
 
