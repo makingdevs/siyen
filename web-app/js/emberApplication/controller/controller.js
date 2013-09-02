@@ -19,8 +19,7 @@
       return this.set('autorizarCurso', null);
     },
     doRealizarAutorizacion: function() {
-      var alumno, cursoAutorizado, cursoProgramado, transaction, _i, _len, _ref,
-        _this = this;
+      var alumno, cursoAutorizado, cursoProgramado, transaction, _i, _len, _ref;
       cursoAutorizado = this.get('autorizarCurso');
       transaction = this.store.transaction();
       cursoProgramado = transaction.createRecord(App.CursoProgramado, {
@@ -37,8 +36,9 @@
           observaciones: alumno.get('observaciones')
         });
       }
-      cursoProgramado.on('didCreate', function() {
-        return _this.transitionToRoute('cursosAutorizados');
+      cursoProgramado.one('didCreate', this, function() {
+        this.content.removeObject(this.get('autorizarCurso'));
+        return this.transitionToRoute('cursosAutorizados');
       });
       ($("#confirmarAutorizacionDialog")).modal('hide');
       return transaction.commit();

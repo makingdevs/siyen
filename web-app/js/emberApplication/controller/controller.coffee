@@ -29,7 +29,8 @@ App.CursosNuevosController = Ember.ArrayController.extend
         nombreCompleto : alumno.get('nombreCompleto')
         observaciones : alumno.get('observaciones')
 
-    cursoProgramado.on('didCreate', =>
+    cursoProgramado.one('didCreate', @, () ->
+      @content.removeObject(@.get('autorizarCurso'))
       @transitionToRoute('cursosAutorizados')
     )
 
