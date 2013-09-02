@@ -147,6 +147,9 @@
         }
         return _results;
       });
+    },
+    finalizar: function() {
+      return console.log("finalizar");
     }
   });
 
