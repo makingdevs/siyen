@@ -122,8 +122,22 @@ App.CrearParticipantesController = Ember.ObjectController.extend
     @.set("observaciones", null)
 
 App.ArchivoController = Ember.ObjectController.extend
+  instructores : []
+  puertos : []
+  cursos : []
+
+  fechaDeInicio : null
+  puertoSelected : null
+  instructorSelected : null
+  cursoSelected : null
 
   participantes : []
+
+  init : ->
+    @._super()
+    @.set 'instructores', App.Instructor.find()
+    @.set 'puertos', App.Puerto.find()
+    @.set 'cursos', App.Curso.find()
 
   procesarArchivo : ->
     dropzone = Dropzone.forElement("div#dropzone.dropzone")

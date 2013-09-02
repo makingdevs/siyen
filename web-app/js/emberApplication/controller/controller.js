@@ -127,7 +127,20 @@
   });
 
   App.ArchivoController = Ember.ObjectController.extend({
+    instructores: [],
+    puertos: [],
+    cursos: [],
+    fechaDeInicio: null,
+    puertoSelected: null,
+    instructorSelected: null,
+    cursoSelected: null,
     participantes: [],
+    init: function() {
+      this._super();
+      this.set('instructores', App.Instructor.find());
+      this.set('puertos', App.Puerto.find());
+      return this.set('cursos', App.Curso.find());
+    },
     procesarArchivo: function() {
       var dropzone,
         _this = this;
