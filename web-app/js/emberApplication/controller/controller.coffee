@@ -52,6 +52,12 @@ App.CrearController = Ember.ObjectController.extend
   instructorSelected : null
   cursoSelected : null
 
+  init : ->
+    @._super()
+    @.set 'instructores', App.Instructor.find()
+    @.set 'puertos', App.Puerto.find()
+    @.set 'cursos', App.Curso.find()
+
   currentCursoObserves : (->
     cursosNuevosController = @.get('controllers.cursosNuevos')
     currentCurso = cursosNuevosController.get('currentCurso')
@@ -64,36 +70,32 @@ App.CrearController = Ember.ObjectController.extend
 
   ).observes('controllers.cursosNuevos.currentCurso')
 
-  init : ->
-    @._super()
-    @.set 'instructores', App.Instructor.find()
-    @.set 'puertos', App.Puerto.find()
-    @.set 'cursos', App.Curso.find()
+  actions :
 
-  crear : ->
-    cursosNuevosController = @.get('controllers.cursosNuevos')
-    content = cursosNuevosController.get('content')
+    crear : ->
+      cursosNuevosController = @.get('controllers.cursosNuevos')
+      content = cursosNuevosController.get('content')
 
-    cursoProgramado = Ember.Object.create
-      "fechaDeInicio": moment(@.fechaDeInicio ? moment(), 'DD/MMMM/YYYY')
-      "puerto" : @.get('puertoSelected')
-      "instructor" : @.get('instructorSelected')
-      "curso" : @.get('cursoSelected')
-      "alumnos" : []
+      cursoProgramado = Ember.Object.create
+        "fechaDeInicio": moment(@.fechaDeInicio ? moment(), 'DD/MMMM/YYYY')
+        "puerto" : @.get('puertoSelected')
+        "instructor" : @.get('instructorSelected')
+        "curso" : @.get('cursoSelected')
+        "alumnos" : []
 
-    content.pushObject( cursoProgramado )
-    cursosNuevosController.set( 'currentCurso', cursoProgramado )
+      content.pushObject( cursoProgramado )
+      cursosNuevosController.set( 'currentCurso', cursoProgramado )
 
-  finalizar : ->
-    cursosNuevosController = @.get('controllers.cursosNuevos')
-    cursosNuevosController.set( 'currentCurso', null )
+    finalizar : ->
+      cursosNuevosController = @.get('controllers.cursosNuevos')
+      cursosNuevosController.set( 'currentCurso', null )
 
-    @.set("fechaDeInicio", moment().format('DD/MMMM/YYYY'))
-    @.set("puertoSelected", null)
-    @.set("instructorSelected", null)
-    @.set("cursoSelected", null)
+      @.set("fechaDeInicio", moment().format('DD/MMMM/YYYY'))
+      @.set("puertoSelected", null)
+      @.set("instructorSelected", null)
+      @.set("cursoSelected", null)
 
-    @transitionToRoute('cursosNuevos.index')
+      @transitionToRoute('cursosNuevos.index')
 
 App.CrearParticipantesController = Ember.ObjectController.extend
   needs : "cursosNuevos"

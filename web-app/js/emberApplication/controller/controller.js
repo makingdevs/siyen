@@ -58,6 +58,12 @@
     puertoSelected: null,
     instructorSelected: null,
     cursoSelected: null,
+    init: function() {
+      this._super();
+      this.set('instructores', App.Instructor.find());
+      this.set('puertos', App.Puerto.find());
+      return this.set('cursos', App.Curso.find());
+    },
     currentCursoObserves: (function() {
       var currentCurso, cursosNuevosController;
       cursosNuevosController = this.get('controllers.cursosNuevos');
@@ -69,35 +75,31 @@
         return this.set("cursoSelected", currentCurso.get('curso'));
       }
     }).observes('controllers.cursosNuevos.currentCurso'),
-    init: function() {
-      this._super();
-      this.set('instructores', App.Instructor.find());
-      this.set('puertos', App.Puerto.find());
-      return this.set('cursos', App.Curso.find());
-    },
-    crear: function() {
-      var content, cursoProgramado, cursosNuevosController, _ref;
-      cursosNuevosController = this.get('controllers.cursosNuevos');
-      content = cursosNuevosController.get('content');
-      cursoProgramado = Ember.Object.create({
-        "fechaDeInicio": moment((_ref = this.fechaDeInicio) != null ? _ref : moment(), 'DD/MMMM/YYYY'),
-        "puerto": this.get('puertoSelected'),
-        "instructor": this.get('instructorSelected'),
-        "curso": this.get('cursoSelected'),
-        "alumnos": []
-      });
-      content.pushObject(cursoProgramado);
-      return cursosNuevosController.set('currentCurso', cursoProgramado);
-    },
-    finalizar: function() {
-      var cursosNuevosController;
-      cursosNuevosController = this.get('controllers.cursosNuevos');
-      cursosNuevosController.set('currentCurso', null);
-      this.set("fechaDeInicio", moment().format('DD/MMMM/YYYY'));
-      this.set("puertoSelected", null);
-      this.set("instructorSelected", null);
-      this.set("cursoSelected", null);
-      return this.transitionToRoute('cursosNuevos.index');
+    actions: {
+      crear: function() {
+        var content, cursoProgramado, cursosNuevosController, _ref;
+        cursosNuevosController = this.get('controllers.cursosNuevos');
+        content = cursosNuevosController.get('content');
+        cursoProgramado = Ember.Object.create({
+          "fechaDeInicio": moment((_ref = this.fechaDeInicio) != null ? _ref : moment(), 'DD/MMMM/YYYY'),
+          "puerto": this.get('puertoSelected'),
+          "instructor": this.get('instructorSelected'),
+          "curso": this.get('cursoSelected'),
+          "alumnos": []
+        });
+        content.pushObject(cursoProgramado);
+        return cursosNuevosController.set('currentCurso', cursoProgramado);
+      },
+      finalizar: function() {
+        var cursosNuevosController;
+        cursosNuevosController = this.get('controllers.cursosNuevos');
+        cursosNuevosController.set('currentCurso', null);
+        this.set("fechaDeInicio", moment().format('DD/MMMM/YYYY'));
+        this.set("puertoSelected", null);
+        this.set("instructorSelected", null);
+        this.set("cursoSelected", null);
+        return this.transitionToRoute('cursosNuevos.index');
+      }
     }
   });
 
