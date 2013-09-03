@@ -10,32 +10,33 @@ App.CursosNuevosController = Ember.ArrayController.extend
   autorizar : ->
     ($ "#confirmarAutorizacionDialog").modal( show: true )
 
-  doCancelAutorizacion : ->
-    ($ "#confirmarAutorizacionDialog").modal('hide')
-    @.set( 'autorizarCurso', null )
+  actions :
+    doCancelAutorizacion : ->
+      ($ "#confirmarAutorizacionDialog").modal('hide')
+      @.set( 'autorizarCurso', null )
 
-  doRealizarAutorizacion : ->
-    cursoAutorizado = @.get('autorizarCurso')
+    doRealizarAutorizacion : ->
+      cursoAutorizado = @.get('autorizarCurso')
     
-    transaction = @store.transaction()
-    cursoProgramado = transaction.createRecord( App.CursoProgramado,
-      fechaDeInicio : cursoAutorizado.get('fechaDeInicio').format('DD/MMMM/YYYY')
-      puerto : cursoAutorizado.get('puerto')
-      instructor : cursoAutorizado.get('instructor')
-      curso : cursoAutorizado.get('curso') )
+      transaction = @store.transaction()
+      cursoProgramado = transaction.createRecord( App.CursoProgramado,
+        fechaDeInicio : cursoAutorizado.get('fechaDeInicio').format('DD/MMMM/YYYY')
+        puerto : cursoAutorizado.get('puerto')
+        instructor : cursoAutorizado.get('instructor')
+        curso : cursoAutorizado.get('curso') )
 
-    for alumno in cursoAutorizado.get('alumnos')
-      cursoProgramado.get('alumnos').createRecord
-        nombreCompleto : alumno.get('nombreCompleto')
-        observaciones : alumno.get('observaciones')
+      for alumno in cursoAutorizado.get('alumnos')
+        cursoProgramado.get('alumnos').createRecord
+          nombreCompleto : alumno.get('nombreCompleto')
+          observaciones : alumno.get('observaciones')
 
-    cursoProgramado.one('didCreate', @, () ->
-      @content.removeObject(@.get('autorizarCurso'))
-      @transitionToRoute('cursosAutorizados')
-    )
+      cursoProgramado.one('didCreate', @, () ->
+        @content.removeObject(@.get('autorizarCurso'))
+        @transitionToRoute('cursosAutorizados')
+      )
 
-    ($ "#confirmarAutorizacionDialog").modal('hide')
-    transaction.commit()
+      ($ "#confirmarAutorizacionDialog").modal('hide')
+      transaction.commit()
 
 App.CursosAutorizadosController = Ember.ArrayController.extend()
 
@@ -113,15 +114,16 @@ App.CrearParticipantesController = Ember.ObjectController.extend
 
   ).observes('controllers.cursosNuevos.currentCurso')
 
-  agregar : ->
-    currentCurso = @.get('controllers.cursosNuevos').get('currentCurso')
-    currentCurso.get('alumnos').pushObject(Ember.Object.create
-      nombreCompleto : @.nombreCompleto
-      observaciones : @.observaciones
-    )
+  actions :
+    agregar : ->
+      currentCurso = @.get('controllers.cursosNuevos').get('currentCurso')
+      currentCurso.get('alumnos').pushObject(Ember.Object.create
+        nombreCompleto : @.nombreCompleto
+        observaciones : @.observaciones
+      )
 
-    @.set("nombreCompleto", null)
-    @.set("observaciones", null)
+      @.set("nombreCompleto", null)
+      @.set("observaciones", null)
 
 App.ArchivoController = Ember.ObjectController.extend
   needs : ["cursosNuevos"]
@@ -142,29 +144,30 @@ App.ArchivoController = Ember.ObjectController.extend
     @.set 'puertos', App.Puerto.find()
     @.set 'cursos', App.Curso.find()
 
-  procesarArchivo : ->
-    dropzone = Dropzone.forElement("div#dropzone.dropzone")
-    dropzone.processQueue()
+  actions :
+    procesarArchivo : ->
+      dropzone = Dropzone.forElement("div#dropzone.dropzone")
+      dropzone.processQueue()
 
-    dropzone.on "success", (file, response) =>
-      file.previewElement.classList.add("dz-success")
-      for fila in response.contenidoDeFilas
-        @.participantes.pushObject( Ember.Object.create
-          nombreCompleto : fila.get(1)
-          observaciones : $.trim(fila.get(2))
-        )
+      dropzone.on "success", (file, response) =>
+        file.previewElement.classList.add("dz-success")
+        for fila in response.contenidoDeFilas
+          @.participantes.pushObject( Ember.Object.create
+            nombreCompleto : fila.get(1)
+            observaciones : $.trim(fila.get(2))
+          )
 
-  finalizar : ->
-    cursosNuevosController = @.get('controllers.cursosNuevos')
-    content = cursosNuevosController.get('content')
+    finalizar : ->
+      cursosNuevosController = @.get('controllers.cursosNuevos')
+      content = cursosNuevosController.get('content')
 
-    cursoProgramado = Ember.Object.create
-      "fechaDeInicio": moment(@.fechaDeInicio ? moment(), 'DD/MMMM/YYYY')
-      "puerto" : @get('puertoSelected')
-      "instructor" : @get('instructorSelected')
-      "curso" : @get('cursoSelected')
-      "alumnos" : @get('participantes')
+      cursoProgramado = Ember.Object.create
+        "fechaDeInicio": moment(@.fechaDeInicio ? moment(), 'DD/MMMM/YYYY')
+        "puerto" : @get('puertoSelected')
+        "instructor" : @get('instructorSelected')
+        "curso" : @get('cursoSelected')
+        "alumnos" : @get('participantes')
 
-    content.pushObject( cursoProgramado )
-    cursosNuevosController.set( 'currentCurso', null )
-    @transitionToRoute('cursosNuevos.index')
+      content.pushObject( cursoProgramado )
+      cursosNuevosController.set( 'currentCurso', null )
+      @transitionToRoute('cursosNuevos.index')
