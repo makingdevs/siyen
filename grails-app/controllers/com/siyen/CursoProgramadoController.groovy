@@ -33,7 +33,7 @@ class CursoProgramadoController {
   def save(CursoProgramadoCommand cmd) {
     if(cmd.hasErrors()) {
       render (status : 400, contentType:"text/json") {
-        [ errors : cmd.hasErrors() ]
+        [ errors : cmd.errors ]
       }
     }
 
@@ -46,7 +46,17 @@ class CursoProgramadoController {
     cursoProgramado.fechaDeTermino = fechaDeInicio.clone().plus( cursoProgramado.curso.duracion )
 
     cmd.alumnos.each {
-      Alumno alumno = new Alumno( nombreCompleto : it.nombre_completo, observaciones : it.observaciones )
+      String prefijo = "II"
+      Integer numerosEnMatricula = 6
+
+      Integer id = (Alumno.createCriteria().get {
+        projections {
+            max "id"
+        }
+      } ?: 0) + 1
+      String numeroDeControl = prefijo + String.format("%0${numerosEnMatricula}d", id)
+
+      Alumno alumno = new Alumno( numeroDeControl:numeroDeControl, nombreCompleto : it.nombre_completo, observaciones : it.observaciones )
       cursoProgramado.addToAlumnos(alumno)
     }
 
