@@ -9,7 +9,7 @@ class Alumno {
   static belongsTo = [cursoProgramado : CursoProgramado]
 
   static constraints = {
-    numeroDeControl size:1..8, blank:false // cambiar a 8..8
+    numeroDeControl size:8..8, blank:false // cambiar a 8..8
     nombreCompleto size:1..255, blank:false
     observaciones size:1..500, blank: true, nullable: true
   }
