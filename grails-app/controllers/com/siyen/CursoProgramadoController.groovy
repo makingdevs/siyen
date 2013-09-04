@@ -45,7 +45,6 @@ class CursoProgramadoController {
     listado.id = cursoProgramado.id
     listado.fechaDeInicio = cursoProgramado.fechaDeInicio
     listado.fechaDeTermino = cursoProgramado.fechaDeTermino
-    listado.dateCreated = cursoProgramado.dateCreated
     listado.puerto = cursoProgramado.puerto.id
     listado.curso = cursoProgramado.curso.id
     listado.instructor = cursoProgramado.instructor.id
