@@ -41,19 +41,13 @@ class CursoProgramadoController {
 
     CursoProgramado cursoProgramado = cursoProgramadoService.crearCursoDesdeCommand(cmd)
 
-    def listado = [:]
-    listado.id = cursoProgramado.id
-    listado.fechaDeInicio = cursoProgramado.fechaDeInicio
-    listado.fechaDeTermino = cursoProgramado.fechaDeTermino
-    listado.puerto = cursoProgramado.puerto.id
-    listado.curso = cursoProgramado.curso.id
-    listado.instructor = cursoProgramado.instructor.id
-    listado.statusCurso = cursoProgramado.statusCurso.key
-    listado.alumnos = cursoProgramado.alumnos
+    def jsonResponse = [:]
+    jsonResponse.curso_programado = cursoProgramado
 
-    render(contentType:"text/json") {
-      [curso_programado: listado, puertos:Puerto.list(), cursos: Curso.list(), instructores: Instructor.list()]
+    JSON.use('siyen') {
+      render jsonResponse as JSON
     }
+
   }
 
 }
