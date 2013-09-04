@@ -103,6 +103,7 @@ Ember.TEMPLATES['cursosAutorizados'] = Ember.Handlebars.compile('' +
         '<th>Instructor</th>' +
         '<th>Estado</th>' +
         '<th>Participantes</th>' +
+        '<th>Certificados</th>' +
       '</tr>' +
     '</thead>' +
     '<tbody>' +
@@ -115,6 +116,7 @@ Ember.TEMPLATES['cursosAutorizados'] = Ember.Handlebars.compile('' +
           '<td> {{ cursoProgramado.instructor.nombre }} </td>' +
           '<td> {{ cursoProgramado.statusCurso }} </td>' +
           '<td> {{ cursoProgramado.alumnos.length }} </td>' +
+          '<td> <button class="btn btn-success"><i class="icon-print icon-white"></i></button></td>' +
         '</tr>' +
       '{{/each}}' +
     '</tbody>' +

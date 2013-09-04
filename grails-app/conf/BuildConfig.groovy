@@ -54,6 +54,12 @@ grails.project.dependency.resolution = {
     //runtime ":zipped-resources:1.0"
     //runtime ":cached-resources:1.0"
     //runtime ":yui-minify-resources:0.1.5"
+
+    compile(":jasper:1.6.1"){
+      exclude 'poi'
+      exclude 'jackson-core-asl'
+    }
+
     test(":spock:0.7") {
       exclude "spock-grails-support"
     }
