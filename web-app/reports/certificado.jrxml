@@ -14,10 +14,8 @@
 	<field name="puertoEstado" class="java.lang.String"/>
 	<field name="fechaDeInicio" class="java.lang.String"/>
 	<field name="fechaDeTermino" class="java.lang.String"/>
-	<field name="duracionDelCurso" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<field name="nombreDelInstructor" class="java.lang.String"/>
+	<field name="duracionDelCurso" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -160,7 +158,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Duración de "+" horas."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Duración de "+$F{duracionDelCurso}*8+" horas."]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
 				<reportElement uuid="e24d28f7-1537-4425-9c90-9aa6e33ea145" key="textField-5" x="438" y="513" width="158" height="18"/>
