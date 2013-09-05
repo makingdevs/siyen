@@ -61,6 +61,8 @@
       </footer>
     </script>
 
+  <input type="hidden" id="certificadosURL" value="${g.createLink(action:'generarParaCurso', controller:'certificado')}" />
+
     <r:layoutResources />
   </body>
 </html>

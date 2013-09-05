@@ -37,7 +37,6 @@ class CursoProgramadoController {
     JSON.use('siyen') {
       render jsonResponse as JSON
     }
-
   }
 
 }
