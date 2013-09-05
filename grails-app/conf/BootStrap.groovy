@@ -1,7 +1,7 @@
 import grails.util.Environment
 
 import grails.converters.JSON
-import com.siyen.marshallers.CursoProgramadoMarshaller
+import com.siyen.marshallers.*
 import com.siyen.*
 
 class BootStrap {
@@ -10,6 +10,11 @@ class BootStrap {
 
     JSON.createNamedConfig('siyen') {
       it.registerObjectMarshaller(new CursoProgramadoMarshaller())
+      it.registerObjectMarshaller(new PuertoMarshaller())
+      it.registerObjectMarshaller(new CursoMarshaller())
+      it.registerObjectMarshaller(new InstructorMarshaller())
+      it.registerObjectMarshaller(new AlumnoMarshaller())
+
     }
 
     switch(Environment.current) {
