@@ -7,65 +7,37 @@ class CursoProgramadoController {
 
   static allowedMethods = [show : "GET", save : "POST"]
 
+  def cursoProgramadoService
+
   def show() {
-    def cursosProgramados = CursoProgramado.list()
-    def listados = []
 
-    cursosProgramados.each { cursoProgramado ->
-      listados << [
-        id : cursoProgramado.id,
-        fechaDeInicio : cursoProgramado.fechaDeInicio,
-        fechaDeTermino : cursoProgramado.fechaDeTermino,
-        dateCreated : cursoProgramado.dateCreated,
-        puerto : cursoProgramado.puerto.id,
-        curso : cursoProgramado.curso.id,
-        instructor : cursoProgramado.instructor.id,
-        statusCurso : cursoProgramado.statusCurso.key,
-        alumnos : cursoProgramado.alumnos ?: [] ]
-    }
+    def jsonResponse = [:]
+    jsonResponse.cursos_programados = CursoProgramado.list()
+    jsonResponse.puertos = Puerto.list()
+    jsonResponse.cursos = Curso.list()
+    jsonResponse.instructores = Instructor.list()
 
-
-    render(contentType:"text/json") {
-      [cursos_programados: listados, puertos:Puerto.list(), cursos: Curso.list(), instructores: Instructor.list()]
+    JSON.use('siyen') {
+      render jsonResponse as JSON
     }
   }
 
   def save(CursoProgramadoCommand cmd) {
     if(cmd.hasErrors()) {
       render (status : 400, contentType:"text/json") {
-        [ errors : cmd.hasErrors() ]
+        [ errors : cmd.errors ]
       }
     }
 
-    CursoProgramado cursoProgramado = new CursoProgramado()
-    Date fechaDeInicio = Date.parse("dd/MMM/yyyy", cmd.fechaDeInicio)
-    cursoProgramado.fechaDeInicio = fechaDeInicio
-    cursoProgramado.puerto = Puerto.get(cmd.puerto)
-    cursoProgramado.curso = Curso.get(cmd.curso)
-    cursoProgramado.instructor = Instructor.get(cmd.instructor)
-    cursoProgramado.fechaDeTermino = fechaDeInicio.clone().plus( cursoProgramado.curso.duracion )
+    CursoProgramado cursoProgramado = cursoProgramadoService.crearCursoDesdeCommand(cmd)
 
-    cmd.alumnos.each {
-      Alumno alumno = new Alumno( nombreCompleto : it.nombre_completo, observaciones : it.observaciones )
-      cursoProgramado.addToAlumnos(alumno)
+    def jsonResponse = [:]
+    jsonResponse.curso_programado = cursoProgramado
+
+    JSON.use('siyen') {
+      render jsonResponse as JSON
     }
 
-    cursoProgramado.save(failOnError:true)
-
-    def listado = [:]
-    listado.id = cursoProgramado.id
-    listado.fechaDeInicio = cursoProgramado.fechaDeInicio
-    listado.fechaDeTermino = cursoProgramado.fechaDeTermino
-    listado.dateCreated = cursoProgramado.dateCreated
-    listado.puerto = cursoProgramado.puerto.id
-    listado.curso = cursoProgramado.curso.id
-    listado.instructor = cursoProgramado.instructor.id
-    listado.statusCurso = cursoProgramado.statusCurso.key
-    listado.alumnos = cursoProgramado.alumnos
-
-    render(contentType:"text/json") {
-      [curso_programado: listado, puertos:Puerto.list(), cursos: Curso.list(), instructores: Instructor.list()]
-    }
   }
 
 }

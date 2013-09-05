@@ -1,10 +1,21 @@
 import grails.util.Environment
 
+import grails.converters.JSON
+import com.siyen.marshallers.*
 import com.siyen.*
 
 class BootStrap {
 
   def init = { servletContext ->
+
+    JSON.createNamedConfig('siyen') {
+      it.registerObjectMarshaller(new CursoProgramadoMarshaller())
+      it.registerObjectMarshaller(new PuertoMarshaller())
+      it.registerObjectMarshaller(new CursoMarshaller())
+      it.registerObjectMarshaller(new InstructorMarshaller())
+      it.registerObjectMarshaller(new AlumnoMarshaller())
+
+    }
 
     switch(Environment.current) {
       case Environment.DEVELOPMENT:

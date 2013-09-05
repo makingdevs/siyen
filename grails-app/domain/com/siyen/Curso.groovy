@@ -8,6 +8,9 @@ class Curso {
   String libreta
   Boolean activo = true
 
+  Date dateCreated
+  Date lastUpdated
+
   static constraints = {
     clave size:1..30, blank:false, unique:true
     nombre size:1..255, blank:false
