@@ -14,7 +14,7 @@ class CursoProgramadoSpec extends Specification {
       Instructor instructor = new Instructor().save(validate:false)
 
     and : "Creando un alumno"
-      Alumno alumno = new Alumno(nombreCompleto:"Roger Waters", observaciones:"PULSE")
+      Alumno alumno = new Alumno(numeroDeControl:"II000001", nombreCompleto:"Roger Waters", observaciones:"PULSE")
 
     when :
       CursoProgramado cursoProgramado = new CursoProgramado(
