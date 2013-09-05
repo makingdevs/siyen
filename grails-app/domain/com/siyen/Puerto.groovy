@@ -8,6 +8,9 @@ class Puerto {
   String direccion
   Boolean activo = true
 
+  Date dateCreated
+  Date lastUpdated
+
   static constraints = {
     clave size:1..4, blank:false, unique:true
     puerto size:1..35, blank:false

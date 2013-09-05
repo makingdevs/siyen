@@ -6,6 +6,9 @@ class Alumno {
   String nombreCompleto
   String observaciones
 
+  Date dateCreated
+  Date lastUpdated
+
   static belongsTo = [cursoProgramado : CursoProgramado]
 
   static constraints = {
