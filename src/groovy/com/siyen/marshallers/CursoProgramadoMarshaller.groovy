@@ -7,7 +7,7 @@ import org.codehaus.groovy.grails.web.converters.marshaller.ObjectMarshaller
 class CursoProgramadoMarshaller implements ObjectMarshaller<JSON> {
 
   boolean supports(Object object) {
-    return object instanceof CursoProgramado;
+    return object instanceof CursoProgramado
   }
 
   void marshalObject(Object object, JSON converter) {
@@ -20,7 +20,7 @@ class CursoProgramadoMarshaller implements ObjectMarshaller<JSON> {
       curso : cursoProgramado.curso.id,
       instructor : cursoProgramado.instructor.id,
       statusCurso : cursoProgramado.statusCurso.key,
-      alumnos : cursoProgramado.alumnos
+      alumnos : cursoProgramado.alumnos ?: []
     ]
     converter.convertAnother(cursoProgramadoValues)
   }
