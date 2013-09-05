@@ -10,25 +10,15 @@ class CursoProgramadoController {
   def cursoProgramadoService
 
   def show() {
-    def cursosProgramados = CursoProgramado.list()
-    def listados = []
 
-    cursosProgramados.each { cursoProgramado ->
-      listados << [
-        id : cursoProgramado.id,
-        fechaDeInicio : cursoProgramado.fechaDeInicio,
-        fechaDeTermino : cursoProgramado.fechaDeTermino,
-        dateCreated : cursoProgramado.dateCreated,
-        puerto : cursoProgramado.puerto.id,
-        curso : cursoProgramado.curso.id,
-        instructor : cursoProgramado.instructor.id,
-        statusCurso : cursoProgramado.statusCurso.key,
-        alumnos : cursoProgramado.alumnos ?: [] ]
-    }
+    def jsonResponse = [:]
+    jsonResponse.cursos_programados = CursoProgramado.list()
+    jsonResponse.puertos = Puerto.list()
+    jsonResponse.cursos = Curso.list()
+    jsonResponse.instructores = Instructor.list()
 
-
-    render(contentType:"text/json") {
-      [cursos_programados: listados, puertos:Puerto.list(), cursos: Curso.list(), instructores: Instructor.list()]
+    JSON.use('siyen') {
+      render jsonResponse as JSON
     }
   }
 
