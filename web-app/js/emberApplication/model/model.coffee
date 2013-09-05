@@ -6,8 +6,6 @@ App.CursoProgramado = DS.Model.extend
   curso : DS.belongsTo('App.Curso')
   instructor : DS.belongsTo('App.Instructor')
 
-  statusCurso : DS.attr('string')
-
   alumnos : DS.hasMany('App.Alumno')
 
 App.Puerto = DS.Model.extend
@@ -23,10 +21,8 @@ App.Instructor = DS.Model.extend
   nombre : DS.attr('string')
   numeroDeOficio : DS.attr('string')
 
-App.StatusCurso = DS.Model.extend
-  name : DS.attr('string')
-
 App.Alumno = DS.Model.extend
+  numeroDeControl : DS.attr('string')
   nombreCompleto : DS.attr('string')
   observaciones : DS.attr('string')
   cursoProgramado : DS.belongsTo('App.CursoProgramado')
