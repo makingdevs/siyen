@@ -49,8 +49,8 @@
   App.AutorizarView = Ember.View.extend({
     tagName: 'button',
     classNames: ['btn', 'btn-warning'],
-    classNameBindings: ['isDisabled'],
-    isDisabled: (function() {
+    attributeBindings: ['disabled'],
+    disabled: (function() {
       if (!this.get('context.alumnos.length')) {
         return "disabled";
       }

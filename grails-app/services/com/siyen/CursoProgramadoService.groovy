@@ -17,23 +17,23 @@ class CursoProgramadoService {
     }
 
     cursoProgramado.save(failOnError:true)
+
+    cursoProgramado.alumnos.each { alumno ->
+      alumno.numeroDeControl = generarNumeroDeControl(alumno.id)
+      alumno.save(failOnError:true)
+    }
+
     cursoProgramado
   }
 
   private Alumno generarAlumnoConParams( def alumnoData ) {
-    String numeroDeControl = generarNumeroDeControl()
-    Alumno alumno = new Alumno( numeroDeControl:numeroDeControl, nombreCompleto : alumnoData.nombre_completo, observaciones : alumnoData.observaciones )
+    Alumno alumno = new Alumno( nombreCompleto : alumnoData.nombre_completo, observaciones : alumnoData.observaciones )
     alumno
   }
 
-  private String generarNumeroDeControl() {
+  private String generarNumeroDeControl(def id) {
     String prefijo = "II"
     Integer numerosEnMatricula = 6
-    Integer id = (Alumno.createCriteria().get {
-      projections {
-        max "id"
-      }
-    } ?: 0) + 1
     String numeroDeControl = prefijo + String.format("%0${numerosEnMatricula}d", id)
     numeroDeControl
   }
