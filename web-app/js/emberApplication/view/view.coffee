@@ -57,9 +57,9 @@ App.CursoNuevoItemView = Ember.View.extend
 App.AutorizarView = Ember.View.extend
   tagName : 'button'
   classNames : ['btn', 'btn-warning']
-  classNameBindings : ['isDisabled']
+  attributeBindings : ['disabled']
 
-  isDisabled: (->
+  disabled: (->
     "disabled" unless @.get('context.alumnos.length')
   ).property("context.alumnos.length")
 
