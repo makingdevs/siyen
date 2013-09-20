@@ -25,7 +25,7 @@ modules = {
     dependsOn 'jquery'
     resource url:'js/ember/handlebars-1.0.0.js'
     resource url:'js/ember/ember-1.0.0.js'
-    resource url:'js/ember/ember-data.js'
+    resource url:'js/ember/ember-data-1.0.0.js'
   }
 
   momentjs {

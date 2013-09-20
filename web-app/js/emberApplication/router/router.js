@@ -20,7 +20,7 @@
 
   App.CursosAutorizadosRoute = Ember.Route.extend({
     model: function() {
-      return App.CursoProgramado.find();
+      return this.get('store').find('cursoProgramado');
     }
   });
 

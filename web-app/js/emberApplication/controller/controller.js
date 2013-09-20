@@ -20,29 +20,17 @@
         return this.set('autorizarCurso', null);
       },
       doRealizarAutorizacion: function() {
-        var alumno, cursoAutorizado, cursoProgramado, transaction, _i, _len, _ref;
-        cursoAutorizado = this.get('autorizarCurso');
-        transaction = this.store.transaction();
-        cursoProgramado = transaction.createRecord(App.CursoProgramado, {
-          fechaDeInicio: cursoAutorizado.get('fechaDeInicio').format('DD/MMMM/YYYY'),
-          puerto: cursoAutorizado.get('puerto'),
-          instructor: cursoAutorizado.get('instructor'),
-          curso: cursoAutorizado.get('curso')
-        });
-        _ref = cursoAutorizado.get('alumnos');
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          alumno = _ref[_i];
-          cursoProgramado.get('alumnos').createRecord({
-            nombreCompleto: alumno.get('nombreCompleto'),
-            observaciones: alumno.get('observaciones')
-          });
-        }
-        cursoProgramado.one('didCreate', this, function() {
-          this.content.removeObject(this.get('autorizarCurso'));
-          return this.transitionToRoute('cursosAutorizados');
-        });
-        ($("#confirmarAutorizacionDialog")).modal('hide');
-        return transaction.commit();
+        var cursoProgramado, cursoProgramadoLocal, cursoProgramadoTemp;
+        cursoProgramadoTemp = this.get('autorizarCurso');
+        cursoProgramadoLocal = {
+          fechaDeInicio: cursoProgramadoTemp.get('fechaDeInicio').format('DD/MMMM/YYYY'),
+          puerto: cursoProgramadoTemp.get('puerto'),
+          instructor: cursoProgramadoTemp.get('instructor'),
+          curso: cursoProgramadoTemp.get('curso'),
+          alumnos: cursoProgramadoTemp.get('alumnos')
+        };
+        cursoProgramado = this.store.createRecord('cursoProgramado', cursoProgramadoLocal);
+        return cursoProgramado.save();
       }
     }
   });
@@ -62,9 +50,9 @@
     cursoSelected: null,
     init: function() {
       this._super();
-      this.set('instructores', App.Instructor.find());
-      this.set('puertos', App.Puerto.find());
-      return this.set('cursos', App.Curso.find());
+      this.set('instructores', this.get('store').find("instructor"));
+      this.set('puertos', this.get('store').find("puerto"));
+      return this.set('cursos', this.get('store').find("curso"));
     },
     currentCursoObserves: (function() {
       var currentCurso, cursosNuevosController;
@@ -144,9 +132,9 @@
     participantes: [],
     init: function() {
       this._super();
-      this.set('instructores', App.Instructor.find());
-      this.set('puertos', App.Puerto.find());
-      return this.set('cursos', App.Curso.find());
+      this.set('instructores', this.get('store').find("instructor"));
+      this.set('puertos', this.get('store').find("puerto"));
+      return this.set('cursos', this.get('store').find("curso"));
     },
     actions: {
       procesarArchivo: function() {

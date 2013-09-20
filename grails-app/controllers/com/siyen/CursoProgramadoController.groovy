@@ -23,6 +23,7 @@ class CursoProgramadoController {
   }
 
   def save(CursoProgramadoCommand cmd) {
+    log.debug params
     if(cmd.hasErrors()) {
       render (status : 400, contentType:"text/json") {
         [ errors : cmd.errors ]
@@ -53,6 +54,8 @@ class CursoProgramadoCommand {
     puerto nullable: false
     curso nullable: false
     instructor nullable: false
-    alumnos nullable: false
+    alumnos validator: {
+      !it.isEmpty()
+    }
   }
 }
