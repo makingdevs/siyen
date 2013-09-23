@@ -23,11 +23,26 @@ App.CursosNuevosController = Ember.ArrayController.extend
         puerto : cursoProgramadoTemp.get('puerto')
         instructor : cursoProgramadoTemp.get('instructor')
         curso : cursoProgramadoTemp.get('curso')
-        alumnos : cursoProgramadoTemp.get('alumnos')
       }
 
       cursoProgramado = @store.createRecord('cursoProgramado', cursoProgramadoLocal)
-      cursoProgramado.save()
+      for alumno in cursoProgramadoTemp.get('alumnos')
+        cursoProgramado.get('alumnos').createRecord(
+          nombreCompleto : alumno.get('nombreCompleto')
+          observaciones : alumno.get('observaciones')
+        )
+
+      cursoProgramado.save().then( =>
+        # work with saved person
+        #  newly created records are guaranteed to have IDs assigned
+        ($ "#confirmarAutorizacionDialog").modal('hide')
+        @content.removeObject(@get('autorizarCurso'))
+        @transitionToRoute('cursosAutorizados')
+
+      ->
+        # work with person that failed to save
+        console.log "failed"
+      );
 
 #      cursoAutorizado = @.get('autorizarCurso')
 #      transaction = @store.transaction()

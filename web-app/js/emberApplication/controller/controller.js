@@ -20,17 +20,31 @@
         return this.set('autorizarCurso', null);
       },
       doRealizarAutorizacion: function() {
-        var cursoProgramado, cursoProgramadoLocal, cursoProgramadoTemp;
+        var alumno, cursoProgramado, cursoProgramadoLocal, cursoProgramadoTemp, _i, _len, _ref,
+          _this = this;
         cursoProgramadoTemp = this.get('autorizarCurso');
         cursoProgramadoLocal = {
           fechaDeInicio: cursoProgramadoTemp.get('fechaDeInicio').format('DD/MMMM/YYYY'),
           puerto: cursoProgramadoTemp.get('puerto'),
           instructor: cursoProgramadoTemp.get('instructor'),
-          curso: cursoProgramadoTemp.get('curso'),
-          alumnos: cursoProgramadoTemp.get('alumnos')
+          curso: cursoProgramadoTemp.get('curso')
         };
         cursoProgramado = this.store.createRecord('cursoProgramado', cursoProgramadoLocal);
-        return cursoProgramado.save();
+        _ref = cursoProgramadoTemp.get('alumnos');
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          alumno = _ref[_i];
+          cursoProgramado.get('alumnos').createRecord({
+            nombreCompleto: alumno.get('nombreCompleto'),
+            observaciones: alumno.get('observaciones')
+          });
+        }
+        return cursoProgramado.save().then(function() {
+          ($("#confirmarAutorizacionDialog")).modal('hide');
+          _this.content.removeObject(_this.get('autorizarCurso'));
+          return _this.transitionToRoute('cursosAutorizados');
+        }, function() {
+          return console.log("failed");
+        });
       }
     }
   });
