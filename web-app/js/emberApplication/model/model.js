@@ -3,10 +3,10 @@
   App.CursoProgramado = DS.Model.extend({
     fechaDeInicio: DS.attr('string'),
     fechaDeTermino: DS.attr('string'),
-    puerto: DS.belongsTo('App.Puerto'),
-    curso: DS.belongsTo('App.Curso'),
-    instructor: DS.belongsTo('App.Instructor'),
-    alumnos: DS.hasMany('App.Alumno')
+    puerto: DS.belongsTo('puerto'),
+    curso: DS.belongsTo('curso'),
+    instructor: DS.belongsTo('instructor'),
+    alumnos: DS.hasMany('alumno')
   });
 
   App.Puerto = DS.Model.extend({
@@ -29,7 +29,7 @@
     numeroDeControl: DS.attr('string'),
     nombreCompleto: DS.attr('string'),
     observaciones: DS.attr('string'),
-    cursoProgramado: DS.belongsTo('App.CursoProgramado')
+    cursoProgramado: DS.belongsTo('cursoProgramado')
   });
 
 }).call(this);

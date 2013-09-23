@@ -16,27 +16,31 @@ App.CursosNuevosController = Ember.ArrayController.extend
       @.set( 'autorizarCurso', null )
 
     doRealizarAutorizacion : ->
-      cursoAutorizado = @.get('autorizarCurso')
-    
-      transaction = @store.transaction()
-      cursoProgramado = transaction.createRecord( App.CursoProgramado,
-        fechaDeInicio : cursoAutorizado.get('fechaDeInicio').format('DD/MMMM/YYYY')
-        puerto : cursoAutorizado.get('puerto')
-        instructor : cursoAutorizado.get('instructor')
-        curso : cursoAutorizado.get('curso') )
+      cursoProgramadoTemp = @.get('autorizarCurso')
 
-      for alumno in cursoAutorizado.get('alumnos')
-        cursoProgramado.get('alumnos').createRecord
+      cursoProgramadoLocal = {
+        fechaDeInicio : cursoProgramadoTemp.get('fechaDeInicio').format('DD/MMMM/YYYY')
+        puerto : cursoProgramadoTemp.get('puerto')
+        instructor : cursoProgramadoTemp.get('instructor')
+        curso : cursoProgramadoTemp.get('curso')
+      }
+
+      cursoProgramado = @store.createRecord('cursoProgramado', cursoProgramadoLocal)
+      for alumno in cursoProgramadoTemp.get('alumnos')
+        cursoProgramado.get('alumnos').createRecord(
           nombreCompleto : alumno.get('nombreCompleto')
           observaciones : alumno.get('observaciones')
+        )
 
-      cursoProgramado.one('didCreate', @, () ->
-        @content.removeObject(@.get('autorizarCurso'))
-        @transitionToRoute('cursosAutorizados')
+      cursoProgramado.save().then(
+        (value) =>
+          ($ "#confirmarAutorizacionDialog").modal('hide')
+          @content.removeObject(@get('autorizarCurso'))
+          @transitionToRoute('cursosAutorizados')
+
+        ->
+          console.log "failed"
       )
-
-      ($ "#confirmarAutorizacionDialog").modal('hide')
-      transaction.commit()
 
 App.CursosAutorizadosController = Ember.ArrayController.extend()
 
@@ -55,9 +59,9 @@ App.CrearController = Ember.ObjectController.extend
 
   init : ->
     @._super()
-    @.set 'instructores', App.Instructor.find()
-    @.set 'puertos', App.Puerto.find()
-    @.set 'cursos', App.Curso.find()
+    @.set 'instructores', @get('store').find("instructor")
+    @.set 'puertos', @get('store').find("puerto")
+    @.set 'cursos', @get('store').find("curso")
 
   currentCursoObserves : (->
     cursosNuevosController = @.get('controllers.cursosNuevos')
@@ -140,9 +144,9 @@ App.ArchivoController = Ember.ObjectController.extend
 
   init : ->
     @._super()
-    @.set 'instructores', App.Instructor.find()
-    @.set 'puertos', App.Puerto.find()
-    @.set 'cursos', App.Curso.find()
+    @.set 'instructores', @get('store').find("instructor")
+    @.set 'puertos', @get('store').find("puerto")
+    @.set 'cursos', @get('store').find("curso")
 
   actions :
     procesarArchivo : ->
