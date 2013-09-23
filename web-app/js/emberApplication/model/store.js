@@ -17,7 +17,6 @@
         data = serializer.serializeIntoHash(data, type, record, {
           includeId: true
         });
-        console.log(data);
         return this.ajax(this.buildURL(type.typeKey), "POST", {
           data: data
         });
@@ -27,8 +26,6 @@
 
   App.ApplicationSerializer = DS.RESTSerializer.extend({
     serializeIntoHash: function(data, type, record, options) {
-      console.log("record");
-      console.log(record);
       return this.serialize(record, options);
     }
   });
