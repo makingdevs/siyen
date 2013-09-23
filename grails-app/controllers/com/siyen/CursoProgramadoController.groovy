@@ -22,8 +22,7 @@ class CursoProgramadoController {
     }
   }
 
-  def save(CursoProgramadoCommand cmd) {
-    log.debug params
+  def save(CursoProgramadoCommand cmd) {    log.debug params
     if(cmd.hasErrors()) {
       render (status : 400, contentType:"text/json") {
         [ errors : cmd.errors ]
