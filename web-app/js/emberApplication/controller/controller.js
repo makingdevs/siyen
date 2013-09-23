@@ -38,7 +38,7 @@
             observaciones: alumno.get('observaciones')
           });
         }
-        return cursoProgramado.save().then(function() {
+        return cursoProgramado.save().then(function(value) {
           ($("#confirmarAutorizacionDialog")).modal('hide');
           _this.content.removeObject(_this.get('autorizarCurso'));
           return _this.transitionToRoute('cursosAutorizados');
