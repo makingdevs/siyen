@@ -6,6 +6,8 @@
 
   inflector.irregular('cursoprogramado', 'cursos_programados');
 
+  inflector.irregular('cursoProgramado', 'cursos_programados');
+
   inflector.irregular('instructor', 'instructores');
 
   App.Store = DS.Store.extend({
