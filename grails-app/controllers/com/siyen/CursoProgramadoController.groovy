@@ -16,13 +16,14 @@ class CursoProgramadoController {
     jsonResponse.puertos = Puerto.list()
     jsonResponse.cursos = Curso.list()
     jsonResponse.instructores = Instructor.list()
+    jsonResponse.alumnos = Alumno.list()
 
     JSON.use('siyen') {
       render jsonResponse as JSON
     }
   }
 
-  def save(CursoProgramadoCommand cmd) {    log.debug params
+  def save(CursoProgramadoCommand cmd) {
     if(cmd.hasErrors()) {
       render (status : 400, contentType:"text/json") {
         [ errors : cmd.errors ]
@@ -32,7 +33,11 @@ class CursoProgramadoController {
     CursoProgramado cursoProgramado = cursoProgramadoService.crearCursoDesdeCommand(cmd)
 
     def jsonResponse = [:]
-    jsonResponse.curso_programado = cursoProgramado
+    jsonResponse.cursos_programados = cursoProgramado
+    jsonResponse.puertos = Puerto.list()
+    jsonResponse.cursos = Curso.list()
+    jsonResponse.instructores = Instructor.list()
+    jsonResponse.alumnos = Alumno.list()
 
     JSON.use('siyen') {
       render jsonResponse as JSON
