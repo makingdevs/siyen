@@ -70,17 +70,25 @@ App.AutorizarView = Ember.View.extend
     @.get('controller').set( 'autorizarCurso', @.get('context') )
     @.get('controller').autorizar()
 
-App.ParticipantesView = Ember.View.extend
+App.ParticipantesListView = Ember.View.extend
   elementId: 'participantes'
   tagName : 'ul'
   template: Ember.Handlebars.compile('' +
-    '{{#each participante in controllers.cursosNuevos.currentCurso.alumnos }}' +
-      '<li> {{ view App.ParticipanteView }} </li>' +
+    '{{#each controllers.cursosNuevos.currentCurso.alumnos}}' +
+      '{{ view App.ParticipanteView contentBinding="this" }}' +
     '{{/each}}')
 
 App.ParticipanteView = Ember.View.extend
+  tagName : 'li'
   template: Ember.Handlebars.compile('' +
-    '{{ participante.nombreCompleto }}{{#if participante.observaciones}} - <small>{{ participante.observaciones }}</small>{{/if}}' )
+    '{{ nombreCompleto }}{{#if observaciones}} - <small>{{ observaciones }}</small>{{/if}}' )
+
+  click : (event) ->
+    controller = @get('controller')
+    controller.set('nombreCompleto', @get('context.nombreCompleto'))
+    controller.set('observaciones', @get('context.observaciones'))
+    controller.set('currentParticipanteIndex', @get('_parentView.contentIndex'))
+    ($ '#nombreCompleto').focus()
 
 App.TextField = Ember.TextField.extend(Ember.TargetActionSupport,
   insertNewline : ->
@@ -225,7 +233,7 @@ Ember.TEMPLATES['crear/participantes'] = Ember.Handlebars.compile('' +
       '<div class="control-group">' +
         '<label class="control-label" for="nombreCompleto">Nombre Completo :</label>' +
         '<div class="controls">' +
-          '{{ view App.TextField target="controller" action="agregar" valueBinding="controller.nombreCompleto" placeholder="Nombre completo" }}' +
+          '{{ view App.TextField id="nombreCompleto" target="controller" action="agregar" valueBinding="controller.nombreCompleto" placeholder="Nombre completo" }}' +
         '</div>' +
       '</div>' +
 
@@ -246,7 +254,7 @@ Ember.TEMPLATES['crear/participantes'] = Ember.Handlebars.compile('' +
     '<div class="page-header">' +
       '<h1>Lista de participantes</h1>' +
     '</div>' +
-    '{{ view App.ParticipantesView }}'
+    '{{ view App.ParticipantesListView }}'
   '</div>'
   )
 

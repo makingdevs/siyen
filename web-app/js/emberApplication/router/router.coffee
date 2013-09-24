@@ -15,4 +15,4 @@ App.ArchivoRoute = Ember.Route.extend()
 
 App.CursosAutorizadosRoute = Ember.Route.extend
   model: ->
-    @.get('store').find('cursoProgramado')
+    @get('store').find('cursoProgramado')

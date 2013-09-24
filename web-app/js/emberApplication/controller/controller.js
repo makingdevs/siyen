@@ -111,6 +111,7 @@
     needs: "cursosNuevos",
     nombreCompleto: null,
     observaciones: null,
+    currentParticipanteIndex: -1,
     currentCursoObserves: (function() {
       var currentCurso, cursosNuevosController;
       cursosNuevosController = this.get('controllers.cursosNuevos');
@@ -122,12 +123,18 @@
     }).observes('controllers.cursosNuevos.currentCurso'),
     actions: {
       agregar: function() {
-        var currentCurso;
+        var alumno, currentCurso;
         currentCurso = this.get('controllers.cursosNuevos').get('currentCurso');
-        currentCurso.get('alumnos').pushObject(Ember.Object.create({
+        alumno = Ember.Object.create({
           nombreCompleto: this.nombreCompleto,
           observaciones: this.observaciones
-        }));
+        });
+        if (this.currentParticipanteIndex >= 0) {
+          currentCurso.get('alumnos').replace(this.currentParticipanteIndex, 1, [alumno]);
+        } else {
+          currentCurso.get('alumnos').pushObject(alumno);
+        }
+        this.set('currentParticipanteIndex', -1);
         this.set("nombreCompleto", null);
         return this.set("observaciones", null);
       }
