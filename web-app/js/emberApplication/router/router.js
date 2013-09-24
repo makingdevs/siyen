@@ -7,7 +7,11 @@
       });
     });
     this.resource('archivo');
-    return this.resource('cursosAutorizados');
+    return this.resource('cursosAutorizados', function() {
+      return this.route('cursoAutorizado', {
+        path: "/:curso_id"
+      });
+    });
   });
 
   App.CursosNuevosRoute = Ember.Route.extend();

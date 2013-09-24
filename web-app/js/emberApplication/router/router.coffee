@@ -1,11 +1,12 @@
 App.Router.map -> 
-  @.resource 'cursosNuevos', ->
-    @.resource 'crear', ->
-      @.route 'participantes'
+  @resource 'cursosNuevos', ->
+    @resource 'crear', ->
+      @route 'participantes'
 
-  @.resource 'archivo'
+  @resource 'archivo'
 
-  @resource 'cursosAutorizados'
+  @resource 'cursosAutorizados', ->
+    @route 'cursoAutorizado', { path: "/:curso_id" }
 
 App.CursosNuevosRoute = Ember.Route.extend()
 App.CursosNuevosCrearRoute = Ember.Route.extend()
