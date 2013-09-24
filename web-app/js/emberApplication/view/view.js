@@ -63,14 +63,21 @@
     }
   });
 
-  App.ParticipantesView = Ember.View.extend({
+  App.ParticipantesListView = Ember.View.extend({
     elementId: 'participantes',
     tagName: 'ul',
-    template: Ember.Handlebars.compile('' + '{{#each participante in controllers.cursosNuevos.currentCurso.alumnos }}' + '<li> {{ view App.ParticipanteView }} </li>' + '{{/each}}')
+    template: Ember.Handlebars.compile('' + '{{#each controllers.cursosNuevos.currentCurso.alumnos}}' + '{{ view App.ParticipanteView contentBinding="this" }}' + '{{/each}}')
   });
 
   App.ParticipanteView = Ember.View.extend({
-    template: Ember.Handlebars.compile('' + '{{ participante.nombreCompleto }}{{#if participante.observaciones}} - <small>{{ participante.observaciones }}</small>{{/if}}')
+    tagName: 'li',
+    template: Ember.Handlebars.compile('' + '{{ nombreCompleto }}{{#if observaciones}} - <small>{{ observaciones }}</small>{{/if}}'),
+    click: function(event) {
+      var controller;
+      controller = this.get('controller');
+      controller.set('nombreCompleto', this.get('context.nombreCompleto'));
+      return controller.set('observaciones', this.get('context.observaciones'));
+    }
   });
 
   App.TextField = Ember.TextField.extend(Ember.TargetActionSupport, {
@@ -114,7 +121,7 @@
 
   Ember.TEMPLATES['crear'] = Ember.Handlebars.compile('' + '<div class="container-fluid">' + '<div class="row-fluid">' + '{{ view App.CursoNuevoFormulario ' + 'crearAgregarAction="crear" ' + 'target="controller" ' + 'header="Programar nuevo curso" ' + '}}' + '{{ outlet }}' + '</div>' + '</div>');
 
-  Ember.TEMPLATES['crear/participantes'] = Ember.Handlebars.compile('' + '<div class="span4">' + '<div class="page-header">' + '<h1>Participante</h1>' + '</div>' + '<div>' + '<div class="control-group">' + '<label class="control-label" for="nombreCompleto">Nombre Completo :</label>' + '<div class="controls">' + '{{ view App.TextField target="controller" action="agregar" valueBinding="controller.nombreCompleto" placeholder="Nombre completo" }}' + '</div>' + '</div>' + '<div class="control-group">' + '<label class="control-label" for="observaciones">Observaciones :</label>' + '<div class="controls">' + '{{ view Ember.TextArea valueBinding="observaciones" placeholder="Observaciones" }}' + '</div>' + '</div>' + '<div class="form-actions">' + '{{#linkTo "crear.index" class="btn" }} Ocultar {{/linkTo}}' + '<button class="btn btn-primary" {{ action "agregar" }}> Agregar </button>' + '</div>' + '</div>' + '</div>' + '<div class="span4" >' + '<div class="page-header">' + '<h1>Lista de participantes</h1>' + '</div>' + '{{ view App.ParticipantesView }}', '</div>');
+  Ember.TEMPLATES['crear/participantes'] = Ember.Handlebars.compile('' + '<div class="span4">' + '<div class="page-header">' + '<h1>Participante</h1>' + '</div>' + '<div>' + '<div class="control-group">' + '<label class="control-label" for="nombreCompleto">Nombre Completo :</label>' + '<div class="controls">' + '{{ view App.TextField target="controller" action="agregar" valueBinding="controller.nombreCompleto" placeholder="Nombre completo" }}' + '</div>' + '</div>' + '<div class="control-group">' + '<label class="control-label" for="observaciones">Observaciones :</label>' + '<div class="controls">' + '{{ view Ember.TextArea valueBinding="observaciones" placeholder="Observaciones" }}' + '</div>' + '</div>' + '<div class="form-actions">' + '{{#linkTo "crear.index" class="btn" }} Ocultar {{/linkTo}}' + '<button class="btn btn-primary" {{ action "agregar" }}> Agregar </button>' + '</div>' + '</div>' + '</div>' + '<div class="span4" >' + '<div class="page-header">' + '<h1>Lista de participantes</h1>' + '</div>' + '{{ view App.ParticipantesListView }}', '</div>');
 
   Ember.TEMPLATES['archivo'] = Ember.Handlebars.compile('' + '<div class="container-fluid">' + '<div class="row-fluid">' + '<div class="span4">' + '<div class="page-header">' + '<h1>Procesar archivo</h1>' + '</div>' + '{{ view App.DropzoneView }}' + '<button class="btn btn-large btn-block btn-primary" {{ action "procesarArchivo" }} > Procesar </button>' + '</div>' + '<div class="span4">' + '<ul>' + '{{#each participante in participantes }}' + '<li> {{ view App.ParticipanteView }} </li>' + '{{/each}}' + '</ul>' + '</div>' + '{{#if participantes}}' + '{{ view App.CursoNuevoFormulario ' + 'target="controller" ' + 'header="Datos del curso" ' + '}}' + '{{/if}}' + '</div>' + '</div>');
 
