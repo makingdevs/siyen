@@ -88,6 +88,7 @@ App.ParticipanteView = Ember.View.extend
     controller.set('nombreCompleto', @get('context.nombreCompleto'))
     controller.set('observaciones', @get('context.observaciones'))
     controller.set('currentParticipanteIndex', @get('_parentView.contentIndex'))
+    ($ '#nombreCompleto').focus()
 
 App.TextField = Ember.TextField.extend(Ember.TargetActionSupport,
   insertNewline : ->
@@ -232,7 +233,7 @@ Ember.TEMPLATES['crear/participantes'] = Ember.Handlebars.compile('' +
       '<div class="control-group">' +
         '<label class="control-label" for="nombreCompleto">Nombre Completo :</label>' +
         '<div class="controls">' +
-          '{{ view App.TextField target="controller" action="agregar" valueBinding="controller.nombreCompleto" placeholder="Nombre completo" }}' +
+          '{{ view App.TextField id="nombreCompleto" target="controller" action="agregar" valueBinding="controller.nombreCompleto" placeholder="Nombre completo" }}' +
         '</div>' +
       '</div>' +
 
