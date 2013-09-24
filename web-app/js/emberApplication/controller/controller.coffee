@@ -108,6 +108,8 @@ App.CrearParticipantesController = Ember.ObjectController.extend
   nombreCompleto : null
   observaciones : null
 
+  currentParticipanteIndex : -1
+
   currentCursoObserves : (->
     cursosNuevosController = @.get('controllers.cursosNuevos')
     currentCurso = cursosNuevosController.get('currentCurso')
@@ -120,14 +122,19 @@ App.CrearParticipantesController = Ember.ObjectController.extend
 
   actions :
     agregar : ->
-      currentCurso = @.get('controllers.cursosNuevos').get('currentCurso')
-      currentCurso.get('alumnos').pushObject(Ember.Object.create
-        nombreCompleto : @.nombreCompleto
-        observaciones : @.observaciones
-      )
+      currentCurso = @get('controllers.cursosNuevos').get('currentCurso')
+      alumno = Ember.Object.create
+        nombreCompleto : @nombreCompleto
+        observaciones : @observaciones
 
-      @.set("nombreCompleto", null)
-      @.set("observaciones", null)
+      if @currentParticipanteIndex >= 0
+        currentCurso.get('alumnos').replace(@currentParticipanteIndex, 1, [alumno])
+      else
+        currentCurso.get('alumnos').pushObject(alumno)
+
+      @set('currentParticipanteIndex', -1)
+      @set("nombreCompleto", null)
+      @set("observaciones", null)
 
 App.ArchivoController = Ember.ObjectController.extend
   needs : ["cursosNuevos"]
