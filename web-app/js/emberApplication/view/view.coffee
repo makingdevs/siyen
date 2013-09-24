@@ -87,6 +87,7 @@ App.ParticipanteView = Ember.View.extend
     controller = @get('controller')
     controller.set('nombreCompleto', @get('context.nombreCompleto'))
     controller.set('observaciones', @get('context.observaciones'))
+    controller.set('currentParticipanteIndex', @get('_parentView.contentIndex'))
 
 App.TextField = Ember.TextField.extend(Ember.TargetActionSupport,
   insertNewline : ->

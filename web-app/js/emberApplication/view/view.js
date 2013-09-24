@@ -76,7 +76,8 @@
       var controller;
       controller = this.get('controller');
       controller.set('nombreCompleto', this.get('context.nombreCompleto'));
-      return controller.set('observaciones', this.get('context.observaciones'));
+      controller.set('observaciones', this.get('context.observaciones'));
+      return controller.set('currentParticipanteIndex', this.get('_parentView.contentIndex'));
     }
   });
 
