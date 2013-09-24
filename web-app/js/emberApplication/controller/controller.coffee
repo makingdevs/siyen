@@ -44,6 +44,8 @@ App.CursosNuevosController = Ember.ArrayController.extend
 
 App.CursosAutorizadosController = Ember.ArrayController.extend()
 
+App.CursoAutorizadoController = Ember.ObjectController.extend()
+
 App.CursosNuevosCrearController = Ember.ObjectController.extend()
 
 App.CrearController = Ember.ObjectController.extend
