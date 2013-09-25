@@ -8,8 +8,8 @@
     });
     this.resource('archivo');
     return this.resource('cursosAutorizados', function() {
-      return this.route('cursoAutorizado', {
-        path: "/:curso_id"
+      return this.route('edit', {
+        path: ":curso_programado_id"
       });
     });
   });
@@ -25,6 +25,12 @@
   App.CursosAutorizadosRoute = Ember.Route.extend({
     model: function() {
       return this.get('store').find('cursoProgramado');
+    }
+  });
+
+  App.CursosAutorizadosEditRoute = Ember.Route.extend({
+    model: function(params) {
+      return this.get('store').find('cursoProgramado', params.curso_programado_id);
     }
   });
 
