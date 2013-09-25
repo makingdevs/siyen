@@ -115,16 +115,17 @@ Ember.TEMPLATES['cursosAutorizados'] = Ember.Handlebars.compile('' +
       '</tr>' +
     '</thead>' +
     '<tbody>' +
-      '{{#each cursoProgramado in controller}}' +
+      '{{#each controller}}' +
         '<tr>' +
-          '<td> {{ date cursoProgramado.fechaDeInicio }} </td>' +
-          '<td> {{ date cursoProgramado.fechaDeTermino }} </td>' +
-          '<td> {{ cursoProgramado.puerto.clave }} - {{ cursoProgramado.puerto.puerto }} </td>' +
-          '<td> {{ cursoProgramado.curso.nombre }} </td>' +
-          '<td> {{ cursoProgramado.instructor.nombre }} </td>' +
-          '<td> {{ cursoProgramado.alumnos.length }} </td>' +
-          '<td> {{ certificado cursoProgramado.id }} </td>' +
-          '<td> {{#linkTo "cursosAutorizados.cursoAutorizado" cursoProgramado class="btn btn-primary" }} Editar {{/linkTo}} </td>' +
+          '<td> {{ date fechaDeInicio }} </td>' +
+          '<td> {{ date fechaDeTermino }} </td>' +
+          '<td> {{ puerto.clave }} - {{ puerto.puerto }} </td>' +
+          '<td> {{ curso.nombre }} </td>' +
+          '<td> {{ instructor.nombre }} </td>' +
+          '<td> {{ alumnos.length }} </td>' +
+          '<td> {{ certificado id }} </td>' +
+          '<td> {{#link-to "cursosAutorizados.edit" this }} Editar {{/link-to}} </td>' +
+
         '</tr>' +
       '{{/each}}' +
     '</tbody>' +
@@ -132,7 +133,7 @@ Ember.TEMPLATES['cursosAutorizados'] = Ember.Handlebars.compile('' +
   '{{ outlet }}' )
 
 
-Ember.TEMPLATES['cursosAutorizados/cursoAutorizado'] = Ember.Handlebars.compile('' +
+Ember.TEMPLATES['cursosAutorizados/edit'] = Ember.Handlebars.compile('' +
   '<div class="container-fluid">' +
     '<div class="row-fluid">' +
       '<div class="span4">' +
@@ -145,9 +146,6 @@ Ember.TEMPLATES['cursosAutorizados/cursoAutorizado'] = Ember.Handlebars.compile(
             '{{ view App.DatePickerView }}' +
           '</div>' +
         '</div>' +
-        '{{ model }} <br />' +
-        '{{ cursoProgramado.puerto.clave }} <br />' +
-        '{{ model.puerto.clave }} <br />' +
 
         '<div class="control-group">' +
           '<label class="control-label" for="puerto">Puerto :</label>' +
@@ -156,8 +154,7 @@ Ember.TEMPLATES['cursosAutorizados/cursoAutorizado'] = Ember.Handlebars.compile(
                                  'contentBinding="puertos"' +
                                  'optionValuePath="content.clave"' +
                                  'optionLabelPath="content.puerto"' +
-                                 'valueBinding="model.puerto"' +
-                                 'selectionBinding="model.puerto.clave" }}' +
+                                 'selectionBinding="model.puerto" }}' +
           '</div>' +
         '</div>' +
         '<div class="control-group">' +
@@ -167,7 +164,7 @@ Ember.TEMPLATES['cursosAutorizados/cursoAutorizado'] = Ember.Handlebars.compile(
                                  'contentBinding="instructores"' +
                                  'optionValuePath="content.numeroDeOficio"' +
                                  'optionLabelPath="content.nombre"' +
-                                 'selectionBinding="instructorSelected" }}' +
+                                 'selectionBinding="model.instructor" }}' +
           '</div>' +
         '</div>' +
         '<div class="control-group">' +
@@ -177,7 +174,7 @@ Ember.TEMPLATES['cursosAutorizados/cursoAutorizado'] = Ember.Handlebars.compile(
                                  'contentBinding="cursos"' +
                                  'optionValuePath="content.clave"' +
                                  'optionLabelPath="content.nombre"' +
-                                 'selectionBinding="cursoSelected" }}' +
+                                 'selectionBinding="model.curso" }}' +
           '</div>' +
         '</div>' +
         '<div class="form-actions">' +
