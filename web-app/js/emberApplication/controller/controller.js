@@ -51,7 +51,17 @@
 
   App.CursosAutorizadosController = Ember.ArrayController.extend();
 
-  App.CursoAutorizadoController = Ember.ObjectController.extend();
+  App.CursosAutorizadosEditController = Ember.ObjectController.extend({
+    instructores: [],
+    puertos: [],
+    cursos: [],
+    init: function() {
+      this._super();
+      this.set('instructores', this.get('store').find("instructor"));
+      this.set('puertos', this.get('store').find("puerto"));
+      return this.set('cursos', this.get('store').find("curso"));
+    }
+  });
 
   App.CursosNuevosCrearController = Ember.ObjectController.extend();
 

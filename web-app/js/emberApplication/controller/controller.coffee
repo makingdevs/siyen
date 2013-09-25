@@ -16,7 +16,7 @@ App.CursosNuevosController = Ember.ArrayController.extend
       @.set( 'autorizarCurso', null )
 
     doRealizarAutorizacion : ->
-      cursoProgramadoTemp = @.get('autorizarCurso')
+      cursoProgramadoTemp = @get('autorizarCurso')
 
       cursoProgramadoLocal = {
         fechaDeInicio : cursoProgramadoTemp.get('fechaDeInicio').format('DD/MMMM/YYYY')
@@ -44,7 +44,16 @@ App.CursosNuevosController = Ember.ArrayController.extend
 
 App.CursosAutorizadosController = Ember.ArrayController.extend()
 
-App.CursoAutorizadoController = Ember.ObjectController.extend()
+App.CursosAutorizadosEditController = Ember.ObjectController.extend
+  instructores : []
+  puertos : []
+  cursos : []
+
+  init : ->
+    @_super()
+    @set 'instructores', @get('store').find("instructor")
+    @set 'puertos', @get('store').find("puerto")
+    @set 'cursos', @get('store').find("curso")
 
 App.CursosNuevosCrearController = Ember.ObjectController.extend()
 
