@@ -59,6 +59,8 @@ App.CursosAutorizadosEditController = Ember.ObjectController.extend
 
 App.CursosNuevosCrearController = Ember.ObjectController.extend()
 
+App.EditParticipantesController = Ember.ObjectController.extend()
+
 App.CrearController = Ember.ObjectController.extend
   needs : ["cursosNuevos"]
   instructores : []
