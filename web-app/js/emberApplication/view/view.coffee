@@ -143,28 +143,20 @@ Ember.TEMPLATES['cursosAutorizados/edit'] = Ember.Handlebars.compile('' +
         '<div class="control-group">' +
           '<label class="control-label" for="datepicker">Fecha de inicio :</label>' +
           '<div class="controls">' +
-            '{{ view App.DatePickerView }}' +
+            '{{ view Ember.TextField valueBinding="fechaDeInicio" disabled="disabled"}}' +
           '</div>' +
         '</div>' +
 
         '<div class="control-group">' +
           '<label class="control-label" for="puerto">Puerto :</label>' +
           '<div class="controls">' +
-            '{{ view Ember.Select prompt="Selecciona un puerto : "' +
-                                 'contentBinding="puertos"' +
-                                 'optionValuePath="content.clave"' +
-                                 'optionLabelPath="content.puerto"' +
-                                 'selectionBinding="model.puerto" }}' +
+            '{{ view Ember.TextField valueBinding="model.puerto.puerto" disabled="disabled" }}' +
           '</div>' +
         '</div>' +
         '<div class="control-group">' +
           '<label class="control-label" for="instructores">Instructor :</label>' +
           '<div class="controls">' +
-            '{{ view Ember.Select prompt="Selecciona un instructor : "' +
-                                 'contentBinding="instructores"' +
-                                 'optionValuePath="content.numeroDeOficio"' +
-                                 'optionLabelPath="content.nombre"' +
-                                 'selectionBinding="model.instructor" }}' +
+            '{{ view Ember.TextField valueBinding="model.instructor.nombre" disabled="disabled" }}' +
           '</div>' +
         '</div>' +
         '<div class="control-group">' +
@@ -179,7 +171,7 @@ Ember.TEMPLATES['cursosAutorizados/edit'] = Ember.Handlebars.compile('' +
         '</div>' +
         '<div class="form-actions">' +
           '{{ view App.BootstrapButton ' +
-                  'contentBinding="view.finalizarButtonLabel" ' +
+                  'content="Finalizar" ' +
                   'actionBinding="view.finalizarAction" ' +
                   'targetBinding="view.target" ' +
                   'classNames="btn-success"' +
