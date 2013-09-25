@@ -6,7 +6,8 @@ App.Router.map ->
   @resource 'archivo'
 
   @resource 'cursosAutorizados', ->
-    @route 'edit', { path: ":curso_programado_id" }
+    @resource 'edit', { path: ":curso_programado_id" }, ->
+      @route 'participantes'
 
 App.CursosNuevosRoute = Ember.Route.extend()
 App.CursosNuevosCrearRoute = Ember.Route.extend()
@@ -27,3 +28,5 @@ App.CursosAutorizadosEditRoute = Ember.Route.extend
 
   model : (params) ->
     @get('store').find('cursoProgramado', params.curso_programado_id)
+
+App.EditParticipantesRoute = Ember.Route.extend()
