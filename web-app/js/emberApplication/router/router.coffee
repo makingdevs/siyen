@@ -19,5 +19,11 @@ App.CursosAutorizadosRoute = Ember.Route.extend
     @get('store').find('cursoProgramado')
 
 App.CursosAutorizadosEditRoute = Ember.Route.extend
+  setupController : (controller, model) ->
+    fechaDeInicioModel = model.get('fechaDeInicio')
+    fechaDeInicio = moment(fechaDeInicioModel).format('DD/MMMM/YYYY')
+    controller.set('fechaDeInicio', fechaDeInicio)
+    controller.set('model', model)
+
   model : (params) ->
     @get('store').find('cursoProgramado', params.curso_programado_id)

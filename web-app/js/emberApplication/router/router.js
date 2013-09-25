@@ -29,6 +29,13 @@
   });
 
   App.CursosAutorizadosEditRoute = Ember.Route.extend({
+    setupController: function(controller, model) {
+      var fechaDeInicio, fechaDeInicioModel;
+      fechaDeInicioModel = model.get('fechaDeInicio');
+      fechaDeInicio = moment(fechaDeInicioModel).format('DD/MMMM/YYYY');
+      controller.set('fechaDeInicio', fechaDeInicio);
+      return controller.set('model', model);
+    },
     model: function(params) {
       return this.get('store').find('cursoProgramado', params.curso_programado_id);
     }
