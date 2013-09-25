@@ -95,7 +95,39 @@ App.TextField = Ember.TextField.extend(Ember.TargetActionSupport,
     this.triggerAction()
 )
 
+App.BootstrapButton = Ember.View.extend(Ember.TargetActionSupport,
+  tagName: 'button',
+  classNames: ['btn']
+  iconName : null
+  disabled: false,
+  click: ->
+    if !@.get('disabled')
+      @.triggerAction()
+
+  template: Ember.Handlebars.compile('{{#if view.iconName}}<i {{bindAttr class="view.iconName"}}></i>{{/if}} {{view.content}}')
+)
+
 App.CursosAutorizados = Ember.View.extend()
+
+App.ConfirmDialogView = Ember.View.extend
+  templateName: 'confirmDialog'
+  classNames: ['modal', 'hide']
+  cancelButtonLabel: 'Cancel'
+  cancelAction: null
+  okButtonLabel: "Confirmar"
+  okAction: null
+  header: null
+  message: null
+  target: null
+
+App.CursoNuevoFormulario = Ember.View.extend
+  templateName: 'cursoNuevoForm'
+  finalizarButtonLabel: "Finalizar"
+  finalizarAction: "finalizar"
+  crearAgregarButtonLabel: "Crear y agregar participantes"
+  crearAgregarAction: null
+  header: null
+  target: null
 
 Ember.TEMPLATES['cursosAutorizados'] = Ember.Handlebars.compile('' +
   '<div class="page-header">' +
@@ -124,7 +156,7 @@ Ember.TEMPLATES['cursosAutorizados'] = Ember.Handlebars.compile('' +
           '<td> {{ instructor.nombre }} </td>' +
           '<td> {{ alumnos.length }} </td>' +
           '<td> {{ certificado id }} </td>' +
-          '<td> {{#link-to "cursosAutorizados.edit" this }} Editar {{/link-to}} </td>' +
+          '<td> {{#link-to "edit" this }} Editar {{/link-to}} </td>' +
 
         '</tr>' +
       '{{/each}}' +
@@ -132,8 +164,7 @@ Ember.TEMPLATES['cursosAutorizados'] = Ember.Handlebars.compile('' +
   '</table>' +
   '{{ outlet }}' )
 
-
-Ember.TEMPLATES['cursosAutorizados/edit'] = Ember.Handlebars.compile('' +
+Ember.TEMPLATES['edit'] = Ember.Handlebars.compile('' +
   '<div class="container-fluid">' +
     '<div class="row-fluid">' +
       '<div class="span4">' +
@@ -171,24 +202,24 @@ Ember.TEMPLATES['cursosAutorizados/edit'] = Ember.Handlebars.compile('' +
         '</div>' +
         '<div class="form-actions">' +
           '{{ view App.BootstrapButton ' +
-                  'content="Finalizar" ' +
-                  'actionBinding="view.finalizarAction" ' +
-                  'targetBinding="view.target" ' +
+                  'content="Actualizar" ' +
+                  'action="actualizar" ' +
+                  'target="controller" ' +
                   'classNames="btn-success"' +
           '}}' +
-          '{{#if view.crearAgregarAction}}' +
-            '{{ view App.BootstrapButton ' +
-                    'contentBinding="view.crearAgregarButtonLabel" ' +
-                    'actionBinding="view.crearAgregarAction" ' +
-                    'targetBinding="view.target" ' +
-                    'classNames="btn-primary btn"' +
-            '}}' +
-          '{{/if}}' +
+          '{{ view App.BootstrapButton ' +
+                  'content="Editar participantes" ' +
+                  'action="editar" ' +
+                  'target="controller" ' +
+                  'classNames="btn-primary btn"' +
+          '}}' +
         '</div>' +
       '</div>' 
       '{{ outlet }}' +
     '</div>' +
   '</div>' )
+
+Ember.TEMPLATES['edit/participantes'] = Ember.Handlebars.compile('<h1> hello world </h1>')
 
 Ember.TEMPLATES['cursosNuevos'] = Ember.Handlebars.compile('' +
   '<div class="page-header">' +
@@ -221,17 +252,6 @@ Ember.TEMPLATES['cursosNuevos'] = Ember.Handlebars.compile('' +
        'message="¿Está seguro de autorizar el curso? ¡Esta acción no se puede deshacer!"' +
   '}}' )
 
-App.ConfirmDialogView = Ember.View.extend
-  templateName: 'confirmDialog'
-  classNames: ['modal', 'hide']
-  cancelButtonLabel: 'Cancel'
-  cancelAction: null
-  okButtonLabel: "Confirmar"
-  okAction: null
-  header: null
-  message: null
-  target: null
-
 Ember.TEMPLATES['confirmDialog'] = Ember.Handlebars.compile(
   '<div class="modal-header centerAlign">' +
     '<button type="button" class="close" data-dismiss="modal" class="floatRight">×</button>' +
@@ -258,18 +278,6 @@ Ember.TEMPLATES['confirmDialog'] = Ember.Handlebars.compile(
       '}}' +
     '{{/if}}' +
   '</div>'
-)
-
-App.BootstrapButton = Ember.View.extend(Ember.TargetActionSupport,
-  tagName: 'button',
-  classNames: ['btn']
-  iconName : null
-  disabled: false,
-  click: ->
-    if !@.get('disabled')
-      @.triggerAction()
-
-  template: Ember.Handlebars.compile('{{#if view.iconName}}<i {{bindAttr class="view.iconName"}}></i>{{/if}} {{view.content}}')
 )
 
 Ember.TEMPLATES['crear'] = Ember.Handlebars.compile('' +
@@ -347,15 +355,6 @@ Ember.TEMPLATES['archivo'] = Ember.Handlebars.compile('' +
       '{{/if}}' +
     '</div>' +
   '</div>' )
-
-App.CursoNuevoFormulario = Ember.View.extend
-  templateName: 'cursoNuevoForm'
-  finalizarButtonLabel: "Finalizar"
-  finalizarAction: "finalizar"
-  crearAgregarButtonLabel: "Crear y agregar participantes"
-  crearAgregarAction: null
-  header: null
-  target: null
 
 Ember.TEMPLATES['cursoNuevoForm'] = Ember.Handlebars.compile(
   '<div class="span4">' +
