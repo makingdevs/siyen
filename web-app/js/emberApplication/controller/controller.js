@@ -55,6 +55,7 @@
     instructores: [],
     puertos: [],
     cursos: [],
+    fechaDeInicio: null,
     init: function() {
       this._super();
       this.set('instructores', this.get('store').find("instructor"));

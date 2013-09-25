@@ -49,6 +49,8 @@ App.CursosAutorizadosEditController = Ember.ObjectController.extend
   puertos : []
   cursos : []
 
+  fechaDeInicio : null
+
   init : ->
     @_super()
     @set 'instructores', @get('store').find("instructor")
