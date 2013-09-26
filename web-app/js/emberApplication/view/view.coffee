@@ -156,8 +156,7 @@ Ember.TEMPLATES['cursosAutorizados'] = Ember.Handlebars.compile('' +
           '<td> {{ instructor.nombre }} </td>' +
           '<td> {{ alumnos.length }} </td>' +
           '<td> {{ certificado id }} </td>' +
-          '<td> {{#link-to "edit" this }} Editar {{/link-to}} </td>' +
-
+          '<td> {{#link-to "edit.participantes" this }} Editar {{/link-to}} </td>' +
         '</tr>' +
       '{{/each}}' +
     '</tbody>' +
@@ -169,7 +168,7 @@ Ember.TEMPLATES['edit'] = Ember.Handlebars.compile('' +
     '<div class="row-fluid">' +
       '<div class="span4">' +
         '<div class="page-header">' +
-          '<h1> {{ view.header }} </h1>' +
+          '<h1> Actualizar curso </h1>' +
         '</div>' +
         '<div class="control-group">' +
           '<label class="control-label" for="datepicker">Fecha de inicio :</label>' +
@@ -214,12 +213,36 @@ Ember.TEMPLATES['edit'] = Ember.Handlebars.compile('' +
                   'classNames="btn-primary btn"' +
           '}}' +
         '</div>' +
-      '</div>' 
+      '</div>' +
       '{{ outlet }}' +
     '</div>' +
   '</div>' )
 
-Ember.TEMPLATES['edit/participantes'] = Ember.Handlebars.compile('<h1> hello world </h1>')
+Ember.TEMPLATES['edit/participantes'] = Ember.Handlebars.compile('' +
+  '<div class="span4">' +
+    '<div class="page-header">' +
+      '<h1>Participante</h1>' +
+    '</div>' +
+    '<div>' +
+      '<div class="control-group">' +
+        '<label class="control-label" for="nombreCompleto">Nombre Completo :</label>' +
+        '<div class="controls">' +
+          '{{ view App.TextField id="nombreCompleto" target="controller" action="agregar" valueBinding="controller.nombreCompleto" placeholder="Nombre completo" }}' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="control-group">' +
+        '<label class="control-label" for="observaciones">Observaciones :</label>' +
+        '<div class="controls">' +
+          '{{ view Ember.TextArea valueBinding="observaciones" placeholder="Observaciones" }}' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="form-actions">' +
+        '<button class="btn btn-primary" {{ action "agregar" }}> Agregar </button>' +
+      '</div>' +
+    '</div>' +
+  '</div>')
 
 Ember.TEMPLATES['cursosNuevos'] = Ember.Handlebars.compile('' +
   '<div class="page-header">' +
@@ -322,7 +345,7 @@ Ember.TEMPLATES['crear/participantes'] = Ember.Handlebars.compile('' +
     '<div class="page-header">' +
       '<h1>Lista de participantes</h1>' +
     '</div>' +
-    '{{ view App.ParticipantesListView }}'
+    '{{ view App.ParticipantesListView }}' +
   '</div>'
   )
 
