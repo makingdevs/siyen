@@ -44,22 +44,18 @@ App.CursosNuevosController = Ember.ArrayController.extend
 
 App.CursosAutorizadosController = Ember.ArrayController.extend()
 
-App.CursosAutorizadosEditController = Ember.ObjectController.extend
-  instructores : []
-  puertos : []
+App.EditController = Ember.ObjectController.extend
   cursos : []
 
   fechaDeInicio : null
 
   init : ->
     @_super()
-    @set 'instructores', @get('store').find("instructor")
-    @set 'puertos', @get('store').find("puerto")
     @set 'cursos', @get('store').find("curso")
 
-App.CursosNuevosCrearController = Ember.ObjectController.extend()
-
 App.EditParticipantesController = Ember.ObjectController.extend()
+
+App.CursosNuevosCrearController = Ember.ObjectController.extend()
 
 App.CrearController = Ember.ObjectController.extend
   needs : ["cursosNuevos"]
