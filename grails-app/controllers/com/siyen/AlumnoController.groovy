@@ -14,9 +14,7 @@ class AlumnoController {
       }
     }
 
-    log.debug cmd.properties
     Alumno alumno = new Alumno( nombreCompleto : cmd.nombreCompleto, observaciones : cmd.observaciones )
-    log.debug cmd.cursoProgramado
     alumno.cursoProgramado = CursoProgramado.get(cmd.cursoProgramado)
     alumno.save(failOnError:true)
     alumno.numeroDeControl = generarNumeroDeControl(alumno.id)
