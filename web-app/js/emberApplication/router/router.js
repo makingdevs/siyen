@@ -10,8 +10,6 @@
     return this.resource('cursosAutorizados', function() {
       return this.resource('edit', {
         path: ":curso_programado_id"
-      }, function() {
-        return this.route('participantes');
       });
     });
   });
@@ -42,7 +40,5 @@
       return this.get('store').find('cursoProgramado', params.curso_programado_id);
     }
   });
-
-  App.EditParticipantesRoute = Ember.Route.extend();
 
 }).call(this);
