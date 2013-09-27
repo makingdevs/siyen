@@ -63,7 +63,13 @@
     },
     actions: {
       actualizar: function(cursoProgramado) {
-        cursoProgramado.get('alumnos').pushObject(alumno);
+        var alumno;
+        alumno = this.store.createRecord('alumno', {
+          nombreCompleto: this.nombreCompleto,
+          observaciones: this.observaciones,
+          cursoProgramado: cursoProgramado
+        });
+        alumno.save();
         this.set('currentParticipanteIndex', -1);
         this.set("nombreCompleto", null);
         return this.set("observaciones", null);
