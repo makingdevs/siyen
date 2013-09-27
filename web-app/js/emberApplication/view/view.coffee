@@ -92,7 +92,7 @@ App.ParticipanteView = Ember.View.extend
 
 App.TextField = Ember.TextField.extend(Ember.TargetActionSupport,
   insertNewline : ->
-    this.triggerAction()
+    @triggerAction()
 )
 
 App.BootstrapButton = Ember.View.extend(Ember.TargetActionSupport,
@@ -222,7 +222,7 @@ Ember.TEMPLATES['edit'] = Ember.Handlebars.compile('' +
           '<div class="control-group">' +
             '<label class="control-label" for="nombreCompleto">Nombre Completo :</label>' +
             '<div class="controls">' +
-              '{{ view App.TextField id="nombreCompleto" target="controller" action="agregar" valueBinding="controller.nombreCompleto" placeholder="Nombre completo" }}' +
+              '{{ view App.TextField id="nombreCompleto" target="controller" action="actualizar" valueBinding="controller.nombreCompleto" placeholder="Nombre completo" }}' +
             '</div>' +
           '</div>' +
 
@@ -234,7 +234,7 @@ Ember.TEMPLATES['edit'] = Ember.Handlebars.compile('' +
           '</div>' +
 
           '<div class="form-actions">' +
-            '<button class="btn btn-primary" {{ action "actualizar" model }}> Actualizar lista </button>' +
+            '<button class="btn btn-primary" {{ action "actualizar" }}> Actualizar lista </button>' +
           '</div>' +
         '</div>' +
       '</div>' +
