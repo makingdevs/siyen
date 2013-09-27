@@ -48,10 +48,24 @@ App.EditController = Ember.ObjectController.extend
   cursos : []
 
   fechaDeInicio : null
+  nombreCompleto : null
+  observaciones : null
+  currentParticipanteIndex : null
 
   init : ->
     @_super()
     @set 'cursos', @get('store').find("curso")
+
+  actions :
+    actualizar : (cursoProgramado) ->
+      #if @currentParticipanteIndex >= 0
+      #  cursoProgramado.get('alumnos').replace(@currentParticipanteIndex, 1, [alumno])
+      #else
+      cursoProgramado.get('alumnos').pushObject(alumno)
+
+      @set('currentParticipanteIndex', -1)
+      @set("nombreCompleto", null)
+      @set("observaciones", null)
 
 App.EditParticipantesController = Ember.ObjectController.extend()
 

@@ -54,9 +54,20 @@
   App.EditController = Ember.ObjectController.extend({
     cursos: [],
     fechaDeInicio: null,
+    nombreCompleto: null,
+    observaciones: null,
+    currentParticipanteIndex: null,
     init: function() {
       this._super();
       return this.set('cursos', this.get('store').find("curso"));
+    },
+    actions: {
+      actualizar: function(cursoProgramado) {
+        cursoProgramado.get('alumnos').pushObject(alumno);
+        this.set('currentParticipanteIndex', -1);
+        this.set("nombreCompleto", null);
+        return this.set("observaciones", null);
+      }
     }
   });
 
