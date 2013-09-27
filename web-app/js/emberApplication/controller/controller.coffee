@@ -59,15 +59,24 @@ App.EditController = Ember.ObjectController.extend
   actions :
     actualizar : ->
       cursoProgramado = @get('model')
-      alumno = @store.createRecord('alumno',
-        nombreCompleto : @nombreCompleto
-        observaciones : @observaciones
-        cursoProgramado : cursoProgramado
-        )
+      alumno = cursoProgramado.get('alumnos').objectAt(@currentParticipanteIndex)
+
+      alumno.set('nombreCompleto', @nombreCompleto)
+      alumno.set('observaciones', @observaciones)
+
+      alumno.save()
+
+      #cursoProgramado = @get('model')
+      #alumno = @store.createRecord('alumno',
+      #  nombreCompleto : @nombreCompleto
+      #  observaciones : @observaciones
+      #  cursoProgramado : cursoProgramado
+      #  )
+      #alumno.save()
+
       #if @currentParticipanteIndex >= 0
       #  cursoProgramado.get('alumnos').replace(@currentParticipanteIndex, 1, [alumno])
       #else
-      alumno.save()
 
       @set('currentParticipanteIndex', -1)
       @set("nombreCompleto", null)

@@ -65,11 +65,9 @@
       actualizar: function() {
         var alumno, cursoProgramado;
         cursoProgramado = this.get('model');
-        alumno = this.store.createRecord('alumno', {
-          nombreCompleto: this.nombreCompleto,
-          observaciones: this.observaciones,
-          cursoProgramado: cursoProgramado
-        });
+        alumno = cursoProgramado.get('alumnos').objectAt(this.currentParticipanteIndex);
+        alumno.set('nombreCompleto', this.nombreCompleto);
+        alumno.set('observaciones', this.observaciones);
         alumno.save();
         this.set('currentParticipanteIndex', -1);
         this.set("nombreCompleto", null);
