@@ -51,6 +51,35 @@
 
   App.CursosAutorizadosController = Ember.ArrayController.extend();
 
+  App.EditController = Ember.ObjectController.extend({
+    cursos: [],
+    fechaDeInicio: null,
+    nombreCompleto: null,
+    observaciones: null,
+    currentParticipanteIndex: null,
+    init: function() {
+      this._super();
+      return this.set('cursos', this.get('store').find("curso"));
+    },
+    actions: {
+      actualizar: function() {
+        var alumno, cursoProgramado;
+        cursoProgramado = this.get('model');
+        alumno = this.store.createRecord('alumno', {
+          nombreCompleto: this.nombreCompleto,
+          observaciones: this.observaciones,
+          cursoProgramado: cursoProgramado
+        });
+        alumno.save();
+        this.set('currentParticipanteIndex', -1);
+        this.set("nombreCompleto", null);
+        return this.set("observaciones", null);
+      }
+    }
+  });
+
+  App.EditParticipantesController = Ember.ObjectController.extend();
+
   App.CursosNuevosCrearController = Ember.ObjectController.extend();
 
   App.CrearController = Ember.ObjectController.extend({

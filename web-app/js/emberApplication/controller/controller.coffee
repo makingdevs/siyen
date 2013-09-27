@@ -16,7 +16,7 @@ App.CursosNuevosController = Ember.ArrayController.extend
       @.set( 'autorizarCurso', null )
 
     doRealizarAutorizacion : ->
-      cursoProgramadoTemp = @.get('autorizarCurso')
+      cursoProgramadoTemp = @get('autorizarCurso')
 
       cursoProgramadoLocal = {
         fechaDeInicio : cursoProgramadoTemp.get('fechaDeInicio').format('DD/MMMM/YYYY')
@@ -43,6 +43,37 @@ App.CursosNuevosController = Ember.ArrayController.extend
       )
 
 App.CursosAutorizadosController = Ember.ArrayController.extend()
+
+App.EditController = Ember.ObjectController.extend
+  cursos : []
+
+  fechaDeInicio : null
+  nombreCompleto : null
+  observaciones : null
+  currentParticipanteIndex : null
+
+  init : ->
+    @_super()
+    @set 'cursos', @get('store').find("curso")
+
+  actions :
+    actualizar : ->
+      cursoProgramado = @get('model')
+      alumno = @store.createRecord('alumno',
+        nombreCompleto : @nombreCompleto
+        observaciones : @observaciones
+        cursoProgramado : cursoProgramado
+        )
+      #if @currentParticipanteIndex >= 0
+      #  cursoProgramado.get('alumnos').replace(@currentParticipanteIndex, 1, [alumno])
+      #else
+      alumno.save()
+
+      @set('currentParticipanteIndex', -1)
+      @set("nombreCompleto", null)
+      @set("observaciones", null)
+
+App.EditParticipantesController = Ember.ObjectController.extend()
 
 App.CursosNuevosCrearController = Ember.ObjectController.extend()
 
