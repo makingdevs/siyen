@@ -62,8 +62,9 @@
       return this.set('cursos', this.get('store').find("curso"));
     },
     actions: {
-      actualizar: function(cursoProgramado) {
-        var alumno;
+      actualizar: function() {
+        var alumno, cursoProgramado;
+        cursoProgramado = this.get('model');
         alumno = this.store.createRecord('alumno', {
           nombreCompleto: this.nombreCompleto,
           observaciones: this.observaciones,
