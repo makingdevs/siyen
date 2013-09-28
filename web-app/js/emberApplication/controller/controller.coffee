@@ -50,7 +50,7 @@ App.EditController = Ember.ObjectController.extend
   fechaDeInicio : null
   nombreCompleto : null
   observaciones : null
-  currentParticipanteIndex : null
+  currentParticipanteIndex : -1
 
   init : ->
     @_super()
@@ -59,23 +59,16 @@ App.EditController = Ember.ObjectController.extend
   actions :
     actualizar : ->
       cursoProgramado = @get('model')
-      alumno = cursoProgramado.get('alumnos').objectAt(@currentParticipanteIndex)
+
+      if @currentParticipanteIndex >= 0
+        alumno = cursoProgramado.get('alumnos').objectAt(@currentParticipanteIndex)
+      else 
+        alumno = @store.createRecord('alumno')
+
       alumno.set('nombreCompleto', @nombreCompleto)
       alumno.set('observaciones', @observaciones)
       alumno.set('cursoProgramado', cursoProgramado)
       alumno.save()
-
-      #cursoProgramado = @get('model')
-      #alumno = @store.createRecord('alumno',
-      #  nombreCompleto : @nombreCompleto
-      #  observaciones : @observaciones
-      #  cursoProgramado : cursoProgramado
-      #  )
-      #alumno.save()
-
-      #if @currentParticipanteIndex >= 0
-      #  cursoProgramado.get('alumnos').replace(@currentParticipanteIndex, 1, [alumno])
-      #else
 
       @set('currentParticipanteIndex', -1)
       @set("nombreCompleto", null)

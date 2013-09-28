@@ -56,7 +56,7 @@
     fechaDeInicio: null,
     nombreCompleto: null,
     observaciones: null,
-    currentParticipanteIndex: null,
+    currentParticipanteIndex: -1,
     init: function() {
       this._super();
       return this.set('cursos', this.get('store').find("curso"));
@@ -65,7 +65,11 @@
       actualizar: function() {
         var alumno, cursoProgramado;
         cursoProgramado = this.get('model');
-        alumno = cursoProgramado.get('alumnos').objectAt(this.currentParticipanteIndex);
+        if (this.currentParticipanteIndex >= 0) {
+          alumno = cursoProgramado.get('alumnos').objectAt(this.currentParticipanteIndex);
+        } else {
+          alumno = this.store.createRecord('alumno');
+        }
         alumno.set('nombreCompleto', this.nombreCompleto);
         alumno.set('observaciones', this.observaciones);
         alumno.set('cursoProgramado', cursoProgramado);
