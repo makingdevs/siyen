@@ -68,6 +68,7 @@
         alumno = cursoProgramado.get('alumnos').objectAt(this.currentParticipanteIndex);
         alumno.set('nombreCompleto', this.nombreCompleto);
         alumno.set('observaciones', this.observaciones);
+        alumno.set('cursoProgramado', cursoProgramado);
         alumno.save();
         this.set('currentParticipanteIndex', -1);
         this.set("nombreCompleto", null);

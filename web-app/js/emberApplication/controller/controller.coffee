@@ -60,10 +60,9 @@ App.EditController = Ember.ObjectController.extend
     actualizar : ->
       cursoProgramado = @get('model')
       alumno = cursoProgramado.get('alumnos').objectAt(@currentParticipanteIndex)
-
       alumno.set('nombreCompleto', @nombreCompleto)
       alumno.set('observaciones', @observaciones)
-
+      alumno.set('cursoProgramado', cursoProgramado)
       alumno.save()
 
       #cursoProgramado = @get('model')
