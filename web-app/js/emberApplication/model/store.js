@@ -22,6 +22,15 @@
         return this.ajax(this.buildURL(type.typeKey), "POST", {
           data: data
         });
+      },
+      updateRecord: function(store, type, record) {
+        var data, id, serializer;
+        serializer = store.serializerFor(type.typeKey);
+        data = serializer.serializeIntoHash(data, type, record);
+        id = record.get('id');
+        return this.ajax(this.buildURL(type.typeKey, id), "PUT", {
+          data: data
+        });
       }
     })
   });
