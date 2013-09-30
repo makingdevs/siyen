@@ -57,6 +57,11 @@ App.EditController = Ember.ObjectController.extend
     @set 'cursos', @get('store').find("curso")
 
   actions :
+
+    actualizarCurso : ->
+      cursoProgramado = @get('model')
+      cursoProgramado.save()
+
     actualizar : ->
       cursoProgramado = @get('model')
 
