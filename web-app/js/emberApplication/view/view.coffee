@@ -201,16 +201,10 @@ Ember.TEMPLATES['edit'] = Ember.Handlebars.compile('' +
         '</div>' +
         '<div class="form-actions">' +
           '{{ view App.BootstrapButton ' +
-                  'content="Actualizar" ' +
-                  'action="actualizar" ' +
+                  'content="Actualizar datos del curso" ' +
+                  'action="actualizarCurso" ' +
                   'target="controller" ' +
                   'classNames="btn-success"' +
-          '}}' +
-          '{{ view App.BootstrapButton ' +
-                  'content="Editar participantes" ' +
-                  'action="editar" ' +
-                  'target="controller" ' +
-                  'classNames="btn-primary btn"' +
           '}}' +
         '</div>' +
       '</div>' +
