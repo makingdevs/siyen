@@ -38,7 +38,7 @@ class CertificadoService {
   def genearQRConElNumeroDeControl(String numeroControl) {
     String serverURL = grailsApplication.config.grails.serverURL.toString()
     Map informacion = [:]
-    def participanteInfo = "${serverURL}/participanteInfo/${numeroControl}"
+    def participanteInfo = "${serverURL}/participanteInfo?matricula=${numeroControl}"
     informacion.put("chs", "250x250")
     informacion.put("cht", "qr")
     informacion.put("chl", participanteInfo)
