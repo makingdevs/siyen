@@ -6,7 +6,7 @@ class UrlMappings {
       }
     }
 
-    "/cursos_programados"(resource: "cursoProgramado")
+    "/cursos_programados/$id?"(resource: "cursoProgramado")
     "/alumnos/$id?"(resource: "alumno")
 
     "/cursos"(controller:"curso", action:"jsonList")

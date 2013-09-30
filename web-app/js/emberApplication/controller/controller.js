@@ -62,6 +62,11 @@
       return this.set('cursos', this.get('store').find("curso"));
     },
     actions: {
+      actualizarCurso: function() {
+        var cursoProgramado;
+        cursoProgramado = this.get('model');
+        return cursoProgramado.save();
+      },
       actualizar: function() {
         var alumno, cursoProgramado;
         cursoProgramado = this.get('model');

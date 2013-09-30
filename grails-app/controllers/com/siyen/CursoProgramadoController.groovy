@@ -5,22 +5,13 @@ import grails.converters.*
 
 class CursoProgramadoController {
 
-  static allowedMethods = [show : "GET", save : "POST"]
+  static allowedMethods = [show : "GET", save : "POST", update : "PUT"]
 
   def cursoProgramadoService
 
   def show() {
-
-    def jsonResponse = [:]
-    jsonResponse.cursos_programados = CursoProgramado.list()
-    jsonResponse.puertos = Puerto.list()
-    jsonResponse.cursos = Curso.list()
-    jsonResponse.instructores = Instructor.list()
-    jsonResponse.alumnos = Alumno.list()
-
-    JSON.use('siyen') {
-      render jsonResponse as JSON
-    }
+    def cursosProgramados = CursoProgramado.list()
+    renderResponseWithCursosProgramados(cursosProgramados)
   }
 
   def save(CursoProgramadoCommand cmd) {
@@ -31,9 +22,25 @@ class CursoProgramadoController {
     }
 
     CursoProgramado cursoProgramado = cursoProgramadoService.crearCursoDesdeCommand(cmd)
+    renderResponseWithCursosProgramados(cursoProgramado)
+  }
 
+  def update(CursoProgramadoCommand cmd) {
+    if(cmd.hasErrors()) {
+      render (status : 400, contentType:"text/json") {
+        [ errors : cmd.errors ]
+      }
+    }
+
+    CursoProgramado cursoProgramado = CursoProgramado.get(params.id)
+    cursoProgramado.curso = Curso.get(params.curso)
+    cursoProgramado.save(failOnError:true)
+    renderResponseWithCursosProgramados(cursoProgramado)
+  }
+
+  private renderResponseWithCursosProgramados(def cursosProgramados) {
     def jsonResponse = [:]
-    jsonResponse.cursos_programados = cursoProgramado
+    jsonResponse.cursos_programados = cursosProgramados
     jsonResponse.puertos = Puerto.list()
     jsonResponse.cursos = Curso.list()
     jsonResponse.instructores = Instructor.list()
