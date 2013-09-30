@@ -57,7 +57,7 @@ grails.exceptionresolver.params.exclude = ['password']
 grails.hibernate.cache.queries = false
 def logDirectory = 'target/'
 
-grails.serverURL = "http://localhost:8080/siyen"
+grails.serverURL = "http://192.168.0.6:8080/siyen"
 environments {
   development {
     grails.logging.jul.usebridge = true
