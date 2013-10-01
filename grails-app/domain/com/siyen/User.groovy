@@ -1,4 +1,4 @@
-package com.siyen
+ package com.siyen
 
 class User {
 
@@ -10,6 +10,8 @@ class User {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
+
+	static hasMany = [puertos : Puerto, instructores : Instructor]
 
 	static constraints = {
 		username blank: false, unique: true
