@@ -6,6 +6,8 @@ import com.siyen.*
 
 class BootStrap {
 
+  def springSecurityService
+
   def init = { servletContext ->
 
     JSON.createNamedConfig('siyen') {
@@ -49,23 +51,31 @@ class BootStrap {
 
     instructor.save()
 
-//    CursoProgramado cursoProgramado = new CursoProgramado (
-//      fechaDeInicio : new Date(),
-//      fechaDeTermino : new Date() + 4,
-//      puerto : puerto,
-//      curso : curso,
-//      instructor : instructor,
-//      statusCurso : StatusCurso.NUEVO )
-//    cursoProgramado.save()
-//
-//    CursoProgramado cursoProgramado2 = new CursoProgramado (
-//      fechaDeInicio : new Date() + 1,
-//      fechaDeTermino : new Date() + 5,
-//      puerto : puerto,
-//      curso : curso,
-//      instructor : instructor,
-//      statusCurso : StatusCurso.NUEVO )
-//    cursoProgramado2.save()
+    createUser()
+  }
+
+  private def createUser() {
+    def uniqueUser = User.findByUsername("usuario")
+    if(!uniqueUser){
+      log.debug "Creando usuario único en sistema: usuario/password"
+      uniqueUser = new User(
+        username:"usuario",
+        password:"password",
+        enabled:true,
+        accountExpired:false,
+        accountLocked:false,
+        passwordExpired:false)
+      uniqueUser.addToPuertos(Puerto.get(1))
+      uniqueUser.addToInstructores(Instructor.get(1))
+      uniqueUser.save(flush:true)
+    }
+    def role = Role.findByAuthority("ROLE_USER")
+    if(!role)
+      role = new Role(authority:"ROLE_USER").save(flush:true)
+    def userRole = UserRole.findByUserAndRole(uniqueUser,role)
+    def user = User.read(uniqueUser.id)
+    if(!userRole)
+      userRole = UserRole.create(user, role, true)
   }
 
   def destroy = {
