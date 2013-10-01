@@ -18,7 +18,6 @@
 
     <g:layoutHead/>
     <r:layoutResources />
-
   </head>
 
   <body>
@@ -46,6 +45,23 @@
                   </li>
                 <!-- END: Menu de opciones -->
               </ul>
+              <sec:ifLoggedIn>
+                <ul class="nav pull-right">
+                  <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" role="button" href="#" id="drop10">
+                      <sec:loggedInUserInfo field="username"/>
+                      <b class="caret"></b>
+                    </a>
+                    <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
+                      <li>
+                        <g:link controller="logout" tabindex="-1">
+                          Logout
+                        </g:link>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </sec:ifLoggedIn>
             </div><!--/.nav-collapse -->
           </div>
         </div>
