@@ -117,3 +117,4 @@ grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.siyen.Use
 grails.plugins.springsecurity.authority.className = 'com.siyen.Role'
 grails.plugins.springsecurity.requestMap.className = 'com.siyen.RequestMap'
 grails.plugins.springsecurity.securityConfigType = 'Requestmap'
+grails.plugins.springsecurity.successHandler.defaultTargetUrl = '/#'
