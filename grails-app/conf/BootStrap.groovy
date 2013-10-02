@@ -16,8 +16,11 @@ class BootStrap {
       it.registerObjectMarshaller(new CursoMarshaller())
       it.registerObjectMarshaller(new InstructorMarshaller())
       it.registerObjectMarshaller(new AlumnoMarshaller())
-
     }
+
+    cargarCursos()
+    cargarPuertos()
+    cargarInstructores()
 
     switch(Environment.current) {
       case Environment.DEVELOPMENT:
@@ -28,29 +31,6 @@ class BootStrap {
   }
 
   def inicializarDominios() {
-    Puerto puerto = new Puerto(
-      clave : "ACG",
-      puerto : "Acapulco",
-      estado : "Guerrero",
-      direccion : "AV. MIGUEL ALEMAN No. 306 EDIFICIO S.C.T. 2do. PISO C.P.- 39300")
-
-    puerto.save()
-
-    Curso curso = new Curso(
-      clave : "CAPACO3234",
-      nombre : "Patrón de costa (subalterno)",
-      duracion : 4,
-      libreta : "A")
-
-    curso.save()
-
-    Instructor instructor = new Instructor(
-      nombre : "Cap. Alt. Joaquín Antonio Borda Aviles",
-      numeroDeOficio : "109.219/2000-5706"
-    )
-
-    instructor.save()
-
     createUser()
   }
 
@@ -76,6 +56,59 @@ class BootStrap {
     def user = User.read(uniqueUser.id)
     if(!userRole)
       userRole = UserRole.create(user, role, true)
+  }
+
+  private cargarCursos() {
+    if(!Curso.count()){
+      log.debug "Importando cursos"
+      def curso = new File( obtenerGrailsHome() + "catalogo_curso.csv" )
+
+      curso.eachLine {
+        def data = it.tokenize(';')
+
+        new Curso( clave : data.get(0).trim(),
+          nombre : data.get(1).trim(),
+          duracion : data.get(2).trim().toInteger(),
+          libreta : data.get(3).trim()).save(failOnError:true)
+      }
+    }
+  }
+
+  private cargarPuertos() {
+    if(!Puerto.count()){
+      log.debug "Importando puertos"
+      def puerto = new File( obtenerGrailsHome() + "catalogo_puerto.csv" )
+
+      puerto.eachLine {
+        def data = it.tokenize(';')
+        String direccion = data.size() == 3 ? ' ' : data.get(3).trim()
+
+        new Puerto(
+          clave : data.get(0).trim(),
+          puerto : data.get(1).trim(),
+          estado : data.get(2).trim(),
+          direccion : direccion).save(failOnError:true)
+      }
+    }
+  }
+
+  private cargarInstructores() {
+    if(!Instructor.count()){
+      log.debug "Importando instructores antes usuarios"
+      def instructor = new File( obtenerGrailsHome() + "usuario_instructor.csv" )
+
+      instructor.eachLine {
+        def data = it.tokenize(';')
+
+        new Instructor(
+          nombre : data.get(2).trim(),
+          numeroDeOficio : data.get(4).trim()).save(failOnError:true)
+      }
+    }
+  }
+
+  private obtenerGrailsHome() {
+    "${System.properties.'user.home'}/.grails/"
   }
 
   def destroy = {
