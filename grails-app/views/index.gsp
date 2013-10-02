@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="layout" content="twitterBootstrapSiyen"/>
+    <sec:ifLoggedIn>
+      <meta name="layout" content="twitterBootstrapSiyenLogin"/>
+    </sec:ifLoggedIn>
+    <sec:ifNotLoggedIn>
+      <meta name="layout" content="twitterBootstrapSiyenLogout"/>
+    </sec:ifNotLoggedIn>
+
     <title>Instituto de Educación Náutica y Portuaria</title>
   </head>
 
