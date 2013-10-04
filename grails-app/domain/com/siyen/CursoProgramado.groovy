@@ -13,8 +13,6 @@ class CursoProgramado {
   Curso curso
   Instructor instructor
 
-  StatusCurso statusCurso = StatusCurso.NUEVO
-
   static hasMany = [alumnos : Alumno]
 
   static constraints = {
