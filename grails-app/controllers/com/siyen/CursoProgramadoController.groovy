@@ -10,7 +10,9 @@ class CursoProgramadoController {
   def cursoProgramadoService
 
   def show() {
-    def cursosProgramados = CursoProgramado.list()
+    def cursosProgramados = CursoProgramado.findAll {
+      dateCreated > (new Date() - 1)
+    }
     renderResponseWithCursosProgramados(cursosProgramados)
   }
 
@@ -41,10 +43,12 @@ class CursoProgramadoController {
   private renderResponseWithCursosProgramados(def cursosProgramados) {
     def jsonResponse = [:]
     jsonResponse.cursos_programados = cursosProgramados
-    jsonResponse.puertos = Puerto.list()
-    jsonResponse.cursos = Curso.list()
-    jsonResponse.instructores = Instructor.list()
-    jsonResponse.alumnos = Alumno.list()
+    jsonResponse.puertos = Puerto.findAll { activo == true }
+    jsonResponse.cursos = Curso.findAll { activo == true }
+    jsonResponse.instructores = Instructor.findAll { activo == true }
+    jsonResponse.alumnos = Alumno.findAll {
+      dateCreated > (new Date() - 1)
+    }
 
     JSON.use('siyen') {
       render jsonResponse as JSON

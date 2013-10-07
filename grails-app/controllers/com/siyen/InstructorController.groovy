@@ -6,7 +6,7 @@ class InstructorController {
 
   def jsonList() {
     render(contentType:"text/json") {
-      [ instructores : Instructor.list() ]
+      [ instructores : Instructor.findAll { activo == true } ]
     }
   }
 

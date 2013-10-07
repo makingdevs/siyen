@@ -6,7 +6,7 @@ class PuertoController {
 
   def jsonList() {
     render(contentType:"text/json") {
-      [ puertos : Puerto.list() ]
+      [ puertos : Puerto.findAll { activo == true } ]
     }
   }
 

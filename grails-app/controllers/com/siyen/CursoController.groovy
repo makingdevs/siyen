@@ -6,7 +6,7 @@ class CursoController {
 
   def jsonList() {
     render(contentType:"text/json") {
-      [ cursos : Curso.list() ]
+      [ cursos : Curso.findAll { activo == true } ]
     }
   }
 
