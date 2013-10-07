@@ -11,6 +11,11 @@ App.CursoProgramado = DS.Model.extend
 App.Puerto = DS.Model.extend
   clave : DS.attr('string')
   puerto : DS.attr('string')
+  estado : DS.attr('string')
+
+  descripcion: ( ->
+    @.get('puerto') + ', ' + @.get('estado');
+  ).property('puerto', 'estado')
 
 App.Curso = DS.Model.extend
   clave : DS.attr('string')
