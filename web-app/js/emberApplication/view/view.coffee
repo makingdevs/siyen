@@ -180,7 +180,7 @@ Ember.TEMPLATES['edit'] = Ember.Handlebars.compile('' +
         '<div class="control-group">' +
           '<label class="control-label" for="puerto">Puerto :</label>' +
           '<div class="controls">' +
-            '{{ view Ember.TextField valueBinding="model.puerto.puerto" disabled="disabled" }}' +
+            '{{ view Ember.TextField valueBinding="model.puerto.descripcion" disabled="disabled" }}' +
           '</div>' +
         '</div>' +
         '<div class="control-group">' +
@@ -195,7 +195,7 @@ Ember.TEMPLATES['edit'] = Ember.Handlebars.compile('' +
             '{{ view Ember.Select prompt="Selecciona un curso : "' +
                                  'contentBinding="cursos"' +
                                  'optionValuePath="content.clave"' +
-                                 'optionLabelPath="content.nombre"' +
+                                 'optionLabelPath="content.clave"' +
                                  'selectionBinding="model.curso" }}' +
           '</div>' +
         '</div>' +
@@ -401,7 +401,7 @@ Ember.TEMPLATES['cursoNuevoForm'] = Ember.Handlebars.compile(
         '{{ view Ember.Select prompt="Selecciona un puerto : "' +
                              'contentBinding="puertos"' +
                              'optionValuePath="content.clave"' +
-                             'optionLabelPath="content.puerto"' +
+                             'optionLabelPath="content.descripcion"' +
                              'selectionBinding="puertoSelected" }}' +
       '</div>' +
     '</div>' +
@@ -421,7 +421,7 @@ Ember.TEMPLATES['cursoNuevoForm'] = Ember.Handlebars.compile(
         '{{ view Ember.Select prompt="Selecciona un curso : "' +
                              'contentBinding="cursos"' +
                              'optionValuePath="content.clave"' +
-                             'optionLabelPath="content.nombre"' +
+                             'optionLabelPath="content.clave"' +
                              'selectionBinding="cursoSelected" }}' +
       '</div>' +
     '</div>' +

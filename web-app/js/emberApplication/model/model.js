@@ -11,7 +11,11 @@
 
   App.Puerto = DS.Model.extend({
     clave: DS.attr('string'),
-    puerto: DS.attr('string')
+    puerto: DS.attr('string'),
+    estado: DS.attr('string'),
+    descripcion: (function() {
+      return this.get('puerto') + ', ' + this.get('estado');
+    }).property('puerto', 'estado')
   });
 
   App.Curso = DS.Model.extend({

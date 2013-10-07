@@ -1,12 +1,17 @@
 package com.siyen
 
+import grails.converters.*
+
 class InstructorController {
 
   static scaffold = true
 
+  def springSecurityService
+
   def jsonList() {
-    render(contentType:"text/json") {
-      [ instructores : Instructor.findAll { activo == true } ]
+    def jsonResponse = [ instructores : springSecurityService.currentUser.instructores.findAll { it.activo } ]
+    JSON.use('siyen') {
+      render jsonResponse as JSON
     }
   }
 
