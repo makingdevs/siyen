@@ -152,7 +152,7 @@ Ember.TEMPLATES['cursosAutorizados'] = Ember.Handlebars.compile('' +
           '<td> {{ date fechaDeInicio }} </td>' +
           '<td> {{ date fechaDeTermino }} </td>' +
           '<td> {{ puerto.clave }} - {{ puerto.puerto }} </td>' +
-          '<td> {{ curso.nombre }} </td>' +
+          '<td> {{ curso.clave }} </td>' +
           '<td> {{ instructor.nombre }} </td>' +
           '<td> {{ alumnos.length }} </td>' +
           '<td> {{ certificado id }} </td>' +
