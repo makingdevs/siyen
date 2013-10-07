@@ -18,4 +18,8 @@ class Puerto {
     direccion size:1..500, blank: true
   }
 
+  String toString() {
+    clave
+  }
+
 }

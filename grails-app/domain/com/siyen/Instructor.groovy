@@ -14,4 +14,8 @@ class Instructor {
     numeroDeOficio size:1..50, blank:false
   }
 
+  String toString() {
+    nombre
+  }
+
 }
