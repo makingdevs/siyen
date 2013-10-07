@@ -16,6 +16,7 @@ class PuertoMarshaller implements ObjectMarshaller<JSON> {
       id : puerto.id,
       clave : puerto.clave,
       puerto : puerto.puerto,
+      estado : puerto.estado
     ]
     converter.convertAnother(puertoValues)
   }
