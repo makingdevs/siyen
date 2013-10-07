@@ -19,7 +19,6 @@ class CursoProgramadoMarshaller implements ObjectMarshaller<JSON> {
       puerto : cursoProgramado.puerto.id,
       curso : cursoProgramado.curso.id,
       instructor : cursoProgramado.instructor.id,
-      statusCurso : cursoProgramado.statusCurso.key,
       alumnos : cursoProgramado.alumnos?.id ?: []
     ]
     converter.convertAnother(cursoProgramadoValues)
