@@ -107,6 +107,26 @@ App.BootstrapButton = Ember.View.extend(Ember.TargetActionSupport,
   template: Ember.Handlebars.compile('{{#if view.iconName}}<i {{bindAttr class="view.iconName"}}></i>{{/if}} {{view.content}}')
 )
 
+App.CertificadoButton = Ember.View.extend(Ember.TargetActionSupport,
+  tagName: 'a',
+  classNames: ['btn btn-success']
+  iconName : "icon-print icon-white"
+  click: ->
+    debugger
+    id = @get('context.id')
+
+    urlBaseFrente = ($ '#frenteParaCurso').val()
+    urlFrente = "#{urlBaseFrente}/#{id}"
+
+    urlBaseReverso = ($ '#reversoParaCurso').val()
+    urlReverso = "#{urlBaseReverso}/#{id}"
+
+    window.open(urlFrente)
+    window.open(urlReverso)
+
+  template: Ember.Handlebars.compile('<i {{bindAttr class="view.iconName"}}></i>')
+)
+
 App.CursosAutorizados = Ember.View.extend()
 
 App.ConfirmDialogView = Ember.View.extend
@@ -155,7 +175,7 @@ Ember.TEMPLATES['cursosAutorizados'] = Ember.Handlebars.compile('' +
           '<td> {{ curso.clave }} </td>' +
           '<td> {{ instructor.nombre }} </td>' +
           '<td> {{ alumnos.length }} </td>' +
-          '<td> {{ certificado id }} </td>' +
+          '<td> {{ view App.CertificadoButton }} </td>' +
           '<td> {{#link-to "edit" this }} Editar {{/link-to}} </td>' +
         '</tr>' +
       '{{/each}}' +
