@@ -77,7 +77,8 @@
       </footer>
     </script>
 
-  <input type="hidden" id="certificadosURL" value="${g.createLink(action:'generarParaCurso', controller:'certificado')}" />
+  <input type="hidden" id="frenteParaCurso" value="${g.createLink(action:'generarFrenteParaCurso', controller:'certificado')}" />
+  <input type="hidden" id="reversoParaCurso" value="${g.createLink(action:'generarReversoParaCurso', controller:'certificado')}" />
 
     <r:layoutResources />
   </body>

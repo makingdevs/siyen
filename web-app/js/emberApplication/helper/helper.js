@@ -4,11 +4,4 @@
     return moment(date).format('DD/MMMM/YYYY');
   });
 
-  Ember.Handlebars.registerBoundHelper('certificado', function(id) {
-    var link, url;
-    url = ($('#certificadosURL')).val();
-    link = "<a href='" + url + "/" + id + "' class='btn btn-success'><i class='icon-print icon-white'></i> </a>";
-    return new Handlebars.SafeString(link);
-  });
-
 }).call(this);

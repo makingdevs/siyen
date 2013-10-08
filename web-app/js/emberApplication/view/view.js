@@ -101,6 +101,24 @@
     template: Ember.Handlebars.compile('{{#if view.iconName}}<i {{bindAttr class="view.iconName"}}></i>{{/if}} {{view.content}}')
   });
 
+  App.CertificadoButton = Ember.View.extend(Ember.TargetActionSupport, {
+    tagName: 'a',
+    classNames: ['btn btn-success'],
+    iconName: "icon-print icon-white",
+    click: function() {
+      debugger;
+      var id, urlBaseFrente, urlBaseReverso, urlFrente, urlReverso;
+      id = this.get('context.id');
+      urlBaseFrente = ($('#frenteParaCurso')).val();
+      urlFrente = "" + urlBaseFrente + "/" + id;
+      urlBaseReverso = ($('#reversoParaCurso')).val();
+      urlReverso = "" + urlBaseReverso + "/" + id;
+      window.open(urlFrente);
+      return window.open(urlReverso);
+    },
+    template: Ember.Handlebars.compile('<i {{bindAttr class="view.iconName"}}></i>')
+  });
+
   App.CursosAutorizados = Ember.View.extend();
 
   App.ConfirmDialogView = Ember.View.extend({
@@ -125,7 +143,7 @@
     target: null
   });
 
-  Ember.TEMPLATES['cursosAutorizados'] = Ember.Handlebars.compile('' + '<div class="page-header">' + '<h1>Cursos programados</h1>' + '</div>' + '<table class="table table-condensed table-striped table-hover">' + '<thead>' + '<tr>' + '<th>Fecha de inicio</th>' + '<th>Fecha de termino</th>' + '<th>Puerto</th>' + '<th>Curso</th>' + '<th>Instructor</th>' + '<th>Participantes</th>' + '<th>Certificados</th>' + '<th>&nbsp;</th>' + '</tr>' + '</thead>' + '<tbody>' + '{{#each controller}}' + '<tr>' + '<td> {{ date fechaDeInicio }} </td>' + '<td> {{ date fechaDeTermino }} </td>' + '<td> {{ puerto.clave }} - {{ puerto.puerto }} </td>' + '<td> {{ curso.clave }} </td>' + '<td> {{ instructor.nombre }} </td>' + '<td> {{ alumnos.length }} </td>' + '<td> {{ certificado id }} </td>' + '<td> {{#link-to "edit" this }} Editar {{/link-to}} </td>' + '</tr>' + '{{/each}}' + '</tbody>' + '</table>' + '{{ outlet }}');
+  Ember.TEMPLATES['cursosAutorizados'] = Ember.Handlebars.compile('' + '<div class="page-header">' + '<h1>Cursos programados</h1>' + '</div>' + '<table class="table table-condensed table-striped table-hover">' + '<thead>' + '<tr>' + '<th>Fecha de inicio</th>' + '<th>Fecha de termino</th>' + '<th>Puerto</th>' + '<th>Curso</th>' + '<th>Instructor</th>' + '<th>Participantes</th>' + '<th>Certificados</th>' + '<th>&nbsp;</th>' + '</tr>' + '</thead>' + '<tbody>' + '{{#each controller}}' + '<tr>' + '<td> {{ date fechaDeInicio }} </td>' + '<td> {{ date fechaDeTermino }} </td>' + '<td> {{ puerto.clave }} - {{ puerto.puerto }} </td>' + '<td> {{ curso.clave }} </td>' + '<td> {{ instructor.nombre }} </td>' + '<td> {{ alumnos.length }} </td>' + '<td> {{ view App.CertificadoButton }} </td>' + '<td> {{#link-to "edit" this }} Editar {{/link-to}} </td>' + '</tr>' + '{{/each}}' + '</tbody>' + '</table>' + '{{ outlet }}');
 
   Ember.TEMPLATES['edit'] = Ember.Handlebars.compile('' + '<div class="container-fluid">' + '<div class="row-fluid">' + '<div class="span4">' + '<div class="page-header">' + '<h1> Actualizar curso </h1>' + '</div>' + '<div class="control-group">' + '<label class="control-label" for="datepicker">Fecha de inicio :</label>' + '<div class="controls">' + '{{ view Ember.TextField valueBinding="fechaDeInicio" disabled="disabled"}}' + '</div>' + '</div>' + '<div class="control-group">' + '<label class="control-label" for="puerto">Puerto :</label>' + '<div class="controls">' + '{{ view Ember.TextField valueBinding="model.puerto.descripcion" disabled="disabled" }}' + '</div>' + '</div>' + '<div class="control-group">' + '<label class="control-label" for="instructores">Instructor :</label>' + '<div class="controls">' + '{{ view Ember.TextField valueBinding="model.instructor.nombre" disabled="disabled" }}' + '</div>' + '</div>' + '<div class="control-group">' + '<label class="control-label" for="cursos">Curso :</label>' + '<div class="controls">' + '{{ view Ember.Select prompt="Selecciona un curso : "' + 'contentBinding="cursos"' + 'optionValuePath="content.clave"' + 'optionLabelPath="content.clave"' + 'selectionBinding="model.curso" }}' + '</div>' + '</div>' + '<div class="form-actions">' + '{{ view App.BootstrapButton ' + 'content="Actualizar datos del curso" ' + 'action="actualizarCurso" ' + 'target="controller" ' + 'classNames="btn-success"' + '}}' + '</div>' + '</div>' + '<div class="span4">' + '<div class="page-header">' + '<h1>Participante</h1>' + '</div>' + '<div>' + '<div class="control-group">' + '<label class="control-label" for="nombreCompleto">Nombre Completo :</label>' + '<div class="controls">' + '{{ view App.TextField id="nombreCompleto" target="controller" action="actualizar" valueBinding="controller.nombreCompleto" placeholder="Nombre completo" }}' + '</div>' + '</div>' + '<div class="control-group">' + '<label class="control-label" for="observaciones">Observaciones :</label>' + '<div class="controls">' + '{{ view Ember.TextArea valueBinding="observaciones" placeholder="Observaciones" }}' + '</div>' + '</div>' + '<div class="form-actions">' + '<button class="btn btn-primary" {{ action "actualizar" }}> Actualizar lista </button>' + '</div>' + '</div>' + '</div>' + '<div class="span4" >' + '<div class="page-header">' + '<h1>Lista de participantes</h1>' + '</div>' + '{{ view App.EditarParticipantesListView }}' + '</div>' + '</div>' + '</div>');
 
