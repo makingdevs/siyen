@@ -3,5 +3,7 @@ Ember.Handlebars.registerBoundHelper 'date', (date) ->
 
 Ember.Handlebars.registerBoundHelper 'certificado', (id) ->
   url = ($ '#certificadosURL').val()
-  link = "<a href='#{url}/#{id}' class='btn btn-success'><i class='icon-print icon-white'></i> </a>"
+  window.open("http://www.google.com")
+  link = "<button class='btn btn-success'><i class='icon-print icon-white'></i></button>"
+  # #{url}/#{id}
   new Handlebars.SafeString(link)
