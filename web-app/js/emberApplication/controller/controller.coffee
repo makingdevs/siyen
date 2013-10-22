@@ -200,7 +200,7 @@ App.ArchivoController = Ember.ObjectController.extend
       dropzone.on "success", (file, response) =>
         file.previewElement.classList.add("dz-success")
         for fila in response.contenidoDeFilas
-          @.participantes.pushObject( Ember.Object.create
+          @participantes.pushObject( Ember.Object.create
             nombreCompleto : fila.get(1)
             observaciones : $.trim(fila.get(2))
           )
@@ -218,4 +218,5 @@ App.ArchivoController = Ember.ObjectController.extend
 
       content.pushObject( cursoProgramado )
       cursosNuevosController.set( 'currentCurso', null )
+      console.log cursoProgramado
       @transitionToRoute('cursosNuevos.index')
