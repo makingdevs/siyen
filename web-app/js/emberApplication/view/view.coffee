@@ -127,7 +127,8 @@ App.CertificadoButton = Ember.View.extend(Ember.TargetActionSupport,
   template: Ember.Handlebars.compile('<i {{bindAttr class="view.iconName"}}></i>')
 )
 
-App.CursosAutorizados = Ember.View.extend()
+App.CursosAutorizadosView = Ember.View.extend()
+
 
 App.ConfirmDialogView = Ember.View.extend
   templateName: 'confirmDialog'
@@ -464,6 +465,37 @@ Ember.TEMPLATES['cursoNuevoForm'] = Ember.Handlebars.compile(
   '</div>' )
 
 
+App.NotifacionView = Ember.View.extend()
+Ember.TEMPLATES['notificacion'] = Ember.Handlebars.compile('' +
+  '<div class="page-header">' +
+    '<h1>Cursos creados</h1>' +
+  '</div>' +
+  '<table class="table table-condensed table-striped table-hover">' +
+    '<thead>' +
+      '<tr>' +
+        '<th>ID</th>' +
+        '<th>Fecha de inicio</th>' +
+        '<th>Puerto</th>' +
+        '<th>Curso</th>' +
+        '<th>Instructor</th>' +
+        '<th>Participantes</th>' +
+        '<th>Creado por</th>' +
+      '</tr>' +
+    '</thead>' +
+    '<tbody>' +
+      '{{#each controller}}' +
+        '<tr>' +
+          '<td> {{ id }} </td>' +
+          '<td> {{ date fechaDeInicio }} </td>' +
+          '<td> {{ puerto }} </td>' +
+          '<td> {{ curso }} </td>' +
+          '<td> {{ instructor }} </td>' +
+          '<td> {{ alumnos }} </td>' +
+          '<td> {{ creadoPor }} </td>' +
+        '</tr>' +
+      '{{/each}}' +
+    '</tbody>' +
+  '</table>' )
 
 
 
