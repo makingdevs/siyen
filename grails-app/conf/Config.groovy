@@ -108,7 +108,9 @@ log4j = {
         'grails.plugin',
         'grails.app.resourceMappers',
         'grails.app.taglib',
-        'org.grails.datastore.mapping.core'
+        'org.grails.datastore.mapping.core',
+        'io.netty',
+        'com.hazelcast'
 }
 
 // Added by the Spring Security Core plugin:
