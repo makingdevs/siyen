@@ -1,14 +1,31 @@
 import grails.util.Environment
 
+import com.siyen.*
 import grails.converters.JSON
 import com.siyen.marshallers.*
-import com.siyen.*
+
+import org.vertx.java.core.*
+import org.vertx.java.core.http.*
+import org.vertx.java.core.json.*
+import org.vertx.java.core.eventbus.*
+import org.vertx.java.core.sockjs.SockJSServer
 
 class BootStrap {
 
   def springSecurityService
 
   def init = { servletContext ->
+
+    def vertx = VertxFactory.newVertx("localhost")
+    def eventBus = vertx.eventBus()
+
+    HttpServer server = vertx.createHttpServer()
+    JsonArray permitted = new JsonArray()
+    permitted.add(new JsonObject())
+    SockJSServer sockJSServer = vertx.createSockJSServer(server)
+    sockJSServer.bridge(new JsonObject().putString('prefix', '/eventbus'), permitted, permitted)
+    server.listen(9090)
+
 
     JSON.createNamedConfig('siyen') {
       it.registerObjectMarshaller(new CursoProgramadoMarshaller())
