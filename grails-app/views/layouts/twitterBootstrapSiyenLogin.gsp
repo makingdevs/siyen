@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <r:require modules="bootstrap, emberjs, application, momentjs, datepicker, dropzonejs" />
+    <r:require modules="bootstrap, emberjs, application, momentjs, datepicker, dropzonejs, vertx" />
 
     <style>
       body {
@@ -43,6 +43,9 @@
                   <li>
                     {{#linkTo "archivo" }}Procesar archivo{{/linkTo}}
                   </li>
+                  <li>
+                    {{#linkTo "notificacion" }}Notificaciones{{/linkTo}}
+                  </li>
                 <!-- END: Menu de opciones -->
               </ul>
               <sec:ifLoggedIn>
@@ -68,9 +71,6 @@
       </div>
 
       {{ outlet }}
-
-      <section>
-      </section>
 
       <hr>
       <footer>
