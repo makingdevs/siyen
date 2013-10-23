@@ -8,11 +8,15 @@ App.Router.map ->
   @resource 'cursosAutorizados', ->
     @resource 'edit', { path: ":curso_programado_id" }
 
+  @resource 'notificacion'
+
 App.CursosNuevosRoute = Ember.Route.extend()
 App.CursosNuevosCrearRoute = Ember.Route.extend()
 App.CrearParticipantesRoute = Ember.Route.extend()
 
 App.ArchivoRoute = Ember.Route.extend()
+
+App.NotificacionRoute = Ember.Route.extend()
 
 App.CursosAutorizadosRoute = Ember.Route.extend
   model : ->

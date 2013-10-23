@@ -119,7 +119,7 @@
     template: Ember.Handlebars.compile('<i {{bindAttr class="view.iconName"}}></i>')
   });
 
-  App.CursosAutorizados = Ember.View.extend();
+  App.CursosAutorizadosView = Ember.View.extend();
 
   App.ConfirmDialogView = Ember.View.extend({
     templateName: 'confirmDialog',
@@ -164,5 +164,9 @@
   Ember.TEMPLATES['archivo'] = Ember.Handlebars.compile('' + '<div class="container-fluid">' + '<div class="row-fluid">' + '<div class="span4">' + '<div class="page-header">' + '<h1>Procesar archivo</h1>' + '</div>' + '{{ view App.DropzoneView }}' + '<button class="btn btn-large btn-block btn-primary" {{ action "procesarArchivo" }} > Procesar </button>' + '</div>' + '<div class="span4">' + '<ul>' + '{{#each participantes }}' + '{{ view App.ParticipanteView }}' + '{{/each}}' + '</ul>' + '</div>' + '{{#if participantes}}' + '{{ view App.CursoNuevoFormulario ' + 'target="controller" ' + 'header="Datos del curso" ' + '}}' + '{{/if}}' + '</div>' + '</div>');
 
   Ember.TEMPLATES['cursoNuevoForm'] = Ember.Handlebars.compile('<div class="span4">' + '<div class="page-header">' + '<h1> {{ view.header }} </h1>' + '</div>' + '<div class="control-group">' + '<label class="control-label" for="datepicker">Fecha de inicio :</label>' + '<div class="controls">' + '{{ view App.DatePickerView }}' + '</div>' + '</div>' + '<div class="control-group">' + '<label class="control-label" for="puerto">Puerto :</label>' + '<div class="controls">' + '{{ view Ember.Select prompt="Selecciona un puerto : "' + 'contentBinding="puertos"' + 'optionValuePath="content.clave"' + 'optionLabelPath="content.descripcion"' + 'selectionBinding="puertoSelected" }}' + '</div>' + '</div>' + '<div class="control-group">' + '<label class="control-label" for="instructores">Instructor :</label>' + '<div class="controls">' + '{{ view Ember.Select prompt="Selecciona un instructor : "' + 'contentBinding="instructores"' + 'optionValuePath="content.numeroDeOficio"' + 'optionLabelPath="content.nombre"' + 'selectionBinding="instructorSelected" }}' + '</div>' + '</div>' + '<div class="control-group">' + '<label class="control-label" for="cursos">Curso :</label>' + '<div class="controls">' + '{{ view Ember.Select prompt="Selecciona un curso : "' + 'contentBinding="cursos"' + 'optionValuePath="content.clave"' + 'optionLabelPath="content.clave"' + 'selectionBinding="cursoSelected" }}' + '</div>' + '</div>' + '<div class="form-actions">' + '{{ view App.BootstrapButton ' + 'contentBinding="view.finalizarButtonLabel" ' + 'actionBinding="view.finalizarAction" ' + 'targetBinding="view.target" ' + 'classNames="btn-success"' + '}}' + '{{#if view.crearAgregarAction}}' + '{{ view App.BootstrapButton ' + 'contentBinding="view.crearAgregarButtonLabel" ' + 'actionBinding="view.crearAgregarAction" ' + 'targetBinding="view.target" ' + 'classNames="btn-primary btn"' + '}}' + '{{/if}}' + '</div>' + '</div>');
+
+  App.NotifacionView = Ember.View.extend();
+
+  Ember.TEMPLATES['notificacion'] = Ember.Handlebars.compile('' + '<div class="page-header">' + '<h1>Cursos creados</h1>' + '</div>' + '<table class="table table-condensed table-striped table-hover">' + '<thead>' + '<tr>' + '<th>ID</th>' + '<th>Fecha de inicio</th>' + '<th>Puerto</th>' + '<th>Curso</th>' + '<th>Instructor</th>' + '<th>Participantes</th>' + '<th>Creado por</th>' + '</tr>' + '</thead>' + '<tbody>' + '{{#each controller}}' + '<tr>' + '<td> {{ id }} </td>' + '<td> {{ date fechaDeInicio }} </td>' + '<td> {{ puerto }} </td>' + '<td> {{ curso }} </td>' + '<td> {{ instructor }} </td>' + '<td> {{ alumnos }} </td>' + '<td> {{ creadoPor }} </td>' + '</tr>' + '{{/each}}' + '</tbody>' + '</table>');
 
 }).call(this);
