@@ -2,6 +2,8 @@ package com.siyen
 
 class CursoProgramadoService {
 
+  def defaultPlatformManager
+
   def crearCursoDesdeCommand(CursoProgramadoCommand cmd) {
     CursoProgramado cursoProgramado = new CursoProgramado()
     Date fechaDeInicio = Date.parse("dd/MMM/yyyy", cmd.fechaDeInicio)
@@ -22,6 +24,10 @@ class CursoProgramadoService {
       alumno.numeroDeControl = generarNumeroDeControl(alumno.id)
       alumno.save(failOnError:true)
     }
+
+    def vertx = defaultPlatformManager.vertx()
+    def eventBus = vertx.eventBus()
+    eventBus.publish('cursoProgramado.save', cursoProgramado.id)
 
     cursoProgramado
   }

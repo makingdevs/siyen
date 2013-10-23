@@ -228,6 +228,7 @@
         });
         content.pushObject(cursoProgramado);
         cursosNuevosController.set('currentCurso', null);
+        console.log(cursoProgramado);
         return this.transitionToRoute('cursosNuevos.index');
       }
     }

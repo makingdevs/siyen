@@ -39,4 +39,10 @@ modules = {
     resource url:'js/datepicker/locales/bootstrap-datepicker.es.js'
   }
 
+  vertx {
+    dependsOn 'jquery'
+    resource url:'js/vertx/sockjs.min.js'
+    resource url:'js/vertx/vertxbus.min.js'
+  }
+
 }

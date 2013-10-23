@@ -69,6 +69,9 @@
 
       {{ outlet }}
 
+      <section>
+      </section>
+
       <hr>
       <footer>
         <div class="footer">
