@@ -7,11 +7,12 @@
       });
     });
     this.resource('archivo');
-    return this.resource('cursosAutorizados', function() {
+    this.resource('cursosAutorizados', function() {
       return this.resource('edit', {
         path: ":curso_programado_id"
       });
     });
+    return this.resource('notificacion');
   });
 
   App.CursosNuevosRoute = Ember.Route.extend();
@@ -21,6 +22,8 @@
   App.CrearParticipantesRoute = Ember.Route.extend();
 
   App.ArchivoRoute = Ember.Route.extend();
+
+  App.NotificacionRoute = Ember.Route.extend();
 
   App.CursosAutorizadosRoute = Ember.Route.extend({
     model: function() {
