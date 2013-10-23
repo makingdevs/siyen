@@ -234,4 +234,30 @@
     }
   });
 
+  App.NotificacionController = Ember.ArrayController.extend({
+    content: [],
+    init: function() {
+      var eventBus,
+        _this = this;
+      this._super();
+      eventBus = new vertx.EventBus('http://localhost:9090/eventbus');
+      return eventBus.onopen = function() {
+        console.log("Event Bus connected");
+        return eventBus.registerHandler('cursoProgramado.save', function(jsonMessage) {
+          var notificacion;
+          notificacion = Ember.Object.create({
+            id: jsonMessage.id,
+            fechaDeInicio: moment(jsonMessage.fechaDeInicio).format('DD/MMMM/YYYY'),
+            puerto: jsonMessage.puerto,
+            curso: jsonMessage.curso,
+            instructor: jsonMessage.instructor,
+            alumnos: jsonMessage.alumnos,
+            creadoPor: jsonMessage.creadoPor
+          });
+          return _this.content.pushObject(notificacion);
+        });
+      };
+    }
+  });
+
 }).call(this);
