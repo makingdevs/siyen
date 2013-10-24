@@ -13,6 +13,7 @@ class CursoProgramado {
   Curso curso
   Instructor instructor
 
+  static belongsTo = [user : User]
   static hasMany = [alumnos : Alumno]
 
   static constraints = {
