@@ -16,6 +16,7 @@ class CursoProgramadoService {
     cursoProgramado.curso = Curso.get(cmd.curso)
     cursoProgramado.instructor = Instructor.get(cmd.instructor)
     cursoProgramado.fechaDeTermino = fechaDeInicio.clone().plus( cursoProgramado.curso.duracion )
+    cursoProgramado.user = springSecurityService.currentUser
 
     cmd.alumnos.each { alumnoData ->
       Alumno alumno = generarAlumnoConParams(alumnoData)
