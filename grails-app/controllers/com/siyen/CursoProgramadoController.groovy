@@ -7,12 +7,15 @@ class CursoProgramadoController {
 
   static allowedMethods = [show : "GET", save : "POST", update : "PUT"]
 
+  def springSecurityService
   def cursoProgramadoService
 
   def show() {
     def cursosProgramados = CursoProgramado.findAll {
-      dateCreated > (new Date() - 1)
+      gt "dateCreated", (new Date() - 1)
+      eq "user", springSecurityService.currentUser
     }
+
     renderResponseWithCursosProgramados(cursosProgramados)
   }
 
@@ -43,9 +46,9 @@ class CursoProgramadoController {
   private renderResponseWithCursosProgramados(def cursosProgramados) {
     def jsonResponse = [:]
     jsonResponse.cursos_programados = cursosProgramados
-    jsonResponse.puertos = Puerto.findAll { activo == true }
+    jsonResponse.puertos = springSecurityService.currentUser.puertos.findAll { it.activo }
     jsonResponse.cursos = Curso.findAll { activo == true }
-    jsonResponse.instructores = Instructor.findAll { activo == true }
+    jsonResponse.instructores = springSecurityService.currentUser.instructores.findAll { it.activo }
     jsonResponse.alumnos = Alumno.findAll {
       dateCreated > (new Date() - 1)
     }
