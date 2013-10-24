@@ -4,7 +4,7 @@ import grails.test.mixin.*
 import spock.lang.Specification
 
 @TestFor(CursoProgramado)
-@Mock([Puerto, Curso, Instructor, Alumno])
+@Mock([Puerto, Curso, Instructor, Alumno, User])
 class CursoProgramadoSpec extends Specification {
 
 	void "Crear nuevo curso con un alumno"() {
@@ -15,6 +15,8 @@ class CursoProgramadoSpec extends Specification {
 
     and : "Creando un alumno"
       Alumno alumno = new Alumno(numeroDeControl:"II000001", nombreCompleto:"Roger Waters", observaciones:"PULSE")
+      User user = new User()
+      user.save(validate:false)
 
     when :
       CursoProgramado cursoProgramado = new CursoProgramado(
@@ -22,7 +24,8 @@ class CursoProgramadoSpec extends Specification {
         fechaDeTermino : fechaDeTermino_,
         puerto : puerto,
         curso : curso,
-        instructor : instructor)
+        instructor : instructor,
+        user : user)
 
       cursoProgramado.addToAlumnos(alumno)
       cursoProgramado.save()
