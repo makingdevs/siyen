@@ -58,14 +58,17 @@ grails.hibernate.cache.queries = false
 def logDirectory = 'target/'
 
 grails.serverURL = "http://localhost:8080/siyen"
+
 environments {
   development {
     grails.logging.jul.usebridge = true
+    jasper.dir.reports = "${userHome}/.grails/reports"
   }
   production {
     grails.logging.jul.usebridge = false
     logDirectory = 'logs/'
     grails.serverURL = "http://amazon:8080/siyen"
+    jasper.dir.reports = "${userHome}/siyen"
   }
 }
 
