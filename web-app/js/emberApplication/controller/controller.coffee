@@ -245,8 +245,21 @@ App.NotificacionController = Ember.ArrayController.extend
 
 App.BusquedaController = Ember.ObjectController.extend
   busqueda : null
+  urlBusqueda : null
+
+  init : ->
+    @set('urlBusqueda', $("#urlBusqueda").val())
 
   actions :
     realizarBusqueda : ->
-      console.log "realizando la busqueda"
-      console.log @get('busqueda')
+      busqueda = @get('busqueda')
+
+      $.ajax(
+        type: "POST"
+        url: @get('urlBusqueda')
+        data: { buscar : busqueda }
+        success: (res, status, xhr) ->
+          console.log "success"
+        error: (xhr, status, err) ->
+          console.log "error"
+      )
