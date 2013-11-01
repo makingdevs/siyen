@@ -499,4 +499,27 @@ Ember.TEMPLATES['notificacion'] = Ember.Handlebars.compile('' +
 
 
 App.BusquedaView = Ember.View.extend()
-Ember.TEMPLATES['busqueda'] = Ember.Handlebars.compile('<h1> hola </h1>')
+Ember.TEMPLATES['busqueda'] = Ember.Handlebars.compile('' +
+  '<div class="input-append">' +
+    '{{ view App.TextField id="busqueda" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}' +
+    '<button type="submit" class="btn" {{ action "realizarBusqueda" }} >Buscar</button>' +
+  '</div>'
+  )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
