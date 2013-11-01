@@ -498,5 +498,5 @@ Ember.TEMPLATES['notificacion'] = Ember.Handlebars.compile('' +
   '</table>' )
 
 
-
-
+App.BusquedaView = Ember.View.extend()
+Ember.TEMPLATES['busqueda'] = Ember.Handlebars.compile('<h1> hola </h1>')

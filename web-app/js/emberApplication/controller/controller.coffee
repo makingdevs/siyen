@@ -221,7 +221,6 @@ App.ArchivoController = Ember.ObjectController.extend
       console.log cursoProgramado
       @transitionToRoute('cursosNuevos.index')
 
-
 App.NotificacionController = Ember.ArrayController.extend
   content : []
 
@@ -243,3 +242,5 @@ App.NotificacionController = Ember.ArrayController.extend
 
         @content.pushObject(notificacion)
       )
+
+App.BusquedaController = Ember.ObjectController.extend()

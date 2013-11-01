@@ -260,4 +260,6 @@
     }
   });
 
+  App.BusquedaController = Ember.ObjectController.extend();
+
 }).call(this);
