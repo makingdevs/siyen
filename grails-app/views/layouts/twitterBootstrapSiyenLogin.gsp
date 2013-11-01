@@ -44,6 +44,9 @@
                     {{#linkTo "archivo" }}Procesar archivo{{/linkTo}}
                   </li>
                   <li>
+                    {{#linkTo "busqueda" }}Busqueda{{/linkTo}}
+                  </li>
+                  <li>
                     {{#linkTo "notificacion" }}Notificaciones{{/linkTo}}
                   </li>
                 <!-- END: Menu de opciones -->

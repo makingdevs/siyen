@@ -12,7 +12,8 @@
         path: ":curso_programado_id"
       });
     });
-    return this.resource('notificacion');
+    this.resource('notificacion');
+    return this.resource('busqueda');
   });
 
   App.CursosNuevosRoute = Ember.Route.extend();
