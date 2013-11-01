@@ -260,6 +260,14 @@
     }
   });
 
-  App.BusquedaController = Ember.ObjectController.extend();
+  App.BusquedaController = Ember.ObjectController.extend({
+    busqueda: null,
+    actions: {
+      realizarBusqueda: function() {
+        console.log("realizando la busqueda");
+        return console.log(this.get('busqueda'));
+      }
+    }
+  });
 
 }).call(this);

@@ -243,4 +243,10 @@ App.NotificacionController = Ember.ArrayController.extend
         @content.pushObject(notificacion)
       )
 
-App.BusquedaController = Ember.ObjectController.extend()
+App.BusquedaController = Ember.ObjectController.extend
+  busqueda : null
+
+  actions :
+    realizarBusqueda : ->
+      console.log "realizando la busqueda"
+      console.log @get('busqueda')
