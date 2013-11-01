@@ -2,6 +2,8 @@ package com.siyen
 
 class BusquedaController {
 
-  def index() { }
+  def realizarBusqueda() {
+    log.debug "params : $params"
+  }
 
 }

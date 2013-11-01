@@ -221,7 +221,6 @@ App.ArchivoController = Ember.ObjectController.extend
       console.log cursoProgramado
       @transitionToRoute('cursosNuevos.index')
 
-
 App.NotificacionController = Ember.ArrayController.extend
   content : []
 
@@ -242,4 +241,25 @@ App.NotificacionController = Ember.ArrayController.extend
           creadoPor : jsonMessage.creadoPor
 
         @content.pushObject(notificacion)
+      )
+
+App.BusquedaController = Ember.ObjectController.extend
+  busqueda : null
+  urlBusqueda : null
+
+  init : ->
+    @set('urlBusqueda', $("#urlBusqueda").val())
+
+  actions :
+    realizarBusqueda : ->
+      busqueda = @get('busqueda')
+
+      $.ajax(
+        type: "POST"
+        url: @get('urlBusqueda')
+        data: { buscar : busqueda }
+        success: (res, status, xhr) ->
+          console.log "success"
+        error: (xhr, status, err) ->
+          console.log "error"
       )
