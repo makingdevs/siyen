@@ -45,4 +45,30 @@
     }
   });
 
+  App.BusquedaRoute = Ember.Route.extend({
+    setupController: function(controller, model) {
+      this._super(controller, model);
+      return $.getJSON("catalogo/obtenerDatosDeBusqueda", function(data) {
+        var busquedaChosen, value, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2;
+        busquedaChosen = $("#busquedaChosen");
+        _ref = data.cursos;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          value = _ref[_i];
+          $("<option value='" + value + "'>" + value + "</option>").appendTo(busquedaChosen);
+        }
+        _ref1 = data.puertos;
+        for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+          value = _ref1[_j];
+          $("<option value='" + value + "'>" + value + "</option>").appendTo(busquedaChosen);
+        }
+        _ref2 = data.instructores;
+        for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
+          value = _ref2[_k];
+          $("<option value='" + value.id + "'>" + value.nombre + "</option>").appendTo(busquedaChosen);
+        }
+        return busquedaChosen.trigger("chosen:updated");
+      });
+    }
+  });
+
 }).call(this);
