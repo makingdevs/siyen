@@ -33,3 +33,22 @@ App.EditRoute = Ember.Route.extend
 
   model : (params) ->
     @get('store').find('cursoProgramado', params.curso_programado_id)
+
+App.BusquedaRoute = Ember.Route.extend
+  setupController : (controller, model) ->
+    @_super(controller, model)
+
+    $.getJSON( "catalogo/obtenerDatosDeBusqueda", ( data ) ->
+      busquedaChosen = $("#busquedaChosen")
+
+      for value in data.cursos
+        $("<option value='#{value}'>#{value}</option>").appendTo(busquedaChosen)
+
+      for value in data.puertos
+        $("<option value='#{value}'>#{value}</option>").appendTo(busquedaChosen)
+
+      for value in data.instructores
+        $("<option value='#{value.id}'>#{value.nombre}</option>").appendTo(busquedaChosen)
+
+      busquedaChosen.trigger("chosen:updated")
+    )

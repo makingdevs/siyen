@@ -505,6 +505,7 @@ App.BusquedaChosenView = Ember.View.extend
     $("#busquedaChosen").chosen
       disable_search: true
       search_contains : true
+      display_selected_options : false
       placeholder_text_multiple : "Selecciona algunas opciones"
       no_results_text: "Oops, ¡No hubo resultados!"
 
