@@ -78,6 +78,8 @@ grails.project.dependency.resolution = {
     compile ":spring-security-core:1.2.7.3"
 
     compile ":qr-code:0.1.4"
+
+    compile ":searchable:0.6.4"
   }
 
 }
