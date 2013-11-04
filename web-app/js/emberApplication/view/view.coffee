@@ -129,7 +129,6 @@ App.CertificadoButton = Ember.View.extend(Ember.TargetActionSupport,
 
 App.CursosAutorizadosView = Ember.View.extend()
 
-
 App.ConfirmDialogView = Ember.View.extend
   templateName: 'confirmDialog'
   classNames: ['modal', 'hide']
@@ -497,11 +496,22 @@ Ember.TEMPLATES['notificacion'] = Ember.Handlebars.compile('' +
     '</tbody>' +
   '</table>' )
 
+App.BusquedaChosenView = Ember.View.extend
+  tagName: 'select'
+  attributeBindings: ['multiple']
+  multiple: 'multiple'
+
+  didInsertElement: ->
+    $("#busquedaChosen").chosen
+      disable_search: true
+      search_contains : true
+      placeholder_text_multiple : "Selecciona algunas opciones"
+      no_results_text: "Oops, ¡No hubo resultados!"
 
 App.BusquedaView = Ember.View.extend()
 Ember.TEMPLATES['busqueda'] = Ember.Handlebars.compile('' +
   '<div class="input-append">' +
-    '{{ view App.TextField id="busqueda" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}' +
+    '{{ view App.BusquedaChosenView id="busquedaChosen" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}' +
     '<button type="submit" class="btn" {{ action "realizarBusqueda" }} >Buscar</button>' +
   '</div>'
   )

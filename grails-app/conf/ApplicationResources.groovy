@@ -9,6 +9,11 @@ modules = {
     resource url:'js/emberApplication/view/view.js'
   }
 
+  chosen {
+    resource url:'css/chosen/chosen.css'
+    resource url:'js/chosen/chosen.jquery.js'
+  }
+
   dropzonejs {
     resource url:'css/dropzone/basic.css'
     resource url:'css/dropzone/dropzone.css'
