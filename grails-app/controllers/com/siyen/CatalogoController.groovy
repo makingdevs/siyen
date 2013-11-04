@@ -17,19 +17,19 @@ class CatalogoController {
   }
 
   def obtenerDatosDeBusqueda() {
-    def cursos = Curso.list()
-    def instructores = Instructor.list()
-    def puertos = Puerto.list()
-    def alumnos = Alumno.list()
+    def cursos = Curso.findAll { id > 0 }
+    def instructores = Instructor.findAll { id > 0 }
+    def puertos = Puerto.findAll { id > 0 }
+
+    def datosDelInstructor = []
+    instructores.each { instructor ->
+      datosDelInstructor << ["id" : instructor.id, "nombre" : instructor.nombre]
+    }
 
     render(contentType:"text/json") {
-      [ nombresDeCursos       : cursos*.nombre,
-        clavesDeCursos        : cursos*.clave,
-        nombresDeInstructores : instructores*.nombre,
-        clavesDePuertos       : puertos*.clave,
-        nombresDeAlumnos      : alumnos*.nombreCompleto,
-        numerosDeControl      : alumnos*.numeroDeControl
-      ]
+      [ cursos : cursos*.clave,
+        puertos : puertos*.clave,
+        instructores : datosDelInstructor ]
     }
   }
 
