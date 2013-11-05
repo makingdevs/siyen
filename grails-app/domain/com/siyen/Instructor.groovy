@@ -14,6 +14,10 @@ class Instructor {
     numeroDeOficio size:1..50, blank:false
   }
 
+  static searchable = {
+    root false
+  }
+
   String toString() {
     nombre
   }

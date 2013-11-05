@@ -17,4 +17,8 @@ class Alumno {
     observaciones size:1..500, blank: true, nullable: true
   }
 
+  static searchable = {
+    root false
+  }
+
 }
