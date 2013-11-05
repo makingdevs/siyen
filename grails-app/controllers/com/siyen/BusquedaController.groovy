@@ -10,10 +10,7 @@ class BusquedaController {
     log.debug "total : ${busquedaDeResultados.total}"
     log.debug "size  : ${busquedaDeResultados.results.size()}"
 
-    render(contentType:"text/json") {
-      [totalResultados : busquedaDeResultados.total,
-            resultados : busquedaDeResultados.results]
-    }
+    render template:"/cursoProgramado/list", model:[lista : busquedaDeResultados.results]
   }
 
 }
