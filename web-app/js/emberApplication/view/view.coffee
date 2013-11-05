@@ -516,21 +516,3 @@ Ember.TEMPLATES['busqueda'] = Ember.Handlebars.compile('' +
     '<button type="submit" class="btn" {{ action "realizarBusqueda" }} >Buscar</button>' +
   '</div>'
   )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
