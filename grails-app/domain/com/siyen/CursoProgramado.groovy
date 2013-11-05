@@ -19,4 +19,11 @@ class CursoProgramado {
   static constraints = {
   }
 
+  static searchable = {
+    alumnos component: true
+    puerto component : true
+    curso component : true
+    instructor component : true
+  }
+
 }
