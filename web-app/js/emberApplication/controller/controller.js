@@ -276,7 +276,7 @@
             buscar: busqueda
           },
           success: function(res, status, xhr) {
-            return console.log("success");
+            return $("#resultados").html(res);
           },
           error: function(xhr, status, err) {
             return console.log("error");
