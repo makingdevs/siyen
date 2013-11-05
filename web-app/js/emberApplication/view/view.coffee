@@ -514,5 +514,6 @@ Ember.TEMPLATES['busqueda'] = Ember.Handlebars.compile('' +
   '<div class="input-append">' +
     '{{ view App.BusquedaChosenView id="busquedaChosen" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}' +
     '<button type="submit" class="btn" {{ action "realizarBusqueda" }} >Buscar</button>' +
-  '</div>'
+  '</div>' +
+  '<div id="resultados"> </div>'
   )
