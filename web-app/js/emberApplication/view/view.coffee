@@ -502,7 +502,7 @@ App.BusquedaChosenView = Ember.View.extend
   multiple: 'multiple'
 
   didInsertElement: ->
-    $("#busquedaChosen").chosen
+    $(".busquedaChosen").chosen
       disable_search: true
       search_contains : true
       display_selected_options : false
@@ -512,7 +512,7 @@ App.BusquedaChosenView = Ember.View.extend
 App.BusquedaView = Ember.View.extend()
 Ember.TEMPLATES['busqueda'] = Ember.Handlebars.compile('' +
   '<div class="input-append">' +
-    '{{ view App.BusquedaChosenView id="busquedaChosen" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}' +
+    '{{ view App.TextField id="busqueda" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}' +
     '<button type="submit" class="btn" {{ action "realizarBusqueda" }} >Buscar</button>' +
   '</div>' +
   '<div id="resultados"> </div>'

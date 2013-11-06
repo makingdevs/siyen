@@ -261,6 +261,7 @@
   });
 
   App.BusquedaController = Ember.ObjectController.extend({
+    busqueda: null,
     urlBusqueda: null,
     init: function() {
       return this.set('urlBusqueda', $("#urlBusqueda").val());
@@ -268,7 +269,7 @@
     actions: {
       realizarBusqueda: function() {
         var busqueda;
-        busqueda = $("#busquedaChosen").val().toString();
+        busqueda = this.get('busqueda');
         return $.ajax({
           type: "POST",
           url: this.get('urlBusqueda'),

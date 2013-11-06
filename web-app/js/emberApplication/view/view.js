@@ -174,7 +174,7 @@
     attributeBindings: ['multiple'],
     multiple: 'multiple',
     didInsertElement: function() {
-      return $("#busquedaChosen").chosen({
+      return $(".busquedaChosen").chosen({
         disable_search: true,
         search_contains: true,
         display_selected_options: false,
@@ -186,6 +186,6 @@
 
   App.BusquedaView = Ember.View.extend();
 
-  Ember.TEMPLATES['busqueda'] = Ember.Handlebars.compile('' + '<div class="input-append">' + '{{ view App.BusquedaChosenView id="busquedaChosen" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}' + '<button type="submit" class="btn" {{ action "realizarBusqueda" }} >Buscar</button>' + '</div>' + '<div id="resultados"> </div>');
+  Ember.TEMPLATES['busqueda'] = Ember.Handlebars.compile('' + '<div class="input-append">' + '{{ view App.TextField id="busqueda" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}' + '<button type="submit" class="btn" {{ action "realizarBusqueda" }} >Buscar</button>' + '</div>' + '<div id="resultados"> </div>');
 
 }).call(this);
