@@ -184,8 +184,27 @@
     }
   });
 
-  App.BusquedaView = Ember.View.extend();
+  App.BusquedaView = Ember.View.extend({
+    didInsertElement: function() {
+      var tamanioCampoBusqueda;
+      tamanioCampoBusqueda = $("input[name='busqueda']").width();
+      $("#busquedaAvanzada").width(tamanioCampoBusqueda);
+      return $("#mostrarBusquedaAvanzada").click(function() {
+        $("#busquedaAvanzada").css({
+          "position": "absolute"
+        });
+        $("#busquedaAvanzada").toggle("slow");
+        return console.log($("#busquedaAvanzada"));
+      });
+    }
+  });
 
-  Ember.TEMPLATES['busqueda'] = Ember.Handlebars.compile('' + '<div class="input-append">' + '{{ view App.TextField id="busqueda" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}' + '<button type="submit" class="btn" {{ action "realizarBusqueda" }} >Buscar</button>' + '</div>' + '<div id="resultados"> </div>');
+  Ember.TEMPLATES['busqueda'] = Ember.Handlebars.compile('' + '<div class="input-append">' + '{{ view App.TextField id="busqueda" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}' + '<button id="mostrarBusquedaAvanzada" type="button" class="btn">' + '<i class="icon-filter"></i>' + '</button>' + '<button type="submit" class="btn" {{ action "realizarBusqueda" }} >Buscar</button>' + '</div>' + '{{ view App.BusquedaAvanzadaView id="busquedaAvanzada" }}' + '<div id="resultados"> </div>');
+
+  App.BusquedaAvanzadaView = Ember.View.extend({
+    tagName: 'div',
+    classNames: 'hide',
+    template: Ember.Handlebars.compile('' + '<div class="control-group">' + '<label class="control-label" for="campus">Campus :</label>' + '<div class="controls">' + '<input type="text" name="campus" id="campus" class="input-large" value="${campus}" />' + '</div>' + '</div>' + '<div class="control-group">' + '<label class="control-label" for="programa">Programa :</label>' + '<div class="controls">' + '<input type="text" name="programa" id="programa" class="input-large" value="${programa}" />' + '</div>' + '</div>' + '<div class="control-group">' + '<label class="control-label" for="generacion">Generación :</label>' + '<div class="controls">' + '<input type="text" name="generacion" id="generacion" class="input-large" value="${generacion}" />' + '</div>' + '</div>')
+  });
 
 }).call(this);
