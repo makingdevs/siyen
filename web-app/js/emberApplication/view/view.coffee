@@ -463,7 +463,6 @@ Ember.TEMPLATES['cursoNuevoForm'] = Ember.Handlebars.compile(
     '</div>' +
   '</div>' )
 
-
 App.NotifacionView = Ember.View.extend()
 Ember.TEMPLATES['notificacion'] = Ember.Handlebars.compile('' +
   '<div class="page-header">' +
@@ -514,13 +513,12 @@ App.BusquedaView = Ember.View.extend
     tamanioCampoBusqueda = $("input[name='busqueda']").width()
     $("#busquedaAvanzada").width tamanioCampoBusqueda
     $("#mostrarBusquedaAvanzada").click ->
-      $("#busquedaAvanzada").css( "position": "absolute" )
       $("#busquedaAvanzada").toggle "slow"
-      console.log $("#busquedaAvanzada")
 
 Ember.TEMPLATES['busqueda'] = Ember.Handlebars.compile('' +
-  '<div class="input-append">' +
-    '{{ view App.TextField id="busqueda" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}' +
+  '<div id="busquedaDiv" class="input-append">' +
+    '{{ view App.TextField id="busqueda" name="busqueda" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}' +
+    '{{ view App.BusquedaAvanzadaView id="busquedaAvanzada" }}' +
 
     '<button id="mostrarBusquedaAvanzada" type="button" class="btn">' +
       '<i class="icon-filter"></i>' +
@@ -529,31 +527,28 @@ Ember.TEMPLATES['busqueda'] = Ember.Handlebars.compile('' +
     '<button type="submit" class="btn" {{ action "realizarBusqueda" }} >Buscar</button>' +
   '</div>' +
 
-  '{{ view App.BusquedaAvanzadaView id="busquedaAvanzada" }}' +
-  
   '<div id="resultados"> </div>'
   )
 
 App.BusquedaAvanzadaView = Ember.View.extend
-  tagName : 'div'
   classNames : 'hide'
   template : Ember.Handlebars.compile('' +
     '<div class="control-group">' +
       '<label class="control-label" for="campus">Campus :</label>' +
       '<div class="controls">' +
-        '<input type="text" name="campus" id="campus" class="input-large" value="${campus}" />' +
+        '<input type="text" name="campus" id="campus" class="input-large" value="" />' +
       '</div>' +
     '</div>' +
     '<div class="control-group">' +
       '<label class="control-label" for="programa">Programa :</label>' +
       '<div class="controls">' +
-        '<input type="text" name="programa" id="programa" class="input-large" value="${programa}" />' +
+        '<input type="text" name="programa" id="programa" class="input-large" value="" />' +
       '</div>' +
     '</div>' +
     '<div class="control-group">' +
       '<label class="control-label" for="generacion">Generación :</label>' +
       '<div class="controls">' +
-        '<input type="text" name="generacion" id="generacion" class="input-large" value="${generacion}" />' +
+        '<input type="text" name="generacion" id="generacion" class="input-large" value="" />' +
       '</div>' +
     '</div>'
   )

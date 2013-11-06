@@ -19,7 +19,8 @@
         padding:0 0 0 10px;
       }
 
-      #busquedaAvanzada{
+      #busquedaAvanzada {
+        position: absolute;
         border: 1px solid #ddd;
         padding: 10px 0 0 12px;
         position : absolute;
