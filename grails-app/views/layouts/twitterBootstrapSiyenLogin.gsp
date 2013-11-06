@@ -14,6 +14,17 @@
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
       }
+
+      #busquedaDiv {
+        padding:0 0 0 10px;
+      }
+
+      #busquedaAvanzada{
+        border: 1px solid #ddd;
+        padding: 10px 0 0 12px;
+        position : absolute;
+        background : #fff;
+      }
     </style>
 
     <g:layoutHead/>
