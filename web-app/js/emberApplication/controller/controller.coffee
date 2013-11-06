@@ -258,7 +258,8 @@ App.BusquedaController = Ember.ObjectController.extend
         url: @get('urlBusqueda')
         data: { buscar : busqueda }
         success: (res, status, xhr) ->
-          console.log "success"
+          $("#resultados").html( res )
+
         error: (xhr, status, err) ->
           console.log "error"
       )
