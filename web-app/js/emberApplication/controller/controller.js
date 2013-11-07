@@ -243,11 +243,24 @@
       eventBus = new vertx.EventBus('http://localhost:9090/eventbus');
       return eventBus.onopen = function() {
         console.log("Event Bus connected");
-        return eventBus.registerHandler('cursoProgramado.save', function(jsonMessage) {
+        eventBus.registerHandler('cursoProgramado.autorizado', function(jsonMessage) {
           var notificacion;
           notificacion = Ember.Object.create({
             id: jsonMessage.id,
-            fechaDeInicio: moment(jsonMessage.fechaDeInicio).format('DD/MMMM/YYYY'),
+            fechaDeInicio: jsonMessage.fechaDeInicio,
+            puerto: jsonMessage.puerto,
+            curso: jsonMessage.curso,
+            instructor: jsonMessage.instructor,
+            alumnos: jsonMessage.alumnos,
+            creadoPor: jsonMessage.creadoPor
+          });
+          return _this.content.pushObject(notificacion);
+        });
+        return eventBus.registerHandler('cursoProgramado.impresion', function(jsonMessage) {
+          var notificacion;
+          notificacion = Ember.Object.create({
+            id: jsonMessage.id,
+            fechaDeInicio: jsonMessage.fechaDeInicio,
             puerto: jsonMessage.puerto,
             curso: jsonMessage.curso,
             instructor: jsonMessage.instructor,

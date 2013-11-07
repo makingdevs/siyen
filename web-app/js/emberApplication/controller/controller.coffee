@@ -230,10 +230,23 @@ App.NotificacionController = Ember.ArrayController.extend
 
     eventBus.onopen = =>
       console.log "Event Bus connected"
-      eventBus.registerHandler('cursoProgramado.save', (jsonMessage) =>
+      eventBus.registerHandler('cursoProgramado.autorizado', (jsonMessage) =>
         notificacion = Ember.Object.create
           id : jsonMessage.id
-          fechaDeInicio : moment(jsonMessage.fechaDeInicio).format('DD/MMMM/YYYY')
+          fechaDeInicio : jsonMessage.fechaDeInicio
+          puerto : jsonMessage.puerto
+          curso : jsonMessage.curso
+          instructor : jsonMessage.instructor
+          alumnos : jsonMessage.alumnos
+          creadoPor : jsonMessage.creadoPor
+
+        @content.pushObject(notificacion)
+      )
+
+      eventBus.registerHandler('cursoProgramado.impresion', (jsonMessage) =>
+        notificacion = Ember.Object.create
+          id : jsonMessage.id
+          fechaDeInicio : jsonMessage.fechaDeInicio
           puerto : jsonMessage.puerto
           curso : jsonMessage.curso
           instructor : jsonMessage.instructor
