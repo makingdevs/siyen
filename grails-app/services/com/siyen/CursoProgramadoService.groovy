@@ -35,6 +35,16 @@ class CursoProgramadoService {
     cursoProgramado
   }
 
+  def actualizarCursoProgramado(def params) {
+    CursoProgramado cursoProgramado = CursoProgramado.get(params.id)
+    cursoProgramado.curso = Curso.get(params.curso)
+    cursoProgramado.save(failOnError:true)
+
+    notificacionService.enviarNotificacion('cursoProgramado.actualizado', cursoProgramado)
+
+    cursoProgramado
+  }
+
   private Alumno generarAlumnoConParams( def alumnoData ) {
     Alumno alumno = new Alumno( nombreCompleto : alumnoData.nombreCompleto, observaciones : alumnoData.observaciones )
     alumno
