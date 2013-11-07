@@ -37,9 +37,7 @@ class CursoProgramadoController {
       }
     }
 
-    CursoProgramado cursoProgramado = CursoProgramado.get(params.id)
-    cursoProgramado.curso = Curso.get(params.curso)
-    cursoProgramado.save(failOnError:true)
+    CursoProgramado cursoProgramado = cursoProgramadoService.actualizarCursoProgramado(params)
     renderResponseWithCursosProgramados(cursoProgramado)
   }
 
