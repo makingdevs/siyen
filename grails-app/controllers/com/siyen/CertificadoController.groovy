@@ -7,11 +7,13 @@ class CertificadoController {
 
   def jasperService
   def certificadoService
+  def notificacionService
 
   def grailsApplication
 
   def generarFrenteParaCurso() {
-    def reportData = certificadoService.poblarCertificado(params.id.toLong())
+    CursoProgramado cursoProgramado = CursoProgramado.get(params.id.toLong())
+    def reportData = certificadoService.poblarCertificado(cursoProgramado)
 
     def reportDef = new JasperReportDef(
       name: 'certificado.jrxml',
@@ -21,6 +23,9 @@ class CertificadoController {
     def reporte = jasperService.generateReport(reportDef).toByteArray()
     response.setHeader("Content-disposition", "attachment; filename=certificado.pdf")
     response.outputStream << reporte
+
+    notificacionService.enviarNotificacion('cursoProgramado.impresion', cursoProgramado)
+
     response
   }
 

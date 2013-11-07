@@ -5,8 +5,8 @@ import org.vertx.java.core.json.*
 
 class CursoProgramadoService {
 
-  def defaultPlatformManager
   def springSecurityService
+  def notificacionService
 
   def crearCursoDesdeCommand(CursoProgramadoCommand cmd) {
     CursoProgramado cursoProgramado = new CursoProgramado()
@@ -30,31 +30,9 @@ class CursoProgramadoService {
       alumno.save(failOnError:true)
     }
 
-    enviarNotificacionDeCursoCreado(cursoProgramado)
+    notificacionService.enviarNotificacion('cursoProgramado.autorizado', cursoProgramado)
 
     cursoProgramado
-  }
-
-  private def enviarNotificacionDeCursoCreado(CursoProgramado cursoProgramado) {
-    def vertx = defaultPlatformManager.vertx()
-    def eventBus = vertx.eventBus()
-
-    JsonObject jsonNotification = convertirCursoProgramadoAJsonObject(cursoProgramado)
-
-    eventBus.publish('cursoProgramado.save', jsonNotification)
-  }
-
-  private JsonObject convertirCursoProgramadoAJsonObject(CursoProgramado cursoProgramado) {
-    JsonObject jsonNotification = new JsonObject()
-    jsonNotification.putValue( "id", cursoProgramado.id )
-    jsonNotification.putValue( "fechaDeInicio", cursoProgramado.fechaDeInicio )
-    jsonNotification.putString( "puerto", "${cursoProgramado.puerto.clave} - ${cursoProgramado.puerto.puerto}" )
-    jsonNotification.putValue( "curso", cursoProgramado.curso.clave )
-    jsonNotification.putValue( "instructor", cursoProgramado.instructor.nombre )
-    jsonNotification.putValue( "alumnos", cursoProgramado.alumnos.size() )
-    jsonNotification.putValue( "creadoPor", springSecurityService.currentUser.username )
-
-    jsonNotification
   }
 
   private Alumno generarAlumnoConParams( def alumnoData ) {
