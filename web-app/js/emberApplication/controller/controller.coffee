@@ -246,12 +246,14 @@ App.NotificacionController = Ember.ArrayController.extend
     crearNotificacionConRespuesta = (jsonMessage) =>
       notificacion = Ember.Object.create
         id : jsonMessage.id
+        fechaDeAutorizacion : jsonMessage.fechaDeAutorizacion
         fechaDeInicio : jsonMessage.fechaDeInicio
         puerto : jsonMessage.puerto
         curso : jsonMessage.curso
         instructor : jsonMessage.instructor
         alumnos : jsonMessage.alumnos
         creadoPor : jsonMessage.creadoPor
+        accion : jsonMessage.accion
 
       @content.pushObject(notificacion)
 
