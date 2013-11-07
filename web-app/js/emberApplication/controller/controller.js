@@ -257,12 +257,14 @@
         var notificacion;
         notificacion = Ember.Object.create({
           id: jsonMessage.id,
+          fechaDeAutorizacion: jsonMessage.fechaDeAutorizacion,
           fechaDeInicio: jsonMessage.fechaDeInicio,
           puerto: jsonMessage.puerto,
           curso: jsonMessage.curso,
           instructor: jsonMessage.instructor,
           alumnos: jsonMessage.alumnos,
-          creadoPor: jsonMessage.creadoPor
+          creadoPor: jsonMessage.creadoPor,
+          accion: jsonMessage.accion
         });
         return _this.content.pushObject(notificacion);
       };
