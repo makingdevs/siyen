@@ -26,3 +26,11 @@
     </g:each>
   </tbody>
 </table>
+
+<div class="pagination pagination-centered">
+  <ul>
+    <li>
+      <g:paginate controller="${controller ?: 'exAlumno'}" action="${action ?: 'busqueda'}" total="${count}" params="[busqueda:busqueda, campus : campus, programa : programa, generacion : generacion, estado : estado, delegacionMunicipio : delegacionMunicipio, tipoExalumno : tipoExalumno]" />
+    </li>
+  </ul>
+</div>
