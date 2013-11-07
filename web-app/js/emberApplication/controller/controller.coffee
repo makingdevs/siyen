@@ -243,6 +243,14 @@ App.NotificacionController = Ember.ArrayController.extend
         crearNotificacionConRespuesta(jsonMessage)
       )
 
+      eventBus.registerHandler('cursoProgramado.alumno_add', (jsonMessage) =>
+        crearNotificacionConRespuesta(jsonMessage)
+      )
+
+      eventBus.registerHandler('cursoProgramado.alumno_edit', (jsonMessage) =>
+        crearNotificacionConRespuesta(jsonMessage)
+      )
+
     crearNotificacionConRespuesta = (jsonMessage) =>
       notificacion = Ember.Object.create
         id : jsonMessage.id

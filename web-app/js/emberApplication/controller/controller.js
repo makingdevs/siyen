@@ -249,7 +249,13 @@
         eventBus.registerHandler('cursoProgramado.impresion', function(jsonMessage) {
           return crearNotificacionConRespuesta(jsonMessage);
         });
-        return eventBus.registerHandler('cursoProgramado.actualizado', function(jsonMessage) {
+        eventBus.registerHandler('cursoProgramado.actualizado', function(jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage);
+        });
+        eventBus.registerHandler('cursoProgramado.alumno_add', function(jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage);
+        });
+        return eventBus.registerHandler('cursoProgramado.alumno_edit', function(jsonMessage) {
           return crearNotificacionConRespuesta(jsonMessage);
         });
       };
