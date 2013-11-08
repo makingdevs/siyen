@@ -300,19 +300,7 @@
       realizarBusqueda: function() {
         var busqueda;
         busqueda = this.get('busqueda');
-        return $.ajax({
-          type: "POST",
-          url: this.get('urlBusqueda'),
-          data: {
-            buscar: busqueda
-          },
-          success: function(res, status, xhr) {
-            return $("#resultados").html(res);
-          },
-          error: function(xhr, status, err) {
-            return console.log("error");
-          }
-        });
+        return console.log($("#cursos").val().toString());
       }
     }
   });

@@ -288,14 +288,14 @@ App.BusquedaController = Ember.ObjectController.extend
   actions :
     realizarBusqueda : ->
       busqueda = @get('busqueda')
+      console.log $("#cursos").val().toString()
 
-      $.ajax(
-        type: "POST"
-        url: @get('urlBusqueda')
-        data: { buscar : busqueda }
-        success: (res, status, xhr) ->
-          $("#resultados").html( res )
-
-        error: (xhr, status, err) ->
-          console.log "error"
-      )
+      # $.ajax(
+      #   type: "POST"
+      #   url: @get('urlBusqueda')
+      #   data: { buscar : busqueda }
+      #   success: (res, status, xhr) ->
+      #     $("#resultados").html( res )
+      #   error: (xhr, status, err) ->
+      #     console.log "error"
+      # )
