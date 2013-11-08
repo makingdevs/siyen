@@ -1,3 +1,7 @@
+<p class="text-info"> Para la búsqueda : ${busqueda} se han encontrado :
+  <span id="totalResultados" class="badge badge-info">${totalResultados} </span>
+</p>
+
 <table class="table table-condensed table-striped table-hover">
   <thead>
     <tr>
@@ -30,7 +34,7 @@
 <div class="pagination pagination-centered">
   <ul>
     <li>
-      <g:paginate controller="${controller ?: 'exAlumno'}" action="${action ?: 'busqueda'}" total="${count}" params="[busqueda:busqueda, campus : campus, programa : programa, generacion : generacion, estado : estado, delegacionMunicipio : delegacionMunicipio, tipoExalumno : tipoExalumno]" />
+      <g:paginate total="${totalResultados}" params="[buscar : busqueda]" />
     </li>
   </ul>
 </div>
