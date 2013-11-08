@@ -66,7 +66,7 @@
         _ref2 = data.instructores;
         for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
           value = _ref2[_k];
-          $("<option value='" + value.id + "'>" + value.nombre + "</option>").appendTo(instructores);
+          $("<option value='" + value.nombre + "'>" + value.nombre + "</option>").appendTo(instructores);
         }
         return $(".busquedaChosen").trigger("chosen:updated");
       });
