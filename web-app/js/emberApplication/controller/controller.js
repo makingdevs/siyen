@@ -249,7 +249,13 @@
         eventBus.registerHandler('cursoProgramado.impresion', function(jsonMessage) {
           return crearNotificacionConRespuesta(jsonMessage);
         });
-        return eventBus.registerHandler('cursoProgramado.actualizado', function(jsonMessage) {
+        eventBus.registerHandler('cursoProgramado.actualizado', function(jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage);
+        });
+        eventBus.registerHandler('cursoProgramado.alumno_add', function(jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage);
+        });
+        return eventBus.registerHandler('cursoProgramado.alumno_edit', function(jsonMessage) {
           return crearNotificacionConRespuesta(jsonMessage);
         });
       };
@@ -274,7 +280,20 @@
   App.BusquedaController = Ember.ObjectController.extend({
     urlBusqueda: null,
     init: function() {
-      return this.set('urlBusqueda', $("#urlBusqueda").val());
+      this.set('urlBusqueda', $("#urlBusqueda").val());
+      return $("body").on("click", ".pagination li a", function(event) {
+        event.preventDefault();
+        return $.ajax({
+          type: "GET",
+          url: event.target,
+          success: function(res, status, xhr) {
+            return $("#resultados").html(res);
+          },
+          error: function(xhr, status, err) {
+            return console.log("error");
+          }
+        });
+      });
     },
     actions: {
       realizarBusqueda: function() {

@@ -1,3 +1,7 @@
+<p class="text-info"> Para la búsqueda : ${busqueda} se han encontrado :
+  <span id="totalResultados" class="badge badge-info">${totalResultados} </span>
+</p>
+
 <table class="table table-condensed table-striped table-hover">
   <thead>
     <tr>
@@ -26,3 +30,11 @@
     </g:each>
   </tbody>
 </table>
+
+<div class="pagination pagination-centered">
+  <ul>
+    <li>
+      <g:paginate total="${totalResultados}" params="[buscar : busqueda]" />
+    </li>
+  </ul>
+</div>

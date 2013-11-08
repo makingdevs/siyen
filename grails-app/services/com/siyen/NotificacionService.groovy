@@ -27,10 +27,35 @@ class NotificacionService {
     jsonNotification.putValue( "alumnos", cursoProgramado.alumnos.size() )
     jsonNotification.putValue( "creadoPor", springSecurityService.currentUser.username )
 
-    def accion = bus =~/\.\w+/
-    jsonNotification.putString( "accion", (accion[0] - ".").capitalize() )
+    Accion accion = obtenerAccionRealizada(bus)
+    jsonNotification.putString( "accion", accion.getValue() )
 
     jsonNotification
+  }
+
+  private Accion obtenerAccionRealizada(String bus) {
+    def matcher = bus =~/\.\w+/
+    String resultado = (matcher[0] - ".").toUpperCase()
+
+    Accion.valueOf(resultado)
+  }
+
+  enum Accion {
+    AUTORIZADO("Curso autorizado"),
+    IMPRESION("Impresión de certificados"),
+    ACTUALIZADO("Curso actualizado"),
+    ALUMNO_ADD("Alumno agregado"),
+    ALUMNO_EDIT("Alumno editado")
+
+    private final String value
+
+    Accion(String value) {
+      this.value = value
+    }
+
+    String getValue() {
+      value
+    }
   }
 
 }

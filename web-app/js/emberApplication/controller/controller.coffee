@@ -243,6 +243,14 @@ App.NotificacionController = Ember.ArrayController.extend
         crearNotificacionConRespuesta(jsonMessage)
       )
 
+      eventBus.registerHandler('cursoProgramado.alumno_add', (jsonMessage) =>
+        crearNotificacionConRespuesta(jsonMessage)
+      )
+
+      eventBus.registerHandler('cursoProgramado.alumno_edit', (jsonMessage) =>
+        crearNotificacionConRespuesta(jsonMessage)
+      )
+
     crearNotificacionConRespuesta = (jsonMessage) =>
       notificacion = Ember.Object.create
         id : jsonMessage.id
@@ -262,6 +270,19 @@ App.BusquedaController = Ember.ObjectController.extend
 
   init : ->
     @set('urlBusqueda', $("#urlBusqueda").val())
+
+    $("body").on "click", ".pagination li a", (event) ->
+      event.preventDefault()
+
+      $.ajax(
+        type: "GET"
+        url: event.target
+        success: (res, status, xhr) ->
+          $("#resultados").html( res )
+
+        error: (xhr, status, err) ->
+          console.log "error"
+      )
 
   actions :
     realizarBusqueda : ->

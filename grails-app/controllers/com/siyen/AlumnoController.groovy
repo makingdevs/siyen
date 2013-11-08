@@ -6,6 +6,8 @@ class AlumnoController {
 
   static allowedMethods = [save : "POST", update : "PUT"]
 
+  def notificacionService
+
   def save(AlumnoCommand cmd) {
     if(cmd.hasErrors()) {
       render (status : 400, contentType:"text/json") {
@@ -19,12 +21,8 @@ class AlumnoController {
     alumno.numeroDeControl = generarNumeroDeControl(alumno.id)
     alumno.save(failOnError:true)
 
-    def jsonResponse = [:]
-    jsonResponse.alumno = alumno
-
-    JSON.use('siyen') {
-      render jsonResponse as JSON
-    }
+    notificacionService.enviarNotificacion('cursoProgramado.alumno_add', alumno.cursoProgramado)
+    respuestaJson(alumno)
   }
 
   def update(AlumnoUpdateCommad cmd) {
@@ -40,9 +38,14 @@ class AlumnoController {
     alumno.observaciones = cmd.observaciones
     alumno.save(failOnError:true)
 
+    notificacionService.enviarNotificacion('cursoProgramado.alumno_edit', alumno.cursoProgramado)
+
+    respuestaJson(alumno)
+  }
+
+  private void respuestaJson(Alumno alumno) {
     def jsonResponse = [:]
     jsonResponse.alumno = alumno
-
     JSON.use('siyen') {
       render jsonResponse as JSON
     }
