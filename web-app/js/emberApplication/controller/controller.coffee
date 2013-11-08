@@ -274,13 +274,11 @@ App.BusquedaController = Ember.ObjectController.extend
 
     $("body").on "click", ".pagination li a", (event) ->
       event.preventDefault()
-
       $.ajax(
         type: "GET"
         url: event.target
         success: (res, status, xhr) ->
           $("#resultados").html( res )
-
         error: (xhr, status, err) ->
           console.log "error"
       )
@@ -288,14 +286,20 @@ App.BusquedaController = Ember.ObjectController.extend
   actions :
     realizarBusqueda : ->
       busqueda = @get('busqueda')
-      console.log $("#cursos").val().toString()
+      cursos = $("#cursos").val()?.toString()
+      puertos = $("#puertos").val()?.toString()
+      instructores = $("#instructores").val()?.toString()
 
-      # $.ajax(
-      #   type: "POST"
-      #   url: @get('urlBusqueda')
-      #   data: { buscar : busqueda }
-      #   success: (res, status, xhr) ->
-      #     $("#resultados").html( res )
-      #   error: (xhr, status, err) ->
-      #     console.log "error"
-      # )
+      $.ajax(
+        type: "POST"
+        url: @get('urlBusqueda')
+        data:
+          buscar : busqueda
+          cursos : cursos
+          puertos : puertos
+          instructores : instructores
+        success: (res, status, xhr) ->
+          $("#resultados").html( res )
+        error: (xhr, status, err) ->
+          console.log "error"
+      )

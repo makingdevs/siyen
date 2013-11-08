@@ -298,9 +298,27 @@
     },
     actions: {
       realizarBusqueda: function() {
-        var busqueda;
+        var busqueda, cursos, instructores, puertos, _ref, _ref1, _ref2;
         busqueda = this.get('busqueda');
-        return console.log($("#cursos").val().toString());
+        cursos = (_ref = $("#cursos").val()) != null ? _ref.toString() : void 0;
+        puertos = (_ref1 = $("#puertos").val()) != null ? _ref1.toString() : void 0;
+        instructores = (_ref2 = $("#instructores").val()) != null ? _ref2.toString() : void 0;
+        return $.ajax({
+          type: "POST",
+          url: this.get('urlBusqueda'),
+          data: {
+            buscar: busqueda,
+            cursos: cursos,
+            puertos: puertos,
+            instructores: instructores
+          },
+          success: function(res, status, xhr) {
+            return $("#resultados").html(res);
+          },
+          error: function(xhr, status, err) {
+            return console.log("error");
+          }
+        });
       }
     }
   });
