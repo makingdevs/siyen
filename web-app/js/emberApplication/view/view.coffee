@@ -472,11 +472,13 @@ Ember.TEMPLATES['notificacion'] = Ember.Handlebars.compile('' +
     '<thead>' +
       '<tr>' +
         '<th>ID</th>' +
+        '<th>Fecha de autorización</th>' +
         '<th>Fecha de inicio</th>' +
         '<th>Puerto</th>' +
         '<th>Curso</th>' +
         '<th>Instructor</th>' +
         '<th>Participantes</th>' +
+        '<th>Acción realizada</th>' +
         '<th>Creado por</th>' +
       '</tr>' +
     '</thead>' +
@@ -484,11 +486,13 @@ Ember.TEMPLATES['notificacion'] = Ember.Handlebars.compile('' +
       '{{#each controller}}' +
         '<tr>' +
           '<td> {{ id }} </td>' +
-          '<td> {{ date fechaDeInicio }} </td>' +
+          '<td> {{ fechaDeAutorizacion }} </td>' +
+          '<td> {{ fechaDeInicio }} </td>' +
           '<td> {{ puerto }} </td>' +
           '<td> {{ curso }} </td>' +
           '<td> {{ instructor }} </td>' +
           '<td> {{ alumnos }} </td>' +
+          '<td> {{ accion }} </td>' +
           '<td> {{ creadoPor }} </td>' +
         '</tr>' +
       '{{/each}}' +

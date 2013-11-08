@@ -167,7 +167,7 @@
 
   App.NotifacionView = Ember.View.extend();
 
-  Ember.TEMPLATES['notificacion'] = Ember.Handlebars.compile('' + '<div class="page-header">' + '<h1>Cursos creados</h1>' + '</div>' + '<table class="table table-condensed table-striped table-hover">' + '<thead>' + '<tr>' + '<th>ID</th>' + '<th>Fecha de inicio</th>' + '<th>Puerto</th>' + '<th>Curso</th>' + '<th>Instructor</th>' + '<th>Participantes</th>' + '<th>Creado por</th>' + '</tr>' + '</thead>' + '<tbody>' + '{{#each controller}}' + '<tr>' + '<td> {{ id }} </td>' + '<td> {{ date fechaDeInicio }} </td>' + '<td> {{ puerto }} </td>' + '<td> {{ curso }} </td>' + '<td> {{ instructor }} </td>' + '<td> {{ alumnos }} </td>' + '<td> {{ creadoPor }} </td>' + '</tr>' + '{{/each}}' + '</tbody>' + '</table>');
+  Ember.TEMPLATES['notificacion'] = Ember.Handlebars.compile('' + '<div class="page-header">' + '<h1>Cursos creados</h1>' + '</div>' + '<table class="table table-condensed table-striped table-hover">' + '<thead>' + '<tr>' + '<th>ID</th>' + '<th>Fecha de autorización</th>' + '<th>Fecha de inicio</th>' + '<th>Puerto</th>' + '<th>Curso</th>' + '<th>Instructor</th>' + '<th>Participantes</th>' + '<th>Acción realizada</th>' + '<th>Creado por</th>' + '</tr>' + '</thead>' + '<tbody>' + '{{#each controller}}' + '<tr>' + '<td> {{ id }} </td>' + '<td> {{ fechaDeAutorizacion }} </td>' + '<td> {{ fechaDeInicio }} </td>' + '<td> {{ puerto }} </td>' + '<td> {{ curso }} </td>' + '<td> {{ instructor }} </td>' + '<td> {{ alumnos }} </td>' + '<td> {{ accion }} </td>' + '<td> {{ creadoPor }} </td>' + '</tr>' + '{{/each}}' + '</tbody>' + '</table>');
 
   App.BusquedaChosenView = Ember.View.extend({
     tagName: 'select',

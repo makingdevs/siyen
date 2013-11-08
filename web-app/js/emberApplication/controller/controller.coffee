@@ -230,18 +230,40 @@ App.NotificacionController = Ember.ArrayController.extend
 
     eventBus.onopen = =>
       console.log "Event Bus connected"
-      eventBus.registerHandler('cursoProgramado.save', (jsonMessage) =>
-        notificacion = Ember.Object.create
-          id : jsonMessage.id
-          fechaDeInicio : moment(jsonMessage.fechaDeInicio).format('DD/MMMM/YYYY')
-          puerto : jsonMessage.puerto
-          curso : jsonMessage.curso
-          instructor : jsonMessage.instructor
-          alumnos : jsonMessage.alumnos
-          creadoPor : jsonMessage.creadoPor
 
-        @content.pushObject(notificacion)
+      eventBus.registerHandler('cursoProgramado.autorizado', (jsonMessage) =>
+        crearNotificacionConRespuesta(jsonMessage)
       )
+
+      eventBus.registerHandler('cursoProgramado.impresion', (jsonMessage) =>
+        crearNotificacionConRespuesta(jsonMessage)
+      )
+
+      eventBus.registerHandler('cursoProgramado.actualizado', (jsonMessage) =>
+        crearNotificacionConRespuesta(jsonMessage)
+      )
+
+      eventBus.registerHandler('cursoProgramado.alumno_add', (jsonMessage) =>
+        crearNotificacionConRespuesta(jsonMessage)
+      )
+
+      eventBus.registerHandler('cursoProgramado.alumno_edit', (jsonMessage) =>
+        crearNotificacionConRespuesta(jsonMessage)
+      )
+
+    crearNotificacionConRespuesta = (jsonMessage) =>
+      notificacion = Ember.Object.create
+        id : jsonMessage.id
+        fechaDeAutorizacion : jsonMessage.fechaDeAutorizacion
+        fechaDeInicio : jsonMessage.fechaDeInicio
+        puerto : jsonMessage.puerto
+        curso : jsonMessage.curso
+        instructor : jsonMessage.instructor
+        alumnos : jsonMessage.alumnos
+        creadoPor : jsonMessage.creadoPor
+        accion : jsonMessage.accion
+
+      @content.pushObject(notificacion)
 
 App.BusquedaController = Ember.ObjectController.extend
   busqueda : null
@@ -249,6 +271,19 @@ App.BusquedaController = Ember.ObjectController.extend
 
   init : ->
     @set('urlBusqueda', $("#urlBusqueda").val())
+
+    $("body").on "click", ".pagination li a", (event) ->
+      event.preventDefault()
+
+      $.ajax(
+        type: "GET"
+        url: event.target
+        success: (res, status, xhr) ->
+          $("#resultados").html( res )
+
+        error: (xhr, status, err) ->
+          console.log "error"
+      )
 
   actions :
     realizarBusqueda : ->

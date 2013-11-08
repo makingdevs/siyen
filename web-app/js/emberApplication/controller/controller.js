@@ -237,25 +237,42 @@
   App.NotificacionController = Ember.ArrayController.extend({
     content: [],
     init: function() {
-      var eventBus,
+      var crearNotificacionConRespuesta, eventBus,
         _this = this;
       this._super();
       eventBus = new vertx.EventBus('http://localhost:9090/eventbus');
-      return eventBus.onopen = function() {
+      eventBus.onopen = function() {
         console.log("Event Bus connected");
-        return eventBus.registerHandler('cursoProgramado.save', function(jsonMessage) {
-          var notificacion;
-          notificacion = Ember.Object.create({
-            id: jsonMessage.id,
-            fechaDeInicio: moment(jsonMessage.fechaDeInicio).format('DD/MMMM/YYYY'),
-            puerto: jsonMessage.puerto,
-            curso: jsonMessage.curso,
-            instructor: jsonMessage.instructor,
-            alumnos: jsonMessage.alumnos,
-            creadoPor: jsonMessage.creadoPor
-          });
-          return _this.content.pushObject(notificacion);
+        eventBus.registerHandler('cursoProgramado.autorizado', function(jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage);
         });
+        eventBus.registerHandler('cursoProgramado.impresion', function(jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage);
+        });
+        eventBus.registerHandler('cursoProgramado.actualizado', function(jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage);
+        });
+        eventBus.registerHandler('cursoProgramado.alumno_add', function(jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage);
+        });
+        return eventBus.registerHandler('cursoProgramado.alumno_edit', function(jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage);
+        });
+      };
+      return crearNotificacionConRespuesta = function(jsonMessage) {
+        var notificacion;
+        notificacion = Ember.Object.create({
+          id: jsonMessage.id,
+          fechaDeAutorizacion: jsonMessage.fechaDeAutorizacion,
+          fechaDeInicio: jsonMessage.fechaDeInicio,
+          puerto: jsonMessage.puerto,
+          curso: jsonMessage.curso,
+          instructor: jsonMessage.instructor,
+          alumnos: jsonMessage.alumnos,
+          creadoPor: jsonMessage.creadoPor,
+          accion: jsonMessage.accion
+        });
+        return _this.content.pushObject(notificacion);
       };
     }
   });
@@ -264,7 +281,20 @@
     busqueda: null,
     urlBusqueda: null,
     init: function() {
-      return this.set('urlBusqueda', $("#urlBusqueda").val());
+      this.set('urlBusqueda', $("#urlBusqueda").val());
+      return $("body").on("click", ".pagination li a", function(event) {
+        event.preventDefault();
+        return $.ajax({
+          type: "GET",
+          url: event.target,
+          success: function(res, status, xhr) {
+            return $("#resultados").html(res);
+          },
+          error: function(xhr, status, err) {
+            return console.log("error");
+          }
+        });
+      });
     },
     actions: {
       realizarBusqueda: function() {

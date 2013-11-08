@@ -6,9 +6,7 @@ class CertificadoService {
   def QRCodeService
   def grailsApplication
 
-  def poblarCertificado(Long cursoProgramadoId) {
-    CursoProgramado cursoProgramado = CursoProgramado.get(cursoProgramadoId)
-
+  def poblarCertificado(CursoProgramado cursoProgramado) {
     def reportData = []
     cursoProgramado.alumnos.each { alumno ->
       reportData << obtenerDatosDelAlumno(cursoProgramado, alumno)
