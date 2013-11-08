@@ -280,7 +280,20 @@
   App.BusquedaController = Ember.ObjectController.extend({
     urlBusqueda: null,
     init: function() {
-      return this.set('urlBusqueda', $("#urlBusqueda").val());
+      this.set('urlBusqueda', $("#urlBusqueda").val());
+      return $("body").on("click", ".pagination li a", function(event) {
+        event.preventDefault();
+        return $.ajax({
+          type: "GET",
+          url: event.target,
+          success: function(res, status, xhr) {
+            return $("#resultados").html(res);
+          },
+          error: function(xhr, status, err) {
+            return console.log("error");
+          }
+        });
+      });
     },
     actions: {
       realizarBusqueda: function() {

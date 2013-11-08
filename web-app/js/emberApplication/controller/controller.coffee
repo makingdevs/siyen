@@ -271,6 +271,19 @@ App.BusquedaController = Ember.ObjectController.extend
   init : ->
     @set('urlBusqueda', $("#urlBusqueda").val())
 
+    $("body").on "click", ".pagination li a", (event) ->
+      event.preventDefault()
+
+      $.ajax(
+        type: "GET"
+        url: event.target
+        success: (res, status, xhr) ->
+          $("#resultados").html( res )
+
+        error: (xhr, status, err) ->
+          console.log "error"
+      )
+
   actions :
     realizarBusqueda : ->
       busqueda = $("#busquedaChosen").val().toString()
