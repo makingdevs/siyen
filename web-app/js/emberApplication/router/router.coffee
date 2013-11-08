@@ -39,16 +39,18 @@ App.BusquedaRoute = Ember.Route.extend
     @_super(controller, model)
 
     $.getJSON( "catalogo/obtenerDatosDeBusqueda", ( data ) ->
-      busquedaChosen = $("#busquedaChosen")
+      cursos = $("#cursos")
 
       for value in data.cursos
-        $("<option value='#{value}'>#{value}</option>").appendTo(busquedaChosen)
+        $("<option value='#{value}'>#{value}</option>").appendTo(cursos)
 
+      puertos = $("#puertos")
       for value in data.puertos
-        $("<option value='#{value}'>#{value}</option>").appendTo(busquedaChosen)
+        $("<option value='#{value}'>#{value}</option>").appendTo(puertos)
 
+      instructores = $("#instructores")
       for value in data.instructores
-        $("<option value='#{value.id}'>#{value.nombre}</option>").appendTo(busquedaChosen)
+        $("<option value='#{value.id}'>#{value.nombre}</option>").appendTo(instructores)
 
-      busquedaChosen.trigger("chosen:updated")
+      $(".busquedaChosen").trigger("chosen:updated")
     )
