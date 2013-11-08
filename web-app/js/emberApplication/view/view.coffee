@@ -535,24 +535,23 @@ Ember.TEMPLATES['busqueda'] = Ember.Handlebars.compile('' +
   )
 
 App.BusquedaAvanzadaView = Ember.View.extend
-  classNames : 'hide'
   template : Ember.Handlebars.compile('' +
     '<div class="control-group">' +
-      '<label class="control-label" for="campus">Campus :</label>' +
+      '<label class="control-label" for="cursos">Cursos :</label>' +
       '<div class="controls">' +
-        '<input type="text" name="campus" id="campus" class="input-large" value="" />' +
+        '{{ view App.BusquedaChosenView id="cursos" class="busquedaChosen input-xxlarge" }}' +
       '</div>' +
     '</div>' +
     '<div class="control-group">' +
-      '<label class="control-label" for="programa">Programa :</label>' +
+      '<label class="control-label" for="puertos">Puertos :</label>' +
       '<div class="controls">' +
-        '<input type="text" name="programa" id="programa" class="input-large" value="" />' +
+        '{{ view App.BusquedaChosenView id="puertos" class="busquedaChosen input-xxlarge" }}' +
       '</div>' +
     '</div>' +
     '<div class="control-group">' +
-      '<label class="control-label" for="generacion">Generación :</label>' +
+      '<label class="control-label" for="instructores">Instructores :</label>' +
       '<div class="controls">' +
-        '<input type="text" name="generacion" id="generacion" class="input-large" value="" />' +
+        '{{ view App.BusquedaChosenView id="instructores" class="busquedaChosen input-xxlarge" }}' +
       '</div>' +
     '</div>'
   )
