@@ -499,25 +499,18 @@ Ember.TEMPLATES['notificacion'] = Ember.Handlebars.compile('' +
     '</tbody>' +
   '</table>' )
 
-App.BusquedaChosenView = Ember.View.extend
-  tagName: 'select'
-  attributeBindings: ['multiple']
-  multiple: 'multiple'
-
-  didInsertElement: ->
-    $(".busquedaChosen").chosen
-      disable_search: true
-      search_contains : true
-      display_selected_options : false
-      placeholder_text_multiple : "Selecciona algunas opciones"
-      no_results_text: "Oops, ¡No hubo resultados!"
-
 App.BusquedaView = Ember.View.extend
   didInsertElement : ->
     tamanioCampoBusqueda = $("input[name='busqueda']").width()
     $("#busquedaAvanzada").width tamanioCampoBusqueda
     $("#mostrarBusquedaAvanzada").click ->
       $("#busquedaAvanzada").toggle "slow"
+      $(".busquedaChosen").chosen
+        disable_search: true
+        search_contains : true
+        display_selected_options : false
+        placeholder_text_multiple : "Selecciona algunas opciones"
+        no_results_text: "Oops, ¡No hubo resultados!"
 
 Ember.TEMPLATES['busqueda'] = Ember.Handlebars.compile('' +
   '<div id="busquedaDiv" class="input-append">' +
@@ -528,30 +521,31 @@ Ember.TEMPLATES['busqueda'] = Ember.Handlebars.compile('' +
       '<i class="icon-filter"></i>' +
     '</button>' +
 
-    '<button type="submit" class="btn" {{ action "realizarBusqueda" }} >Buscar</button>' +
+    '<button type="submit" class="btn" {{ action "realizarBusqueda" }}>Buscar</button>' +
   '</div>' +
 
   '<div id="resultados"> </div>'
   )
 
 App.BusquedaAvanzadaView = Ember.View.extend
+  classNames : "hide"
   template : Ember.Handlebars.compile('' +
     '<div class="control-group">' +
       '<label class="control-label" for="cursos">Cursos :</label>' +
       '<div class="controls">' +
-        '{{ view App.BusquedaChosenView id="cursos" class="busquedaChosen input-xxlarge" }}' +
+        '<select id="cursos" class="busquedaChosen input-xxlarge" multiple> </select>' +
       '</div>' +
     '</div>' +
     '<div class="control-group">' +
       '<label class="control-label" for="puertos">Puertos :</label>' +
       '<div class="controls">' +
-        '{{ view App.BusquedaChosenView id="puertos" class="busquedaChosen input-xxlarge" }}' +
+        '<select id="puertos" class="busquedaChosen input-xxlarge" multiple> </select>' +
       '</div>' +
     '</div>' +
     '<div class="control-group">' +
       '<label class="control-label" for="instructores">Instructores :</label>' +
       '<div class="controls">' +
-        '{{ view App.BusquedaChosenView id="instructores" class="busquedaChosen input-xxlarge" }}' +
+        '<select id="instructores" class="busquedaChosen input-xxlarge" multiple> </select>' +
       '</div>' +
     '</div>'
   )
