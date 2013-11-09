@@ -288,7 +288,8 @@
           type: "GET",
           url: event.target,
           success: function(res, status, xhr) {
-            return $("#resultados").html(res);
+            $("#resultados").html(res);
+            return $("#busquedaAvanzada").hide();
           },
           error: function(xhr, status, err) {
             return console.log("error");
@@ -313,7 +314,8 @@
             instructores: instructores
           },
           success: function(res, status, xhr) {
-            return $("#resultados").html(res);
+            $("#resultados").html(res);
+            return $("#busquedaAvanzada").hide();
           },
           error: function(xhr, status, err) {
             return console.log("error");

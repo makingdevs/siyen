@@ -279,6 +279,7 @@ App.BusquedaController = Ember.ObjectController.extend
         url: event.target
         success: (res, status, xhr) ->
           $("#resultados").html( res )
+          $("#busquedaAvanzada").hide()
         error: (xhr, status, err) ->
           console.log "error"
       )
@@ -300,6 +301,7 @@ App.BusquedaController = Ember.ObjectController.extend
           instructores : instructores
         success: (res, status, xhr) ->
           $("#resultados").html( res )
+          $("#busquedaAvanzada").hide()
         error: (xhr, status, err) ->
           console.log "error"
       )
