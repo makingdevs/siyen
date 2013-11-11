@@ -280,6 +280,8 @@
   App.BusquedaController = Ember.ObjectController.extend({
     busqueda: null,
     urlBusqueda: null,
+    desde: null,
+    hasta: null,
     init: function() {
       this.set('urlBusqueda', $("#urlBusqueda").val());
       return $("body").on("click", ".pagination li a", function(event) {
@@ -299,11 +301,13 @@
     },
     actions: {
       realizarBusqueda: function() {
-        var busqueda, cursos, instructores, puertos, _ref, _ref1, _ref2;
+        var busqueda, cursos, desde, hasta, instructores, puertos, _ref, _ref1, _ref2;
         busqueda = this.get('busqueda');
         cursos = (_ref = $("#cursos").val()) != null ? _ref.toString() : void 0;
         puertos = (_ref1 = $("#puertos").val()) != null ? _ref1.toString() : void 0;
         instructores = (_ref2 = $("#instructores").val()) != null ? _ref2.toString() : void 0;
+        desde = this.get('desde');
+        hasta = this.get('hasta');
         return $.ajax({
           type: "POST",
           url: this.get('urlBusqueda'),
@@ -311,7 +315,9 @@
             buscar: busqueda,
             cursos: cursos,
             puertos: puertos,
-            instructores: instructores
+            instructores: instructores,
+            desde: desde,
+            hasta: hasta
           },
           success: function(res, status, xhr) {
             $("#resultados").html(res);

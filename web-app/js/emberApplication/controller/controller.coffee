@@ -268,6 +268,8 @@ App.NotificacionController = Ember.ArrayController.extend
 App.BusquedaController = Ember.ObjectController.extend
   busqueda : null
   urlBusqueda : null
+  desde : null
+  hasta : null
 
   init : ->
     @set('urlBusqueda', $("#urlBusqueda").val())
@@ -290,6 +292,8 @@ App.BusquedaController = Ember.ObjectController.extend
       cursos = $("#cursos").val()?.toString()
       puertos = $("#puertos").val()?.toString()
       instructores = $("#instructores").val()?.toString()
+      desde = @get('desde')
+      hasta = @get('hasta')
 
       $.ajax(
         type: "POST"
@@ -299,6 +303,8 @@ App.BusquedaController = Ember.ObjectController.extend
           cursos : cursos
           puertos : puertos
           instructores : instructores
+          desde : desde
+          hasta : hasta
         success: (res, status, xhr) ->
           $("#resultados").html( res )
           $("#busquedaAvanzada").hide()
