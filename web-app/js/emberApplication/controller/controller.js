@@ -278,7 +278,10 @@
   });
 
   App.BusquedaController = Ember.ObjectController.extend({
+    busqueda: null,
     urlBusqueda: null,
+    desde: null,
+    hasta: null,
     init: function() {
       this.set('urlBusqueda', $("#urlBusqueda").val());
       return $("body").on("click", ".pagination li a", function(event) {
@@ -287,7 +290,8 @@
           type: "GET",
           url: event.target,
           success: function(res, status, xhr) {
-            return $("#resultados").html(res);
+            $("#resultados").html(res);
+            return $("#busquedaAvanzada").hide();
           },
           error: function(xhr, status, err) {
             return console.log("error");
@@ -297,16 +301,27 @@
     },
     actions: {
       realizarBusqueda: function() {
-        var busqueda;
-        busqueda = $("#busquedaChosen").val().toString();
+        var busqueda, cursos, desde, hasta, instructores, puertos, _ref, _ref1, _ref2;
+        busqueda = this.get('busqueda');
+        cursos = (_ref = $("#cursos").val()) != null ? _ref.toString() : void 0;
+        puertos = (_ref1 = $("#puertos").val()) != null ? _ref1.toString() : void 0;
+        instructores = (_ref2 = $("#instructores").val()) != null ? _ref2.toString() : void 0;
+        desde = this.get('desde');
+        hasta = this.get('hasta');
         return $.ajax({
           type: "POST",
           url: this.get('urlBusqueda'),
           data: {
-            buscar: busqueda
+            buscar: busqueda,
+            cursos: cursos,
+            puertos: puertos,
+            instructores: instructores,
+            desde: desde,
+            hasta: hasta
           },
           success: function(res, status, xhr) {
-            return $("#resultados").html(res);
+            $("#resultados").html(res);
+            return $("#busquedaAvanzada").hide();
           },
           error: function(xhr, status, err) {
             return console.log("error");

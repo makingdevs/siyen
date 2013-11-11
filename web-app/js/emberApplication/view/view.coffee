@@ -2,23 +2,26 @@ App.CursosNuevosView = Ember.View.extend
   elementId : "cursosNuevos"
 
 App.DatePickerView = Ember.View.extend
+  fechaValue : null
+  initValue : true
   template: Ember.Handlebars.compile(
-    '<div class="input-append date" id="datepicker" >' +
-      '{{ view Ember.TextField valueBinding="fechaDeInicio" }}' +
+    '<div class="input-append date" >' +
+      '{{ view Ember.TextField valueBinding="view.fechaValue" class="datepicker" }}' +
       '<span class="add-on"><i class="icon-th"></i></span>' +
     '</div>'
     )
 
   didInsertElement: ->
-    ($ '#datepicker').datepicker
+    ($ '.datepicker').datepicker
       format          : "dd/MM/yyyy"
       autoclose       : true
       todayHighlight  : true
       language        : 'es'
-      startDate       : '1d'
-      
-    ($ "#datepicker > input").attr('readonly', 'true')
-    ($ "#datepicker > input").val(moment().format('DD/MMMM/YYYY'))
+      startDate       : '1d' if @get('initValue') == true
+      clearBtn        : !@get('initValue')
+
+    ($ ".datepicker").attr('readonly', 'true')
+    ($ ".datepicker").val(moment().format('DD/MMMM/YYYY')) if @get('initValue')
 
 App.DropzoneView = Ember.View.extend
   template : Ember.Handlebars.compile('<div id="dropzone" class="dropzone"> </div>')
@@ -412,7 +415,7 @@ Ember.TEMPLATES['cursoNuevoForm'] = Ember.Handlebars.compile(
     '<div class="control-group">' +
       '<label class="control-label" for="datepicker">Fecha de inicio :</label>' +
       '<div class="controls">' +
-        '{{ view App.DatePickerView }}' +
+        '{{ view App.DatePickerView fechaValueBinding="fechaDeInicio" }}' +
       '</div>' +
     '</div>' +
     '<div class="control-group">' +
@@ -463,7 +466,6 @@ Ember.TEMPLATES['cursoNuevoForm'] = Ember.Handlebars.compile(
     '</div>' +
   '</div>' )
 
-
 App.NotifacionView = Ember.View.extend()
 Ember.TEMPLATES['notificacion'] = Ember.Handlebars.compile('' +
   '<div class="page-header">' +
@@ -500,24 +502,77 @@ Ember.TEMPLATES['notificacion'] = Ember.Handlebars.compile('' +
     '</tbody>' +
   '</table>' )
 
-App.BusquedaChosenView = Ember.View.extend
-  tagName: 'select'
-  attributeBindings: ['multiple']
-  multiple: 'multiple'
+App.BusquedaView = Ember.View.extend
+  didInsertElement : ->
+    tamanioCampoBusqueda = $("input[name='busqueda']").width()
+    $("#busquedaAvanzada").width tamanioCampoBusqueda
+    $("#mostrarBusquedaAvanzada").click ->
+      $("#busquedaAvanzada").toggle "slow"
+      $(".busquedaChosen").chosen
+        disable_search: true
+        search_contains : true
+        display_selected_options : false
+        placeholder_text_multiple : "Selecciona algunas opciones"
+        no_results_text: "Oops, ¡No hubo resultados!"
 
-  didInsertElement: ->
-    $("#busquedaChosen").chosen
-      disable_search: true
-      search_contains : true
-      display_selected_options : false
-      placeholder_text_multiple : "Selecciona algunas opciones"
-      no_results_text: "Oops, ¡No hubo resultados!"
-
-App.BusquedaView = Ember.View.extend()
 Ember.TEMPLATES['busqueda'] = Ember.Handlebars.compile('' +
-  '<div class="input-append">' +
-    '{{ view App.BusquedaChosenView id="busquedaChosen" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}' +
-    '<button type="submit" class="btn" {{ action "realizarBusqueda" }} >Buscar</button>' +
+  '<div id="busquedaDiv" class="input-append">' +
+    '{{ view App.TextField id="busqueda" name="busqueda" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}' +
+    '{{ view App.BusquedaAvanzadaView id="busquedaAvanzada" }}' +
+
+    '<button id="mostrarBusquedaAvanzada" type="button" class="btn">' +
+      '<i class="icon-filter"></i>' +
+    '</button>' +
+
+    '<button type="submit" class="btn" {{ action "realizarBusqueda" }}>Buscar</button>' +
   '</div>' +
+
   '<div id="resultados"> </div>'
+  )
+
+App.BootstrapButton = Ember.View.extend(Ember.TargetActionSupport,
+  tagName: 'button',
+  classNames: ['btn']
+  iconName : null
+  disabled: false,
+  click: ->
+    if !@.get('disabled')
+      @.triggerAction()
+
+  template: Ember.Handlebars.compile('{{#if view.iconName}}<i {{bindAttr class="view.iconName"}}></i>{{/if}} {{view.content}}')
+)
+
+App.BusquedaAvanzadaView = Ember.View.extend
+  classNames : "hide"
+  template : Ember.Handlebars.compile('' +
+    '<div class="control-group">' +
+      '<label class="control-label" for="cursos">Cursos :</label>' +
+      '<div class="controls">' +
+        '<select id="cursos" class="busquedaChosen input-xxlarge" multiple> </select>' +
+      '</div>' +
+    '</div>' +
+    '<div class="control-group">' +
+      '<label class="control-label" for="puertos">Puertos :</label>' +
+      '<div class="controls">' +
+        '<select id="puertos" class="busquedaChosen input-xxlarge" multiple> </select>' +
+      '</div>' +
+    '</div>' +
+    '<div class="control-group">' +
+      '<label class="control-label" for="instructores">Instructores :</label>' +
+      '<div class="controls">' +
+        '<select id="instructores" class="busquedaChosen input-xxlarge" multiple> </select>' +
+      '</div>' +
+    '</div>' +
+    '<div class="control-group">' +
+      '<label class="control-label" for="instructores">Desde :</label>' +
+      '<div class="controls">' +
+        '{{ view App.DatePickerView fechaValueBinding="desde" initValue=false }}' +
+      '</div>' +
+    '</div>' +
+    '<div class="control-group">' +
+      '<label class="control-label" for="instructores">Hasta :</label>' +
+      '<div class="controls">' +
+        '{{ view App.DatePickerView fechaValueBinding="hasta" initValue=false }}' +
+      '</div>' +
+    '</div>'
   )

@@ -1,5 +1,12 @@
-<p class="text-info"> Para la búsqueda : ${busqueda} se han encontrado :
-  <span id="totalResultados" class="badge badge-info">${totalResultados} </span>
+<p class="text-info"> Para la búsqueda :
+  <span id="totalResultados" class="badge badge-info">${busqueda}</span>
+  <span id="totalResultados" class="badge badge-info">${cursos}</span>
+  <span id="totalResultados" class="badge badge-info">${puertos}</span>
+  <span id="totalResultados" class="badge badge-info">${instructores}</span>
+  <span id="totalResultados" class="badge badge-info">${desde}</span>
+  <span id="totalResultados" class="badge badge-info">${hasta}</span>
+  se han encontrado :
+  <span id="totalResultados" class="badge badge-info">${totalResultados} </span> resultados
 </p>
 
 <table class="table table-condensed table-striped table-hover">
@@ -34,7 +41,7 @@
 <div class="pagination pagination-centered">
   <ul>
     <li>
-      <g:paginate total="${totalResultados}" params="[buscar : busqueda]" />
+      <g:paginate total="${totalResultados}" params="[buscar : busqueda, cursos : cursos, puertos : puertos, instructores : instructores, desde : desde, hasta : hasta]" />
     </li>
   </ul>
 </div>
