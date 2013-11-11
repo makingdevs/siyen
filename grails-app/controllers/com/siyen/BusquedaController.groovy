@@ -5,18 +5,15 @@ class BusquedaController {
   def searchableService
 
   def realizarBusqueda() {
-    log.debug params.buscar
-    log.debug params.cursos
-    log.debug params.puertos
-    log.debug params.instructores
-
     String busqueda = params.buscar.replace(',', " ").trim()
     String cursos = params.cursos?.replace(',', " ")?.trim()
     String puertos = params.puertos?.replace(',', " ")?.trim()
     String instructores = params.instructores?.replace(',', " ")?.trim()
 
     def busquedaDeResultados = searchableService.search({
-      must(queryString(busqueda))
+      if(busqueda) {
+        must(queryString(busqueda))
+      }
 
       if(cursos) {
         must(queryString(cursos, [useAndDefaultOperator: false, defaultSearchProperty: "clave"]))
@@ -30,8 +27,14 @@ class BusquedaController {
         must(queryString(instructores, [useAndDefaultOperator: false, defaultSearchProperty: "nombre"]))
       }
 
+      if(params.desde) {
+        Date desde = Date.parse("dd/MMM/yyyy", params.desde)
+        Date hasta = params.hasta ? Date.parse("dd/MMM/yyyy", params.hasta) : new Date()
+        must( between("fechaDeInicio", desde, hasta, true) )
+      }
+
     }, params)
-    render template:"/cursoProgramado/list", model:[ busqueda : busqueda, cursos : cursos, puertos : puertos, instructores : instructores, totalResultados : busquedaDeResultados.total, lista : busquedaDeResultados.results]
+    render template:"/cursoProgramado/list", model:[ busqueda : busqueda, cursos : cursos, puertos : puertos, instructores : instructores,  desde : params.desde, hasta : params.hasta, totalResultados : busquedaDeResultados.total, lista : busquedaDeResultados.results]
   }
 
 }
