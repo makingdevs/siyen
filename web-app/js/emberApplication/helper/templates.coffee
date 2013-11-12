@@ -12,14 +12,9 @@ Handlebars.getTemplate = (name) ->
 
   Ember.TEMPLATES[name]
 
-Handlebars.getTemplate('cursosNuevos')
-Handlebars.getTemplate('cursosAutorizados')
-Handlebars.getTemplate('edit')
-Handlebars.getTemplate('confirmDialog')
-Handlebars.getTemplate('crear.participantes')
-Handlebars.getTemplate('archivo')
-Handlebars.getTemplate('notificacion')
-Handlebars.getTemplate('busqueda')
+templates = [ 'cursosNuevos', 'cursosAutorizados', 'edit', 'confirmDialog', 'crear.participantes', 'archivo', 'notificacion', 'busqueda' ]
+for template in templates
+  Handlebars.getTemplate( template )
 
 Ember.TEMPLATES['crear'] = Ember.Handlebars.compile('' +
   '<div class="container-fluid">' +
