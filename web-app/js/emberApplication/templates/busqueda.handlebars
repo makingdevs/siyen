@@ -1,0 +1,12 @@
+<div id="busquedaDiv" class="input-append">
+  {{ view App.TextField id="busqueda" name="busqueda" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}
+  {{ view App.BusquedaAvanzadaView id="busquedaAvanzada" }}
+
+  <button id="mostrarBusquedaAvanzada" type="button" class="btn">
+    <i class="icon-filter"></i>
+  </button>
+
+  <button type="submit" class="btn" {{ action "realizarBusqueda" }}>Buscar</button>
+</div>
+
+<div id="resultados"> </div>
