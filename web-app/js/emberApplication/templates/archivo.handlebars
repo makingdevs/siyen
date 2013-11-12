@@ -1,0 +1,28 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+
+    <div class="span4">
+      <div class="page-header">
+        <h1>Procesar archivo</h1>
+      </div>
+
+      {{ view App.DropzoneView }}
+      <button class="btn btn-large btn-block btn-primary" {{ action "procesarArchivo" }} > Procesar </button>
+    </div>
+
+    <div class="span4">
+      <ul>
+        {{#each participantes }}
+          {{ view App.ParticipanteView }}
+        {{/each}}
+      </ul>
+    </div>
+
+    {{#if participantes}}
+      {{ view App.CursoNuevoFormulario 
+          target="controller" 
+          header="Datos del curso" 
+      }}
+    {{/if}}
+  </div>
+</div>
