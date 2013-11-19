@@ -72,6 +72,13 @@ environments {
   }
 }
 
+grails.plugin.databasemigration.updateOnStart = true
+grails.plugin.databasemigration.updateOnStartFileNames = ['changelog.groovy']
+
+searchable {
+  bulkIndexOnStartup = false
+}
+
 // log4j configuration
 log4j = {
   appenders {

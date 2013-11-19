@@ -13,6 +13,7 @@ import org.vertx.java.core.sockjs.SockJSServer
 class BootStrap {
 
   def springSecurityService
+  def searchableService
 
   def init = { servletContext ->
 
@@ -42,9 +43,12 @@ class BootStrap {
     switch(Environment.current) {
       case Environment.DEVELOPMENT:
         inicializarDominios()
+        searchableService.index()
+        break
+      case Environment.PRODUCTION:
+        searchableService.index()
         break
     }
-
   }
 
   def inicializarDominios() {
