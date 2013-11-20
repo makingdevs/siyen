@@ -14,10 +14,11 @@ class BootStrap {
 
   def springSecurityService
   def searchableService
+  def defaultPlatformManager
 
   def init = { servletContext ->
 
-    def vertx = VertxFactory.newVertx("localhost")
+    def vertx = defaultPlatformManager.vertx()
     def eventBus = vertx.eventBus()
 
     HttpServer server = vertx.createHttpServer()
