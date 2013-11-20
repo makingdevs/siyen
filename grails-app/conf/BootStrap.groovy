@@ -25,7 +25,7 @@ class BootStrap {
     permitted.add(new JsonObject())
     SockJSServer sockJSServer = vertx.createSockJSServer(server)
     sockJSServer.bridge(new JsonObject().putString('prefix', '/eventbus'), permitted, permitted)
-    server.listen(9090)
+    server.listen(9091)
 
 
     JSON.createNamedConfig('siyen') {
