@@ -12,7 +12,6 @@
 
   App.Store = DS.Store.extend({
     adapter: DS.RESTAdapter.extend({
-      namespace: 'siyen',
       createRecord: function(store, type, record) {
         var data, serializer;
         serializer = store.serializerFor(type.typeKey);

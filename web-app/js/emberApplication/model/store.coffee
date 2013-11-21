@@ -5,7 +5,7 @@ inflector.irregular('instructor', 'instructores')
 
 App.Store = DS.Store.extend
   adapter: DS.RESTAdapter.extend
-    namespace: 'siyen'
+    # namespace: 'siyen'
 
     createRecord : (store, type, record) ->
       serializer = store.serializerFor(type.typeKey)

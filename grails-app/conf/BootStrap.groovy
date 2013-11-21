@@ -17,8 +17,6 @@ class BootStrap {
   def defaultPlatformManager
 
   def init = { servletContext ->
-
-    // def vertx = VertxFactory.newVertx("localhost")
     def vertx = defaultPlatformManager.vertx()
     def eventBus = vertx.eventBus()
 
@@ -27,7 +25,7 @@ class BootStrap {
     permitted.add(new JsonObject())
     SockJSServer sockJSServer = vertx.createSockJSServer(server)
     sockJSServer.bridge(new JsonObject().putString('prefix', '/eventbus'), permitted, permitted)
-    // server.listen(9090)
+    server.listen(9091)
 
 
     JSON.createNamedConfig('siyen') {
