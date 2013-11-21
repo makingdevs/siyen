@@ -24,7 +24,7 @@
           _this = this;
         cursoProgramadoTemp = this.get('autorizarCurso');
         cursoProgramadoLocal = {
-          fechaDeInicio: cursoProgramadoTemp.get('fechaDeInicio').format('DD/MMMM/YYYY'),
+          fechaDeInicio: cursoProgramadoTemp.get('fechaDeInicio').format('DD/MM/YYYY'),
           puerto: cursoProgramadoTemp.get('puerto'),
           instructor: cursoProgramadoTemp.get('instructor'),
           curso: cursoProgramadoTemp.get('curso')

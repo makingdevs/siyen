@@ -19,7 +19,7 @@ App.CursosNuevosController = Ember.ArrayController.extend
       cursoProgramadoTemp = @get('autorizarCurso')
 
       cursoProgramadoLocal = {
-        fechaDeInicio : cursoProgramadoTemp.get('fechaDeInicio').format('DD/MMMM/YYYY')
+        fechaDeInicio : cursoProgramadoTemp.get('fechaDeInicio').format('DD/MM/YYYY')
         puerto : cursoProgramadoTemp.get('puerto')
         instructor : cursoProgramadoTemp.get('instructor')
         curso : cursoProgramadoTemp.get('curso')

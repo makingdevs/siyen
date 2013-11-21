@@ -10,7 +10,7 @@ class CursoProgramadoService {
 
   def crearCursoDesdeCommand(CursoProgramadoCommand cmd) {
     CursoProgramado cursoProgramado = new CursoProgramado()
-    Date fechaDeInicio = Date.parse("dd/MMM/yyyy", cmd.fechaDeInicio)
+    Date fechaDeInicio = Date.parse("dd/MM/yyyy", cmd.fechaDeInicio)
     cursoProgramado.fechaDeInicio = fechaDeInicio
     cursoProgramado.puerto = Puerto.get(cmd.puerto)
     cursoProgramado.curso = Curso.get(cmd.curso)
