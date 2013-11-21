@@ -5,8 +5,6 @@ inflector.irregular('instructor', 'instructores')
 
 App.Store = DS.Store.extend
   adapter: DS.RESTAdapter.extend
-    # namespace: 'siyen'
-
     createRecord : (store, type, record) ->
       serializer = store.serializerFor(type.typeKey)
       data = serializer.serializeIntoHash(data, type, record, { includeId: true })
