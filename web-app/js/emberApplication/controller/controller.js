@@ -240,7 +240,7 @@
       var crearNotificacionConRespuesta, eventBus,
         _this = this;
       this._super();
-      eventBus = new vertx.EventBus('http://localhost:9091/eventbus');
+      eventBus = new vertx.EventBus('http://pipe.makingdevs.com:9091/eventbus');
       eventBus.onopen = function() {
         console.log("Event Bus connected");
         eventBus.registerHandler('cursoProgramado.autorizado', function(jsonMessage) {
