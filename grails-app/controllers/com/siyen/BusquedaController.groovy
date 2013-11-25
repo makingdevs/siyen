@@ -28,8 +28,8 @@ class BusquedaController {
       }
 
       if(params.desde) {
-        Date desde = Date.parse("dd/MMM/yyyy", params.desde)
-        Date hasta = params.hasta ? Date.parse("dd/MMM/yyyy", params.hasta) : new Date()
+        Date desde = Date.parse("dd/MM/yyyy", params.desde)
+        Date hasta = params.hasta ? Date.parse("dd/MM/yyyy", params.hasta) : new Date()
         must( between("fechaDeInicio", desde, hasta, true) )
       }
 
