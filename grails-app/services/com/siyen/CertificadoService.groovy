@@ -27,6 +27,7 @@ class CertificadoService {
     data.fechaDeTermino = cursoProgramado.fechaDeTermino
     data.duracionDelCurso = cursoProgramado.curso.duracion
     data.nombreDelInstructor =  cursoProgramado.instructor.nombre
+    data.imagenPrueba = "${grailsApplication.config.jasper.dir.reports}/documento_de_prueba.png".toString()
 
     data.qrImage = genearQRConElNumeroDeControl(alumno.numeroDeControl)
 
