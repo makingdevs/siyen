@@ -10,8 +10,6 @@
   <body>
     <div id="show-puerto" class="content scaffold-show" role="main">
       <h1> Datos del puerto ${puertoInstance?.clave} </h1>
-      <hr />
-      
       <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
       </g:if>
