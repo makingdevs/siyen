@@ -101,6 +101,115 @@
         text-decoration: underline;
       }
 
+      /* ACTION BUTTONS */
+      .buttons {
+        background-color: #efefef;
+        overflow: hidden;
+        padding: 0.3em;
+           -moz-box-shadow: 0 0 3px 1px #aaaaaa;
+        -webkit-box-shadow: 0 0 3px 1px #aaaaaa;
+                box-shadow: 0 0 3px 1px #aaaaaa;
+        margin: 0.1em 0 0 0;
+        border: none;
+      }
+
+      .buttons input,
+      .buttons a {
+        background-color: transparent;
+        border: 0;
+        color: #666666;
+        cursor: pointer;
+        display: inline-block;
+        margin: 0 0.25em 0;
+        overflow: visible;
+        padding: 0.25em 0.7em;
+        text-decoration: none;
+
+           -moz-border-radius: 0.3em;
+        -webkit-border-radius: 0.3em;
+                border-radius: 0.3em;
+      }
+
+      .buttons input:hover, .buttons input:focus,
+      .buttons a:hover, .buttons a:focus {
+        background-color: #999999;
+        color: #ffffff;
+        outline: none;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+           -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+                box-shadow: none;
+      }
+
+      .no-borderradius .buttons input:hover, .no-borderradius .buttons input:focus,
+      .no-borderradius .buttons a:hover, .no-borderradius .buttons a:focus {
+        background-color: transparent;
+        color: #444444;
+        text-decoration: underline;
+      }
+
+      .buttons .delete, .buttons .edit, .buttons .save {
+        background-position: 0.7em center;
+        background-repeat: no-repeat;
+        text-indent: 25px;
+      }
+
+      .ie6 .buttons input.delete, .ie6 .buttons input.edit, .ie6 .buttons input.save,
+      .ie7 .buttons input.delete, .ie7 .buttons input.edit, .ie7 .buttons input.save {
+        padding-left: 36px;
+      }
+
+      .buttons .delete {
+        background-image: url(/images/skin/database_delete.png);
+      }
+
+      .buttons .edit {
+        background-image: url(/images/skin/database_edit.png);
+      }
+
+      .buttons .save {
+        background-image: url(/images/skin/database_save.png);
+      }
+
+      a.skip {
+        position: absolute;
+        left: -9999px;
+      }
+
+      /* CREATE/EDIT FORMS AND SHOW PAGES */
+      fieldset, .property-list {
+        margin: 0.6em 1.25em 0 1.25em;
+        padding: 0.3em 1.8em 1.25em;
+        position: relative;
+        zoom: 1;
+        border: none;
+      }
+
+      .property-list .fieldcontain {
+        list-style: none;
+        overflow: hidden;
+        zoom: 1;
+      }
+
+      .fieldcontain {
+        margin-top: 1em;
+      }
+
+      .fieldcontain label, .fieldcontain .property-label {
+        color: #666666;
+        text-align: right;
+        width: 25%;
+      }
+
+      .fieldcontain .property-label {
+        float: left;
+      }
+
+      .fieldcontain .property-value {
+        display: block;
+        margin-left: 27%;
+      }
+
     </style>
 
     <g:layoutHead/>

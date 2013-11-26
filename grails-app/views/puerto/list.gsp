@@ -24,16 +24,16 @@
           </tr>
         </thead>
         <tbody>
-        <g:each in="${puertoInstanceList}" status="i" var="puertoInstance">
-          <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-            <td><g:link action="show" id="${puertoInstance.id}">${fieldValue(bean: puertoInstance, field: "clave")}</g:link></td>
-            <td>${fieldValue(bean: puertoInstance, field: "puerto")}</td>
-            <td>${fieldValue(bean: puertoInstance, field: "estado")}</td>
-            <td>${fieldValue(bean: puertoInstance, field: "direccion")}</td>
-            <td><g:formatBoolean boolean="${puertoInstance.activo}" /></td>
-            <td><g:formatDate date="${puertoInstance.dateCreated}" /></td>
-          </tr>
-        </g:each>
+          <g:each in="${puertoInstanceList}" status="i" var="puertoInstance">
+            <tr>
+              <td><g:link action="show" id="${puertoInstance.id}">${fieldValue(bean: puertoInstance, field: "clave")}</g:link></td>
+              <td>${fieldValue(bean: puertoInstance, field: "puerto")}</td>
+              <td>${fieldValue(bean: puertoInstance, field: "estado")}</td>
+              <td>${fieldValue(bean: puertoInstance, field: "direccion")}</td>
+              <td><g:formatBoolean boolean="${puertoInstance.activo}" /></td>
+              <td><g:formatDate date="${puertoInstance.dateCreated}" /></td>
+            </tr>
+          </g:each>
         </tbody>
       </table>
       <div class="pagination">
