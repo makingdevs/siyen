@@ -61,6 +61,12 @@
                   <li>
                     {{#linkTo "notificacion" }}Notificaciones{{/linkTo}}
                   </li>
+
+                  <li>
+                    <g:link controller="puerto">Catálogos</g:link>
+                  </li>
+
+
                 <!-- END: Menu de opciones -->
               </ul>
               <sec:ifLoggedIn>
@@ -86,6 +92,8 @@
       </div>
 
       {{ outlet }}
+
+      <g:layoutBody />
 
       <hr>
       <footer>
