@@ -29,6 +29,66 @@
       .scaffold-list h1 {
         border: none;
       }
+      /* NAVIGATION MENU */
+      .nav ul {
+        overflow: hidden;
+        padding-left: 0;
+        zoom: 1;
+      }
+
+      .nav li {
+        display: block;
+        float: left;
+        list-style-type: none;
+        margin-right: 0.5em;
+        padding: 0;
+      }
+
+      .nav a {
+        color: #666666;
+        display: block;
+        padding: 0.25em 0.7em;
+        text-decoration: none;
+           -moz-border-radius: 0.3em;
+        -webkit-border-radius: 0.3em;
+                border-radius: 0.3em;
+      }
+
+      .nav a:active, .nav a:visited {
+        color: #666666;
+      }
+
+      .nav a:focus, .nav a:hover {
+        text-decoration: none;
+        background-color: #999999;
+        color: #ffffff;
+        outline: none;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+      }
+
+      .no-borderradius .nav a:focus, .no-borderradius .nav a:hover {
+        background-color: transparent;
+        color: #444444;
+        text-decoration: underline;
+      }
+
+      .nav a.home, .nav a.list, .nav a.create {
+        background-position: 0.7em center;
+        background-repeat: no-repeat;
+        text-indent: 25px;
+      }
+
+      .nav a.home {
+        background-image: url(/images/skin/house.png);
+      }
+
+      .nav a.list {
+        background-image: url(/images/skin/database_table.png);
+      }
+
+      .nav a.create {
+        background-image: url(/images/skin/database_add.png);
+      }
       /* CREATE/EDIT FORMS AND SHOW PAGES */
       fieldset,
       .property-list {
@@ -342,6 +402,7 @@
         background-color: #999999;
         color: #ffffff;
         outline: none;
+        text-decoration: none;
         text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
            -moz-box-shadow: none;
         -webkit-box-shadow: none;
