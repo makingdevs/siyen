@@ -8,12 +8,6 @@
   </head>
 
   <body>
-    <a href="#create-puerto" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-    <div class="nav" role="navigation">
-      <ul>
-        <li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-      </ul>
-    </div>
     <div id="show-puerto" class="content scaffold-show" role="main">
       <h1> Datos del puerto ${puertoInstance?.clave} </h1>
       <g:if test="${flash.message}">

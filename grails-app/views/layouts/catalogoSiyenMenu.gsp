@@ -463,28 +463,23 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <!-- BEGIN: Menu de opciones -->
-                <li>
-                  <g:link controller="puerto">Puerto</g:link>
-                </li>
+              <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" role="button" href="#" id="drop10">
+                  Puertos<b class="caret"></b>
+                </a>
+                <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
+                  <li>
+                    <g:link class="list" action="list"> Listado de puertos </g:link>
+                  </li>
+                  <li>
+                    <li>
+                      <g:link class="create" action="create"> Nuevo puerto </g:link>
+                    </li>
+                  </li>
+                </ul>
+              </li>
               <!-- END: Menu de opciones -->
             </ul>
-            <sec:ifLoggedIn>
-              <ul class="nav pull-right">
-                <li class="dropdown">
-                  <a data-toggle="dropdown" class="dropdown-toggle" role="button" href="#" id="drop10">
-                    <sec:loggedInUserInfo field="username"/>
-                    <b class="caret"></b>
-                  </a>
-                  <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
-                    <li>
-                      <g:link controller="logout" tabindex="-1">
-                        Logout
-                      </g:link>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </sec:ifLoggedIn>
           </div><!--/.nav-collapse -->
         </div>
       </div>
