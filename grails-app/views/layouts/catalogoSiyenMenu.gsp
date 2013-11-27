@@ -510,6 +510,22 @@
                   </li>
                 </ul>
               </li>
+
+              <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" role="button" href="#" id="drop10">
+                  Usuarios<b class="caret"></b>
+                </a>
+                <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
+                  <li>
+                    <g:link class="list" controller="user" action="list"> Listado de usuarios </g:link>
+                  </li>
+                  <li>
+                    <li>
+                      <g:link class="create" controller="user" action="create"> Nuevo usuario </g:link>
+                    </li>
+                  </li>
+                </ul>
+              </li>
               <!-- END: Menu de opciones -->
             </ul>
           </div><!--/.nav-collapse -->

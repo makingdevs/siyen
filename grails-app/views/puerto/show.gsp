@@ -25,21 +25,21 @@
         <g:if test="${puertoInstance?.puerto}">
           <li class="fieldcontain">
             <span id="puerto-label" class="property-label"><g:message code="puerto.puerto.label" default="Puerto" /></span>
-              <span class="property-value" aria-labelledby="puerto-label"><g:fieldValue bean="${puertoInstance}" field="puerto"/></span>
+            <span class="property-value" aria-labelledby="puerto-label"><g:fieldValue bean="${puertoInstance}" field="puerto"/></span>
           </li>
         </g:if>
       
         <g:if test="${puertoInstance?.estado}">
           <li class="fieldcontain">
             <span id="estado-label" class="property-label"><g:message code="puerto.estado.label" default="Estado" /></span>
-              <span class="property-value" aria-labelledby="estado-label"><g:fieldValue bean="${puertoInstance}" field="estado"/></span>
+            <span class="property-value" aria-labelledby="estado-label"><g:fieldValue bean="${puertoInstance}" field="estado"/></span>
           </li>
         </g:if>
       
         <g:if test="${puertoInstance?.direccion}">
           <li class="fieldcontain">
             <span id="direccion-label" class="property-label"><g:message code="puerto.direccion.label" default="Direccion" /></span>
-              <span class="property-value" aria-labelledby="direccion-label"><g:fieldValue bean="${puertoInstance}" field="direccion"/></span>
+            <span class="property-value" aria-labelledby="direccion-label"><g:fieldValue bean="${puertoInstance}" field="direccion"/></span>
           </li>
         </g:if>
       
@@ -53,7 +53,7 @@
         <g:if test="${puertoInstance?.dateCreated}">
           <li class="fieldcontain">
             <span id="dateCreated-label" class="property-label"><g:message code="puerto.dateCreated.label" default="Date Created" /></span>
-              <span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${puertoInstance?.dateCreated}" /></span>
+            <span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${puertoInstance?.dateCreated}" /></span>
             
         </li>
         </g:if>
@@ -61,7 +61,7 @@
         <g:if test="${puertoInstance?.lastUpdated}">
           <li class="fieldcontain">
             <span id="lastUpdated-label" class="property-label"><g:message code="puerto.lastUpdated.label" default="Last Updated" /></span>
-              <span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${puertoInstance?.lastUpdated}" /></span>
+            <span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${puertoInstance?.lastUpdated}" /></span>
           </li>
         </g:if>
       </ol>
