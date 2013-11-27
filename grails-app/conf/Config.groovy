@@ -127,5 +127,33 @@ grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.siyen.User'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.siyen.UserRole'
 grails.plugins.springsecurity.authority.className = 'com.siyen.Role'
 grails.plugins.springsecurity.requestMap.className = 'com.siyen.RequestMap'
-grails.plugins.springsecurity.securityConfigType = 'Requestmap'
+grails.plugins.springsecurity.securityConfigType = 'InterceptUrlMap'
 grails.plugins.springsecurity.successHandler.defaultTargetUrl = '/#'
+
+grails.plugins.springsecurity.interceptUrlMap = [
+   '/':                       ['permitAll'],
+   '/index':                  ['permitAll'],
+   '/index.gsp':              ['permitAll'],
+   '/**/js/**':               ['permitAll'],
+   '/**/css/**':              ['permitAll'],
+   '/**/images/**':           ['permitAll'],
+   '/**/favicon.ico':         ['permitAll'],
+   '/login/**':               ['permitAll'],
+   '/logout/**':              ['permitAll'],
+   '/user/**':                ['ROLE_ADMIN'],
+   '/puerto/**':              ['ROLE_ADMIN'],
+   '/instructor/**':          ['ROLE_ADMIN'],
+   '/curso/**':               ['ROLE_ADMIN'],
+   '/catalogo/**':            ['ROLE_ADMIN'],
+   '/cursos_programados/**':  ['ROLE_ADMIN']
+]
+
+
+
+
+
+
+
+
+
+
