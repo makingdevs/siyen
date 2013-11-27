@@ -1,28 +1,29 @@
-<%@ page import="com.siyen.Puerto" %>
+<%@ page import="com.siyen.Instructor" %>
+
 <!DOCTYPE html>
 <html>
   <head>
     <meta name="layout" content="catalogoSiyenMenu">
-    <g:set var="entityName" value="${message(code: 'puerto.label', default: 'Puerto')}" />
+    <g:set var="entityName" value="${message(code: 'instructor.label', default: 'Instructor')}" />
     <title><g:message code="default.edit.label" args="[entityName]" /></title>
   </head>
   <body>
-    <div id="edit-puerto" class="content scaffold-edit" role="main">
-      <h1>Edición del puerto ${puertoInstance?.clave}</h1>
+    <div id="edit-instructor" class="content scaffold-edit" role="main">
+      <h1>Edición del instructor ${instructorInstance?.nombre}</h1>
       <g:if test="${flash.message}">
       	<div class="message" role="status">${flash.message}</div>
       </g:if>
-      <g:hasErrors bean="${puertoInstance}">
+      <g:hasErrors bean="${instructorInstance}">
       	<ul class="errors" role="alert">
-        	<g:eachError bean="${puertoInstance}" var="error">
+        	<g:eachError bean="${instructorInstance}" var="error">
         		<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
         	</g:eachError>
       	</ul>
       </g:hasErrors>
 
       <g:form method="post" class="form-horizontal">
-        <g:hiddenField name="id" value="${puertoInstance?.id}" />
-        <g:hiddenField name="version" value="${puertoInstance?.version}" />
+        <g:hiddenField name="id" value="${instructorInstance?.id}" />
+        <g:hiddenField name="version" value="${instructorInstance?.version}" />
 
         <fieldset class="form">
           <g:render template="form"/>

@@ -469,11 +469,11 @@
                 </a>
                 <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
                   <li>
-                    <g:link class="list" action="list"> Listado de puertos </g:link>
+                    <g:link class="list" controller="puerto" action="list"> Listado de puertos </g:link>
                   </li>
                   <li>
                     <li>
-                      <g:link class="create" action="create"> Nuevo puerto </g:link>
+                      <g:link class="create" controller="puerto" action="create"> Nuevo puerto </g:link>
                     </li>
                   </li>
                 </ul>
@@ -485,11 +485,27 @@
                 </a>
                 <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
                   <li>
-                    <g:link class="list" action="list"> Listado de cursos </g:link>
+                    <g:link class="list" controller="curso" action="list"> Listado de cursos </g:link>
                   </li>
                   <li>
                     <li>
-                      <g:link class="create" action="create"> Nuevo curso </g:link>
+                      <g:link class="create" controller="curso" action="create"> Nuevo curso </g:link>
+                    </li>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" role="button" href="#" id="drop10">
+                  Instructores<b class="caret"></b>
+                </a>
+                <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
+                  <li>
+                    <g:link class="list" controller="instructor" action="list"> Listado de instructores </g:link>
+                  </li>
+                  <li>
+                    <li>
+                      <g:link class="create" controller="instructor" action="create"> Nuevo instructor </g:link>
                     </li>
                   </li>
                 </ul>
