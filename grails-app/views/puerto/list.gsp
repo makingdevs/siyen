@@ -1,4 +1,5 @@
 <%@ page import="com.siyen.Puerto" %>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,9 +9,9 @@
   </head>
   <body>
     <div id="list-puerto" class="content scaffold-list" role="main">
-      <h1>Puertos</h1>
+      <h1>Catálogo de puertos</h1>
       <g:if test="${flash.message}">
-      <div class="message" role="status">${flash.message}</div>
+        <div class="message" role="status">${flash.message}</div>
       </g:if>
       <table class="table table-condensed table-hover table-striped">
         <thead>

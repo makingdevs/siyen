@@ -26,8 +26,8 @@
     <span class="required-indicator">*</span>
   </label>
   <div class="controls">
-  	<g:textField name="estado" maxlength="30" required="" value="${puertoInstance?.estado}"/>
-	</div>
+    <g:textField name="estado" maxlength="30" required="" value="${puertoInstance?.estado}"/>
+  </div>
 </div>
 
 <div class="control-group fieldcontain ${hasErrors(bean: puertoInstance, field: 'direccion', 'error')} ">
@@ -35,7 +35,7 @@
     <g:message code="puerto.direccion.label" default="Direccion" />
   </label>
   <div class="controls">
-  	<g:textArea name="direccion" cols="40" rows="5" maxlength="500" value="${puertoInstance?.direccion}"/>
+    <g:textArea name="direccion" cols="40" rows="5" maxlength="500" value="${puertoInstance?.direccion}"/>
   </div>
 </div>
 
@@ -44,9 +44,9 @@
     <g:message code="puerto.activo.label" default="Activo" />
   </label>
   <div class="controls">
-  	<label class="checkbox">
-  		<g:checkBox name="activo" value="${puertoInstance?.activo}" />
-  	</label>
+    <label class="checkbox">
+      <g:checkBox name="activo" value="${puertoInstance?.activo}" />
+    </label>
   </div>
 </div>
 
