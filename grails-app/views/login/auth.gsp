@@ -1,6 +1,6 @@
 <html>
 <head>
-	<meta name='layout' content='main'/>
+	<meta name='layout' content='catalogoSiyenMenu'/>
 	<title><g:message code="springSecurity.login.title"/></title>
 	<style type='text/css' media='screen'>
 	#login {
@@ -103,12 +103,6 @@
 				<label for='password'><g:message code="springSecurity.login.password.label"/>:</label>
 				<input type='password' class='text_' name='j_password' id='password'/>
 			</p>
-
-			<p id="remember_me_holder">
-				<input type='checkbox' class='chk' name='${rememberMeParameter}' id='remember_me' <g:if test='${hasCookie}'>checked='checked'</g:if>/>
-				<label for='remember_me'><g:message code="springSecurity.login.remember.me.label"/></label>
-			</p>
-
 			<p>
 				<input type='submit' id="submit" value='${message(code: "springSecurity.login.button")}'/>
 			</p>

@@ -51,4 +51,8 @@ modules = {
     resource url:'js/vertx/vertxbus.min.js'
   }
 
+  menu {
+    resource url:'css/menu/menu.css'
+  }
+
 }
