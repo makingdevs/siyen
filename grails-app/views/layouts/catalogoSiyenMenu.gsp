@@ -98,6 +98,10 @@
                     </li>
                   </ul>
                 </li>
+
+                <li>
+                  <g:link controller="informePeriodico" action="index"> Informe </g:link>
+                </li>
                 <!-- END: Menu de opciones -->
               </ul>
             </div><!--/.nav-collapse -->
