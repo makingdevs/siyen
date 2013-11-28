@@ -61,6 +61,8 @@ modules = {
 
   siyenChart {
     dependsOn 'chartjs'
+    dependsOn 'datepicker'
+    dependsOn 'momentjs'
     resource url:'js/chart/siyenChart.js'
   }
 
