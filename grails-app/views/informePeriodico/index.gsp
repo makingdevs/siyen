@@ -7,19 +7,19 @@
   </head>
 
   <body>
-    <form class="form-horizontal" action="realizarInfomer" controller="informePeriodico">
+    <form class="form-horizontal" action="realizarInfome" controller="informePeriodico">
 
       <div class="control-group">
         <label class="control-label" for="desde">Desde :</label>
         <div class="controls">
-          <input type="text" id="desde" class="datepicker">
+          <input type="text" id="desde" name="desde" class="datepicker">
         </div>
       </div>
 
       <div class="control-group">
         <label class="control-label" for="hasta">Hasta :</label>
         <div class="controls">
-          <input type="text" id="hasta" class="datepicker">
+          <input type="text" id="hasta" name="hasta" class="datepicker">
         </div>
       </div>
 
