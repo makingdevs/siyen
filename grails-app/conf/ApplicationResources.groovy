@@ -55,4 +55,13 @@ modules = {
     resource url:'css/menu/menu.css'
   }
 
+  chartjs {
+    resource url:'js/chart/Chart.js'
+  }
+
+  siyenChart {
+    dependsOn 'chartjs'
+    resource url:'js/chart/siyenChart.js'
+  }
+
 }
