@@ -4,12 +4,48 @@
     format: "dd/MM/yyyy",
     autoclose: true,
     todayHighlight: true,
-    language: 'es',
-    startDate: '1d'
+    language: 'es'
   });
 
   ($(".datepicker")).attr('readonly', 'true');
 
   ($(".datepicker")).val(moment().format('DD/MMMM/YYYY'));
+
+  ($("form")).submit(function(e) {
+    var data;
+    e.preventDefault();
+    data = {
+      "desde": ($("#desde")).val(),
+      "hasta": ($("#hasta")).val()
+    };
+    return $.ajax({
+      type: "POST",
+      url: "realizarInforme",
+      data: data,
+      success: function(response) {
+        var chartData, ctx, labels;
+        labels = [];
+        data = [];
+        $.each(response, function(k, v) {
+          labels.push(k);
+          return data.push(v);
+        });
+        chartData = {
+          labels: labels,
+          datasets: [
+            {
+              fillColor: "rgba(151,187,205,0.5)",
+              strokeColor: "rgba(151,187,205,1)",
+              pointColor: "rgba(151,187,205,1)",
+              pointStrokeColor: "#fff",
+              data: data
+            }
+          ]
+        };
+        ctx = $("#myChart").get(0).getContext("2d");
+        return new Chart(ctx).Line(chartData);
+      }
+    });
+  });
 
 }).call(this);
