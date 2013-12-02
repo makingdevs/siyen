@@ -39,6 +39,18 @@
 
       <div class="control-group">
         <div class="controls">
+          <label class="radio">
+            <input type="radio" name="graficacion" id="curso" value="curso"> Cursos
+          </label>
+
+          <label class="radio">
+            <input type="radio" name="graficacion" id="participante" value="participante"> Participantes
+          </label>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls">
           <button type="submit" class="btn btn-primary">Generar informe</button>
         </div>
       </div>
