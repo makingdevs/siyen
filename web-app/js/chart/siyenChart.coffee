@@ -1,8 +1,9 @@
-($ '.datepicker').datepicker
-  format          : "dd/MM/yyyy"
-  autoclose       : true
-  todayHighlight  : true
-  language        : 'es'
+$(".busquedaChosen").chosen
+  disable_search: true
+  search_contains : true
+  display_selected_options : false
+  placeholder_text_single : "Selecciona una opción"
+  no_results_text: "Oops, ¡No hubo resultados!"
 
 ($ ".datepicker").attr('readonly', 'true')
 ($ ".datepicker").val(moment().format('DD/MMMM/YYYY'))
@@ -40,4 +41,4 @@
         ]
 
       ctx = $("#myChart").get(0).getContext("2d")
-      new Chart(ctx).Line(chartData)
+      new Chart(ctx).Bar(chartData)
