@@ -8,32 +8,32 @@
 
   <body>
 
-    <form class="form-horizontal" action="realizarInfome" controller="informePeriodico">
+    <form class="form-horizontal" controller="informePeriodico" action="realizarInfome">
       <div class="control-group">
         <label class="control-label" for="anios">Años:</label>
         <div class="controls">
-          <select id="anios" class="busquedaChosen"> </select>
+          <g:select id="anios" name="anios" from="${anios}"> </g:select>
         </div>
       </div>
 
       <div class="control-group">
         <label class="control-label" for="puertos">Puertos : </label>
         <div class="controls">
-          <select id="puertos" class="busquedaChosen"> </select>
+          <g:select id="puertos" name="puerto" from="${puertos.clave}"> </g:select>
         </div>
       </div>
 
       <div class="control-group">
         <label class="control-label" for="libretas">Libretas : </label>
         <div class="controls">
-          <select id="libretas" class="busquedaChosen"> </select>
+          <g:select id="libretas" name="libreta" from="${libretas}"> </g:select>
         </div>
       </div>
 
       <div class="control-group">
         <label class="control-label" for="cursos">Cursos : </label>
         <div class="controls">
-          <select id="cursos" class="busquedaChosen"> </select>
+          <g:select id="cursos" name="curso" from="${cursos.clave}"> </g:select>
         </div>
       </div>
 
