@@ -9,6 +9,14 @@ $(".busquedaChosen").chosen
 ($ ".datepicker").val(moment().format('DD/MMMM/YYYY'))
 
 
+($ "select").change ->
+  if ($ @).val()
+    ($ @).parent().parent().next().show()
+  else
+    divs = ($ @).parent().parent().nextAll("div")
+    divs.find('select').val(null)
+    divs.hide()
+
 ($ "form").submit (e) ->
   e.preventDefault()
 

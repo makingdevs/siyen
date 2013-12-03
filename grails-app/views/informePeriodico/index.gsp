@@ -12,48 +12,44 @@
       <div class="control-group">
         <label class="control-label" for="anios">Años:</label>
         <div class="controls">
-          <g:select id="anios" name="anios" from="${anios}"> </g:select>
+          <g:select id="anios" name="anios" from="${anios}" noSelection="['':'-Selecciona un año-']"> </g:select>
         </div>
       </div>
 
-      <div class="control-group">
+      <div class="control-group hide">
         <label class="control-label" for="puertos">Puertos : </label>
         <div class="controls">
-          <g:select id="puertos" name="puerto" from="${puertos.clave}"> </g:select>
+          <g:select name="puerto" from="${puertos.clave}" noSelection="['':'-Selecciona un puerto-']"> </g:select>
         </div>
       </div>
 
-      <div class="control-group">
+      <div class="control-group hide">
         <label class="control-label" for="libretas">Libretas : </label>
         <div class="controls">
-          <g:select id="libretas" name="libreta" from="${libretas}"> </g:select>
+          <g:select name="libreta" from="${libretas}" noSelection="['':'-Selecciona una libreta-']"> </g:select>
         </div>
       </div>
 
-      <div class="control-group">
+      <div class="control-group hide">
         <label class="control-label" for="cursos">Cursos : </label>
         <div class="controls">
-          <g:select id="cursos" name="curso" from="${cursos.clave}"> </g:select>
+          <g:select name="curso" from="${cursos.clave}" noSelection="['':'-Selecciona un curso-']"> </g:select>
         </div>
       </div>
 
-      <div class="control-group">
+      <div class="control-group hide">
         <div class="controls">
           <label class="radio">
-            <input type="radio" name="graficacion" id="curso" value="curso"> Cursos
+            <input type="radio" name="graficacion" value="curso"> Cursos
           </label>
 
           <label class="radio">
-            <input type="radio" name="graficacion" id="participante" value="participante"> Participantes
+            <input type="radio" name="graficacion" value="participante"> Participantes
           </label>
         </div>
       </div>
 
-      <div class="control-group">
-        <div class="controls">
-          <button type="submit" class="btn btn-primary">Generar informe</button>
-        </div>
-      </div>
+      <button class="btn btn-large btn-block btn-primary" type="button">Generar informe</button>
     </form>
 
     <canvas id="myChart" width="600" height="400"></canvas>
