@@ -40,7 +40,7 @@
       <div class="control-group hide">
         <div class="controls">
           <label class="radio">
-            <input type="radio" name="graficacion" value="curso"> Cursos
+            <input type="radio" name="graficacion" value="curso" checked> Cursos
           </label>
 
           <label class="radio">

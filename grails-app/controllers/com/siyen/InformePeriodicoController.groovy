@@ -18,11 +18,45 @@ class InformePeriodicoController {
   }
 
   def realizarInforme() {
-    log.debug params.anios
-    log.debug params.puerto
-    log.debug params.libreta
-    log.debug params.curso
-    log.debug params.graficacion
+    def desde = Date.parse("dd/MM/yyyy", "01/01/${params.anios}")
+    def hasta = Date.parse("dd/MM/yyyy", "31/12/${params.anios}")
+    def curso = params.curso
+    def puerto = params.puerto
+    def libreta = params.libreta
+    def graficacion = params.graficacion
+
+    def busquedaDeResultados = searchableService.search({
+      must( between("fechaDeInicio", desde, hasta, true) )
+
+      if(curso) {
+        must(queryString(curso, [useAndDefaultOperator: false, defaultSearchProperty: "clave"]))
+      }
+
+      if(puerto) {
+        must(queryString(puerto, [useAndDefaultOperator: false, defaultSearchProperty: "clave"]))
+      }
+
+      if(libreta) {
+        must(queryString(libreta, [useAndDefaultOperator: false, defaultSearchProperty: "libreta"]))
+      }
+    }, params)
+
+    def resultados = [:]
+    busquedaDeResultados.results.each { cursoProgramado ->
+      if( !resultados.(cursoProgramado.curso.clave) ) {
+        resultados.(cursoProgramado.curso.clave) = 0
+      }
+      resultados.(cursoProgramado.curso.clave) += 1
+    }
+
+    // def resultados = [:]
+    // busquedaDeResultados.results.each { cursoProgramado ->
+    //   if( !resultados.(cursoProgramado.curso.clave) ) {
+    //     resultados.(cursoProgramado.curso.clave) = 0
+    //   }
+    //   resultados.(cursoProgramado.curso.clave) += cursoProgramado.alumnos.size()
+    // }
+    log.debug resultados
 
     render [:] as JSON
   }
