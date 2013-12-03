@@ -12,6 +12,17 @@
 
   ($(".datepicker")).val(moment().format('DD/MMMM/YYYY'));
 
+  ($("select")).change(function() {
+    var divs;
+    if (($(this)).val()) {
+      return ($(this)).parent().parent().next().show();
+    } else {
+      divs = ($(this)).parent().parent().nextAll("div");
+      divs.find('select').val(null);
+      return divs.hide();
+    }
+  });
+
   ($("form")).submit(function(e) {
     var data;
     e.preventDefault();
