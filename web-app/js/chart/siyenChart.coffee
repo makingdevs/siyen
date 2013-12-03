@@ -17,17 +17,13 @@ $(".busquedaChosen").chosen
     divs.find('select').val(null)
     divs.hide()
 
-($ "form").submit (e) ->
+($ "button").click (e) ->
   e.preventDefault()
-
-  data =
-    "desde" : ($ "#desde").val(),
-    "hasta" : ($ "#hasta").val()
 
   $.ajax
     type: "POST"
     url: "realizarInforme"
-    data: data
+    data: ($ "form").serialize()
     success: (response) ->
       labels = []
       data = []

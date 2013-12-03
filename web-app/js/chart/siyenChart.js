@@ -23,19 +23,14 @@
     }
   });
 
-  ($("form")).submit(function(e) {
-    var data;
+  ($("button")).click(function(e) {
     e.preventDefault();
-    data = {
-      "desde": ($("#desde")).val(),
-      "hasta": ($("#hasta")).val()
-    };
     return $.ajax({
       type: "POST",
       url: "realizarInforme",
-      data: data,
+      data: ($("form")).serialize(),
       success: function(response) {
-        var chartData, ctx, labels;
+        var chartData, ctx, data, labels;
         labels = [];
         data = [];
         $.each(response, function(k, v) {
