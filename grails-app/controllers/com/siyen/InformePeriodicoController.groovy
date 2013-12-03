@@ -18,23 +18,13 @@ class InformePeriodicoController {
   }
 
   def realizarInforme() {
-    Date desde = Date.parse("dd/MMM/yyyy", params.desde)
-    Date hasta = Date.parse("dd/MMM/yyyy", params.hasta)
+    log.debug params.anios
+    log.debug params.puerto
+    log.debug params.libreta
+    log.debug params.curso
+    log.debug params.graficacion
 
-    def busquedaDeResultados = searchableService.search({
-      must( between("fechaDeInicio", desde, hasta, true) )
-    })
-
-    def resultados = [:]
-
-    busquedaDeResultados.results.each { cursoProgramado ->
-      if( !resultados.(cursoProgramado.curso.clave) ) {
-        resultados.(cursoProgramado.curso.clave) = 0
-      }
-      resultados.(cursoProgramado.curso.clave) += cursoProgramado.alumnos.size()
-    }
-
-    render resultados as JSON
+    render [:] as JSON
   }
 
 }
