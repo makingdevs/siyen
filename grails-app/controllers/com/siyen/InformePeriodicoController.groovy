@@ -26,11 +26,7 @@ class InformePeriodicoController {
     def graficacion = params.graficacion
 
     def busquedaDeResultados = searchableService.search({
-      must( between("fechaDeInicio", desde, hasta, true) )
-
-      if(curso) {
-        must(queryString(curso, [useAndDefaultOperator: false, defaultSearchProperty: "clave"]))
-      }
+      must( between("fechaDeInicio", desde, hasta, true) ) // puertos
 
       if(puerto) {
         must(queryString(puerto, [useAndDefaultOperator: false, defaultSearchProperty: "clave"]))
@@ -39,14 +35,21 @@ class InformePeriodicoController {
       if(libreta) {
         must(queryString(libreta, [useAndDefaultOperator: false, defaultSearchProperty: "libreta"]))
       }
+
+      if(curso) {
+        must(queryString(curso, [useAndDefaultOperator: false, defaultSearchProperty: "clave"]))
+      }
+
     }, params)
 
     def resultados = [:]
-    busquedaDeResultados.results.each { cursoProgramado ->
-      if( !resultados.(cursoProgramado.curso.clave) ) {
-        resultados.(cursoProgramado.curso.clave) = 0
+    if(!curso && !puerto && !libreta) {
+      busquedaDeResultados.results.each { cursoProgramado ->
+        if( !resultados.(cursoProgramado.puerto.clave) ) {
+          resultados.(cursoProgramado.puerto.clave) = 0
+        }
+        resultados.(cursoProgramado.puerto.clave) += 1
       }
-      resultados.(cursoProgramado.curso.clave) += 1
     }
 
     // def resultados = [:]
@@ -58,7 +61,7 @@ class InformePeriodicoController {
     // }
     log.debug resultados
 
-    render [:] as JSON
+    render resultados as JSON
   }
 
 }
