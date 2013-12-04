@@ -49,7 +49,7 @@ $(".busquedaChosen").chosen
       new Chart(ctx).Bar(chartData)
 
 $.each moment.months(), (k, v) ->
-  element = "<label class='checkbox'> <input type='checkbox' value='#{k}'> #{v} </label> <br />"
+  element = "<label class='checkbox'> <input type='checkbox' value='#{k}' checked> #{v} </label> <br />"
 
   if k % 4 == 0
     div = $("<div class='span2'> </div>")
