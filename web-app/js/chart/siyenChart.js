@@ -15,15 +15,16 @@
   ($("select")).change(function() {
     var divs;
     if (($(this)).val()) {
-      return ($(this)).parent().parent().next().show();
+      ($(this)).parent().parent().next().show();
+      return ($("form")).trigger('submit');
     } else {
-      divs = ($(this)).parent().parent().nextAll("div");
+      divs = ($(this)).parent().parent().nextAll("div:has(div select)");
       divs.find('select').val(null);
       return divs.hide();
     }
   });
 
-  ($("button")).click(function(e) {
+  ($("form")).submit(function(e) {
     e.preventDefault();
     return $.ajax({
       type: "POST",
@@ -53,6 +54,27 @@
         return new Chart(ctx).Bar(chartData);
       }
     });
+  });
+
+  $.each(moment.months(), function(k, v) {
+    var div, element;
+    element = "<label class='checkbox'> <input type='checkbox' value='" + k + "'> " + v + " </label> <br />";
+    if (k % 4 === 0) {
+      div = $("<div class='span2'> </div>");
+    } else {
+      div = $("#months div:last-child");
+    }
+    div.append(element);
+    return ($("#months")).append(div);
+  });
+
+  ($("#todos")).click(function() {
+    var checkboxes, checked;
+    checkboxes = $(':checkbox');
+    if (($(':checkbox:checked')).length) {
+      checked = false;
+    }
+    return checkboxes.attr('checked', checked);
   });
 
 }).call(this);
