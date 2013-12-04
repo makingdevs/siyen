@@ -18,15 +18,26 @@ class InformePeriodicoController {
   }
 
   def realizarInforme() {
-    def desde = Date.parse("dd/MM/yyyy", "01/01/${params.anios}")
-    def hasta = Date.parse("dd/MM/yyyy", "31/12/${params.anios}")
     def puerto = params.puerto
     def libreta = params.libreta
     def curso = params.curso
     def graficacion = params.graficacion
 
+    def meses = []
+    if(params?.meses){
+      meses.addAll(params?.meses)
+      meses = meses.sort()*.toLong()
+    }
+
+    log.debug meses
+
     def busquedaDeResultados = searchableService.search({
-      must( between("fechaDeInicio", desde, hasta, true) ) // puertos
+      meses.each { mes -> 
+        def desde = Date.parse("dd/MM/yyyy", "01/${mes}/${params.anios}")
+        def hasta = Date.parse("dd/MM/yyyy", "30/${mes}/${params.anios}")
+
+        must( between("fechaDeInicio", desde, hasta, false) )
+      }
 
       if(puerto || libreta) {
         must(queryString(puerto, [useAndDefaultOperator: false, defaultSearchProperty: "clave"]))
