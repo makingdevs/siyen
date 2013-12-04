@@ -53,7 +53,7 @@ class InformePeriodicoController {
         }
         resultados.(cursoProgramado.curso.libreta) += 1
       }
-    } else if(!curso) {
+    } else {
       def resultadosPorLibreta = busquedaDeResultados.results.findAll { it.curso.libreta == libreta }
 
       resultadosPorLibreta.each { cursoProgramado ->
@@ -64,13 +64,6 @@ class InformePeriodicoController {
       }
     }
 
-    // def resultados = [:]
-    // busquedaDeResultados.results.each { cursoProgramado ->
-    //   if( !resultados.(cursoProgramado.curso.clave) ) {
-    //     resultados.(cursoProgramado.curso.clave) = 0
-    //   }
-    //   resultados.(cursoProgramado.curso.clave) += cursoProgramado.alumnos.size()
-    // }
     log.debug resultados.sort { it.key }
 
     render resultados.sort { it.key } as JSON
