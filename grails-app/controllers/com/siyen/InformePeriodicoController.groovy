@@ -20,20 +20,16 @@ class InformePeriodicoController {
   def realizarInforme() {
     def desde = Date.parse("dd/MM/yyyy", "01/01/${params.anios}")
     def hasta = Date.parse("dd/MM/yyyy", "31/12/${params.anios}")
-    def curso = params.curso
     def puerto = params.puerto
     def libreta = params.libreta
+    def curso = params.curso
     def graficacion = params.graficacion
 
     def busquedaDeResultados = searchableService.search({
       must( between("fechaDeInicio", desde, hasta, true) ) // puertos
 
-      if(puerto) {
+      if(puerto || libreta) {
         must(queryString(puerto, [useAndDefaultOperator: false, defaultSearchProperty: "clave"]))
-      }
-
-      if(libreta) {
-        must(queryString(libreta, [useAndDefaultOperator: false, defaultSearchProperty: "libreta"]))
       }
 
       if(curso) {
@@ -43,12 +39,28 @@ class InformePeriodicoController {
     }, params)
 
     def resultados = [:]
-    if(!curso && !puerto && !libreta) {
+    if(!puerto && !libreta && !curso) {
       busquedaDeResultados.results.each { cursoProgramado ->
         if( !resultados.(cursoProgramado.puerto.clave) ) {
           resultados.(cursoProgramado.puerto.clave) = 0
         }
         resultados.(cursoProgramado.puerto.clave) += 1
+      }
+    } else if(!libreta && !curso) {
+      busquedaDeResultados.results.each { cursoProgramado ->
+        if( !resultados.(cursoProgramado.curso.libreta) ) {
+          resultados.(cursoProgramado.curso.libreta) = 0
+        }
+        resultados.(cursoProgramado.curso.libreta) += 1
+      }
+    } else if(!curso) {
+      def resultadosPorLibreta = busquedaDeResultados.results.findAll { it.curso.libreta == libreta }
+
+      resultadosPorLibreta.each { cursoProgramado ->
+        if( !resultados.(cursoProgramado.curso.clave) ) {
+          resultados.(cursoProgramado.curso.clave) = 0
+        }
+        resultados.(cursoProgramado.curso.clave) += 1
       }
     }
 
@@ -59,9 +71,9 @@ class InformePeriodicoController {
     //   }
     //   resultados.(cursoProgramado.curso.clave) += cursoProgramado.alumnos.size()
     // }
-    log.debug resultados
+    log.debug resultados.sort { it.key }
 
-    render resultados as JSON
+    render resultados.sort { it.key } as JSON
   }
 
 }
