@@ -30,26 +30,14 @@
         </div>
       </div>
 
-      <div class="control-group hide">
-        <label class="control-label" for="cursos">Cursos : </label>
+      <div class="control-group">
+        <label class="control-label" for="libretas">Meses : </label>
         <div class="controls">
-          <g:select name="curso" from="${cursos.clave}" noSelection="['':'-Selecciona un curso-']"> </g:select>
+          <a id="todos" href="#"> Todos </a>
+          <div id="months" class="row-fluid"> </div>
         </div>
       </div>
 
-      <div class="control-group hide">
-        <div class="controls">
-          <label class="radio">
-            <input type="radio" name="graficacion" value="curso" checked> Cursos
-          </label>
-
-          <label class="radio">
-            <input type="radio" name="graficacion" value="participante"> Participantes
-          </label>
-        </div>
-      </div>
-
-      <button class="btn btn-large btn-block btn-primary" type="button">Generar informe</button>
     </form>
 
     <canvas id="myChart" width="600" height="400"></canvas>
