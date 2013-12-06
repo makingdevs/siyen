@@ -64,3 +64,6 @@ $.each moment.months(), (k, v) ->
   if ($ ':checkbox:checked').length
     checked = false
   checkboxes.attr 'checked', checked
+
+($ ":checkbox").click ->
+  ($ "form").trigger 'submit'

@@ -77,4 +77,8 @@
     return checkboxes.attr('checked', checked);
   });
 
+  ($(":checkbox")).click(function() {
+    return ($("form")).trigger('submit');
+  });
+
 }).call(this);
