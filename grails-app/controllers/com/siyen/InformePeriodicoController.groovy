@@ -18,64 +18,50 @@ class InformePeriodicoController {
   }
 
   def realizarInforme() {
-    def puerto = params.puerto
-    def libreta = params.libreta
-    def curso = params.curso
-    def graficacion = params.graficacion
-
     def meses = []
     if(params?.meses){
       meses.addAll(params?.meses)
       meses = meses.sort()*.toLong()
     }
+    def puerto = Puerto.findByClave( params.puerto )
+    def cursosPorLibretas = Curso.findAllByLibreta( params.libreta )
 
-    log.debug meses
-
-    def busquedaDeResultados = searchableService.search({
-      meses.each { mes -> 
-        def desde = Date.parse("dd/MM/yyyy", "01/${mes}/${params.anios}")
-        def hasta = Date.parse("dd/MM/yyyy", "30/${mes}/${params.anios}")
-
-        must( between("fechaDeInicio", desde, hasta, false) )
+    def c = CursoProgramado.createCriteria()
+    def busquedaDeResultados = c.list {
+      or {
+        meses.each {
+          def desde = Date.parse("dd/MM/yyyy", "01/${it}/${params.anios}")
+          def hasta = Date.parse("dd/MM/yyyy", "31/${it}/${params.anios}")
+          between("fechaDeInicio", desde, hasta)
+        }
       }
-
-      if(puerto || libreta) {
-        must(queryString(puerto, [useAndDefaultOperator: false, defaultSearchProperty: "clave"]))
-      }
-
-      if(curso) {
-        must(queryString(curso, [useAndDefaultOperator: false, defaultSearchProperty: "clave"]))
-      }
-
-    }, params)
+      if (puerto) eq "puerto", puerto
+      if (cursosPorLibretas) 'in' ( "curso", cursosPorLibretas )
+    }
 
     def resultados = [:]
-    if(!puerto && !libreta && !curso) {
-      busquedaDeResultados.results.each { cursoProgramado ->
+    if(!puerto && !cursosPorLibretas) {
+      busquedaDeResultados.each { cursoProgramado ->
         if( !resultados.(cursoProgramado.puerto.clave) ) {
           resultados.(cursoProgramado.puerto.clave) = 0
         }
         resultados.(cursoProgramado.puerto.clave) += 1
       }
-    } else if(!libreta && !curso) {
-      busquedaDeResultados.results.each { cursoProgramado ->
+    } else if(!cursosPorLibretas) {
+      busquedaDeResultados.each { cursoProgramado ->
         if( !resultados.(cursoProgramado.curso.libreta) ) {
           resultados.(cursoProgramado.curso.libreta) = 0
         }
         resultados.(cursoProgramado.curso.libreta) += 1
       }
     } else {
-      def resultadosPorLibreta = busquedaDeResultados.results.findAll { it.curso.libreta == libreta }
-
-      resultadosPorLibreta.each { cursoProgramado ->
+      busquedaDeResultados.each { cursoProgramado ->
         if( !resultados.(cursoProgramado.curso.clave) ) {
           resultados.(cursoProgramado.curso.clave) = 0
         }
         resultados.(cursoProgramado.curso.clave) += 1
       }
     }
-
-    log.debug resultados.sort { it.key }
 
     render resultados.sort { it.key } as JSON
   }
