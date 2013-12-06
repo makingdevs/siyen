@@ -15,27 +15,23 @@
   ($("select")).change(function() {
     var divs;
     if (($(this)).val()) {
-      return ($(this)).parent().parent().next().show();
+      ($(this)).parent().parent().next().show();
+      return ($("form")).trigger('submit');
     } else {
-      divs = ($(this)).parent().parent().nextAll("div");
+      divs = ($(this)).parent().parent().nextAll("div:has(div select)");
       divs.find('select').val(null);
       return divs.hide();
     }
   });
 
   ($("form")).submit(function(e) {
-    var data;
     e.preventDefault();
-    data = {
-      "desde": ($("#desde")).val(),
-      "hasta": ($("#hasta")).val()
-    };
     return $.ajax({
       type: "POST",
       url: "realizarInforme",
-      data: data,
+      data: ($("form")).serialize(),
       success: function(response) {
-        var chartData, ctx, labels;
+        var chartData, ctx, data, labels;
         labels = [];
         data = [];
         $.each(response, function(k, v) {
@@ -58,6 +54,31 @@
         return new Chart(ctx).Bar(chartData);
       }
     });
+  });
+
+  $.each(moment.months(), function(k, v) {
+    var div, element;
+    element = "<label class='checkbox'> <input type='checkbox' name='meses' value='" + (k + 1) + "' checked> " + v + " </label> <br />";
+    if (k % 4 === 0) {
+      div = $("<div class='span2'> </div>");
+    } else {
+      div = $("#months div:last-child");
+    }
+    div.append(element);
+    return ($("#months")).append(div);
+  });
+
+  ($("#todos")).click(function() {
+    var checkboxes, checked;
+    checkboxes = $(':checkbox');
+    if (($(':checkbox:checked')).length) {
+      checked = false;
+    }
+    return checkboxes.attr('checked', checked);
+  });
+
+  ($(":checkbox")).click(function() {
+    return ($("form")).trigger('submit');
   });
 
 }).call(this);

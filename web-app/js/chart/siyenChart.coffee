@@ -12,22 +12,19 @@ $(".busquedaChosen").chosen
 ($ "select").change ->
   if ($ @).val()
     ($ @).parent().parent().next().show()
+    ($ "form").trigger 'submit'
   else
-    divs = ($ @).parent().parent().nextAll("div")
+    divs = ($ @).parent().parent().nextAll("div:has(div select)")
     divs.find('select').val(null)
     divs.hide()
 
 ($ "form").submit (e) ->
   e.preventDefault()
 
-  data =
-    "desde" : ($ "#desde").val(),
-    "hasta" : ($ "#hasta").val()
-
   $.ajax
     type: "POST"
     url: "realizarInforme"
-    data: data
+    data: ($ "form").serialize()
     success: (response) ->
       labels = []
       data = []
@@ -50,3 +47,23 @@ $(".busquedaChosen").chosen
 
       ctx = $("#myChart").get(0).getContext("2d")
       new Chart(ctx).Bar(chartData)
+
+$.each moment.months(), (k, v) ->
+  element = "<label class='checkbox'> <input type='checkbox' name='meses' value='#{k + 1}' checked> #{v} </label> <br />"
+
+  if k % 4 == 0
+    div = $("<div class='span2'> </div>")
+  else
+    div = ($ "#months div:last-child")
+
+  div.append element
+  ($ "#months").append( div )
+
+($ "#todos").click ->
+  checkboxes = ($ ':checkbox')
+  if ($ ':checkbox:checked').length
+    checked = false
+  checkboxes.attr 'checked', checked
+
+($ ":checkbox").click ->
+  ($ "form").trigger 'submit'
