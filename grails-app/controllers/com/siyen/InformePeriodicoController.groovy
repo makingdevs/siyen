@@ -19,35 +19,36 @@ class InformePeriodicoController {
 
   def realizarInforme() {
     def meses = []
-    if(params?.meses){
-      meses.addAll(params?.meses)
-      meses = meses.sort()*.toLong()
-    }
-    def puerto = Puerto.findByClave( params.puerto )
-    def cursosPorLibretas = Curso.findAllByLibreta( params.libreta )
+    meses.addAll(params.meses ?: 1..12)
+    meses = meses.sort()*.toLong()
+    
+    def claveDelPuerto = params.puerto
+    def libreta = params.libreta
 
-    def c = CursoProgramado.createCriteria()
-    def busquedaDeResultados = c.list {
-      or {
-        meses.each {
-          def desde = Date.parse("dd/MM/yyyy", "01/${it}/${params.anios}")
-          def hasta = Date.parse("dd/MM/yyyy", "31/${it}/${params.anios}")
-          between("fechaDeInicio", desde, hasta)
-        }
+    def cursoProgramadoQuery = CursoProgramado.where {
+      year(fechaDeInicio) == params.anio
+
+      if(claveDelPuerto) {
+        puerto.clave == claveDelPuerto
       }
-      if (puerto) eq "puerto", puerto
-      if (cursosPorLibretas) 'in' ( "curso", cursosPorLibretas )
+
+      if(libreta) {
+        curso.libreta == libreta
+      }
     }
+    def busquedaDeResultados = cursoProgramadoQuery.findAll()
+
+    log.debug busquedaDeResultados.groupBy { it.puerto.clave }.collect { [(it.key) : it.value.size()] }
 
     def resultados = [:]
-    if(!puerto && !cursosPorLibretas) {
+    if(!claveDelPuerto && !libreta) {
       busquedaDeResultados.each { cursoProgramado ->
         if( !resultados.(cursoProgramado.puerto.clave) ) {
           resultados.(cursoProgramado.puerto.clave) = 0
         }
         resultados.(cursoProgramado.puerto.clave) += 1
       }
-    } else if(!cursosPorLibretas) {
+    } else if(!libreta) {
       busquedaDeResultados.each { cursoProgramado ->
         if( !resultados.(cursoProgramado.curso.libreta) ) {
           resultados.(cursoProgramado.curso.libreta) = 0
@@ -63,6 +64,7 @@ class InformePeriodicoController {
       }
     }
 
+    log.debug resultados
     render resultados.sort { it.key } as JSON
   }
 
