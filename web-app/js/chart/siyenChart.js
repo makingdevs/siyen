@@ -38,6 +38,7 @@
           labels.push(k);
           return data.push(v);
         });
+        console.log(data);
         chartData = {
           labels: labels,
           datasets: [
@@ -58,7 +59,7 @@
 
   $.each(moment.months(), function(k, v) {
     var div, element;
-    element = "<label class='checkbox'> <input type='checkbox' name='meses' value='" + (k + 1) + "' checked> " + v + " </label> <br />";
+    element = "<label class='checkbox'> <input type='checkbox' name='meses' value='" + (k + 1) + "'> " + v + " </label> <br />";
     if (k % 4 === 0) {
       div = $("<div class='span2'> </div>");
     } else {
@@ -71,10 +72,12 @@
   ($("#todos")).click(function() {
     var checkboxes, checked;
     checkboxes = $(':checkbox');
+    checked = true;
     if (($(':checkbox:checked')).length) {
       checked = false;
     }
-    return checkboxes.attr('checked', checked);
+    checkboxes.attr('checked', checked);
+    return ($("form")).trigger('submit');
   });
 
   ($(":checkbox")).click(function() {

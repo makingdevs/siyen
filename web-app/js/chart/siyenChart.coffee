@@ -33,6 +33,7 @@ $(".busquedaChosen").chosen
         labels.push k
         data.push v
 
+      console.log data
       chartData =
         labels : labels,
         datasets : [
@@ -49,7 +50,7 @@ $(".busquedaChosen").chosen
       new Chart(ctx).Bar(chartData)
 
 $.each moment.months(), (k, v) ->
-  element = "<label class='checkbox'> <input type='checkbox' name='meses' value='#{k + 1}' checked> #{v} </label> <br />"
+  element = "<label class='checkbox'> <input type='checkbox' name='meses' value='#{k + 1}'> #{v} </label> <br />"
 
   if k % 4 == 0
     div = $("<div class='span2'> </div>")
@@ -61,9 +62,11 @@ $.each moment.months(), (k, v) ->
 
 ($ "#todos").click ->
   checkboxes = ($ ':checkbox')
+  checked = true
   if ($ ':checkbox:checked').length
     checked = false
   checkboxes.attr 'checked', checked
+  ($ "form").trigger 'submit'
 
 ($ ":checkbox").click ->
   ($ "form").trigger 'submit'
