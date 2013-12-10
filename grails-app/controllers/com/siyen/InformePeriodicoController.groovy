@@ -36,35 +36,32 @@ class InformePeriodicoController {
         curso.libreta == libreta
       }
     }
+
     def busquedaDeResultados = cursoProgramadoQuery.findAll()
 
-    log.debug busquedaDeResultados.groupBy { it.puerto.clave }.collect { [(it.key) : it.value.size()] }
-
-    def resultados = [:]
-    if(!claveDelPuerto && !libreta) {
-      busquedaDeResultados.each { cursoProgramado ->
-        if( !resultados.(cursoProgramado.puerto.clave) ) {
-          resultados.(cursoProgramado.puerto.clave) = 0
-        }
-        resultados.(cursoProgramado.puerto.clave) += 1
-      }
-    } else if(!libreta) {
-      busquedaDeResultados.each { cursoProgramado ->
-        if( !resultados.(cursoProgramado.curso.libreta) ) {
-          resultados.(cursoProgramado.curso.libreta) = 0
-        }
-        resultados.(cursoProgramado.curso.libreta) += 1
-      }
-    } else {
-      busquedaDeResultados.each { cursoProgramado ->
-        if( !resultados.(cursoProgramado.curso.clave) ) {
-          resultados.(cursoProgramado.curso.clave) = 0
-        }
-        resultados.(cursoProgramado.curso.clave) += 1
+    def results = busquedaDeResultados.findAll { cursoProgramado ->
+      meses.find {
+        it == cursoProgramado.fechaDeInicio.format('MM').toInteger()
       }
     }
 
-    log.debug resultados
+    log.debug results
+
+    def resultados = [:]
+    if(!claveDelPuerto && !libreta) {
+      busquedaDeResultados.groupBy { it.puerto.clave }.each {
+        resultados.(it.key) = it.value.size()
+      }
+    } else if(!libreta) {
+      busquedaDeResultados.groupBy { it.curso.libreta }.each {
+        resultados.(it.key) = it.value.size()
+      }
+    } else {
+      busquedaDeResultados.groupBy { it.curso.clave }.each {
+        resultados.(it.key) = it.value.size()
+      }
+    }
+
     render resultados.sort { it.key } as JSON
   }
 
