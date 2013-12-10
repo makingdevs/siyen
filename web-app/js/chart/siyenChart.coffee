@@ -33,7 +33,11 @@ $(".busquedaChosen").chosen
         labels.push k
         data.push v
 
-      console.log data
+        # v.reduce (pv, cv) ->
+        #   pv + cv
+        # , 0
+
+
       chartData =
         labels : labels,
         datasets : [

@@ -38,7 +38,6 @@
           labels.push(k);
           return data.push(v);
         });
-        console.log(data);
         chartData = {
           labels: labels,
           datasets: [
