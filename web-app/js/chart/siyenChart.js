@@ -49,8 +49,6 @@
             return valoresDelDatasets[key].push(value);
           });
         });
-        console.log(data);
-        console.log(valoresDelDatasets);
         datasets = [];
         $.each(valoresDelDatasets, function(k, v) {
           var blue, green, properties, red, _ref;

@@ -40,8 +40,6 @@ $(".busquedaChosen").chosen
           valoresDelDatasets[key] = [] unless valoresDelDatasets[key]
           valoresDelDatasets[key].push value
 
-      console.log data
-      console.log valoresDelDatasets
       datasets = []
       $.each valoresDelDatasets, (k, v) ->
         properties = {}
