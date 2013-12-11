@@ -44,58 +44,19 @@ class InformePeriodicoController {
       if(meses.size() == 12) {
         resultados = agruparResultadosGenerales(busquedaDeResultados, "puerto", "clave")
       } else {
-        busquedaDeResultados = busquedaDeResultados.findAll { cursoProgramado ->
-          meses.find {
-            it == cursoProgramado.fechaDeInicio.format('MM').toInteger()
-          }
-        }.groupBy({it.puerto.clave}, {it.fechaDeInicio.format('MM')})
-
-        busquedaDeResultados.each { k, v ->
-          resultados.("$k") = []
-          v.each { l, valor ->
-            resultados.("$k") << valor.size()
-          }
-        }
+        resultados = agruparResultadosPorMes(busquedaDeResultados, "puerto", "clave", meses)
       }
     } else if(!libreta) {
       if(meses.size() == 12) {
-        busquedaDeResultados.groupBy { it.curso.libreta }.each {
-          resultados.(it.key) = []
-          resultados.(it.key) << it.value.size()
-        }
+        resultados = agruparResultadosGenerales(busquedaDeResultados, "curso", "libreta")
       } else {
-        busquedaDeResultados = busquedaDeResultados.findAll { cursoProgramado ->
-          meses.find {
-            it == cursoProgramado.fechaDeInicio.format('MM').toInteger()
-          }
-        }.groupBy({it.curso.libreta}, {it.fechaDeInicio.format('MM')})
-
-        busquedaDeResultados.each { k, v ->
-          resultados.("$k") = []
-          v.each { l, valor ->
-            resultados.("$k") << valor.size()
-          }
-        }
+        resultados = agruparResultadosPorMes(busquedaDeResultados, "curso", "libreta", meses)
       }
     } else {
       if(meses.size() == 12) {
-        busquedaDeResultados.groupBy { it.curso.clave }.each {
-          resultados.(it.key) = []
-          resultados.(it.key) << it.value.size()
-        }
+        resultados = agruparResultadosGenerales(busquedaDeResultados, "curso", "clave")
       } else {
-        busquedaDeResultados = busquedaDeResultados.findAll { cursoProgramado ->
-          meses.find {
-            it == cursoProgramado.fechaDeInicio.format('MM').toInteger()
-          }
-        }.groupBy({it.curso.clave}, {it.fechaDeInicio.format('MM')})
-
-        busquedaDeResultados.each { k, v ->
-          resultados.("$k") = []
-          v.each { l, valor ->
-            resultados.("$k") << valor.size()
-          }
-        }
+        resultados = agruparResultadosPorMes(busquedaDeResultados, "curso", "clave", meses)
       }
     }
 
@@ -109,6 +70,23 @@ class InformePeriodicoController {
     busqueda.groupBy { it."${relacion}"."${propiedad}" }.each {
       resultados.(it.key) = []
       resultados.(it.key) << it.value.size()
+    }
+    resultados
+  }
+
+  private def agruparResultadosPorMes(busqueda, relacion, propiedad, meses) {
+    def resultados = [:]
+    busqueda = busqueda.findAll { cursoProgramado ->
+      meses.find {
+        it == cursoProgramado.fechaDeInicio.format('MM').toInteger()
+      }
+    }.groupBy({it."${relacion}"."${propiedad}"}, {it.fechaDeInicio.format('MM')})
+
+    busqueda.each { k, v ->
+      resultados.("$k") = []
+      v.each { l, valor ->
+        resultados.("$k") << valor.size()
+      }
     }
     resultados
   }
