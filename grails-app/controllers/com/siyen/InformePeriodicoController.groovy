@@ -39,22 +39,17 @@ class InformePeriodicoController {
 
     def busquedaDeResultados = cursoProgramadoQuery.findAll()
 
-    if(meses.size() != 12) {
-      busquedaDeResultados = busquedaDeResultados.findAll { cursoProgramado ->
-        meses.find {
-          it == cursoProgramado.fechaDeInicio.format('MM').toInteger()
-        }
-      }.groupBy({it.puerto.clave}, {it.fechaDeInicio.format('MM')})
-    }
-
     def resultados = [:]
     if(!claveDelPuerto && !libreta) {
       if(meses.size() == 12) {
-        busquedaDeResultados.groupBy { it.puerto.clave }.each {
-          resultados.(it.key) = []
-          resultados.(it.key) << it.value.size()
-        }
+        resultados = agruparResultadosGenerales(busquedaDeResultados, "puerto", "clave")
       } else {
+        busquedaDeResultados = busquedaDeResultados.findAll { cursoProgramado ->
+          meses.find {
+            it == cursoProgramado.fechaDeInicio.format('MM').toInteger()
+          }
+        }.groupBy({it.puerto.clave}, {it.fechaDeInicio.format('MM')})
+
         busquedaDeResultados.each { k, v ->
           resultados.("$k") = []
           v.each { l, valor ->
@@ -63,20 +58,59 @@ class InformePeriodicoController {
         }
       }
     } else if(!libreta) {
-      busquedaDeResultados.groupBy { it.curso.libreta }.each {
-        resultados.(it.key) = []
-        resultados.(it.key) << it.value.size()
+      if(meses.size() == 12) {
+        busquedaDeResultados.groupBy { it.curso.libreta }.each {
+          resultados.(it.key) = []
+          resultados.(it.key) << it.value.size()
+        }
+      } else {
+        busquedaDeResultados = busquedaDeResultados.findAll { cursoProgramado ->
+          meses.find {
+            it == cursoProgramado.fechaDeInicio.format('MM').toInteger()
+          }
+        }.groupBy({it.curso.libreta}, {it.fechaDeInicio.format('MM')})
+
+        busquedaDeResultados.each { k, v ->
+          resultados.("$k") = []
+          v.each { l, valor ->
+            resultados.("$k") << valor.size()
+          }
+        }
       }
     } else {
-      busquedaDeResultados.groupBy { it.curso.clave }.each {
-        resultados.(it.key) = []
-        resultados.(it.key) << it.value.size()
+      if(meses.size() == 12) {
+        busquedaDeResultados.groupBy { it.curso.clave }.each {
+          resultados.(it.key) = []
+          resultados.(it.key) << it.value.size()
+        }
+      } else {
+        busquedaDeResultados = busquedaDeResultados.findAll { cursoProgramado ->
+          meses.find {
+            it == cursoProgramado.fechaDeInicio.format('MM').toInteger()
+          }
+        }.groupBy({it.curso.clave}, {it.fechaDeInicio.format('MM')})
+
+        busquedaDeResultados.each { k, v ->
+          resultados.("$k") = []
+          v.each { l, valor ->
+            resultados.("$k") << valor.size()
+          }
+        }
       }
     }
 
     log.debug resultados
 
     render resultados.sort { it.key } as JSON
+  }
+
+  private def agruparResultadosGenerales(busqueda, relacion, propiedad) {
+    def resultados = [:]
+    busqueda.groupBy { it."${relacion}"."${propiedad}" }.each {
+      resultados.(it.key) = []
+      resultados.(it.key) << it.value.size()
+    }
+    resultados
   }
 
 }
