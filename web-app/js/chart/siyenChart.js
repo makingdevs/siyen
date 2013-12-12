@@ -61,11 +61,22 @@
           properties['data'] = v;
           return datasets.push(properties);
         });
+        $.each($("input:checked"), function(k, v) {
+          var blue, elementIsRender, green, month, monthNumber, red, _ref;
+          _ref = colorChooser(k), red = _ref[0], green = _ref[1], blue = _ref[2];
+          monthNumber = ($(v)).val();
+          month = moment(monthNumber).format('MMMM');
+          elementIsRender = ($("#" + month)).size();
+          if (!elementIsRender) {
+            ($("#grafica")).before($("<div id='" + month + "' class='span2'> " + month + " </div>"));
+          }
+          return ($("#" + month)).css('background-color', "rgba( " + red + ", " + green + ", " + blue + ", 0.5)");
+        });
         chartData = {
           labels: labels,
           datasets: datasets
         };
-        ctx = $("#myChart").get(0).getContext("2d");
+        ctx = $("#grafica").get(0).getContext("2d");
         return new Chart(ctx).Bar(chartData);
       }
     });
