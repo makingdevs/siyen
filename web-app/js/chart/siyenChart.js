@@ -78,7 +78,7 @@
       case 2:
         return [217, 112, 65];
       case 3:
-        return [199, 96, 76];
+        return [88, 74, 94];
       case 4:
         return [33, 50, 61];
       case 5:

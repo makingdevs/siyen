@@ -62,7 +62,7 @@ colorChooser = (value) ->
   switch parseInt(value)
     when 1 then [220, 220, 220]
     when 2 then [217, 112, 65]
-    when 3 then [199, 96, 76]
+    when 3 then [88, 74, 94]
     when 4 then [33, 50, 61]
     when 5 then [157, 155, 127]
     when 6 then [243, 134, 48]
