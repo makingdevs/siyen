@@ -40,7 +40,7 @@
 
     </form>
 
-    <canvas id="myChart" width="1000" height="600"></canvas>
+    <canvas id="grafica" width="1000" height="600"></canvas>
   </body>
 
 </html> 
