@@ -10,9 +10,9 @@
 
     <form class="form-horizontal" controller="informePeriodico" action="realizarInfome">
       <div class="control-group">
-        <label class="control-label" for="anios">Años:</label>
+        <label class="control-label" for="anio">Años:</label>
         <div class="controls">
-          <g:select id="anios" name="anios" from="${anios}" noSelection="['':'-Selecciona un año-']"> </g:select>
+          <g:select id="anio" name="anio" from="${anios}" noSelection="['':'-Selecciona un año-']"> </g:select>
         </div>
       </div>
 
@@ -40,7 +40,7 @@
 
     </form>
 
-    <canvas id="myChart" width="600" height="400"></canvas>
+    <canvas id="grafica" width="1000" height="600"></canvas>
   </body>
 
 </html> 

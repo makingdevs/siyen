@@ -19,51 +19,82 @@ class InformePeriodicoController {
 
   def realizarInforme() {
     def meses = []
-    if(params?.meses){
-      meses.addAll(params?.meses)
-      meses = meses.sort()*.toLong()
-    }
-    def puerto = Puerto.findByClave( params.puerto )
-    def cursosPorLibretas = Curso.findAllByLibreta( params.libreta )
+    meses.addAll(params.meses ?: 1..12)
+    meses = meses.sort()*.toLong()
+    
+    def claveDelPuerto = params.puerto
+    def libreta = params.libreta
 
-    def c = CursoProgramado.createCriteria()
-    def busquedaDeResultados = c.list {
-      or {
-        meses.each {
-          def desde = Date.parse("dd/MM/yyyy", "01/${it}/${params.anios}")
-          def hasta = Date.parse("dd/MM/yyyy", "31/${it}/${params.anios}")
-          between("fechaDeInicio", desde, hasta)
-        }
+    def cursoProgramadoQuery = CursoProgramado.where {
+      year(fechaDeInicio) == params.anio
+
+      if(claveDelPuerto) {
+        puerto.clave == claveDelPuerto
       }
-      if (puerto) eq "puerto", puerto
-      if (cursosPorLibretas) 'in' ( "curso", cursosPorLibretas )
+
+      if(libreta) {
+        curso.libreta == libreta
+      }
     }
+
+    def busquedaDeResultados = cursoProgramadoQuery.findAll()
 
     def resultados = [:]
-    if(!puerto && !cursosPorLibretas) {
-      busquedaDeResultados.each { cursoProgramado ->
-        if( !resultados.(cursoProgramado.puerto.clave) ) {
-          resultados.(cursoProgramado.puerto.clave) = 0
-        }
-        resultados.(cursoProgramado.puerto.clave) += 1
-      }
-    } else if(!cursosPorLibretas) {
-      busquedaDeResultados.each { cursoProgramado ->
-        if( !resultados.(cursoProgramado.curso.libreta) ) {
-          resultados.(cursoProgramado.curso.libreta) = 0
-        }
-        resultados.(cursoProgramado.curso.libreta) += 1
-      }
+    if(meses.size() == 12){
+      resultados = agrupamientoGeneral(busquedaDeResultados, claveDelPuerto, libreta)
     } else {
-      busquedaDeResultados.each { cursoProgramado ->
-        if( !resultados.(cursoProgramado.curso.clave) ) {
-          resultados.(cursoProgramado.curso.clave) = 0
-        }
-        resultados.(cursoProgramado.curso.clave) += 1
-      }
+      resultados = agrupamientoPorMeses(busquedaDeResultados, claveDelPuerto, libreta, meses)
     }
 
+    log.debug resultados
+
     render resultados.sort { it.key } as JSON
+  }
+
+  private def agrupamientoGeneral(busqueda, claveDelPuerto, libreta) {
+    if(!claveDelPuerto && !libreta) {
+      return agruparResultadosGenerales(busqueda, "puerto", "clave")
+    } else if(!libreta) {
+      return agruparResultadosGenerales(busqueda, "curso", "libreta")
+    }
+
+    return agruparResultadosGenerales(busqueda, "curso", "clave")
+  }
+
+  private def agrupamientoPorMeses(busqueda, claveDelPuerto, libreta, meses) {
+    if(!claveDelPuerto && !libreta) {
+      return agruparResultadosPorMes(busqueda, "puerto", "clave", meses)
+    } else if(!libreta) {
+      return agruparResultadosPorMes(busqueda, "curso", "libreta", meses)
+    }
+
+    return agruparResultadosPorMes(busqueda, "curso", "clave", meses)
+  }
+
+  private def agruparResultadosGenerales(busqueda, relacion, propiedad) {
+    def resultados = [:]
+    busqueda.groupBy { it."${relacion}"."${propiedad}" }.each {
+      resultados.(it.key) = []
+      resultados.(it.key) << it.value.size()
+    }
+    resultados
+  }
+
+  private def agruparResultadosPorMes(busqueda, relacion, propiedad, meses) {
+    def resultados = [:]
+    busqueda = busqueda.findAll { cursoProgramado ->
+      meses.find {
+        it == cursoProgramado.fechaDeInicio.format('MM').toInteger()
+      }
+    }.groupBy({it."${relacion}"."${propiedad}"}, {it.fechaDeInicio.format('MM')})
+
+    busqueda.each { k, v ->
+      resultados.("$k") = []
+      v.each { l, valor ->
+        resultados.("$k") << valor.size()
+      }
+    }
+    resultados
   }
 
 }
