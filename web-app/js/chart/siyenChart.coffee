@@ -51,11 +51,20 @@ $(".busquedaChosen").chosen
         properties['data'] = v
         datasets.push properties
 
+      $.each ($ "input:checked"), (k, v) ->
+        [red, green, blue] = colorChooser(k)
+        monthNumber = ($ v).val()
+        month = moment(monthNumber).format('MMMM')
+        elementIsRender = ($ "##{month}").size()
+        ($ "#grafica").before(($ "<div id='#{month}' class='span2'> #{month} </div>")) unless elementIsRender
+        ($ "##{month}").css 'background-color', "rgba( #{red}, #{green}, #{blue}, 0.5)"
+
+
       chartData =
         labels : labels,
         datasets : datasets
 
-      ctx = $("#myChart").get(0).getContext("2d")
+      ctx = $("#grafica").get(0).getContext("2d")
       new Chart(ctx).Bar(chartData)
 
 colorChooser = (value) ->
