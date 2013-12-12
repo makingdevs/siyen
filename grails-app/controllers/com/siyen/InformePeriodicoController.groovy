@@ -40,29 +40,35 @@ class InformePeriodicoController {
     def busquedaDeResultados = cursoProgramadoQuery.findAll()
 
     def resultados = [:]
-    if(!claveDelPuerto && !libreta) {
-      if(meses.size() == 12) {
-        resultados = agruparResultadosGenerales(busquedaDeResultados, "puerto", "clave")
-      } else {
-        resultados = agruparResultadosPorMes(busquedaDeResultados, "puerto", "clave", meses)
-      }
-    } else if(!libreta) {
-      if(meses.size() == 12) {
-        resultados = agruparResultadosGenerales(busquedaDeResultados, "curso", "libreta")
-      } else {
-        resultados = agruparResultadosPorMes(busquedaDeResultados, "curso", "libreta", meses)
-      }
+    if(meses.size() == 12){
+      resultados = agrupamientoGeneral(busquedaDeResultados, claveDelPuerto, libreta)
     } else {
-      if(meses.size() == 12) {
-        resultados = agruparResultadosGenerales(busquedaDeResultados, "curso", "clave")
-      } else {
-        resultados = agruparResultadosPorMes(busquedaDeResultados, "curso", "clave", meses)
-      }
+      resultados = agrupamientoPorMeses(busquedaDeResultados, claveDelPuerto, libreta, meses)
     }
 
     log.debug resultados
 
     render resultados.sort { it.key } as JSON
+  }
+
+  private def agrupamientoGeneral(busqueda, claveDelPuerto, libreta) {
+    if(!claveDelPuerto && !libreta) {
+      return agruparResultadosGenerales(busqueda, "puerto", "clave")
+    } else if(!libreta) {
+      return agruparResultadosGenerales(busqueda, "curso", "libreta")
+    }
+
+    return agruparResultadosGenerales(busqueda, "curso", "clave")
+  }
+
+  private def agrupamientoPorMeses(busqueda, claveDelPuerto, libreta, meses) {
+    if(!claveDelPuerto && !libreta) {
+      return agruparResultadosPorMes(busqueda, "puerto", "clave", meses)
+    } else if(!libreta) {
+      return agruparResultadosPorMes(busqueda, "curso", "libreta", meses)
+    }
+
+    return agruparResultadosPorMes(busqueda, "curso", "clave", meses)
   }
 
   private def agruparResultadosGenerales(busqueda, relacion, propiedad) {
