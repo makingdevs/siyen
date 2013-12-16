@@ -58,13 +58,15 @@
                   <li>
                     {{#linkTo "busqueda" }}Busqueda{{/linkTo}}
                   </li>
-                  <li>
-                    {{#linkTo "notificacion" }}Notificaciones{{/linkTo}}
-                  </li>
+                  <sec:access expression="hasRole('ROLE_ADMIN')">
+                    <li>
+                      {{#linkTo "notificacion" }}Notificaciones{{/linkTo}}
+                    </li>
 
-                  <li>
-                    <g:link controller="puerto">Catálogos</g:link>
-                  </li>
+                    <li>
+                      <g:link controller="puerto">Catálogos</g:link>
+                    </li>
+                  </sec:access>
 
 
                 <!-- END: Menu de opciones -->
