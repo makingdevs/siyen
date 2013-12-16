@@ -66,7 +66,7 @@ environments {
   production {
     grails.logging.jul.usebridge = false
     logDirectory = 'logs/'
-    grails.serverURL = "http://pipe.makingdevs.com/"
+    grails.serverURL = "http://ienpop.net"
     jasper.dir.reports = "${userHome}/siyen"
   }
 }
