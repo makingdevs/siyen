@@ -34,6 +34,7 @@
 
   <body>
     <script type="text/x-handlebars" data-template-name="application">
+
       <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
           <div class="container">
@@ -46,11 +47,19 @@
             <div class="nav-collapse collapse">
               <ul class="nav">
                 <!-- BEGIN: Menu de opciones -->
-                  <li>
-                    {{#linkTo "cursosNuevos" }}Crear curso{{/linkTo}}
-                  </li>
-                  <li>
-                    {{#linkTo "cursosAutorizados" }}Cursos autorizados{{/linkTo}}
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <b class="caret"></b>
+                      Cursos
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        {{#linkTo "cursosNuevos" }}Nuevo{{/linkTo}}
+                      </li>
+                      <li>
+                        {{#linkTo "cursosAutorizados" }}Autorizados{{/linkTo}}
+                      </li>
+                    </ul>
                   </li>
                   <li>
                     {{#linkTo "archivo" }}Procesar archivo{{/linkTo}}
