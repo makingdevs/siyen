@@ -145,6 +145,9 @@ grails.plugins.springsecurity.interceptUrlMap = [
    '/instructor/**'         : ['ROLE_ADMIN'],
    '/curso/**'              : ['ROLE_ADMIN'],
    '/catalogo/**'           : ['ROLE_ADMIN'],
-   '/cursos_programados'    : ['ROLE_ADMIN'],
+   '/instructores'          : ['ROLE_USER','ROLE_ADMIN'],
+   '/puertos'               : ['ROLE_USER','ROLE_ADMIN'],
+   '/cursos'                : ['ROLE_USER','ROLE_ADMIN'],
+   '/cursos_programados'    : ['ROLE_USER','ROLE_ADMIN'],
    '/informePeriodico/**'   : ['ROLE_ADMIN']
 ]
