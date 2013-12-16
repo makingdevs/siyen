@@ -308,6 +308,8 @@
         instructores = (_ref2 = $("#instructores").val()) != null ? _ref2.toString() : void 0;
         desde = moment(this.get('desde')).format('DD/MM/YYYY');
         hasta = moment(this.get('hasta')).format('DD/MM/YYYY');
+        console.log("desde : " + desde);
+        console.log("hasta : " + hasta);
         return $.ajax({
           type: "POST",
           url: this.get('urlBusqueda'),

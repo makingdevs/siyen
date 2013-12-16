@@ -10,6 +10,9 @@ class BusquedaController {
     String puertos = params.puertos?.replace(',', " ")?.trim()
     String instructores = params.instructores?.replace(',', " ")?.trim()
 
+    log.debug "params.desde : ${params.desde}"
+    log.debug "params.hasta : ${params.hasta}"
+
     def busquedaDeResultados = searchableService.search({
       if(busqueda) {
         must(queryString(busqueda))
