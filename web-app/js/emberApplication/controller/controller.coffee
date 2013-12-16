@@ -292,10 +292,8 @@ App.BusquedaController = Ember.ObjectController.extend
       cursos = $("#cursos").val()?.toString()
       puertos = $("#puertos").val()?.toString()
       instructores = $("#instructores").val()?.toString()
-      desde = moment(@get('desde')).format('DD/MM/YYYY')
-      hasta = moment(@get('hasta')).format('DD/MM/YYYY')
-      console.log "desde : #{desde}"
-      console.log "hasta : #{hasta}"
+      desde = moment(@get('desde'), "DD/MMM/YYYY").format('DD/MM/YYYY')
+      hasta = moment(@get('hasta'), "DD/MMM/YYYY").format('DD/MM/YYYY')
 
       $.ajax(
         type: "POST"

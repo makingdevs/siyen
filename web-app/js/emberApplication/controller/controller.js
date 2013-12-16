@@ -306,10 +306,8 @@
         cursos = (_ref = $("#cursos").val()) != null ? _ref.toString() : void 0;
         puertos = (_ref1 = $("#puertos").val()) != null ? _ref1.toString() : void 0;
         instructores = (_ref2 = $("#instructores").val()) != null ? _ref2.toString() : void 0;
-        desde = moment(this.get('desde')).format('DD/MM/YYYY');
-        hasta = moment(this.get('hasta')).format('DD/MM/YYYY');
-        console.log("desde : " + desde);
-        console.log("hasta : " + hasta);
+        desde = moment(this.get('desde'), "DD/MMM/YYYY").format('DD/MM/YYYY');
+        hasta = moment(this.get('hasta'), "DD/MMM/YYYY").format('DD/MM/YYYY');
         return $.ajax({
           type: "POST",
           url: this.get('urlBusqueda'),
