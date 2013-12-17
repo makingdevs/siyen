@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="create-user" class="content scaffold-create" role="main">
-      <h1>Asignar permisos</h1>
+      <h1>Permisos de ${user.username}</h1>
       <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
       </g:if>
@@ -24,22 +24,18 @@
       <g:form action="save" class="form-horizontal">
 
         <div class="control-group">
-          <label class="control-label" for="user">
-            <g:message code="user.user.label" default="Usuario" />
-          </label>
-          <div class="controls">
-            <g:select name="userId" from="${com.siyen.User.list()}" optionKey="id"/>
-          </div>
-        </div>
-
-        <div class="control-group">
           <label class="control-label" for="roles">
             <g:message code="user.roles.label" default="Roles" />
           </label>
           <div class="controls">
             <g:each in="${com.siyen.Role.list()}" var="role">
               <label class="checkbox">
-                <input type='checkbox' name='authorities' value="${role.id}"> ${role.authority}
+                <g:if test="${user.authorities*.id.contains(role.id)}">
+                  <input type='checkbox' name='authorities' checked="true" value="${role.id}"> ${role.authority}
+                </g:if>
+                <g:else>
+                  <input type='checkbox' name='authorities' value="${role.id}"> ${role.authority}
+                </g:else>
               </label>
               <br />
             </g:each>
