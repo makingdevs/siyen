@@ -2,7 +2,7 @@ package com.siyen
 
 class UserRoleController {
 
-  def index() { }
+  def permisos() { }
 
   def save() {
     if(params.authorities) {
