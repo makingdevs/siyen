@@ -2,7 +2,10 @@ package com.siyen
 
 class UserRoleController {
 
-  def permisos() { }
+  def permisos() {
+    User user = User.get(params.id)
+    [user:user]
+  }
 
   def save() {
     if(params.authorities) {
