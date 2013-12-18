@@ -9,7 +9,7 @@ class UserRoleController {
 
   def save() {
     if(params.authorities) {
-      User user = User.get(params.userId)
+      User user = User.get(params.id)
 
       def authoritiesIds = []
       authoritiesIds.addAll(params.authorities ?: [])
@@ -17,8 +17,10 @@ class UserRoleController {
 
       def roles = Role.getAll(authoritiesIds)
 
+      UserRole.removeAll(user)
+
       roles.each { role ->
-        UserRole.create(user, role)
+        UserRole.create(user, role, true)
       }
     }
 
