@@ -23,6 +23,8 @@
 
       <g:form action="save" class="form-horizontal">
 
+        <g:hiddenField name="id" value="${user.id}" />
+
         <div class="control-group">
           <label class="control-label" for="roles">
             <g:message code="user.roles.label" default="Roles" />
