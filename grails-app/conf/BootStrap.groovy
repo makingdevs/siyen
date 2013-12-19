@@ -70,9 +70,9 @@ class BootStrap {
       uniqueUser.addToInstructores(Instructor.get(1))
       uniqueUser.save(flush:true)
     }
-    def role = Role.findByAuthority("ROLE_USER")
+    def role = Role.findByAuthority("ROLE_ADMIN")
     if(!role)
-      role = new Role(authority:"ROLE_USER").save(flush:true)
+      role = new Role(authority:"ROLE_ADMIN").save(flush:true)
     def userRole = UserRole.findByUserAndRole(uniqueUser,role)
     def user = User.read(uniqueUser.id)
     if(!userRole)
