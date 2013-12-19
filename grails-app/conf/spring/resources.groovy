@@ -1,5 +1,13 @@
 import org.vertx.java.platform.impl.*
+import grails.util.Environment
 
 beans = {
-  defaultPlatformManager(DefaultPlatformManager, 9090, "ienpop.net")
+  switch(Environment.current) {
+    case Environment.DEVELOPMENT:
+    defaultPlatformManager(DefaultPlatformManager, 9090, "localhost")
+    break
+    case Environment.PRODUCTION:
+    defaultPlatformManager(DefaultPlatformManager, 9090, "ienpop.net")
+    break
+  }
 }
