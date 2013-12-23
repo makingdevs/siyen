@@ -11,7 +11,7 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
       def anio = 2012
 
     when : "Llamando al servicio de graficación"
-      def resultados = informePeriodicoService.agrupar(anio, "puerto", "clave")
+      def resultados = informePeriodicoService.datosDeGraficacion(anio)
 
     then :
       resultados.size() == datosAGraficar.size()
@@ -64,7 +64,7 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
       def puerto = "GYS"
 
     when : "Llamando al servicio de graficación"
-      def resultados = informePeriodicoService.agrupar(anio, puerto, "curso", "libreta")
+      def resultados = informePeriodicoService.datosDeGraficacion(anio, puerto)
 
     then :
       resultados.size() == datosAGraficar.size()
@@ -73,10 +73,10 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
     where :
       datosAGraficar << [
         [
-          A : 154,
-          B : 169,
-          C : 36,
-          D : 1
+          'A' : 154,
+          'B' : 169,
+          'C' : 36,
+          'D' : 1
         ]
       ]
   }
@@ -88,7 +88,7 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
       def libreta = "A"
 
     when : "Llamando al servicio de graficación"
-      def resultados = informePeriodicoService.agrupar(anio, puerto, libreta, "curso", "clave")
+      def resultados = informePeriodicoService.datosDeGraficacion(anio, puerto, libreta)
 
     then :
       resultados.size() == datosAGraficar.size()
@@ -97,21 +97,57 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
     where :
       datosAGraficar << [
         [
-          CAPACO3234 :        7,
-          CAPCAM311  :        8,
-          CAPCOC312  :        5,
-          CAPCON322  :       11,
-          CAPMAY313  :        4,
-          CAPMOT331  :        7,
-          CAPMOT333  :        1,
-          CAPTIM321  :       11,
-          COURSE2_09 :        1,
-          FAMBT1     :       25,
-          INICIA     :        8,
-          INICIA1    :       13,
-          STCW95     :       46,
-          STCW95_1   :        6,
-          STCW95_2   :        1
+          'CAPACO3234' :        7,
+          'CAPCAM311'  :        8,
+          'CAPCOC312'  :        5,
+          'CAPCON322'  :       11,
+          'CAPMAY313'  :        4,
+          'CAPMOT331'  :        7,
+          'CAPMOT333'  :        1,
+          'CAPTIM321'  :       11,
+          'COURSE2_09' :        1,
+          'FAMBT1'     :       25,
+          'INICIA'     :        8,
+          'INICIA1'    :       13,
+          'STCW95'     :       46,
+          'STCW95_1'   :        6,
+          'STCW95_2'   :        1
+        ]
+      ]
+  }
+
+  def "Obteniendo los datos de graficación para los puertos por año en un mes"() {
+    setup : "Asignando los valores a graficar"
+      def anio = 2012
+      def mes = 3
+
+    when : "Llamando al servicio de graficación"
+      def resultados = informePeriodicoService.datosDeGraficacion(anio, mes)
+
+    then :
+      resultados.size() == datosAGraficar.size()
+      resultados == datosAGraficar
+
+    where :
+      datosAGraficar << [
+        [
+          '0'     :  2,
+          'ACG'   : 10,
+          'ATL'   :  1,
+          'CSL'   : 10,
+          'CULS'  :  1,
+          'DF'    :  8,
+          'ENS'   : 39,
+          'GYS'   : 30,
+          'LCM'   :  1,
+          'LPB'   : 17,
+          'MZO'   :  9,
+          'MZS'   :105,
+          'PZM'   :  1,
+          'SBN'   :  2,
+          'SCO'   : 31,
+          'TOP'   :  3,
+          'ZIH'   : 10
         ]
       ]
   }
