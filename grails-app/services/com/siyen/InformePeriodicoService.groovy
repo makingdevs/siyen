@@ -2,12 +2,33 @@ package com.siyen
 
 class InformePeriodicoService {
 
-  // params.meses
-  // params.puerto
-  // params.libreta
-  // params.anio
+  def datosDeGraficacion(anio) {
+    def data = criteriaDeCrusoProgramado(anio)
+    conteo(data, "puerto", "clave")
+  }
 
-  def obtenerDatosDeGraficacion(anio, criteria = null) {
+  def datosDeGraficacion(anio, claveDelPuerto) {
+    def puertoCriteria = criteriaDelPuerto(claveDelPuerto)
+
+    def data = criteriaDeCrusoProgramado(anio, puertoCriteria)
+    conteo(data, "curso", "libreta")
+  }
+
+  def datosDeGraficacion(anio, claveDelPuerto, libreta) {
+    def puertoCriteria = criteriaDelPuerto(claveDelPuerto)
+
+    def cursosPorLibreta = Curso.findAllByLibreta(libreta)
+    def criteria = {
+      puertoCriteria.delegate = delegate
+      puertoCriteria()
+      'in' ("curso", cursosPorLibreta)
+    }
+
+    def data = criteriaDeCrusoProgramado(anio, criteria)
+    conteo(data, "curso", "clave")
+  }
+
+  private def criteriaDeCrusoProgramado(anio, criteria = null) {
     def cursoProgramadoCriteria = CursoProgramado.createCriteria()
     def resultados = cursoProgramadoCriteria.list {
       sqlRestriction "year(fecha_de_inicio) = ${anio}"
@@ -19,47 +40,15 @@ class InformePeriodicoService {
     resultados
   }
 
-  def agrupar(anio, relacion, propiedad) {
-    def data = obtenerDatosDeGraficacion(anio)
-    def agrupamiento = [:]
-    data.each { cursoProgramado ->
-      if(!agrupamiento.(cursoProgramado."$relacion"."$propiedad")) {
-        agrupamiento.(cursoProgramado."$relacion"."$propiedad") = 0
-      }
-      agrupamiento.(cursoProgramado."$relacion"."$propiedad") += 1
-    }
-
-    agrupamiento
-  }
-
-  def agrupar(anio, claveDelPuerto, relacion, propiedad) {
+  private def criteriaDelPuerto(claveDelPuerto) {
     def puerto = Puerto.findByClave(claveDelPuerto)
     def puertoCriteria = {
       eq "puerto", puerto
     }
-    def data = obtenerDatosDeGraficacion(anio, puertoCriteria)
-
-    def agrupamiento = [:]
-    data.each { cursoProgramado ->
-      if(!agrupamiento.(cursoProgramado."$relacion"."$propiedad")) {
-        agrupamiento.(cursoProgramado."$relacion"."$propiedad") = 0
-      }
-      agrupamiento.(cursoProgramado."$relacion"."$propiedad") += 1
-    }
-
-    agrupamiento
+    puertoCriteria
   }
 
-  def agrupar(anio, claveDelPuerto, libreta, relacion, propiedad) {
-    def puerto = Puerto.findByClave(claveDelPuerto)
-    def cursosPorLibreta = Curso.findAllByLibreta(libreta)
-
-    def criteria = {
-      eq "puerto", puerto
-      'in' ("curso", cursosPorLibreta)
-    }
-    def data = obtenerDatosDeGraficacion(anio, criteria)
-
+  private def conteo(data, relacion, propiedad) {
     def agrupamiento = [:]
     data.each { cursoProgramado ->
       if(!agrupamiento.(cursoProgramado."$relacion"."$propiedad")) {
@@ -67,7 +56,6 @@ class InformePeriodicoService {
       }
       agrupamiento.(cursoProgramado."$relacion"."$propiedad") += 1
     }
-
     agrupamiento
   }
 }
