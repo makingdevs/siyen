@@ -58,7 +58,7 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
       ]
   }
 
-  def "Obteniendo los datos de graficación para los puertos por año y meses"() {
+  def "Obteniendo los datos de graficación para las libretas por puerto y año"() {
     setup : "Asignando los valores a graficar"
       def anio = 2012
       def puerto = "GYS"
@@ -81,4 +81,38 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
       ]
   }
 
+  def "Obteniendo los datos de graficación para el tipo de libreta por año y puerto"() {
+    setup : "Asignando los valores a graficar"
+      def anio = 2012
+      def puerto = "GYS"
+      def libreta = "A"
+
+    when : "Llamando al servicio de graficación"
+      def resultados = informePeriodicoService.agrupar(anio, puerto, libreta, "curso", "clave")
+
+    then :
+      resultados.size() == datosAGraficar.size()
+      resultados == datosAGraficar
+
+    where :
+      datosAGraficar << [
+        [
+          CAPACO3234 :        7,
+          CAPCAM311  :        8,
+          CAPCOC312  :        5,
+          CAPCON322  :       11,
+          CAPMAY313  :        4,
+          CAPMOT331  :        7,
+          CAPMOT333  :        1,
+          CAPTIM321  :       11,
+          COURSE2_09 :        1,
+          FAMBT1     :       25,
+          INICIA     :        8,
+          INICIA1    :       13,
+          STCW95     :       46,
+          STCW95_1   :        6,
+          STCW95_2   :        1
+        ]
+      ]
+  }
 }

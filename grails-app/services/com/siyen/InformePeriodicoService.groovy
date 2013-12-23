@@ -7,13 +7,13 @@ class InformePeriodicoService {
   // params.libreta
   // params.anio
 
-  def obtenerDatosDeGraficacion(anio, closurePuerto = null) {
+  def obtenerDatosDeGraficacion(anio, criteria = null) {
     def cursoProgramadoCriteria = CursoProgramado.createCriteria()
     def resultados = cursoProgramadoCriteria.list {
       sqlRestriction "year(fecha_de_inicio) = ${anio}"
 
-      closurePuerto?.delegate = delegate
-      closurePuerto?.call()
+      criteria?.delegate = delegate
+      criteria?.call()
     }
 
     resultados
@@ -50,4 +50,24 @@ class InformePeriodicoService {
     agrupamiento
   }
 
+  def agrupar(anio, claveDelPuerto, libreta, relacion, propiedad) {
+    def puerto = Puerto.findByClave(claveDelPuerto)
+    def cursosPorLibreta = Curso.findAllByLibreta(libreta)
+
+    def criteria = {
+      eq "puerto", puerto
+      'in' ("curso", cursosPorLibreta)
+    }
+    def data = obtenerDatosDeGraficacion(anio, criteria)
+
+    def agrupamiento = [:]
+    data.each { cursoProgramado ->
+      if(!agrupamiento.(cursoProgramado."$relacion"."$propiedad")) {
+        agrupamiento.(cursoProgramado."$relacion"."$propiedad") = 0
+      }
+      agrupamiento.(cursoProgramado."$relacion"."$propiedad") += 1
+    }
+
+    agrupamiento
+  }
 }
