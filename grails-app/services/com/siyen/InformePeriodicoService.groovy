@@ -3,14 +3,14 @@ package com.siyen
 class InformePeriodicoService {
 
   def datosDeGraficacion(anio) {
-    def data = criteriaDeCrusoProgramado(anio)
+    def data = criteriaDeCursoProgramado(anio)
     conteo(data, "puerto", "clave")
   }
 
   def datosDeGraficacion(anio, claveDelPuerto) {
     def puertoCriteria = criteriaDelPuerto(claveDelPuerto)
 
-    def data = criteriaDeCrusoProgramado(anio, puertoCriteria)
+    def data = criteriaDeCursoProgramado(anio, puertoCriteria)
     conteo(data, "curso", "libreta")
   }
 
@@ -24,11 +24,47 @@ class InformePeriodicoService {
       'in' ("curso", cursosPorLibreta)
     }
 
-    def data = criteriaDeCrusoProgramado(anio, criteria)
+    def data = criteriaDeCursoProgramado(anio, criteria)
     conteo(data, "curso", "clave")
   }
 
-  private def criteriaDeCrusoProgramado(anio, criteria = null) {
+  def datosDeGraficacionParaElMes(anio, mes) {
+    def mesCriteria = {
+      sqlRestriction "month(fecha_de_inicio) = ${mes}"
+    }
+
+    def data = criteriaDeCursoProgramado(anio, mesCriteria)
+    conteo(data, "puerto", "clave")
+  }
+
+  def datosDeGraficacionParaElMes(anio, claveDelPuerto, mes) {
+    def puertoCriteria = criteriaDelPuerto(claveDelPuerto)
+    def mesCriteria = {
+      sqlRestriction "month(fecha_de_inicio) = ${mes}"
+      puertoCriteria.delegate = delegate
+      puertoCriteria()
+    }
+
+    def data = criteriaDeCursoProgramado(anio, mesCriteria)
+    conteo(data, "curso", "libreta")
+  }
+
+  def datosDeGraficacionParaElMes(anio, claveDelPuerto, libreta, mes) {
+    def puertoCriteria = criteriaDelPuerto(claveDelPuerto)
+    def cursosPorLibreta = Curso.findAllByLibreta(libreta)
+
+    def mesCriteria = {
+      sqlRestriction "month(fecha_de_inicio) = ${mes}"
+      puertoCriteria.delegate = delegate
+      puertoCriteria()
+      'in' ("curso", cursosPorLibreta)
+    }
+
+    def data = criteriaDeCursoProgramado(anio, mesCriteria)
+    conteo(data, "curso", "clave")
+  }
+
+  private def criteriaDeCursoProgramado(anio, criteria = null) {
     def cursoProgramadoCriteria = CursoProgramado.createCriteria()
     def resultados = cursoProgramadoCriteria.list {
       sqlRestriction "year(fecha_de_inicio) = ${anio}"

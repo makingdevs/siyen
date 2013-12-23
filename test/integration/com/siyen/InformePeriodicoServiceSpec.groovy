@@ -122,7 +122,7 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
       def mes = 3
 
     when : "Llamando al servicio de graficación"
-      def resultados = informePeriodicoService.datosDeGraficacion(anio, mes)
+      def resultados = informePeriodicoService.datosDeGraficacionParaElMes(anio, mes)
 
     then :
       resultados.size() == datosAGraficar.size()
@@ -148,6 +148,58 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
           'SCO'   : 31,
           'TOP'   :  3,
           'ZIH'   : 10
+        ]
+      ]
+  }
+
+  def "Obteniendo los datos de graficación para las libretas por puerto, año y mes"() {
+    setup : "Asignando los valores a graficar"
+      def anio = 2012
+      def puerto = "GYS"
+      def mes = 3
+
+    when : "Llamando al servicio de graficación"
+      def resultados = informePeriodicoService.datosDeGraficacionParaElMes(anio, puerto, mes)
+
+    then :
+      resultados.size() == datosAGraficar.size()
+      resultados == datosAGraficar
+
+    where :
+      datosAGraficar << [
+        [
+          'A' : 17,
+          'B' : 9,
+          'C' : 4
+        ]
+      ]
+  }
+
+  def "Obteniendo los datos de graficación para el tipo de libreta por año, puerto y mes"() {
+    setup : "Asignando los valores a graficar"
+      def anio = 2012
+      def puerto = "GYS"
+      def libreta = "A"
+      def mes = 3
+
+    when : "Llamando al servicio de graficación"
+      def resultados = informePeriodicoService.datosDeGraficacionParaElMes(anio, puerto, libreta, mes)
+
+    then :
+      resultados.size() == datosAGraficar.size()
+      resultados == datosAGraficar
+
+    where :
+      datosAGraficar << [
+        [
+          CAPACO3234 : 2,
+          CAPCAM311 : 2,
+          CAPCOC312 : 1,
+          CAPCON322 : 3,
+          CAPMOT331 : 1,
+          FAMBT1 : 2,
+          STCW95 : 3,
+          STCW95_1 : 3
         ]
       ]
   }
