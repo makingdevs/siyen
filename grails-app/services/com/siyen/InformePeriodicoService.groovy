@@ -2,86 +2,69 @@ package com.siyen
 
 class InformePeriodicoService {
 
-  def datosDeGraficacion(anio) {
-    def data = criteriaDeCursoProgramado(anio)
-    conteo(data, "puerto", "clave")
-  }
-
-  def datosDeGraficacion(anio, claveDelPuerto) {
-    def puertoCriteria = criteriaDelPuerto(claveDelPuerto)
-
-    def data = criteriaDeCursoProgramado(anio, puertoCriteria)
-    conteo(data, "curso", "libreta")
-  }
-
-  def datosDeGraficacion(anio, claveDelPuerto, libreta) {
-    def puertoCriteria = criteriaDelPuerto(claveDelPuerto)
-
-    def cursosPorLibreta = Curso.findAllByLibreta(libreta)
-    def criteria = {
-      puertoCriteria.delegate = delegate
-      puertoCriteria()
-      'in' ("curso", cursosPorLibreta)
-    }
-
-    def data = criteriaDeCursoProgramado(anio, criteria)
-    conteo(data, "curso", "clave")
-  }
-
-  def datosDeGraficacionParaElMes(anio, mes) {
-    def mesCriteria = {
-      sqlRestriction "month(fecha_de_inicio) = ${mes}"
-    }
-
-    def data = criteriaDeCursoProgramado(anio, mesCriteria)
-    conteo(data, "puerto", "clave")
-  }
-
-  def datosDeGraficacionParaElMes(anio, claveDelPuerto, mes) {
-    def puertoCriteria = criteriaDelPuerto(claveDelPuerto)
-    def mesCriteria = {
-      sqlRestriction "month(fecha_de_inicio) = ${mes}"
-      puertoCriteria.delegate = delegate
-      puertoCriteria()
-    }
-
-    def data = criteriaDeCursoProgramado(anio, mesCriteria)
-    conteo(data, "curso", "libreta")
-  }
-
-  def datosDeGraficacionParaElMes(anio, claveDelPuerto, libreta, mes) {
-    def puertoCriteria = criteriaDelPuerto(claveDelPuerto)
-    def cursosPorLibreta = Curso.findAllByLibreta(libreta)
-
-    def mesCriteria = {
-      sqlRestriction "month(fecha_de_inicio) = ${mes}"
-      puertoCriteria.delegate = delegate
-      puertoCriteria()
-      'in' ("curso", cursosPorLibreta)
-    }
-
-    def data = criteriaDeCursoProgramado(anio, mesCriteria)
-    conteo(data, "curso", "clave")
-  }
-
-  private def criteriaDeCursoProgramado(anio, criteria = null) {
-    def cursoProgramadoCriteria = CursoProgramado.createCriteria()
-    def resultados = cursoProgramadoCriteria.list {
+  private def criteriaBuilderForAnio(anio) {
+    def criteriaBase = {
       sqlRestriction "year(fecha_de_inicio) = ${anio}"
-
-      criteria?.delegate = delegate
-      criteria?.call()
     }
-
-    resultados
+    criteriaBase
   }
 
-  private def criteriaDelPuerto(claveDelPuerto) {
+  private def criteriaBuilderForPuerto(claveDelPuerto) {
     def puerto = Puerto.findByClave(claveDelPuerto)
     def puertoCriteria = {
       eq "puerto", puerto
     }
     puertoCriteria
+  }
+
+  private def criteriaBuilderForLibreta(libreta) {
+    def cursosPorLibreta = Curso.findAllByLibreta(libreta)
+    def libretaCriteria = {
+      'in' ("curso", cursosPorLibreta)
+    }
+    libretaCriteria
+  }
+
+  private def criteriaPorMes(mes) {
+    def mesCriteria = {
+      sqlRestriction "month(fecha_de_inicio) = ${mes}"
+    }
+    mesCriteria
+  }
+
+  def datosDeGraficacion(anio, puerto = null, libreta = null) {
+    def cursoProgramadoCriteria = CursoProgramado.createCriteria()
+    String relacion = "puerto"
+    String propiedad = "clave"
+
+    def criteriaForAnio = criteriaBuilderForAnio(anio)
+    def criteriaForPuerto = null
+    def criteriaForLibreta = null
+
+    if(puerto) {
+      criteriaForPuerto = criteriaBuilderForPuerto(puerto)
+      relacion = "curso"
+      propiedad = "libreta"
+    }
+
+    if(libreta) {
+      criteriaForLibreta = criteriaBuilderForLibreta(libreta)
+      relacion = "curso"
+      propiedad = "clave"
+    }
+
+    def resultados = cursoProgramadoCriteria.list {
+      criteriaForAnio?.delegate = delegate
+      criteriaForAnio?.call()
+
+      criteriaForPuerto?.delegate = delegate
+      criteriaForPuerto?.call()
+
+      criteriaForLibreta?.delegate = delegate
+      criteriaForLibreta?.call()
+    }
+
+    conteo(resultados, relacion, propiedad)
   }
 
   private def conteo(data, relacion, propiedad) {
