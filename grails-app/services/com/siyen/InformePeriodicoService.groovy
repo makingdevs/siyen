@@ -3,25 +3,23 @@ package com.siyen
 class InformePeriodicoService {
 
   def datosDeGraficacion(def params) {
+    def (relacion, propiedad) = seleccionarMetodoDeConteo(params.keySet())
     def cursoProgramadoCriteria = CursoProgramado.createCriteria()
-
-    def criteriaClosure = []
+    def listaCriteriaClosures = []
 
     params.keySet().each { key ->
       def value = params["${key}"]
       def criteriaBuilder = "criteriaBuilderFor${key.capitalize()}"(value)
-      criteriaClosure << {
+      listaCriteriaClosures << {
         criteriaBuilder.delegate = delegate
         criteriaBuilder.call()
       }
     }
 
     def resultados = cursoProgramadoCriteria.list {
-      criteriaClosure*.delegate = delegate
-      criteriaClosure*.call()
+      listaCriteriaClosures*.delegate = delegate
+      listaCriteriaClosures*.call()
     }
-
-    def (relacion, propiedad) = seleccionarMetodoDeConteo(params.keySet())
 
     conteo(resultados, relacion, propiedad)
   }
