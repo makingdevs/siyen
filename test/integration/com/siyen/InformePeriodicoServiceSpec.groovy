@@ -208,4 +208,46 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
         ]
       ]
   }
+
+  def "Obteniendo los datos de graficación para el tipo de libreta por año, puerto y mes"() {
+    setup : "Asignando los valores a graficar"
+      def params = [:]
+      params.anio = 2012
+      params.puerto = "GYS"
+      params.libreta = "A"
+      params.mes = [3, 4]
+
+    when : "Llamando al servicio de graficación"
+      def resultados = informePeriodicoService.datosDeGraficacion(params)
+
+    then :
+      resultados.size() == datosAGraficar.size()
+      resultados == datosAGraficar
+
+    where :
+      datosAGraficar << [
+        [
+          3 : [
+                CAPACO3234 : 2,
+                CAPCAM311 : 2,
+                CAPCOC312 : 1,
+                CAPCON322 : 3,
+                CAPMOT331 : 1,
+                FAMBT1 : 2,
+                STCW95 : 3,
+                STCW95_1 : 3
+              ],
+          4 : [
+                CAPACO3234 : 2,
+                CAPCAM311 : 2,
+                CAPCOC312 : 1,
+                CAPCON322 : 3,
+                CAPMOT331 : 1,
+                FAMBT1 : 2,
+                STCW95 : 3,
+                STCW95_1 : 3
+              ]
+        ]
+      ]
+  }
 }
