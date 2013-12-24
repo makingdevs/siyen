@@ -181,13 +181,14 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
 
   def "Obteniendo los datos de graficación para el tipo de libreta por año, puerto y mes"() {
     setup : "Asignando los valores a graficar"
-      def anio = 2012
-      def puerto = "GYS"
-      def libreta = "A"
-      def mes = 3
+      def params = [:]
+      params.anio = 2012
+      params.puerto = "GYS"
+      params.libreta = "A"
+      params.mes = 3
 
     when : "Llamando al servicio de graficación"
-      def resultados = informePeriodicoService.datosDeGraficacionParaElMes(anio, puerto, libreta, mes)
+      def resultados = informePeriodicoService.datosDeGraficacion(params)
 
     then :
       resultados.size() == datosAGraficar.size()
