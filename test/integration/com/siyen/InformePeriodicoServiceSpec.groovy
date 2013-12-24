@@ -8,10 +8,10 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
 
   def "Obteniendo los datos de graficación para los puertos por año"() {
     setup : "Asignando los valores a graficar"
-      def anio = 2012
+      def params = ['anio':2012]
 
     when : "Llamando al servicio de graficación"
-      def resultados = informePeriodicoService.datosDeGraficacion(anio)
+      def resultados = informePeriodicoService.datosDeGraficacion(params)
 
     then :
       resultados.size() == datosAGraficar.size()
@@ -60,11 +60,12 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
 
   def "Obteniendo los datos de graficación para las libretas por puerto y año"() {
     setup : "Asignando los valores a graficar"
-      def anio = 2012
-      def puerto = "GYS"
+      def params = [:]
+      params.anio = 2012
+      params.puerto = "GYS"
 
     when : "Llamando al servicio de graficación"
-      def resultados = informePeriodicoService.datosDeGraficacion(anio, puerto)
+      def resultados = informePeriodicoService.datosDeGraficacion(params)
 
     then :
       resultados.size() == datosAGraficar.size()
@@ -83,12 +84,13 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
 
   def "Obteniendo los datos de graficación para el tipo de libreta por año y puerto"() {
     setup : "Asignando los valores a graficar"
-      def anio = 2012
-      def puerto = "GYS"
-      def libreta = "A"
+      def params = [:]
+      params.anio = 2012
+      params.puerto = "GYS"
+      params.libreta = "A"
 
     when : "Llamando al servicio de graficación"
-      def resultados = informePeriodicoService.datosDeGraficacion(anio, puerto, libreta)
+      def resultados = informePeriodicoService.datosDeGraficacion(params)
 
     then :
       resultados.size() == datosAGraficar.size()
@@ -97,32 +99,33 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
     where :
       datosAGraficar << [
         [
-          'CAPACO3234' :        7,
-          'CAPCAM311'  :        8,
-          'CAPCOC312'  :        5,
-          'CAPCON322'  :       11,
-          'CAPMAY313'  :        4,
-          'CAPMOT331'  :        7,
-          'CAPMOT333'  :        1,
-          'CAPTIM321'  :       11,
-          'COURSE2_09' :        1,
-          'FAMBT1'     :       25,
-          'INICIA'     :        8,
-          'INICIA1'    :       13,
-          'STCW95'     :       46,
-          'STCW95_1'   :        6,
-          'STCW95_2'   :        1
+          'CAPACO3234' : 7,
+          'CAPCAM311'  : 8,
+          'CAPCOC312'  : 5,
+          'CAPCON322'  : 11,
+          'CAPMAY313'  : 4,
+          'CAPMOT331'  : 7,
+          'CAPMOT333'  : 1,
+          'CAPTIM321'  : 11,
+          'COURSE2_09' : 1,
+          'FAMBT1'     : 25,
+          'INICIA'     : 8,
+          'INICIA1'    : 13,
+          'STCW95'     : 46,
+          'STCW95_1'   : 6,
+          'STCW95_2'   : 1
         ]
       ]
   }
 
   def "Obteniendo los datos de graficación para los puertos por año en un mes"() {
     setup : "Asignando los valores a graficar"
-      def anio = 2012
-      def mes = 3
+      def params = [:]
+      params.anio = 2012
+      params.mes = 3
 
     when : "Llamando al servicio de graficación"
-      def resultados = informePeriodicoService.datosDeGraficacionParaElMes(anio, mes)
+      def resultados = informePeriodicoService.datosDeGraficacion(params)
 
     then :
       resultados.size() == datosAGraficar.size()
@@ -154,12 +157,13 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
 
   def "Obteniendo los datos de graficación para las libretas por puerto, año y mes"() {
     setup : "Asignando los valores a graficar"
-      def anio = 2012
-      def puerto = "GYS"
-      def mes = 3
+      def params = [:]
+      params.anio = 2012
+      params.puerto = "GYS"
+      params.mes = 3
 
     when : "Llamando al servicio de graficación"
-      def resultados = informePeriodicoService.datosDeGraficacionParaElMes(anio, puerto, mes)
+      def resultados = informePeriodicoService.datosDeGraficacion(params)
 
     then :
       resultados.size() == datosAGraficar.size()

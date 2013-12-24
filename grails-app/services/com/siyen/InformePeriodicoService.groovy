@@ -2,6 +2,30 @@ package com.siyen
 
 class InformePeriodicoService {
 
+  def datosDeGraficacion(def params) {
+    def cursoProgramadoCriteria = CursoProgramado.createCriteria()
+
+    def criteriaClosure = []
+
+    params.keySet().each { key ->
+      def value = params["${key}"]
+      def criteriaBuilder = "criteriaBuilderFor${key.capitalize()}"(value)
+      criteriaClosure << {
+        criteriaBuilder.delegate = delegate
+        criteriaBuilder.call()
+      }
+    }
+
+    def resultados = cursoProgramadoCriteria.list {
+      criteriaClosure*.delegate = delegate
+      criteriaClosure*.call()
+    }
+
+    def (relacion, propiedad) = seleccionarMetodoDeConteo(params.keySet())
+
+    conteo(resultados, relacion, propiedad)
+  }
+
   private def criteriaBuilderForAnio(anio) {
     def criteriaBase = {
       sqlRestriction "year(fecha_de_inicio) = ${anio}"
@@ -25,46 +49,11 @@ class InformePeriodicoService {
     libretaCriteria
   }
 
-  private def criteriaPorMes(mes) {
+  private def criteriaBuilderForMes(mes) {
     def mesCriteria = {
       sqlRestriction "month(fecha_de_inicio) = ${mes}"
     }
     mesCriteria
-  }
-
-  def datosDeGraficacion(anio, puerto = null, libreta = null) {
-    def cursoProgramadoCriteria = CursoProgramado.createCriteria()
-    String relacion = "puerto"
-    String propiedad = "clave"
-
-    def criteriaForAnio = criteriaBuilderForAnio(anio)
-    def criteriaForPuerto = null
-    def criteriaForLibreta = null
-
-    if(puerto) {
-      criteriaForPuerto = criteriaBuilderForPuerto(puerto)
-      relacion = "curso"
-      propiedad = "libreta"
-    }
-
-    if(libreta) {
-      criteriaForLibreta = criteriaBuilderForLibreta(libreta)
-      relacion = "curso"
-      propiedad = "clave"
-    }
-
-    def resultados = cursoProgramadoCriteria.list {
-      criteriaForAnio?.delegate = delegate
-      criteriaForAnio?.call()
-
-      criteriaForPuerto?.delegate = delegate
-      criteriaForPuerto?.call()
-
-      criteriaForLibreta?.delegate = delegate
-      criteriaForLibreta?.call()
-    }
-
-    conteo(resultados, relacion, propiedad)
   }
 
   private def conteo(data, relacion, propiedad) {
@@ -77,4 +66,15 @@ class InformePeriodicoService {
     }
     agrupamiento
   }
+
+  private def seleccionarMetodoDeConteo(def keySet) {
+    if(keySet.contains('libreta'))
+      return ["curso", "clave"]
+    
+    if(keySet.contains('puerto'))
+      return ["curso", "libreta"]
+
+    return ["puerto", "clave"]
+  }
+
 }
