@@ -1,19 +1,17 @@
-App.Router.map -> 
+App.Router.map ->
+  @route 'archivo'
+  @route 'notificacion'
+  @route 'busqueda'
+
   @resource 'cursosNuevos', ->
     @resource 'crear', ->
       @route 'participantes'
 
-  @resource 'archivo'
-
   @resource 'cursosAutorizados', ->
     @resource 'edit', { path: ":curso_programado_id" }
 
-  @resource 'notificacion'
-
-  @resource 'busqueda'
-
 App.CursosNuevosRoute = Ember.Route.extend()
-App.CursosNuevosCrearRoute = Ember.Route.extend()
+App.CrearRoute = Ember.Route.extend()
 App.CrearParticipantesRoute = Ember.Route.extend()
 
 App.ArchivoRoute = Ember.Route.extend()
