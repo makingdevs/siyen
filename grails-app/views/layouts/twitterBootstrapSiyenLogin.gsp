@@ -54,22 +54,22 @@
                     </a>
                     <ul class="dropdown-menu">
                       <li>
-                        {{#linkTo "cursosNuevos" }}Nuevo{{/linkTo}}
+                        {{#link-to "cursosNuevos" }}Nuevo{{/link-to}}
                       </li>
                       <li>
-                        {{#linkTo "cursosAutorizados" }}Autorizados{{/linkTo}}
+                        {{#link-to "cursosAutorizados" }}Autorizados{{/link-to}}
                       </li>
                     </ul>
                   </li>
                   <li>
-                    {{#linkTo "archivo" }}Procesar archivo{{/linkTo}}
+                    {{#link-to "archivo" }}Procesar archivo{{/link-to}}
                   </li>
                   <li>
-                    {{#linkTo "busqueda" }}Busqueda{{/linkTo}}
+                    {{#link-to "busqueda" }}Busqueda{{/link-to}}
                   </li>
                   <sec:access expression="hasRole('ROLE_ADMIN')">
                     <li>
-                      {{#linkTo "notificacion" }}Notificaciones{{/linkTo}}
+                      {{#link-to "notificacion" }}Notificaciones{{/link-to}}
                     </li>
 
                     <li>
@@ -114,9 +114,9 @@
       </footer>
     </script>
 
-  <input type="hidden" id="frenteParaCurso" value="${g.createLink(action:'generarFrenteParaCurso', controller:'certificado')}" />
-  <input type="hidden" id="reversoParaCurso" value="${g.createLink(action:'generarReversoParaCurso', controller:'certificado')}" />
-  <input type="hidden" id="urlBusqueda" value="${g.createLink(action:'realizarBusqueda', controller:'busqueda')}" />
+    <input type="hidden" id="frenteParaCurso" value="${g.createLink(action:'generarFrenteParaCurso', controller:'certificado')}" />
+    <input type="hidden" id="reversoParaCurso" value="${g.createLink(action:'generarReversoParaCurso', controller:'certificado')}" />
+    <input type="hidden" id="urlBusqueda" value="${g.createLink(action:'realizarBusqueda', controller:'busqueda')}" />
 
     <r:layoutResources />
   </body>
