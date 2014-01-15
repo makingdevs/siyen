@@ -67,7 +67,7 @@ class CursoProgramadoService {
     }
 
     if(cursoProgramado) {
-      throw new BusinessException("Información duplicada", cursoProgramado)
+      throw new BusinessException("Información duplicada")
     }
 
     new CursoProgramado( fechaDeInicio : fechaDeInicio, puerto : puerto, curso : curso, instructor : instructor )
