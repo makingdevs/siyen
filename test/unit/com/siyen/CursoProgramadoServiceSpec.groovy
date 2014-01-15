@@ -122,9 +122,10 @@ class CursoProgramadoServiceSpec extends Specification {
 
     then:
       BusinessException be = thrown()
+      be.data
+      be.data.fechaDeInicio.format("dd/MM/yyyy")
       be.message == "Información duplicada"
-      // be.data
-      // be.data.fechaDeInicio.format("dd/MM/yyyy")
+
     where :
       fechaDeInicioCmd  | fechaDeInicioCurso | duracion
         new Date()      | new Date()         | 1

@@ -59,9 +59,6 @@ class CursoProgramadoService {
     Curso curso = Curso.get(cmd.curso)
     Instructor instructor = Instructor.get(cmd.instructor)
 
-    log.debug fechaDeInicio
-    log.debug fechaDeInicio.clone().plus(curso.duracion)
-
     CursoProgramado cursoProgramado = CursoProgramado.createCriteria().get {
       between "fechaDeTermino", fechaDeInicio, fechaDeInicio.clone().plus(curso.duracion)
       eq "puerto", puerto
@@ -70,7 +67,7 @@ class CursoProgramadoService {
     }
 
     if(cursoProgramado) {
-      throw new BusinessException("Información duplicada")
+      throw new BusinessException("Información duplicada", cursoProgramado)
     }
 
     new CursoProgramado( fechaDeInicio : fechaDeInicio, puerto : puerto, curso : curso, instructor : instructor )
