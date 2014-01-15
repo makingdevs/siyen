@@ -38,8 +38,9 @@ App.CursosNuevosController = Ember.ArrayController.extend
           @content.removeObject(@get('autorizarCurso'))
           @transitionToRoute('cursosAutorizados')
 
-        ->
-          console.log "failed"
+        (reason) ->
+          debugger
+          console.log "#{reason}"
       )
 
 App.CursosAutorizadosController = Ember.ArrayController.extend()
@@ -67,7 +68,7 @@ App.EditController = Ember.ObjectController.extend
 
       if @currentParticipanteIndex >= 0
         alumno = cursoProgramado.get('alumnos').objectAt(@currentParticipanteIndex)
-      else 
+      else
         alumno = @store.createRecord('alumno')
 
       alumno.set('nombreCompleto', @nombreCompleto)

@@ -42,8 +42,9 @@
           ($("#confirmarAutorizacionDialog")).modal('hide');
           _this.content.removeObject(_this.get('autorizarCurso'));
           return _this.transitionToRoute('cursosAutorizados');
-        }, function() {
-          return console.log("failed");
+        }, function(reason) {
+          debugger;
+          return console.log("" + reason);
         });
       }
     }
