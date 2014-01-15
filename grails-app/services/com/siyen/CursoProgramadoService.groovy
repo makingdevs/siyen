@@ -2,6 +2,7 @@ package com.siyen
 
 import grails.converters.*
 import org.vertx.java.core.json.*
+import com.siyen.exceptions.BusinessException
 
 class CursoProgramadoService {
 
@@ -9,13 +10,8 @@ class CursoProgramadoService {
   def notificacionService
 
   def crearCursoDesdeCommand(CursoProgramadoCommand cmd) {
-    CursoProgramado cursoProgramado = new CursoProgramado()
-    Date fechaDeInicio = Date.parse("dd/MM/yyyy", cmd.fechaDeInicio)
-    cursoProgramado.fechaDeInicio = fechaDeInicio
-    cursoProgramado.puerto = Puerto.get(cmd.puerto)
-    cursoProgramado.curso = Curso.get(cmd.curso)
-    cursoProgramado.instructor = Instructor.get(cmd.instructor)
-    cursoProgramado.fechaDeTermino = fechaDeInicio.clone().plus( cursoProgramado.curso.duracion )
+    CursoProgramado cursoProgramado = validaTraslapeDeCursos(cmd)
+    cursoProgramado.fechaDeTermino = cursoProgramado.fechaDeInicio.clone().plus( cursoProgramado.curso.duracion )
     cursoProgramado.user = springSecurityService.currentUser
 
     cmd.alumnos.each { alumnoData ->
@@ -55,6 +51,26 @@ class CursoProgramadoService {
     Integer numerosEnMatricula = 6
     String numeroDeControl = prefijo + String.format("%0${numerosEnMatricula}d", id)
     numeroDeControl
+  }
+
+  private def validaTraslapeDeCursos(CursoProgramadoCommand cmd) {
+    Date fechaDeInicio = Date.parse("dd/MM/yyyy", cmd.fechaDeInicio)
+    Puerto puerto = Puerto.get(cmd.puerto)
+    Curso curso = Curso.get(cmd.curso)
+    Instructor instructor = Instructor.get(cmd.instructor)
+
+    CursoProgramado cursoProgramado = CursoProgramado.createCriteria().get {
+      between "fechaDeTermino", fechaDeInicio, fechaDeInicio.clone().plus(curso.duracion)
+      eq "puerto", puerto
+      eq "curso", curso
+      eq "instructor", instructor
+    }
+
+    if(cursoProgramado) {
+      throw new BusinessException("Información duplicada", cursoProgramado)
+    }
+
+    new CursoProgramado( fechaDeInicio : fechaDeInicio, puerto : puerto, curso : curso, instructor : instructor )
   }
 
 }
