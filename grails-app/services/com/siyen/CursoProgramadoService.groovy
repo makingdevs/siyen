@@ -10,7 +10,6 @@ class CursoProgramadoService {
   def notificacionService
 
   def crearCursoDesdeCommand(CursoProgramadoCommand cmd) {
-
     CursoProgramado cursoProgramado = validaTraslapeDeCursos(cmd)
     cursoProgramado.fechaDeTermino = cursoProgramado.fechaDeInicio.clone().plus( cursoProgramado.curso.duracion )
     cursoProgramado.user = springSecurityService.currentUser
@@ -60,8 +59,11 @@ class CursoProgramadoService {
     Curso curso = Curso.get(cmd.curso)
     Instructor instructor = Instructor.get(cmd.instructor)
 
+    log.debug fechaDeInicio
+    log.debug fechaDeInicio.clone().plus(curso.duracion)
+
     CursoProgramado cursoProgramado = CursoProgramado.createCriteria().get {
-      eq "fechaDeInicio", fechaDeInicio
+      between "fechaDeTermino", fechaDeInicio, fechaDeInicio.clone().plus(curso.duracion)
       eq "puerto", puerto
       eq "curso", curso
       eq "instructor", instructor

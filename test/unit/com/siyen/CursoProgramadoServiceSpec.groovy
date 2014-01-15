@@ -47,26 +47,68 @@ class CursoProgramadoServiceSpec extends Specification {
       cursoProgramado.id > 0
   }
 
-  def "Validando cursos traslapados"() {
+  def "Validando generacion de curso con fecha diferente en el mismo puerto para el mismo instructor y con el mismo curso"() {
     setup:
       def puerto = new Puerto().save(validate:false)
       def curso = new Curso(id:1, duracion:2).save(validate:false)
       def instructor = new Instructor().save(validate:false)
-      def fechaDeInicio = new Date().format('dd/MM/yyyy')
+      def fechaDeInicio = new Date()
 
       def cmd = new CursoProgramadoCommand(
-        fechaDeInicio : fechaDeInicio,
+        fechaDeInicio : fechaDeInicio.format('dd/MM/yyyy'),
         puerto : 1,
         curso : 1,
         instructor : 1
         )
     and : "guardando curso programado"
       new CursoProgramado(
-        fechaDeInicio : Date.parse('dd/MM/yyyy', fechaDeInicio),
+        fechaDeInicio : fechaDeInicio.clearTime() - 5,
+        fechaDeTermino : fechaDeInicio.clearTime() - 3,
         puerto : puerto,
         curso : curso,
         instructor : instructor
       ).save(validate:false)
+
+    and :
+      def springSecurityServiceMock = mockFor(SpringSecurityService)
+      springSecurityServiceMock.demand.getCurrentUser { ->
+        new User().save(validate:false)
+      }
+      service.springSecurityService = springSecurityServiceMock.createMock()
+
+      def notificacionServiceMock = mockFor(NotificacionService)
+      notificacionServiceMock.demand.enviarNotificacion { bus, data ->
+      }
+      service.notificacionService = notificacionServiceMock.createMock()
+
+    when :
+      def cursoProgramado = service.crearCursoDesdeCommand( cmd )
+
+    then:
+      cursoProgramado.id > 0
+  }
+
+  def "Validando cursos traslapados"() {
+    setup:
+      def puerto = new Puerto().save(validate:false)
+      def curso = new Curso(id:1, duracion:duracion).save(validate:false)
+      def instructor = new Instructor().save(validate:false)
+
+      def cmd = new CursoProgramadoCommand(
+        fechaDeInicio : fechaDeInicioCmd.format('dd/MM/yyyy'),
+        puerto : 1,
+        curso : 1,
+        instructor : 1
+        )
+    and : "guardando curso programado"
+      def c = new CursoProgramado(
+        fechaDeInicio : fechaDeInicioCurso.clearTime(),
+        fechaDeTermino : fechaDeInicioCurso.clearTime().clone().plus(duracion),
+        puerto : puerto,
+        curso : curso,
+        instructor : instructor
+      ).save(validate:false)
+      println c.fechaDeInicio
 
     and :
       def springSecurityServiceMock = mockFor(SpringSecurityService)
@@ -83,6 +125,11 @@ class CursoProgramadoServiceSpec extends Specification {
       be.message == "Información duplicada"
       // be.data
       // be.data.fechaDeInicio.format("dd/MM/yyyy")
+    where :
+      fechaDeInicioCmd  | fechaDeInicioCurso | duracion
+        new Date()      | new Date()         | 1
+        new Date() + 1  | new Date()         | 2
+        new Date() + 2  | new Date()         | 2
   }
 
 }
