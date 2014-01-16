@@ -1,4 +1,18 @@
-App.CursosNuevosController = Ember.ArrayController.extend
+App.BusquedaForGetType = Ember.Mixin.create
+  busquedaGetWithSelector : (selector) ->
+    $("body").on "click", selector, (event) ->
+      event.preventDefault()
+      $.ajax(
+        type: "GET"
+        url: event.target
+        success: (res, status, xhr) ->
+          $("#resultados").html( res )
+          $("#busquedaAvanzada").hide()
+        error: (xhr, status, err) ->
+          console.log "error"
+      )
+
+App.CursosNuevosController = Ember.ArrayController.extend App.BusquedaForGetType,
   content : []
   currentCurso : null
   autorizarCurso : null
@@ -41,43 +55,28 @@ App.CursosNuevosController = Ember.ArrayController.extend
         (reason) =>
           ($ "#confirmarAutorizacionDialog").modal('hide')
           jsonData = eval('(' + reason.responseText + ')')
+          cursos = "#{jsonData.curso},"
+          puertos = "#{jsonData.puerto},"
+          instructores = "#{jsonData.instructor},"
+          desde = moment(jsonData.fechaDeInicio, "YYYY-MM-DD").format('DD/MM/YYYY')
+          hasta = moment(jsonData.fechaDeTermino, "YYYY-MM-DD").format('DD/MM/YYYY')
+
           ($ "#duplicacion > .modal-body").html("""
-          <p> Se ha encontrado un curso con los mismos datos : </p>
-            <p> Fecha de inicio : #{jsonData.fechaDeInicio} </p>
-            <p> Fecha de término : #{jsonData.fechaDeTermino} </p>
-            <p> Instructor : #{jsonData.instructor} </p>
-            <p> Curso : #{jsonData.curso} </p>
-            <p> Puerto : #{jsonData.puerto} </p>
-            <a href="#/busqueda" id="busqueda"> Busqueda </a>
+            <p> Se ha encontrado un curso con los mismos datos : </p>
+            <p> Fecha de inicio : #{desde} </p>
+            <p> Fecha de término : #{hasta} </p>
+            <p> Instructor : #{instructores} </p>
+            <p> Curso : #{cursos} </p>
+            <p> Puerto : #{puertos} </p>
+            <a href="/busqueda/realizarBusqueda?buscar=&cursos=#{cursos}&puertos=#{puertos}&instructores=#{instructores}&desde=#{desde}&hasta=#{hasta}&offset=0&max=10
+" id="busqueda"> Busqueda </a>
           """)
+          @busquedaGetWithSelector("#busqueda")
 
           $("body").on "click", "#busqueda", (event) =>
-            event.preventDefault()
-            busqueda = $("#urlBusqueda").val()
-            cursos = "#{jsonData.curso},"
-            puertos = "#{jsonData.puerto},"
-            instructores = "#{jsonData.instructor},"
-            desde = moment(jsonData.fechaDeInicio, "YYYY-MM-DD").format('DD/MM/YYYY')
-            hasta = moment(jsonData.fechaDeTermino, "YYYY-MM-DD").format('DD/MM/YYYY')
             $("#duplicacion").modal('hide')
             @transitionToRoute('busqueda')
 
-            $.ajax(
-              type: "POST"
-              url: busqueda
-              data:
-                buscar : ""
-                cursos : cursos
-                puertos : puertos
-                instructores : instructores
-                desde : desde
-                hasta : hasta
-              success: (res, status, xhr) =>
-                $("#resultados").html( res )
-                $("#busquedaAvanzada").hide()
-              error: (xhr, status, err) ->
-                console.log "error"
-            )
           ($ "#duplicacion").modal('show')
       )
 
@@ -304,7 +303,7 @@ App.NotificacionController = Ember.ArrayController.extend
 
       @content.pushObject(notificacion)
 
-App.BusquedaController = Ember.ObjectController.extend
+App.BusquedaController = Ember.ObjectController.extend App.BusquedaForGetType,
   busqueda : null
   urlBusqueda : null
   desde : null
@@ -312,18 +311,7 @@ App.BusquedaController = Ember.ObjectController.extend
 
   init : ->
     @set('urlBusqueda', $("#urlBusqueda").val())
-
-    $("body").on "click", ".pagination li a", (event) ->
-      event.preventDefault()
-      $.ajax(
-        type: "GET"
-        url: event.target
-        success: (res, status, xhr) ->
-          $("#resultados").html( res )
-          $("#busquedaAvanzada").hide()
-        error: (xhr, status, err) ->
-          console.log "error"
-      )
+    @busquedaGetWithSelector('.pagination li a')
 
   actions :
     realizarBusqueda : ->
