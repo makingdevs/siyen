@@ -26,8 +26,21 @@ class CursoProgramadoController {
       }
     }
 
-    CursoProgramado cursoProgramado = cursoProgramadoService.crearCursoDesdeCommand(cmd)
-    renderResponseWithCursosProgramados(cursoProgramado)
+    try {
+      CursoProgramado cursoProgramado = cursoProgramadoService.crearCursoDesdeCommand(cmd)
+      renderResponseWithCursosProgramados(cursoProgramado)
+    }catch(ex) {
+      render(status:409, contentType: "text/json") {
+        [
+          message : ex.message,
+          fechaDeInicio : ex.data.fechaDeInicio,
+          fechaDeTermino : ex.data.fechaDeTermino,
+          instructor : ex.data.instructor.nombre,
+          curso : ex.data.curso.clave,
+          puerto : ex.data.puerto.clave
+        ]
+      }
+    }
   }
 
   def update(CursoProgramadoCommand cmd) {
