@@ -4,12 +4,11 @@ import org.springframework.core.NestedRuntimeException
 
 class BusinessException extends NestedRuntimeException {
 
-  BusinessException(String msg) {
-    super(msg)
-  }
+  Object data
 
-  BusinessException(String msg, Throwable cause) {
-    super(msg, cause)
+  BusinessException(String msg, Object data) {
+    super(msg)
+    this.data = data
   }
 
 }
