@@ -38,9 +38,47 @@ App.CursosNuevosController = Ember.ArrayController.extend
           @content.removeObject(@get('autorizarCurso'))
           @transitionToRoute('cursosAutorizados')
 
-        (reason) ->
-          debugger
-          console.log "#{reason}"
+        (reason) =>
+          ($ "#confirmarAutorizacionDialog").modal('hide')
+          jsonData = eval('(' + reason.responseText + ')')
+          ($ "#duplicacion > .modal-body").html("""
+          <p> Se ha encontrado un curso con los mismos datos : </p>
+            <p> Fecha de inicio : #{jsonData.fechaDeInicio} </p>
+            <p> Fecha de término : #{jsonData.fechaDeTermino} </p>
+            <p> Instructor : #{jsonData.instructor} </p>
+            <p> Curso : #{jsonData.curso} </p>
+            <p> Puerto : #{jsonData.puerto} </p>
+            <a href="#/busqueda" id="busqueda"> Busqueda </a>
+          """)
+
+          $("body").on "click", "#busqueda", (event) =>
+            event.preventDefault()
+            busqueda = $("#urlBusqueda").val()
+            cursos = "#{jsonData.curso},"
+            puertos = "#{jsonData.puerto},"
+            instructores = "#{jsonData.instructor},"
+            desde = moment(jsonData.fechaDeInicio, "YYYY-MM-DD").format('DD/MM/YYYY')
+            hasta = moment(jsonData.fechaDeTermino, "YYYY-MM-DD").format('DD/MM/YYYY')
+            $("#duplicacion").modal('hide')
+            @transitionToRoute('busqueda')
+
+            $.ajax(
+              type: "POST"
+              url: busqueda
+              data:
+                buscar : ""
+                cursos : cursos
+                puertos : puertos
+                instructores : instructores
+                desde : desde
+                hasta : hasta
+              success: (res, status, xhr) =>
+                $("#resultados").html( res )
+                $("#busquedaAvanzada").hide()
+              error: (xhr, status, err) ->
+                console.log "error"
+            )
+          ($ "#duplicacion").modal('show')
       )
 
 App.CursosAutorizadosController = Ember.ArrayController.extend()

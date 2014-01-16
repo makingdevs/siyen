@@ -43,8 +43,42 @@
           _this.content.removeObject(_this.get('autorizarCurso'));
           return _this.transitionToRoute('cursosAutorizados');
         }, function(reason) {
-          debugger;
-          return console.log("" + reason);
+          var jsonData;
+          ($("#confirmarAutorizacionDialog")).modal('hide');
+          jsonData = eval('(' + reason.responseText + ')');
+          ($("#duplicacion > .modal-body")).html("<p> Se ha encontrado un curso con los mismos datos : </p>\n  <p> Fecha de inicio : " + jsonData.fechaDeInicio + " </p>\n  <p> Fecha de término : " + jsonData.fechaDeTermino + " </p>\n  <p> Instructor : " + jsonData.instructor + " </p>\n  <p> Curso : " + jsonData.curso + " </p>\n  <p> Puerto : " + jsonData.puerto + " </p>\n  <a href=\"#/busqueda\" id=\"busqueda\"> Busqueda </a>");
+          $("body").on("click", "#busqueda", function(event) {
+            var busqueda, cursos, desde, hasta, instructores, puertos;
+            event.preventDefault();
+            busqueda = $("#urlBusqueda").val();
+            cursos = "" + jsonData.curso + ",";
+            puertos = "" + jsonData.puerto + ",";
+            instructores = "" + jsonData.instructor + ",";
+            desde = moment(jsonData.fechaDeInicio, "YYYY-MM-DD").format('DD/MM/YYYY');
+            hasta = moment(jsonData.fechaDeTermino, "YYYY-MM-DD").format('DD/MM/YYYY');
+            $("#duplicacion").modal('hide');
+            _this.transitionToRoute('busqueda');
+            return $.ajax({
+              type: "POST",
+              url: busqueda,
+              data: {
+                buscar: "",
+                cursos: cursos,
+                puertos: puertos,
+                instructores: instructores,
+                desde: desde,
+                hasta: hasta
+              },
+              success: function(res, status, xhr) {
+                $("#resultados").html(res);
+                return $("#busquedaAvanzada").hide();
+              },
+              error: function(xhr, status, err) {
+                return console.log("error");
+              }
+            });
+          });
+          return ($("#duplicacion")).modal('show');
         });
       }
     }
