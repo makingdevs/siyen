@@ -63,14 +63,29 @@ App.CursosNuevosController = Ember.ArrayController.extend App.BusquedaForGetType
 
           ($ "#duplicacion > .modal-body").html("""
             <p> Se ha encontrado un curso con los mismos datos : </p>
-            <p> Fecha de inicio : #{desde} </p>
-            <p> Fecha de término : #{hasta} </p>
-            <p> Instructor : #{instructores} </p>
-            <p> Curso : #{cursos} </p>
-            <p> Puerto : #{puertos} </p>
-            <a href="/busqueda/realizarBusqueda?buscar=&cursos=#{cursos}&puertos=#{puertos}&instructores=#{instructores}&desde=#{desde}&hasta=#{hasta}&offset=0&max=10
-" id="busqueda"> Busqueda </a>
+
+            <dl class="dl-horizontal">
+              <dt>Fecha de inicio</dt>
+              <dd>#{desde}</dd>
+
+              <dt>Fecha de término</dt>
+              <dd>#{hasta}</dd>
+
+              <dt>Instructor</dt>
+              <dd>#{instructores.replace(',', '')}</dd>
+
+              <dt>Curso</dt>
+              <dd>#{cursos.replace(',', '')}</dd>
+
+              <dt>Puerto</dt>
+              <dd>#{puertos.replace(',', '')}</dd>
+            </dl>
           """)
+
+          ($ "#duplicacion > .modal-footer").html("""
+            <a href="/busqueda/realizarBusqueda?buscar=&cursos=#{cursos}&puertos=#{puertos}&instructores=#{instructores}&desde=#{desde}&hasta=#{hasta}&offset=0&max=10" id="busqueda" class="btn btn-primary"> Ver los datos duplicados </a>
+          """)
+
           @busquedaGetWithSelector("#busqueda")
 
           $("body").on "click", "#busqueda", (event) =>

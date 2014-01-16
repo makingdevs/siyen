@@ -70,7 +70,8 @@
           instructores = "" + jsonData.instructor + ",";
           desde = moment(jsonData.fechaDeInicio, "YYYY-MM-DD").format('DD/MM/YYYY');
           hasta = moment(jsonData.fechaDeTermino, "YYYY-MM-DD").format('DD/MM/YYYY');
-          ($("#duplicacion > .modal-body")).html("<p> Se ha encontrado un curso con los mismos datos : </p>\n<p> Fecha de inicio : " + desde + " </p>\n<p> Fecha de término : " + hasta + " </p>\n<p> Instructor : " + instructores + " </p>\n<p> Curso : " + cursos + " </p>\n<p> Puerto : " + puertos + " </p>\n<a href=\"/busqueda/realizarBusqueda?buscar=&cursos=" + cursos + "&puertos=" + puertos + "&instructores=" + instructores + "&desde=" + desde + "&hasta=" + hasta + "&offset=0&max=10\n\" id=\"busqueda\"> Busqueda </a>");
+          ($("#duplicacion > .modal-body")).html("<p> Se ha encontrado un curso con los mismos datos : </p>\n\n<dl class=\"dl-horizontal\">\n  <dt>Fecha de inicio</dt>\n  <dd>" + desde + "</dd>\n\n  <dt>Fecha de término</dt>\n  <dd>" + hasta + "</dd>\n\n  <dt>Instructor</dt>\n  <dd>" + (instructores.replace(',', '')) + "</dd>\n\n  <dt>Curso</dt>\n  <dd>" + (cursos.replace(',', '')) + "</dd>\n\n  <dt>Puerto</dt>\n  <dd>" + (puertos.replace(',', '')) + "</dd>\n</dl>");
+          ($("#duplicacion > .modal-footer")).html("<a href=\"/busqueda/realizarBusqueda?buscar=&cursos=" + cursos + "&puertos=" + puertos + "&instructores=" + instructores + "&desde=" + desde + "&hasta=" + hasta + "&offset=0&max=10\" id=\"busqueda\" class=\"btn btn-primary\"> Ver los datos duplicados </a>");
           _this.busquedaGetWithSelector("#busqueda");
           $("body").on("click", "#busqueda", function(event) {
             $("#duplicacion").modal('hide');
