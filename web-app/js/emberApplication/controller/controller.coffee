@@ -44,6 +44,7 @@ App.CursosNuevosController = Ember.ArrayController.extend App.BusquedaForGetType
         cursoProgramado.get('alumnos').createRecord(
           nombreCompleto : alumno.get('nombreCompleto')
           observaciones : alumno.get('observaciones')
+          monto : alumno.get('monto')
         )
 
       cursoProgramado.save().then(
