@@ -68,15 +68,23 @@
     }
   });
 
+  App.EditarParticipantesListView = Ember.View.extend({
+    elementId: 'participantes',
+    tagName: 'table',
+    classNames: ["table", "table-condensed", "table-striped", "table-hover"],
+    template: Ember.Handlebars.compile("<thead>\n  <tr>\n    <th>Nombre</th>\n    <th>Observaciones</th>\n    <th>Monto</th>\n    <th>&nbsp;</th>\n  </tr>\n</thead>\n<tbody>\n  {{#each model.alumnos}}\n    {{ view App.ParticipanteView contentBinding=\"this\" }}\n  {{/each}}\n</tbody>")
+  });
+
   App.ParticipantesListView = Ember.View.extend({
     elementId: 'participantes',
-    tagName: 'ul',
-    template: Ember.Handlebars.compile('' + '{{#each controllers.cursosNuevos.currentCurso.alumnos}}' + '{{ view App.ParticipanteView contentBinding="this" }}' + '{{/each}}')
+    tagName: 'table',
+    classNames: ["table", "table-condensed", "table-striped", "table-hover"],
+    template: Ember.Handlebars.compile("<thead>\n  <tr>\n    <th>Nombre</th>\n    <th>Observaciones</th>\n    <th>Monto</th>\n    <th>&nbsp;</th>\n  </tr>\n</thead>\n<tbody>\n  {{#each controllers.cursosNuevos.currentCurso.alumnos}}\n    {{ view App.ParticipanteView contentBinding=\"this\" }}\n  {{/each}}\n</tbody>")
   });
 
   App.ParticipanteView = Ember.View.extend({
-    tagName: 'li',
-    template: Ember.Handlebars.compile('' + "{{ nombreCompleto }}\n{{#if monto}} - <span class=\"badge badge-info\">${{ monto }}</span>{{/if}}\n{{#if observaciones}} - <small>{{ observaciones }}</small>{{/if}}"),
+    tagName: 'tr',
+    template: Ember.Handlebars.compile('' + "<td> {{ nombreCompleto }} </td>\n<td> {{#if observaciones}} - <small>{{ observaciones }}</small>{{/if}} </td>\n<td> {{#if monto}} - <span class=\"badge badge-info\">${{ monto }}</span>{{/if}} </td>\n<td> {{#if id}} {{ view App.CertificadoPorParticipanteButton }} {{/if}} </td>"),
     click: function(event) {
       var controller;
       controller = this.get('controller');
@@ -124,6 +132,17 @@
     template: Ember.Handlebars.compile('<i {{bindAttr class="view.iconName"}}></i>')
   });
 
+  App.CertificadoPorParticipanteButton = Ember.View.extend(Ember.TargetActionSupport, {
+    tagName: 'a',
+    classNames: ['btn btn-success'],
+    iconName: "icon-print icon-white",
+    click: function() {
+      console.log("Impresión por alumno");
+      return false;
+    },
+    template: Ember.Handlebars.compile('<i {{bindAttr class="view.iconName"}}></i>')
+  });
+
   App.CursosAutorizadosView = Ember.View.extend();
 
   App.ConfirmDialogView = Ember.View.extend({
@@ -146,12 +165,6 @@
     crearAgregarAction: null,
     header: null,
     target: null
-  });
-
-  App.EditarParticipantesListView = Ember.View.extend({
-    elementId: 'participantes',
-    tagName: 'ul',
-    template: Ember.Handlebars.compile('' + '{{#each model.alumnos}}' + '{{ view App.ParticipanteView contentBinding="this" }}' + '{{/each}}')
   });
 
   App.NotifacionView = Ember.View.extend();

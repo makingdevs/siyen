@@ -73,20 +73,56 @@ App.AutorizarView = Ember.View.extend
     @.get('controller').set( 'autorizarCurso', @.get('context') )
     @.get('controller').autorizar()
 
+App.EditarParticipantesListView = Ember.View.extend
+  elementId: 'participantes'
+  tagName : 'table'
+  classNames : [ "table", "table-condensed", "table-striped", "table-hover" ]
+  template: Ember.Handlebars.compile(
+    """
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Observaciones</th>
+          <th>Monto</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each model.alumnos}}
+          {{ view App.ParticipanteView contentBinding="this" }}
+        {{/each}}
+      </tbody>
+    """)
+
 App.ParticipantesListView = Ember.View.extend
   elementId: 'participantes'
-  tagName : 'ul'
-  template: Ember.Handlebars.compile('' +
-    '{{#each controllers.cursosNuevos.currentCurso.alumnos}}' +
-      '{{ view App.ParticipanteView contentBinding="this" }}' +
-    '{{/each}}')
+  tagName : 'table'
+  classNames : [ "table", "table-condensed", "table-striped", "table-hover" ]
+  template: Ember.Handlebars.compile(
+    """
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Observaciones</th>
+          <th>Monto</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each controllers.cursosNuevos.currentCurso.alumnos}}
+          {{ view App.ParticipanteView contentBinding="this" }}
+        {{/each}}
+      </tbody>
+    """)
 
 App.ParticipanteView = Ember.View.extend
-  tagName : 'li'
+  tagName : 'tr'
   template: Ember.Handlebars.compile('' +
-    """{{ nombreCompleto }}
-       {{#if monto}} - <span class="badge badge-info">${{ monto }}</span>{{/if}}
-       {{#if observaciones}} - <small>{{ observaciones }}</small>{{/if}}
+    """
+      <td> {{ nombreCompleto }} </td>
+      <td> {{#if observaciones}} - <small>{{ observaciones }}</small>{{/if}} </td>
+      <td> {{#if monto}} - <span class="badge badge-info">${{ monto }}</span>{{/if}} </td>
+      <td> {{#if id}} {{ view App.CertificadoPorParticipanteButton }} {{/if}} </td>
     """ )
 
   click : (event) ->
@@ -133,6 +169,27 @@ App.CertificadoButton = Ember.View.extend(Ember.TargetActionSupport,
   template: Ember.Handlebars.compile('<i {{bindAttr class="view.iconName"}}></i>')
 )
 
+App.CertificadoPorParticipanteButton = Ember.View.extend(Ember.TargetActionSupport,
+  tagName: 'a',
+  classNames: ['btn btn-success']
+  iconName : "icon-print icon-white"
+  click: ->
+    console.log "Impresión por alumno"
+    return false
+    # id = @get('context.id')
+
+    # urlBaseFrente = ($ '#frenteParaCurso').val()
+    # urlFrente = "#{urlBaseFrente}/#{id}"
+
+    # urlBaseReverso = ($ '#reversoParaCurso').val()
+    # urlReverso = "#{urlBaseReverso}/#{id}"
+
+    # window.open(urlFrente)
+    # window.open(urlReverso)
+
+  template: Ember.Handlebars.compile('<i {{bindAttr class="view.iconName"}}></i>')
+)
+
 App.CursosAutorizadosView = Ember.View.extend()
 
 App.ConfirmDialogView = Ember.View.extend
@@ -154,14 +211,6 @@ App.CursoNuevoFormulario = Ember.View.extend
   crearAgregarAction: null
   header: null
   target: null
-
-App.EditarParticipantesListView = Ember.View.extend
-  elementId: 'participantes'
-  tagName : 'ul'
-  template: Ember.Handlebars.compile('' +
-    '{{#each model.alumnos}}' +
-      '{{ view App.ParticipanteView contentBinding="this" }}' +
-    '{{/each}}')
 
 App.NotifacionView = Ember.View.extend()
 
