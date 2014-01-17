@@ -54,7 +54,8 @@
           alumno = _ref[_i];
           cursoProgramado.get('alumnos').createRecord({
             nombreCompleto: alumno.get('nombreCompleto'),
-            observaciones: alumno.get('observaciones')
+            observaciones: alumno.get('observaciones'),
+            monto: alumno.get('monto')
           });
         }
         return cursoProgramado.save().then(function(value) {
