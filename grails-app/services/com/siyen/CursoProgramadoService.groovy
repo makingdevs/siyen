@@ -42,7 +42,10 @@ class CursoProgramadoService {
   }
 
   private Alumno generarAlumnoConParams( def alumnoData ) {
-    Alumno alumno = new Alumno( nombreCompleto : alumnoData.nombreCompleto, observaciones : alumnoData.observaciones )
+    Alumno alumno = new Alumno(
+      nombreCompleto : alumnoData.nombreCompleto,
+      observaciones : alumnoData.observaciones,
+      monto : alumnoData.monto )
     alumno
   }
 
