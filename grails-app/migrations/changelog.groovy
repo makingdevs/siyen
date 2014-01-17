@@ -431,4 +431,6 @@ databaseChangeLog = {
   changeSet(author: "makingdevs (generated)", id: "1384888857007-23") {
     addForeignKeyConstraint(baseColumnNames: "user_id", baseTableName: "user_role", constraintName: "FK143BF46A643DC69", deferrable: "false", initiallyDeferred: "false", referencedColumnNames: "id", referencedTableName: "user", referencesUniqueColumn: "false")
   }
+
+	include file: 'adding-monto-to-alumno.groovy'
 }
