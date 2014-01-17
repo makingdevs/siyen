@@ -33,6 +33,7 @@
     numeroDeControl: DS.attr('string'),
     nombreCompleto: DS.attr('string'),
     observaciones: DS.attr('string'),
+    monto: DS.attr('number'),
     cursoProgramado: DS.belongsTo('cursoProgramado')
   });
 

@@ -14,7 +14,7 @@ App.Puerto = DS.Model.extend
   estado : DS.attr('string')
 
   descripcion: ( ->
-    @.get('puerto') + ', ' + @.get('estado');
+    @.get('puerto') + ', ' + @.get('estado')
   ).property('puerto', 'estado')
 
 App.Curso = DS.Model.extend
@@ -30,4 +30,6 @@ App.Alumno = DS.Model.extend
   numeroDeControl : DS.attr('string')
   nombreCompleto : DS.attr('string')
   observaciones : DS.attr('string')
+  monto : DS.attr('number')
+
   cursoProgramado : DS.belongsTo('cursoProgramado')
