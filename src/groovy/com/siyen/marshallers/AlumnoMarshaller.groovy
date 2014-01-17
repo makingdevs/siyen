@@ -16,7 +16,8 @@ class AlumnoMarshaller implements ObjectMarshaller<JSON> {
       id : alumno.id,
       numeroDeControl : alumno.numeroDeControl,
       nombreCompleto : alumno.nombreCompleto,
-      observaciones : alumno.observaciones
+      observaciones : alumno.observaciones,
+      monto : alumno.monto
     ]
     converter.convertAnother(alumnoValues)
   }
