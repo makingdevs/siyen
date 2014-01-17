@@ -76,12 +76,13 @@
 
   App.ParticipanteView = Ember.View.extend({
     tagName: 'li',
-    template: Ember.Handlebars.compile('' + '{{ nombreCompleto }}{{#if observaciones}} - <small>{{ observaciones }}</small>{{/if}}'),
+    template: Ember.Handlebars.compile('' + "{{ nombreCompleto }}\n{{#if monto}} - <span class=\"badge badge-info\">${{ monto }}</span>{{/if}}\n{{#if observaciones}} - <small>{{ observaciones }}</small>{{/if}}"),
     click: function(event) {
       var controller;
       controller = this.get('controller');
       controller.set('nombreCompleto', this.get('context.nombreCompleto'));
       controller.set('observaciones', this.get('context.observaciones'));
+      controller.set('monto', this.get('context.monto'));
       controller.set('currentParticipanteIndex', this.get('_parentView.contentIndex'));
       return ($('#nombreCompleto')).focus();
     }
