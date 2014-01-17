@@ -108,7 +108,6 @@ class CursoProgramadoServiceSpec extends Specification {
         curso : curso,
         instructor : instructor
       ).save(validate:false)
-      println c.fechaDeInicio
 
     and :
       def springSecurityServiceMock = mockFor(SpringSecurityService)
