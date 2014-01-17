@@ -103,6 +103,7 @@ App.EditController = Ember.ObjectController.extend
   fechaDeInicio : null
   nombreCompleto : null
   observaciones : null
+  monto : null
   currentParticipanteIndex : -1
 
   init : ->
@@ -123,14 +124,18 @@ App.EditController = Ember.ObjectController.extend
       else
         alumno = @store.createRecord('alumno')
 
-      alumno.set('nombreCompleto', @nombreCompleto)
-      alumno.set('observaciones', @observaciones)
-      alumno.set('cursoProgramado', cursoProgramado)
+      alumno.setProperties
+        nombreCompleto: @nombreCompleto
+        observaciones: @observaciones
+        monto: @monto
+        cursoProgramado: cursoProgramado
       alumno.save()
 
-      @set('currentParticipanteIndex', -1)
-      @set("nombreCompleto", null)
-      @set("observaciones", null)
+      @setProperties
+        currentParticipanteIndex : -1
+        nombreCompleto : null
+        observaciones : null
+        monto : null
 
 App.EditParticipantesController = Ember.ObjectController.extend()
 
@@ -197,6 +202,7 @@ App.CrearParticipantesController = Ember.ObjectController.extend
 
   nombreCompleto : null
   observaciones : null
+  monto : null
 
   currentParticipanteIndex : -1
 
@@ -205,8 +211,10 @@ App.CrearParticipantesController = Ember.ObjectController.extend
     currentCurso = cursosNuevosController.get('currentCurso')
 
     if currentCurso
-      @set("nombreCompleto", null)
-      @set("observaciones", null)
+      @setProperties
+        nombreCompleto: null
+        observaciones: null
+        monto: null
 
   ).observes('controllers.cursosNuevos.currentCurso')
 
@@ -216,6 +224,7 @@ App.CrearParticipantesController = Ember.ObjectController.extend
       alumno = Ember.Object.create
         nombreCompleto : @nombreCompleto
         observaciones : @observaciones
+        monto : @monto
 
       if @currentParticipanteIndex >= 0
         currentCurso.get('alumnos').replace(@currentParticipanteIndex, 1, [alumno])
@@ -223,8 +232,10 @@ App.CrearParticipantesController = Ember.ObjectController.extend
         currentCurso.get('alumnos').pushObject(alumno)
 
       @set('currentParticipanteIndex', -1)
-      @set("nombreCompleto", null)
-      @set("observaciones", null)
+      @setProperties
+        nombreCompleto: null
+        observaciones: null
+        monto: null
 
 App.ArchivoController = Ember.ObjectController.extend
   needs : ["cursosNuevos"]

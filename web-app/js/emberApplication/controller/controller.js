@@ -90,6 +90,7 @@
     fechaDeInicio: null,
     nombreCompleto: null,
     observaciones: null,
+    monto: null,
     currentParticipanteIndex: -1,
     init: function() {
       this._super();
@@ -109,13 +110,19 @@
         } else {
           alumno = this.store.createRecord('alumno');
         }
-        alumno.set('nombreCompleto', this.nombreCompleto);
-        alumno.set('observaciones', this.observaciones);
-        alumno.set('cursoProgramado', cursoProgramado);
+        alumno.setProperties({
+          nombreCompleto: this.nombreCompleto,
+          observaciones: this.observaciones,
+          monto: this.monto,
+          cursoProgramado: cursoProgramado
+        });
         alumno.save();
-        this.set('currentParticipanteIndex', -1);
-        this.set("nombreCompleto", null);
-        return this.set("observaciones", null);
+        return this.setProperties({
+          currentParticipanteIndex: -1,
+          nombreCompleto: null,
+          observaciones: null,
+          monto: null
+        });
       }
     }
   });
@@ -182,14 +189,18 @@
     needs: "cursosNuevos",
     nombreCompleto: null,
     observaciones: null,
+    monto: null,
     currentParticipanteIndex: -1,
     currentCursoObserves: (function() {
       var currentCurso, cursosNuevosController;
       cursosNuevosController = this.get('controllers.cursosNuevos');
       currentCurso = cursosNuevosController.get('currentCurso');
       if (currentCurso) {
-        this.set("nombreCompleto", null);
-        return this.set("observaciones", null);
+        return this.setProperties({
+          nombreCompleto: null,
+          observaciones: null,
+          monto: null
+        });
       }
     }).observes('controllers.cursosNuevos.currentCurso'),
     actions: {
@@ -198,7 +209,8 @@
         currentCurso = this.get('controllers.cursosNuevos').get('currentCurso');
         alumno = Ember.Object.create({
           nombreCompleto: this.nombreCompleto,
-          observaciones: this.observaciones
+          observaciones: this.observaciones,
+          monto: this.monto
         });
         if (this.currentParticipanteIndex >= 0) {
           currentCurso.get('alumnos').replace(this.currentParticipanteIndex, 1, [alumno]);
@@ -206,8 +218,11 @@
           currentCurso.get('alumnos').pushObject(alumno);
         }
         this.set('currentParticipanteIndex', -1);
-        this.set("nombreCompleto", null);
-        return this.set("observaciones", null);
+        return this.setProperties({
+          nombreCompleto: null,
+          observaciones: null,
+          monto: null
+        });
       }
     }
   });
