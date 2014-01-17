@@ -1,4 +1,18 @@
-App.CursosNuevosController = Ember.ArrayController.extend
+App.BusquedaForGetType = Ember.Mixin.create
+  busquedaGetWithSelector : (selector) ->
+    $("body").on "click", selector, (event) ->
+      event.preventDefault()
+      $.ajax(
+        type: "GET"
+        url: event.target
+        success: (res, status, xhr) ->
+          $("#resultados").html( res )
+          $("#busquedaAvanzada").hide()
+        error: (xhr, status, err) ->
+          console.log "error"
+      )
+
+App.CursosNuevosController = Ember.ArrayController.extend App.BusquedaForGetType,
   content : []
   currentCurso : null
   autorizarCurso : null
@@ -38,8 +52,47 @@ App.CursosNuevosController = Ember.ArrayController.extend
           @content.removeObject(@get('autorizarCurso'))
           @transitionToRoute('cursosAutorizados')
 
-        ->
-          console.log "failed"
+        (reason) =>
+          ($ "#confirmarAutorizacionDialog").modal('hide')
+          jsonData = eval('(' + reason.responseText + ')')
+          cursos = "#{jsonData.curso},"
+          puertos = "#{jsonData.puerto},"
+          instructores = "#{jsonData.instructor},"
+          desde = moment(jsonData.fechaDeInicio, "YYYY-MM-DD").format('DD/MM/YYYY')
+          hasta = moment(jsonData.fechaDeTermino, "YYYY-MM-DD").format('DD/MM/YYYY')
+
+          ($ "#duplicacion > .modal-body").html("""
+            <p> Se ha encontrado un curso con los mismos datos : </p>
+
+            <dl class="dl-horizontal">
+              <dt>Fecha de inicio</dt>
+              <dd>#{desde}</dd>
+
+              <dt>Fecha de término</dt>
+              <dd>#{hasta}</dd>
+
+              <dt>Instructor</dt>
+              <dd>#{instructores.replace(',', '')}</dd>
+
+              <dt>Curso</dt>
+              <dd>#{cursos.replace(',', '')}</dd>
+
+              <dt>Puerto</dt>
+              <dd>#{puertos.replace(',', '')}</dd>
+            </dl>
+          """)
+
+          ($ "#duplicacion > .modal-footer").html("""
+            <a href="/busqueda/realizarBusqueda?buscar=&cursos=#{cursos}&puertos=#{puertos}&instructores=#{instructores}&desde=#{desde}&hasta=#{hasta}&offset=0&max=10" id="busqueda" class="btn btn-primary"> Ver los datos duplicados </a>
+          """)
+
+          @busquedaGetWithSelector("#busqueda")
+
+          $("body").on "click", "#busqueda", (event) =>
+            $("#duplicacion").modal('hide')
+            @transitionToRoute('busqueda')
+
+          ($ "#duplicacion").modal('show')
       )
 
 App.CursosAutorizadosController = Ember.ArrayController.extend()
@@ -67,7 +120,7 @@ App.EditController = Ember.ObjectController.extend
 
       if @currentParticipanteIndex >= 0
         alumno = cursoProgramado.get('alumnos').objectAt(@currentParticipanteIndex)
-      else 
+      else
         alumno = @store.createRecord('alumno')
 
       alumno.set('nombreCompleto', @nombreCompleto)
@@ -265,7 +318,7 @@ App.NotificacionController = Ember.ArrayController.extend
 
       @content.pushObject(notificacion)
 
-App.BusquedaController = Ember.ObjectController.extend
+App.BusquedaController = Ember.ObjectController.extend App.BusquedaForGetType,
   busqueda : null
   urlBusqueda : null
   desde : null
@@ -273,18 +326,7 @@ App.BusquedaController = Ember.ObjectController.extend
 
   init : ->
     @set('urlBusqueda', $("#urlBusqueda").val())
-
-    $("body").on "click", ".pagination li a", (event) ->
-      event.preventDefault()
-      $.ajax(
-        type: "GET"
-        url: event.target
-        success: (res, status, xhr) ->
-          $("#resultados").html( res )
-          $("#busquedaAvanzada").hide()
-        error: (xhr, status, err) ->
-          console.log "error"
-      )
+    @busquedaGetWithSelector('.pagination li a')
 
   actions :
     realizarBusqueda : ->

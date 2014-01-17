@@ -54,7 +54,7 @@ App.CursoNuevoItemView = Ember.View.extend
       '<td> {{ view App.AutorizarView }} </td>'
   )
 
-  click: -> 
+  click: ->
     @.get('controller').set('currentCurso', @.get('content'))
 
 App.AutorizarView = Ember.View.extend
