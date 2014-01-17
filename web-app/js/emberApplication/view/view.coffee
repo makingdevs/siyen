@@ -84,12 +84,16 @@ App.ParticipantesListView = Ember.View.extend
 App.ParticipanteView = Ember.View.extend
   tagName : 'li'
   template: Ember.Handlebars.compile('' +
-    '{{ nombreCompleto }}{{#if observaciones}} - <small>{{ observaciones }}</small>{{/if}}' )
+    """{{ nombreCompleto }}
+       {{#if monto}} - <span class="badge badge-info">${{ monto }}</span>{{/if}}
+       {{#if observaciones}} - <small>{{ observaciones }}</small>{{/if}}
+    """ )
 
   click : (event) ->
     controller = @get('controller')
     controller.set('nombreCompleto', @get('context.nombreCompleto'))
     controller.set('observaciones', @get('context.observaciones'))
+    controller.set('monto', @get('context.monto'))
     controller.set('currentParticipanteIndex', @get('_parentView.contentIndex'))
     ($ '#nombreCompleto').focus()
 

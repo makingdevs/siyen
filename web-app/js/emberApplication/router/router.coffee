@@ -1,4 +1,4 @@
-App.Router.map -> 
+App.Router.map ->
   @resource 'cursosNuevos', ->
     @resource 'crear', ->
       @route 'participantes'
