@@ -15,9 +15,14 @@ class AlumnoController {
       }
     }
 
-    Alumno alumno = new Alumno( nombreCompleto : cmd.nombreCompleto, observaciones : cmd.observaciones )
+    Alumno alumno = new Alumno(
+      nombreCompleto : cmd.nombreCompleto,
+      observaciones : cmd.observaciones,
+      monto : cmd.monto
+    )
     alumno.cursoProgramado = CursoProgramado.get(cmd.cursoProgramado)
     alumno.save(failOnError:true)
+
     alumno.numeroDeControl = generarNumeroDeControl(alumno.id)
     alumno.save(failOnError:true)
 
@@ -36,6 +41,7 @@ class AlumnoController {
     alumno.cursoProgramado = CursoProgramado.get(cmd.cursoProgramado)
     alumno.nombreCompleto = cmd.nombreCompleto
     alumno.observaciones = cmd.observaciones
+    alumno.monto = cmd.monto
     alumno.save(failOnError:true)
 
     notificacionService.enviarNotificacion('cursoProgramado.alumno_edit', alumno.cursoProgramado)
@@ -64,6 +70,7 @@ class AlumnoUpdateCommad {
   Long cursoProgramado
   String nombreCompleto
   String observaciones
+  Long monto
 
   static constraints = {
     id nullable: false
@@ -77,6 +84,7 @@ class AlumnoCommand {
   Long cursoProgramado
   String nombreCompleto
   String observaciones
+  Long monto
 
   static constraints = {
     cursoProgramado nullable: false
