@@ -174,18 +174,17 @@ App.CertificadoPorParticipanteButton = Ember.View.extend(Ember.TargetActionSuppo
   classNames: ['btn btn-success']
   iconName : "icon-print icon-white"
   click: ->
-    console.log "Impresión por alumno"
+    id = @get('context.id')
+
+    urlBaseFrente = ($ '#frenteParaCursoPorAlumno').val()
+    urlFrente = "#{urlBaseFrente}/#{id}"
+
+    urlBaseReverso = ($ '#reversoParaCursoPorAlumno').val()
+    urlReverso = "#{urlBaseReverso}/#{id}"
+
+    window.open(urlFrente)
+    window.open(urlReverso)
     return false
-    # id = @get('context.id')
-
-    # urlBaseFrente = ($ '#frenteParaCurso').val()
-    # urlFrente = "#{urlBaseFrente}/#{id}"
-
-    # urlBaseReverso = ($ '#reversoParaCurso').val()
-    # urlReverso = "#{urlBaseReverso}/#{id}"
-
-    # window.open(urlFrente)
-    # window.open(urlReverso)
 
   template: Ember.Handlebars.compile('<i {{bindAttr class="view.iconName"}}></i>')
 )

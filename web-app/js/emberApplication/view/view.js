@@ -137,7 +137,14 @@
     classNames: ['btn btn-success'],
     iconName: "icon-print icon-white",
     click: function() {
-      console.log("Impresión por alumno");
+      var id, urlBaseFrente, urlBaseReverso, urlFrente, urlReverso;
+      id = this.get('context.id');
+      urlBaseFrente = ($('#frenteParaCursoPorAlumno')).val();
+      urlFrente = "" + urlBaseFrente + "/" + id;
+      urlBaseReverso = ($('#reversoParaCursoPorAlumno')).val();
+      urlReverso = "" + urlBaseReverso + "/" + id;
+      window.open(urlFrente);
+      window.open(urlReverso);
       return false;
     },
     template: Ember.Handlebars.compile('<i {{bindAttr class="view.iconName"}}></i>')
