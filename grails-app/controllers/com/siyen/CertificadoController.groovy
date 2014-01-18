@@ -41,4 +41,14 @@ class CertificadoController {
     response
   }
 
+  def generarFrenteParaCursoPorAlumno() {
+    log.debug "frente"
+    log.debug params.id.toLong()
+  }
+
+  def generarReversoParaCursoPorAlumno() {
+    log.debug "reverso"
+    log.debug params.id.toLong()
+  }
+
 }
