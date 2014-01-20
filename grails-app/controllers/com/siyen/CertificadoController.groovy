@@ -42,13 +42,34 @@ class CertificadoController {
   }
 
   def generarFrenteParaCursoPorAlumno() {
-    log.debug "frente"
-    log.debug params.id.toLong()
+    Alumno alumno = Alumno.get(params.id.toLong())
+    def reportData = certificadoService.poblarCertificadoParaElAlumno(alumno)
+
+    def reportDef = new JasperReportDef(
+      name: 'certificado.jrxml',
+      fileFormat: JasperExportFormat.PDF_FORMAT,
+      reportData: reportData
+    )
+
+    def reporte = jasperService.generateReport(reportDef).toByteArray()
+    response.setHeader("Content-disposition", "attachment; filename=${alumno.numeroDeControl}.pdf")
+    response.outputStream << reporte
+
+    // notificacionService.enviarNotificacion('cursoProgramado.reimpresion', alumno)
+
+    response
   }
 
   def generarReversoParaCursoPorAlumno() {
-    log.debug "reverso"
-    log.debug params.id.toLong()
+    Alumno alumno = Alumno.get(params.id.toLong())
+    CursoProgramado cursoProgramado = alumno.cursoProgramado
+    String claveDelCurso = cursoProgramado.curso.clave
+
+    def reversoReporte = new File( grailsApplication.config.jasper.dir.reports + "/${claveDelCurso}.pdf" )
+
+    response.setHeader("Content-disposition", "attachment; filename=${claveDelCurso}.pdf")
+    response.outputStream << reversoReporte.readBytes()
+    response
   }
 
 }

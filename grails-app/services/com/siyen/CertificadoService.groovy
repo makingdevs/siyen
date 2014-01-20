@@ -12,7 +12,11 @@ class CertificadoService {
       reportData << obtenerDatosDelAlumno(cursoProgramado, alumno)
     }
 
-    reportData    
+    reportData
+  }
+
+  def poblarCertificadoParaElAlumno(Alumno alumno) {
+    [ obtenerDatosDelAlumno(alumno.cursoProgramado, alumno) ]
   }
 
   private obtenerDatosDelAlumno(cursoProgramado, alumno) {
