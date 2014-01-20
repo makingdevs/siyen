@@ -299,6 +299,9 @@
         eventBus.registerHandler('cursoProgramado.impresion', function(jsonMessage) {
           return crearNotificacionConRespuesta(jsonMessage);
         });
+        eventBus.registerHandler('cursoProgramado.impresion_de', function(jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage);
+        });
         eventBus.registerHandler('cursoProgramado.actualizado', function(jsonMessage) {
           return crearNotificacionConRespuesta(jsonMessage);
         });
