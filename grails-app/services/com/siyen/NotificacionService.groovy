@@ -16,6 +16,16 @@ class NotificacionService {
     eventBus.publish(bus, mensaje)
   }
 
+  def enviarNotificacionDeAlumno(String bus, Alumno alumno) {
+    def vertx = defaultPlatformManager.vertx()
+    def eventBus = vertx.eventBus()
+
+    JsonObject mensaje = convertirCursoProgramadoAJsonObject(alumno.cursoProgramado, bus)
+    mensaje.putString("accion", "${mensaje.getValue("accion")} ${alumno.numeroDeControl}")
+
+    eventBus.publish(bus, mensaje)
+  }
+
   private JsonObject convertirCursoProgramadoAJsonObject(CursoProgramado cursoProgramado, String bus) {
     JsonObject jsonNotification = new JsonObject()
     jsonNotification.putValue( "id", cursoProgramado.id )
@@ -45,7 +55,8 @@ class NotificacionService {
     IMPRESION("Impresión de certificados"),
     ACTUALIZADO("Curso actualizado"),
     ALUMNO_ADD("Alumno agregado"),
-    ALUMNO_EDIT("Alumno editado")
+    ALUMNO_EDIT("Alumno editado"),
+    IMPRESION_DE("Impresion de")
 
     private final String value
 
