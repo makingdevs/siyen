@@ -59,6 +59,9 @@
                       <li>
                         {{#linkTo "cursosAutorizados" }}Autorizados{{/linkTo}}
                       </li>
+                      <li>
+                        {{#linkTo "movimientos" }}Movimientos{{/linkTo}}
+                      </li>
                     </ul>
                   </li>
                   <li>
@@ -112,6 +115,25 @@
           <p>&copy; Siyen 2013</p>
         </div>
       </footer>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="movimientos">
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="span6">
+            <div id="busqueda1" class="input-append">
+              {{ view App.TextField id="busqueda1" name="busqueda2" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}
+              <button type="submit" class="btn" {{ action "realizarBusqueda" }}>Buscar</button>
+            </div>
+          </div>
+
+          <div class="span6">
+            <div id=busqueda2 class="input-append">
+              {{ view App.TextField id="busqueda2" name="busqueda2" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}
+              <button type="submit" class="btn" {{ action "realizarBusqueda" }}>Buscar</button>
+            </div>
+        </div>
+      </div>
     </script>
 
     <div id="alertas" class="hide">

@@ -1,23 +1,20 @@
 App.Router.map ->
+  @route 'archivo'
+  @route 'notificacion'
+  @route 'busqueda'
+  @route 'movimientos'
+
   @resource 'cursosNuevos', ->
     @resource 'crear', ->
       @route 'participantes'
 
-  @resource 'archivo'
-
   @resource 'cursosAutorizados', ->
     @resource 'edit', { path: ":curso_programado_id" }
-
-  @resource 'notificacion'
-
-  @resource 'busqueda'
 
 App.CursosNuevosRoute = Ember.Route.extend()
 App.CursosNuevosCrearRoute = Ember.Route.extend()
 App.CrearParticipantesRoute = Ember.Route.extend()
-
 App.ArchivoRoute = Ember.Route.extend()
-
 App.NotificacionRoute = Ember.Route.extend()
 
 App.CursosAutorizadosRoute = Ember.Route.extend
@@ -57,3 +54,5 @@ App.BusquedaRoute = Ember.Route.extend
 
       $(".busquedaChosen").trigger("chosen:updated")
     )
+
+App.MovimientosController = App.BusquedaRoute.extend()
