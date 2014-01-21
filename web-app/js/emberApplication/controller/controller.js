@@ -64,6 +64,7 @@
           return _this.transitionToRoute('cursosAutorizados');
         }, function(reason) {
           var cursos, desde, hasta, instructores, jsonData, puertos;
+          cursoProgramado.rollback();
           ($("#confirmarAutorizacionDialog")).modal('hide');
           jsonData = eval('(' + reason.responseText + ')');
           cursos = "" + jsonData.curso + ",";
@@ -94,6 +95,11 @@
     monto: null,
     currentParticipanteIndex: -1,
     disabled: false,
+    alumnosAddObserves: (function() {
+      if (this.get('model.alumnosRestantes') <= 0) {
+        return this.set('disabled', true);
+      }
+    }).observes('model.alumnosRestantes'),
     init: function() {
       this._super();
       return this.set('cursos', this.get('store').find("curso"));
@@ -118,7 +124,17 @@
           monto: this.monto,
           cursoProgramado: cursoProgramado
         });
-        alumno.save();
+        alumno.save().then(function(sucess) {
+          return cursoProgramado.decrementProperty('alumnosRestantes');
+        }, function(reason) {
+          var jsonData;
+          alumno.rollback();
+          jsonData = eval('(' + reason.responseText + ')');
+          ($("#alertas strong")).text('ERROR');
+          ($("#alertas .message")).text(jsonData.message);
+          ($("#alertas")).addClass("alert alert-error");
+          return ($("#alertas")).show('slow');
+        });
         return this.setProperties({
           currentParticipanteIndex: -1,
           nombreCompleto: null,
