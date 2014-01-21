@@ -38,7 +38,11 @@
       fechaDeInicioModel = model.get('fechaDeInicio');
       fechaDeInicio = moment(fechaDeInicioModel).format('DD/MMMM/YYYY');
       controller.set('fechaDeInicio', fechaDeInicio);
-      return controller.set('model', model);
+      controller.set('model', model);
+      controller.set('disabled', false);
+      if (moment().diff(moment(fechaDeInicio, 'DD/MMMM/YYYY'), 'days') > 15) {
+        return controller.set('disabled', true);
+      }
     },
     model: function(params) {
       return this.get('store').find('cursoProgramado', params.curso_programado_id);
