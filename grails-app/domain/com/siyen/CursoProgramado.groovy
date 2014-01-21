@@ -13,6 +13,8 @@ class CursoProgramado {
   Curso curso
   Instructor instructor
 
+  Long alumnosRestantes = 10
+
   static belongsTo = [user : User]
   static hasMany = [alumnos : Alumno]
 
