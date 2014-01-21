@@ -11,6 +11,21 @@ class CursoProgramadoController {
   def cursoProgramadoService
 
   def show() {
+    if(params.id) {
+      def cursoProgramado = CursoProgramado.get( params.id )
+      def jsonResponse = [:]
+      jsonResponse.cursos_programados = cursoProgramado
+      jsonResponse.puertos = springSecurityService.currentUser.puertos.findAll { it.activo }
+      jsonResponse.cursos = Curso.findAll { activo == true }
+      jsonResponse.instructores = springSecurityService.currentUser.instructores.findAll { it.activo }
+      jsonResponse.alumnos = cursoProgramado.alumnos
+
+      JSON.use('siyen') {
+        render jsonResponse as JSON
+      }
+      return
+    }
+
     def cursosProgramados = CursoProgramado.findAll {
       gt "dateCreated", (new Date() - 1)
       eq "user", springSecurityService.currentUser
