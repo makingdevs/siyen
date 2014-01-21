@@ -19,7 +19,7 @@
       <th>Curso</th>
       <th>Instructor</th>
       <th>Participantes</th>
-      <th>&nbsp;</th>
+      <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
@@ -32,7 +32,10 @@
         <td>${it.curso.clave}</td>
         <td>${it.instructor.nombre}</td>
         <td>${it.alumnos.size()}</td>
-        <td></td>
+        <td>
+          <a href="#/cursosAutorizados/${it.id}" class="btn btn-primary"><i class="icon-edit icon-white"></i></a>
+          <button id="impresion" class="btn btn-success" name="${it.id}"><i class="icon-print icon-white"></i></button>
+        </td>
       </tr>
     </g:each>
   </tbody>
