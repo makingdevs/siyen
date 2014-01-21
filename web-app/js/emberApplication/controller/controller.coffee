@@ -106,6 +106,7 @@ App.EditController = Ember.ObjectController.extend
   observaciones : null
   monto : null
   currentParticipanteIndex : -1
+  disabled : false
 
   init : ->
     @_super()

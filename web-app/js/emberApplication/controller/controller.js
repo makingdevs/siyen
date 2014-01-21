@@ -93,6 +93,7 @@
     observaciones: null,
     monto: null,
     currentParticipanteIndex: -1,
+    disabled: false,
     init: function() {
       this._super();
       return this.set('cursos', this.get('store').find("curso"));
