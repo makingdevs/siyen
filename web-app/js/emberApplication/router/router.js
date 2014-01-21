@@ -40,7 +40,7 @@
       controller.set('fechaDeInicio', fechaDeInicio);
       controller.set('model', model);
       controller.set('disabled', false);
-      if (moment().diff(moment(fechaDeInicio, 'DD/MMMM/YYYY'), 'days') > 15) {
+      if (moment().diff(moment(fechaDeInicio, 'DD/MMMM/YYYY'), 'days') > 15 || model.get('alumnosRestantes') <= 0) {
         return controller.set('disabled', true);
       }
     },

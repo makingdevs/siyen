@@ -32,7 +32,7 @@ App.EditRoute = Ember.Route.extend
     controller.set('model', model)
     controller.set 'disabled', false
 
-    if( moment().diff(moment(fechaDeInicio, 'DD/MMMM/YYYY'), 'days') > 15 )
+    if( moment().diff(moment(fechaDeInicio, 'DD/MMMM/YYYY'), 'days') > 15 or model.get('alumnosRestantes') <= 0 )
       controller.set 'disabled', true
 
   model : (params) ->
