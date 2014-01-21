@@ -30,14 +30,15 @@
                                contentBinding="cursos"
                                optionValuePath="content.clave"
                                optionLabelPath="content.clave"
-                               selectionBinding="model.curso" }}
+                               selectionBinding="model.curso"
+                               disabledBinding="disabled" }}
         </div>
       </div>
       <div class="form-actions">
-        {{ view App.BootstrapButton 
-                content="Actualizar datos del curso" 
-                action="actualizarCurso" 
-                target="controller" 
+        {{ view App.BootstrapButton
+                content="Actualizar datos del curso"
+                action="actualizarCurso"
+                target="controller"
                 classNames="btn-success"
         }}
       </div>
@@ -50,7 +51,13 @@
         <div class="control-group">
           <label class="control-label" for="nombreCompleto">Nombre Completo :</label>
           <div class="controls">
-            {{ view App.TextField id="nombreCompleto" target="controller" action="actualizar" valueBinding="controller.nombreCompleto" placeholder="Nombre completo" }}
+            {{ view App.TextField
+                    id="nombreCompleto"
+                    target="controller"
+                    action="actualizar"
+                    valueBinding="controller.nombreCompleto"
+                    placeholder="Nombre completo"
+                    disabledBinding="disabled" }}
           </div>
         </div>
 
@@ -58,7 +65,13 @@
           <label class="control-label" for="monto">Monto :</label>
           <div class="input-prepend input-append">
             <span class="add-on">$</span>
-            {{ view App.TextField id="monto" class="span9" target="controller" action="agregar" valueBinding="controller.monto" }}
+            {{ view App.TextField
+                    id="monto"
+                    class="span9"
+                    target="controller"
+                    action="agregar"
+                    valueBinding="controller.monto"
+                    disabledBinding="disabled" }}
             <span class="add-on">.00</span>
           </div>
           <div class="controls">
@@ -68,7 +81,10 @@
         <div class="control-group">
           <label class="control-label" for="observaciones">Observaciones :</label>
           <div class="controls">
-            {{ view Ember.TextArea valueBinding="observaciones" placeholder="Observaciones" }}
+            {{ view Ember.TextArea
+                    valueBinding="observaciones"
+                    placeholder="Observaciones"
+                    disabledBinding="disabled" }}
           </div>
         </div>
 

@@ -433,4 +433,6 @@ databaseChangeLog = {
   }
 
 	include file: 'adding-monto-to-alumno.groovy'
+
+	include file: 'adding-alumnos-restantes-field.groovy'
 }

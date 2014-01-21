@@ -54,6 +54,7 @@ App.CursosNuevosController = Ember.ArrayController.extend App.BusquedaForGetType
           @transitionToRoute('cursosAutorizados')
 
         (reason) =>
+          cursoProgramado.rollback()
           ($ "#confirmarAutorizacionDialog").modal('hide')
           jsonData = eval('(' + reason.responseText + ')')
           cursos = "#{jsonData.curso},"
@@ -106,6 +107,11 @@ App.EditController = Ember.ObjectController.extend
   observaciones : null
   monto : null
   currentParticipanteIndex : -1
+  disabled : false
+
+  alumnosAddObserves : (->
+    @set('disabled', true) if @get('model.alumnosRestantes') <= 0
+  ).observes('model.alumnosRestantes')
 
   init : ->
     @_super()
@@ -130,7 +136,19 @@ App.EditController = Ember.ObjectController.extend
         observaciones: @observaciones
         monto: @monto
         cursoProgramado: cursoProgramado
-      alumno.save()
+
+      alumno.save().then(
+        (sucess) ->
+          cursoProgramado.decrementProperty('alumnosRestantes')
+        (reason) ->
+          alumno.rollback()
+          jsonData = eval('(' + reason.responseText + ')')
+
+          ($ "#alertas strong").text('ERROR')
+          ($ "#alertas .message").text(jsonData.message)
+          ($ "#alertas").addClass("alert alert-error")
+          ($ "#alertas").show('slow')
+      )
 
       @setProperties
         currentParticipanteIndex : -1

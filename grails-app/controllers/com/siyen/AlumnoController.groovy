@@ -1,6 +1,7 @@
 package com.siyen
 
 import grails.converters.*
+import com.siyen.exceptions.BusinessException
 
 class AlumnoController {
 
@@ -20,7 +21,21 @@ class AlumnoController {
       observaciones : cmd.observaciones,
       monto : cmd.monto
     )
-    alumno.cursoProgramado = CursoProgramado.get(cmd.cursoProgramado)
+
+    CursoProgramado cursoProgramado = CursoProgramado.get(cmd.cursoProgramado)
+    cursoProgramado.alumnosRestantes -= 1
+    if(cursoProgramado.alumnosRestantes >= 0) {
+      cursoProgramado.save()
+    } else {
+      render(status:417, contentType: "text/json") {
+        [
+          message : "No es posible agregar más alumnos a este curso"
+        ]
+      }
+      return
+    }
+
+    alumno.cursoProgramado = cursoProgramado
     alumno.save(failOnError:true)
 
     alumno.numeroDeControl = generarNumeroDeControl(alumno.id)

@@ -3,6 +3,7 @@
   App.CursoProgramado = DS.Model.extend({
     fechaDeInicio: DS.attr('string'),
     fechaDeTermino: DS.attr('string'),
+    alumnosRestantes: DS.attr('number'),
     puerto: DS.belongsTo('puerto'),
     curso: DS.belongsTo('curso'),
     instructor: DS.belongsTo('instructor'),

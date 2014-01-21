@@ -30,6 +30,10 @@ App.EditRoute = Ember.Route.extend
     fechaDeInicio = moment(fechaDeInicioModel).format('DD/MMMM/YYYY')
     controller.set('fechaDeInicio', fechaDeInicio)
     controller.set('model', model)
+    controller.set 'disabled', false
+
+    if( moment().diff(moment(fechaDeInicio, 'DD/MMMM/YYYY'), 'days') > 15 or model.get('alumnosRestantes') <= 0 )
+      controller.set 'disabled', true
 
   model : (params) ->
     @get('store').find('cursoProgramado', params.curso_programado_id)
