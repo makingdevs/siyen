@@ -121,27 +121,60 @@
       <div class="container-fluid">
         <div class="row-fluid">
           <div class="span6">
-            <div id="busqueda1" class="input-append">
-              <h4>ember select</h4>
-              {{ view Ember.Select prompt="Selecciona un curso : "
-                                   contentBinding="model"
-                                   optionValuePath="content.id"
-                                   optionLabelPath="content.descripcion"
-                                   selectionBinding="cursoSelectedA" }}
+            <div class="control-group">
+              <label class="control-label" for="cursos">Curso :</label>
+              <div class="controls">
+                {{ view Ember.Select prompt="Selecciona un curso : "
+                                     contentBinding="model"
+                                     optionValuePath="content.id"
+                                     optionLabelPath="content.descripcion"
+                                     selectionBinding="cursoSelectedA" }}
+              </div>
             </div>
-            <div id="resultados1"></div>
+
+            {{#if cursoSelectedA}}
+              <dl class="dl-horizontal">
+                <dt>Fecha de inicio</dt>
+                <dd>{{ date cursoSelectedA.fechaDeInicio }}</dd>
+
+                <dt>Instructor</dt>
+                <dd>{{ cursoSelectedA.instructor.nombre }}</dd>
+
+                <dt>Curso</dt>
+                <dd>{{ cursoSelectedA.curso.clave }}</dd>
+
+                <dt>Puerto</dt>
+                <dd>{{ cursoSelectedA.puerto.descripcion }}</dd>
+              </dl>
+            {{/if}}
           </div>
 
           <div class="span6">
-            <div id=busqueda2 class="input-append">
-              {{ view Ember.Select prompt="Selecciona un curso : "
-                                   contentBinding="model"
-                                   optionValuePath="content.id"
-                                   optionLabelPath="content.descripcion"
-                                   selectionBinding="cursoSelectedB" }}
+            <div class="control-group">
+              <label class="control-label" for="cursos">Curso :</label>
+              <div class="controls">
+                {{ view Ember.Select prompt="Selecciona un curso : "
+                                     contentBinding="model"
+                                     optionValuePath="content.id"
+                                     optionLabelPath="content.descripcion"
+                                     selectionBinding="cursoSelectedB" }}
+              </div>
             </div>
-            </div>
-            <div id="resultados2"></div>
+            {{#if cursoSelectedB}}
+              <dl class="dl-horizontal">
+                <dt>Fecha de inicio</dt>
+                <dd>{{ date cursoSelectedB.fechaDeInicio }}</dd>
+
+                <dt>Instructor</dt>
+                <dd>{{ cursoSelectedB.instructor.nombre }}</dd>
+
+                <dt>Curso</dt>
+                <dd>{{ cursoSelectedB.curso.clave }}</dd>
+
+                <dt>Puerto</dt>
+                <dd>{{ cursoSelectedB.puerto.descripcion }}</dd>
+              </dl>
+            {{/if}}
           </div>
         </div>
       </div>
