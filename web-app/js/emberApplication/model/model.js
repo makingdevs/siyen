@@ -7,7 +7,10 @@
     puerto: DS.belongsTo('puerto'),
     curso: DS.belongsTo('curso'),
     instructor: DS.belongsTo('instructor'),
-    alumnos: DS.hasMany('alumno')
+    alumnos: DS.hasMany('alumno'),
+    descripcion: (function() {
+      return "" + (this.get('id')) + " - " + (this.get('puerto.clave')) + " - " + (this.get('curso.clave')) + " - " + (moment(this.get('fechaDeInicio')).format('DD/MMMM/YYYY'));
+    }).property('puerto', 'estado')
   });
 
   App.Puerto = DS.Model.extend({

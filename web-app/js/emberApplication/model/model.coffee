@@ -9,6 +9,10 @@ App.CursoProgramado = DS.Model.extend
 
   alumnos : DS.hasMany('alumno')
 
+  descripcion : (->
+    "#{@get('id')} - #{@get('puerto.clave')} - #{@get('curso.clave')} - #{moment(@get('fechaDeInicio')).format('DD/MMMM/YYYY')}"
+  ).property('puerto', 'estado')
+
 App.Puerto = DS.Model.extend
   clave : DS.attr('string')
   puerto : DS.attr('string')
