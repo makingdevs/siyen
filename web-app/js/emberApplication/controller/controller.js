@@ -390,4 +390,6 @@
     }
   });
 
+  App.MovimientosController = Ember.ObjectController.extend();
+
 }).call(this);

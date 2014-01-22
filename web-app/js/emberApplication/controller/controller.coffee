@@ -389,3 +389,5 @@ App.BusquedaController = Ember.ObjectController.extend App.BusquedaForGetType,
         error: (xhr, status, err) ->
           console.log "error"
       )
+
+App.MovimientosController = Ember.ObjectController.extend()

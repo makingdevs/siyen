@@ -55,4 +55,6 @@ App.BusquedaRoute = Ember.Route.extend
       $(".busquedaChosen").trigger("chosen:updated")
     )
 
-App.MovimientosController = App.BusquedaRoute.extend()
+App.MovimientosRoute = App.BusquedaRoute.extend
+  model : ->
+    @get('store').find('cursoProgramado')

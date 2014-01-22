@@ -78,6 +78,10 @@
     }
   });
 
-  App.MovimientosController = App.BusquedaRoute.extend();
+  App.MovimientosRoute = App.BusquedaRoute.extend({
+    model: function() {
+      return this.get('store').find('cursoProgramado');
+    }
+  });
 
 }).call(this);
