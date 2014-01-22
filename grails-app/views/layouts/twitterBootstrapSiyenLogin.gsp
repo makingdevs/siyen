@@ -122,16 +122,27 @@
         <div class="row-fluid">
           <div class="span6">
             <div id="busqueda1" class="input-append">
-              {{ view App.TextField id="busqueda1" name="busqueda2" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}
-              <button type="submit" class="btn" {{ action "realizarBusqueda" }}>Buscar</button>
+              <h4>ember select</h4>
+              {{ view Ember.Select prompt="Selecciona un curso : "
+                                   contentBinding="model"
+                                   optionValuePath="content.id"
+                                   optionLabelPath="content.descripcion"
+                                   selectionBinding="cursoSelectedA" }}
             </div>
+            <div id="resultados1"></div>
           </div>
 
           <div class="span6">
             <div id=busqueda2 class="input-append">
-              {{ view App.TextField id="busqueda2" name="busqueda2" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}
-              <button type="submit" class="btn" {{ action "realizarBusqueda" }}>Buscar</button>
+              {{ view Ember.Select prompt="Selecciona un curso : "
+                                   contentBinding="model"
+                                   optionValuePath="content.id"
+                                   optionLabelPath="content.descripcion"
+                                   selectionBinding="cursoSelectedB" }}
             </div>
+            </div>
+            <div id="resultados2"></div>
+          </div>
         </div>
       </div>
     </script>
