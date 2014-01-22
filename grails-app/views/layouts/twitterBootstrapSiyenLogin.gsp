@@ -147,6 +147,9 @@
                 <dd>{{ cursoSelectedA.puerto.descripcion }}</dd>
               </dl>
             {{/if}}
+
+            {{ view App.ListaAlumnosView contentBinding=this }}
+
           </div>
 
           <div class="span6">
