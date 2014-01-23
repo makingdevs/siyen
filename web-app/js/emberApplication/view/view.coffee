@@ -299,18 +299,12 @@ App.ListaAlumnosView = Ember.View.extend DragNDrop.Droppable,
     viewId = event.originalEvent.dataTransfer.getData('Text')
     view = Ember.View.views[viewId]
     dropTargetId = event.currentTarget.id
-    parentViewTarget = Ember.View.views[dropTargetId]
 
     if view.get('parentView.elementId') != dropTargetId
-      console.log view.get('_context')
-      console.log view.get('_context.cursoProgramado')
-      console.log view.get('_context.id')
-      console.log view.get('_context.cursoProgramdoId')
-      console.log view.get('_context.curso_programdo')
-      console.log view.get('_context.curso_programdo_id')
-      view.get('_context')
-      console.log parentViewTarget.get('content')
-      # view.removeFromParent()
+      cursoProgramadoTarget = Ember.View.views[dropTargetId]
+      alumno = view.get('_context')
+      alumno.set('cursoProgramado', cursoProgramadoTarget.get('content'))
+      alumno.save()
 
     return this._super(event)
 
@@ -324,8 +318,13 @@ App.ListaAlumnosView = Ember.View.extend DragNDrop.Droppable,
 
 App.AlumnoDnDView = Ember.View.extend DragNDrop.Dragable,
   tagName : 'li'
+  attributeBindings : 'style'
+  style : 'cursor:move;'
   dragStart: (event) ->
     @_super(event)
+    @set('style', 'cursor:move;opacity:0.4')
     dataTransfer = event.originalEvent.dataTransfer
+  dragEnd : (event) ->
+    @set('style', 'cursor:move;opacity:1.0')
 
-  template : Ember.Handlebars.compile("{{ descripcion }}")
+  template : Ember.Handlebars.compile("<i class='icon-move'></i> {{ descripcion }}")

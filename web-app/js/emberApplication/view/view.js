@@ -243,20 +243,15 @@
   App.ListaAlumnosView = Ember.View.extend(DragNDrop.Droppable, {
     tagName: 'ul',
     drop: function(event) {
-      var dropTargetId, parentViewTarget, view, viewId;
+      var alumno, cursoProgramadoTarget, dropTargetId, view, viewId;
       viewId = event.originalEvent.dataTransfer.getData('Text');
       view = Ember.View.views[viewId];
       dropTargetId = event.currentTarget.id;
-      parentViewTarget = Ember.View.views[dropTargetId];
       if (view.get('parentView.elementId') !== dropTargetId) {
-        console.log(view.get('_context'));
-        console.log(view.get('_context.cursoProgramado'));
-        console.log(view.get('_context.id'));
-        console.log(view.get('_context.cursoProgramdoId'));
-        console.log(view.get('_context.curso_programdo'));
-        console.log(view.get('_context.curso_programdo_id'));
-        view.get('_context');
-        console.log(parentViewTarget.get('content'));
+        cursoProgramadoTarget = Ember.View.views[dropTargetId];
+        alumno = view.get('_context');
+        alumno.set('cursoProgramado', cursoProgramadoTarget.get('content'));
+        alumno.save();
       }
       return this._super(event);
     },
@@ -265,12 +260,18 @@
 
   App.AlumnoDnDView = Ember.View.extend(DragNDrop.Dragable, {
     tagName: 'li',
+    attributeBindings: 'style',
+    style: 'cursor:move;',
     dragStart: function(event) {
       var dataTransfer;
       this._super(event);
+      this.set('style', 'cursor:move;opacity:0.4');
       return dataTransfer = event.originalEvent.dataTransfer;
     },
-    template: Ember.Handlebars.compile("{{ descripcion }}")
+    dragEnd: function(event) {
+      return this.set('style', 'cursor:move;opacity:1.0');
+    },
+    template: Ember.Handlebars.compile("<i class='icon-move'></i> {{ descripcion }}")
   });
 
 }).call(this);
