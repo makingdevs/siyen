@@ -287,6 +287,7 @@ DragNDrop.Dragable = Ember.Mixin.create
     @set('style', 'cursor:move;opacity:0.4')
     dataTransfer = event.originalEvent.dataTransfer
     dataTransfer.setData('Text', this.get('elementId'))
+    @set('_context.isDragging', true)
 
   dragEnd : (event) ->
     @set('style', 'cursor:move;opacity:1.0')
@@ -294,6 +295,8 @@ DragNDrop.Dragable = Ember.Mixin.create
 DragNDrop.Droppable = Ember.Mixin.create
   dragEnter: DragNDrop.cancel
   dragOver: DragNDrop.cancel
+  attributeBindings : "dropTarget"
+  dropTarget : false
   drop: (event) ->
     event.preventDefault()
     return false
@@ -306,14 +309,29 @@ App.ListaAlumnosView = Ember.View.extend DragNDrop.Droppable,
     dropTargetId = event.currentTarget.id
 
     if view.get('parentView.elementId') != dropTargetId
+      ($ "#confirmarMovimientoDialog").modal(show:true)
       cursoProgramadoTarget = Ember.View.views[dropTargetId]
-      alumno = view.get('_context')
-      alumno.set('cursoProgramado', cursoProgramadoTarget.get('content'))
-      alumno.save()
+      view.set('_context.droppingTarget', cursoProgramadoTarget.get('content'))
 
     return this._super(event)
 
   template : Ember.Handlebars.compile("""
+    {{#if view.content}}
+      <dl class="dl-horizontal">
+        <dt>Fecha de inicio</dt>
+        <dd>{{ date view.content.fechaDeInicio }}</dd>
+
+        <dt>Instructor</dt>
+        <dd>{{ view.content.instructor.nombre }}</dd>
+
+        <dt>Curso</dt>
+        <dd>{{ view.content.curso.clave }}</dd>
+
+        <dt>Puerto</dt>
+        <dd>{{ view.content.puerto.descripcion }}</dd>
+      </dl>
+    {{/if}}
+
     {{#each view.content.alumnos}}
       {{ view App.AlumnoDnDView }}
     {{/each}}

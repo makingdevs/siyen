@@ -10,7 +10,10 @@
     alumnos: DS.hasMany('alumno'),
     descripcion: (function() {
       return "" + (this.get('id')) + " - " + (this.get('puerto.clave')) + " - " + (this.get('curso.clave')) + " - " + (moment(this.get('fechadeinicio')).format('DD/MMMM/YYYY'));
-    }).property('id', 'puerto', 'curso', 'fechadeinicio')
+    }).property('id', 'puerto', 'curso', 'fechadeinicio'),
+    currentDragItem: (function() {
+      return this.get('alumnos').findBy("isDragging", true);
+    }).property("alumnos.@each.isDragging")
   });
 
   App.Puerto = DS.Model.extend({
@@ -41,7 +44,9 @@
     cursoProgramado: DS.belongsTo('cursoProgramado'),
     descripcion: (function() {
       return "" + (this.get('numeroDeControl')) + " - " + (this.get('nombreCompleto'));
-    }).property('numeroDeControl', 'nombreCompleto')
+    }).property('numeroDeControl', 'nombreCompleto'),
+    isDragging: false,
+    droppingTarget: null
   });
 
 }).call(this);
