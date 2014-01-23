@@ -272,3 +272,59 @@ App.BusquedaAvanzadaView = Ember.View.extend
       '</div>' +
     '</div>'
   )
+
+DragNDrop = Ember.Namespace.create()
+
+DragNDrop.cancel = (event) ->
+  event.preventDefault()
+  return false
+
+DragNDrop.Dragable = Ember.Mixin.create
+  attributeBindings: ['draggable', 'style']
+  draggable: 'true'
+  style : 'cursor:move;'
+  dragStart: (event) ->
+    @set('style', 'cursor:move;opacity:0.4')
+    dataTransfer = event.originalEvent.dataTransfer
+    dataTransfer.setData('Text', this.get('elementId'))
+
+  dragEnd : (event) ->
+    @set('style', 'cursor:move;opacity:1.0')
+
+DragNDrop.Droppable = Ember.Mixin.create
+  dragEnter: DragNDrop.cancel
+  dragOver: DragNDrop.cancel
+  drop: (event) ->
+    event.preventDefault()
+    return false
+
+App.ListaAlumnosView = Ember.View.extend DragNDrop.Droppable,
+  tagName : 'ul'
+  drop : (event) ->
+    viewId = event.originalEvent.dataTransfer.getData('Text')
+    view = Ember.View.views[viewId]
+    dropTargetId = event.currentTarget.id
+
+    if view.get('parentView.elementId') != dropTargetId
+      cursoProgramadoTarget = Ember.View.views[dropTargetId]
+      alumno = view.get('_context')
+      alumno.set('cursoProgramado', cursoProgramadoTarget.get('content'))
+      alumno.save()
+
+    return this._super(event)
+
+  template : Ember.Handlebars.compile("""
+    {{#each view.content.alumnos}}
+      {{ view App.AlumnoDnDView }}
+    {{/each}}
+  """)
+
+
+
+App.AlumnoDnDView = Ember.View.extend DragNDrop.Dragable,
+  tagName : 'li'
+  dragStart: (event) ->
+    @_super(event)
+    dataTransfer = event.originalEvent.dataTransfer
+
+  template : Ember.Handlebars.compile("<i class='icon-move'></i> {{ descripcion }}")

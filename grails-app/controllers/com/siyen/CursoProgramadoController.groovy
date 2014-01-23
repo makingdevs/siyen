@@ -27,7 +27,7 @@ class CursoProgramadoController {
     }
 
     def cursosProgramados = CursoProgramado.findAll {
-      gt "dateCreated", (new Date() - 1)
+      gt "fechaDeInicio", (new Date() - 15)
       eq "user", springSecurityService.currentUser
     }
 
@@ -76,7 +76,7 @@ class CursoProgramadoController {
     jsonResponse.cursos = Curso.findAll { activo == true }
     jsonResponse.instructores = springSecurityService.currentUser.instructores.findAll { it.activo }
     jsonResponse.alumnos = Alumno.findAll {
-      dateCreated > (new Date() - 1)
+      dateCreated > (new Date() - 15)
     }
 
     JSON.use('siyen') {

@@ -7,7 +7,10 @@
     puerto: DS.belongsTo('puerto'),
     curso: DS.belongsTo('curso'),
     instructor: DS.belongsTo('instructor'),
-    alumnos: DS.hasMany('alumno')
+    alumnos: DS.hasMany('alumno'),
+    descripcion: (function() {
+      return "" + (this.get('id')) + " - " + (this.get('puerto.clave')) + " - " + (this.get('curso.clave')) + " - " + (moment(this.get('fechadeinicio')).format('DD/MMMM/YYYY'));
+    }).property('id', 'puerto', 'curso', 'fechadeinicio')
   });
 
   App.Puerto = DS.Model.extend({
@@ -35,7 +38,10 @@
     nombreCompleto: DS.attr('string'),
     observaciones: DS.attr('string'),
     monto: DS.attr('number'),
-    cursoProgramado: DS.belongsTo('cursoProgramado')
+    cursoProgramado: DS.belongsTo('cursoProgramado'),
+    descripcion: (function() {
+      return "" + (this.get('numeroDeControl')) + " - " + (this.get('nombreCompleto'));
+    }).property('numeroDeControl', 'nombreCompleto')
   });
 
 }).call(this);
