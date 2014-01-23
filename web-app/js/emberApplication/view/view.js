@@ -86,7 +86,7 @@
 
   App.ParticipanteView = Ember.View.extend({
     tagName: 'tr',
-    template: Ember.Handlebars.compile('' + "<td> {{ nombreCompleto }} </td>\n<td> {{#if observaciones}} - <small>{{ observaciones }}</small>{{/if}} </td>\n<td> {{#if monto}} - <span class=\"badge badge-info\">${{ monto }}</span>{{/if}} </td>\n<td> {{#if id}} {{ view App.CertificadoPorParticipanteButton }} {{/if}} </td>"),
+    template: Ember.Handlebars.compile('' + "<td> {{ nombreCompleto }} </td>\n<td> {{#if observaciones}}{{ observaciones }}{{/if}} </td>\n<td> {{#if monto}}<span class=\"badge badge-info\">${{ monto }}</span>{{/if}} </td>\n<td> {{#if id}} {{ view App.CertificadoPorParticipanteButton }} {{/if}} </td>"),
     click: function(event) {
       var controller;
       controller = this.get('controller');

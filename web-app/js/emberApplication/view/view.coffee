@@ -120,8 +120,8 @@ App.ParticipanteView = Ember.View.extend
   template: Ember.Handlebars.compile('' +
     """
       <td> {{ nombreCompleto }} </td>
-      <td> {{#if observaciones}} - <small>{{ observaciones }}</small>{{/if}} </td>
-      <td> {{#if monto}} - <span class="badge badge-info">${{ monto }}</span>{{/if}} </td>
+      <td> {{#if observaciones}}{{ observaciones }}{{/if}} </td>
+      <td> {{#if monto}}<span class="badge badge-info">${{ monto }}</span>{{/if}} </td>
       <td> {{#if id}} {{ view App.CertificadoPorParticipanteButton }} {{/if}} </td>
     """ )
 
