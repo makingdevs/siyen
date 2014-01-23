@@ -47,7 +47,17 @@ Ember.TEMPLATES['movimientos'] = Ember.Handlebars.compile("""
         {{ view App.ListaAlumnosView contentBinding=cursoSelectedB }}
       </div>
     </div>
-  </div>""")
+  </div>
+
+  {{ view App.ConfirmDialogView
+       elementId="confirmarMovimientoDialog"
+       okAction="doRealizarMovimiento"
+       cancelAction="doCancelMovimiento"
+       target="controller"
+       header="Confirmación de movimiento"
+       message="¿Está seguro de autorizar el movimiento?"
+  }}
+  """)
 
 Ember.TEMPLATES['crear'] = Ember.Handlebars.compile('' +
   '<div class="container-fluid">' +
