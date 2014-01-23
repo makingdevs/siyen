@@ -9,7 +9,7 @@
     instructor: DS.belongsTo('instructor'),
     alumnos: DS.hasMany('alumno'),
     descripcion: (function() {
-      return "" + (this.get('id')) + " - " + (this.get('puerto.clave')) + " - " + (this.get('curso.clave')) + " - " + (moment(this.get('fechadeinicio')).format('dd/mmmm/yyyy'));
+      return "" + (this.get('id')) + " - " + (this.get('puerto.clave')) + " - " + (this.get('curso.clave')) + " - " + (moment(this.get('fechadeinicio')).format('DD/MMMM/YYYY'));
     }).property('id', 'puerto', 'curso', 'fechadeinicio')
   });
 

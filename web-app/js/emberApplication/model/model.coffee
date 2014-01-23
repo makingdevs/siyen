@@ -10,7 +10,7 @@ App.CursoProgramado = DS.Model.extend
   alumnos : DS.hasMany('alumno')
 
   descripcion : (->
-    "#{@get('id')} - #{@get('puerto.clave')} - #{@get('curso.clave')} - #{moment(@get('fechadeinicio')).format('dd/mmmm/yyyy')}"
+    "#{@get('id')} - #{@get('puerto.clave')} - #{@get('curso.clave')} - #{moment(@get('fechadeinicio')).format('DD/MMMM/YYYY')}"
   ).property('id', 'puerto', 'curso', 'fechadeinicio')
 
 App.Puerto = DS.Model.extend
