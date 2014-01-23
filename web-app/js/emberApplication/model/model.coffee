@@ -13,6 +13,10 @@ App.CursoProgramado = DS.Model.extend
     "#{@get('id')} - #{@get('puerto.clave')} - #{@get('curso.clave')} - #{moment(@get('fechadeinicio')).format('DD/MMMM/YYYY')}"
   ).property('id', 'puerto', 'curso', 'fechadeinicio')
 
+  currentDragItem: ( ->
+    @get('alumnos').findBy("isDragging", true)
+  ).property("alumnos.@each.isDragging")
+
 App.Puerto = DS.Model.extend
   clave : DS.attr('string')
   puerto : DS.attr('string')
@@ -38,7 +42,9 @@ App.Alumno = DS.Model.extend
   monto : DS.attr('number')
 
   cursoProgramado : DS.belongsTo('cursoProgramado')
-
   descripcion : (->
     "#{@get('numeroDeControl')} - #{@get('nombreCompleto')}"
   ).property('numeroDeControl', 'nombreCompleto')
+
+  isDragging : false
+  droppingTarget : null
