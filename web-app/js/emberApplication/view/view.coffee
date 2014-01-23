@@ -280,11 +280,16 @@ DragNDrop.cancel = (event) ->
   return false
 
 DragNDrop.Dragable = Ember.Mixin.create
-  attributeBindings: 'draggable'
+  attributeBindings: ['draggable', 'style']
   draggable: 'true'
+  style : 'cursor:move;'
   dragStart: (event) ->
+    @set('style', 'cursor:move;opacity:0.4')
     dataTransfer = event.originalEvent.dataTransfer
     dataTransfer.setData('Text', this.get('elementId'))
+
+  dragEnd : (event) ->
+    @set('style', 'cursor:move;opacity:1.0')
 
 DragNDrop.Droppable = Ember.Mixin.create
   dragEnter: DragNDrop.cancel
@@ -318,13 +323,8 @@ App.ListaAlumnosView = Ember.View.extend DragNDrop.Droppable,
 
 App.AlumnoDnDView = Ember.View.extend DragNDrop.Dragable,
   tagName : 'li'
-  attributeBindings : 'style'
-  style : 'cursor:move;'
   dragStart: (event) ->
     @_super(event)
-    @set('style', 'cursor:move;opacity:0.4')
     dataTransfer = event.originalEvent.dataTransfer
-  dragEnd : (event) ->
-    @set('style', 'cursor:move;opacity:1.0')
 
   template : Ember.Handlebars.compile("<i class='icon-move'></i> {{ descripcion }}")

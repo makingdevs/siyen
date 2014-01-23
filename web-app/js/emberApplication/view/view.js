@@ -222,12 +222,17 @@
   };
 
   DragNDrop.Dragable = Ember.Mixin.create({
-    attributeBindings: 'draggable',
+    attributeBindings: ['draggable', 'style'],
     draggable: 'true',
+    style: 'cursor:move;',
     dragStart: function(event) {
       var dataTransfer;
+      this.set('style', 'cursor:move;opacity:0.4');
       dataTransfer = event.originalEvent.dataTransfer;
       return dataTransfer.setData('Text', this.get('elementId'));
+    },
+    dragEnd: function(event) {
+      return this.set('style', 'cursor:move;opacity:1.0');
     }
   });
 
@@ -260,16 +265,10 @@
 
   App.AlumnoDnDView = Ember.View.extend(DragNDrop.Dragable, {
     tagName: 'li',
-    attributeBindings: 'style',
-    style: 'cursor:move;',
     dragStart: function(event) {
       var dataTransfer;
       this._super(event);
-      this.set('style', 'cursor:move;opacity:0.4');
       return dataTransfer = event.originalEvent.dataTransfer;
-    },
-    dragEnd: function(event) {
-      return this.set('style', 'cursor:move;opacity:1.0');
     },
     template: Ember.Handlebars.compile("<i class='icon-move'></i> {{ descripcion }}")
   });
