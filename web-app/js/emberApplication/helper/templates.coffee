@@ -16,6 +16,39 @@ templates = [ 'cursosNuevos', 'cursosAutorizados', 'edit', 'confirmDialog', 'cre
 for template in templates
   Handlebars.getTemplate( template )
 
+Ember.TEMPLATES['movimientos'] = Ember.Handlebars.compile("""
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span6">
+        <div class="control-group">
+          <label class="control-label" for="cursos">Curso :</label>
+          <div class="controls">
+            {{ view Ember.Select prompt="Selecciona un curso : "
+                                 contentBinding="model"
+                                 optionValuePath="content.id"
+                                 optionLabelPath="content.descripcion"
+                                 selectionBinding="cursoSelectedA" }}
+          </div>
+        </div>
+        {{ view App.ListaAlumnosView contentBinding=cursoSelectedA }}
+      </div>
+
+      <div class="span6">
+        <div class="control-group">
+          <label class="control-label" for="cursos">Curso :</label>
+          <div class="controls">
+            {{ view Ember.Select prompt="Selecciona un curso : "
+                                 contentBinding="model"
+                                 optionValuePath="content.id"
+                                 optionLabelPath="content.descripcion"
+                                 selectionBinding="cursoSelectedB" }}
+          </div>
+        </div>
+        {{ view App.ListaAlumnosView contentBinding=cursoSelectedB }}
+      </div>
+    </div>
+  </div>""")
+
 Ember.TEMPLATES['crear'] = Ember.Handlebars.compile('' +
   '<div class="container-fluid">' +
     '<div class="row-fluid">' +

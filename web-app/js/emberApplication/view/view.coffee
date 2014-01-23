@@ -314,6 +314,22 @@ App.ListaAlumnosView = Ember.View.extend DragNDrop.Droppable,
     return this._super(event)
 
   template : Ember.Handlebars.compile("""
+    {{#if view.content}}
+      <dl class="dl-horizontal">
+        <dt>Fecha de inicio</dt>
+        <dd>{{ date view.content.fechaDeInicio }}</dd>
+
+        <dt>Instructor</dt>
+        <dd>{{ view.content.instructor.nombre }}</dd>
+
+        <dt>Curso</dt>
+        <dd>{{ view.content.curso.clave }}</dd>
+
+        <dt>Puerto</dt>
+        <dd>{{ view.content.puerto.descripcion }}</dd>
+      </dl>
+    {{/if}}
+
     {{#each view.content.alumnos}}
       {{ view App.AlumnoDnDView }}
     {{/each}}
