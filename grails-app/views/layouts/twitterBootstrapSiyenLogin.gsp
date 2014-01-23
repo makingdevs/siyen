@@ -148,8 +148,7 @@
               </dl>
             {{/if}}
 
-            {{ view App.ListaAlumnosView contentBinding=this }}
-
+            {{ view App.ListaAlumnosView contentBinding=cursoSelectedA }}
           </div>
 
           <div class="span6">
@@ -178,6 +177,7 @@
                 <dd>{{ cursoSelectedB.puerto.descripcion }}</dd>
               </dl>
             {{/if}}
+            {{ view App.ListaAlumnosView contentBinding=cursoSelectedB }}
           </div>
         </div>
       </div>
