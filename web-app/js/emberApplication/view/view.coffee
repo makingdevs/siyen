@@ -290,22 +290,42 @@ DragNDrop.Droppable = Ember.Mixin.create
   dragEnter: DragNDrop.cancel
   dragOver: DragNDrop.cancel
   drop: (event) ->
-    console.log "Dropping"
-    viewId = event.originalEvent.dataTransfer.getData('Text')
-    # Ember.View.views[viewId].destroy()
     event.preventDefault()
     return false
 
-App.ListaAlumnosView = Ember.View.extend
+App.ListaAlumnosView = Ember.View.extend DragNDrop.Droppable,
   tagName : 'ul'
+  drop : (event) ->
+    viewId = event.originalEvent.dataTransfer.getData('Text')
+    view = Ember.View.views[viewId]
+    dropTargetId = event.currentTarget.id
+    parentViewTarget = Ember.View.views[dropTargetId]
+
+    if view.get('parentView.elementId') != dropTargetId
+      console.log view.get('_context')
+      console.log view.get('_context.cursoProgramado')
+      console.log view.get('_context.id')
+      console.log view.get('_context.cursoProgramdoId')
+      console.log view.get('_context.curso_programdo')
+      console.log view.get('_context.curso_programdo_id')
+      view.get('_context')
+      console.log parentViewTarget.get('content')
+      # view.removeFromParent()
+
+    return this._super(event)
+
   template : Ember.Handlebars.compile("""
-    {{#each cursoSelectedA.alumnos}}
+    {{#each view.content.alumnos}}
       {{ view App.AlumnoDnDView }}
     {{/each}}
   """)
 
-App.AlumnoDnDView = Ember.View.extend DragNDrop.Dragable, DragNDrop.Droppable,
+
+
+App.AlumnoDnDView = Ember.View.extend DragNDrop.Dragable,
   tagName : 'li'
-  template : Ember.Handlebars.compile("""
-    {{ descripcion }}
-  """)
+  dragStart: (event) ->
+    @_super(event)
+    dataTransfer = event.originalEvent.dataTransfer
+
+  template : Ember.Handlebars.compile("{{ descripcion }}")

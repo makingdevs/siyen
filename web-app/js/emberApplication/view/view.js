@@ -235,21 +235,41 @@
     dragEnter: DragNDrop.cancel,
     dragOver: DragNDrop.cancel,
     drop: function(event) {
-      var viewId;
-      console.log("Dropping");
-      viewId = event.originalEvent.dataTransfer.getData('Text');
       event.preventDefault();
       return false;
     }
   });
 
-  App.ListaAlumnosView = Ember.View.extend({
+  App.ListaAlumnosView = Ember.View.extend(DragNDrop.Droppable, {
     tagName: 'ul',
-    template: Ember.Handlebars.compile("{{#each cursoSelectedA.alumnos}}\n  {{ view App.AlumnoDnDView }}\n{{/each}}")
+    drop: function(event) {
+      var dropTargetId, parentViewTarget, view, viewId;
+      viewId = event.originalEvent.dataTransfer.getData('Text');
+      view = Ember.View.views[viewId];
+      dropTargetId = event.currentTarget.id;
+      parentViewTarget = Ember.View.views[dropTargetId];
+      if (view.get('parentView.elementId') !== dropTargetId) {
+        console.log(view.get('_context'));
+        console.log(view.get('_context.cursoProgramado'));
+        console.log(view.get('_context.id'));
+        console.log(view.get('_context.cursoProgramdoId'));
+        console.log(view.get('_context.curso_programdo'));
+        console.log(view.get('_context.curso_programdo_id'));
+        view.get('_context');
+        console.log(parentViewTarget.get('content'));
+      }
+      return this._super(event);
+    },
+    template: Ember.Handlebars.compile("{{#each view.content.alumnos}}\n  {{ view App.AlumnoDnDView }}\n{{/each}}")
   });
 
-  App.AlumnoDnDView = Ember.View.extend(DragNDrop.Dragable, DragNDrop.Droppable, {
+  App.AlumnoDnDView = Ember.View.extend(DragNDrop.Dragable, {
     tagName: 'li',
+    dragStart: function(event) {
+      var dataTransfer;
+      this._super(event);
+      return dataTransfer = event.originalEvent.dataTransfer;
+    },
     template: Ember.Handlebars.compile("{{ descripcion }}")
   });
 
