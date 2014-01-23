@@ -390,6 +390,27 @@
     }
   });
 
-  App.MovimientosController = Ember.ObjectController.extend();
+  App.MovimientosController = Ember.ObjectController.extend({
+    actions: {
+      doRealizarMovimiento: function() {
+        var currentDragAlumno;
+        if (this.get('cursoSelectedA.currentDragItem')) {
+          currentDragAlumno = this.get('cursoSelectedA.currentDragItem');
+        }
+        if (this.get('cursoSelectedB.currentDragItem')) {
+          currentDragAlumno = this.get('cursoSelectedB.currentDragItem');
+        }
+        currentDragAlumno.set('cursoProgramado', currentDragAlumno.get('droppingTarget'));
+        currentDragAlumno.save();
+        currentDragAlumno.setProperties({
+          'isDragging': false
+        }, 'droppingTarget', null);
+        return ($("#confirmarMovimientoDialog")).modal('hide');
+      },
+      doCancelMovimiento: function() {
+        return ($("#confirmarMovimientoDialog")).modal('hide');
+      }
+    }
+  });
 
 }).call(this);

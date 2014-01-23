@@ -390,4 +390,17 @@ App.BusquedaController = Ember.ObjectController.extend App.BusquedaForGetType,
           console.log "error"
       )
 
-App.MovimientosController = Ember.ObjectController.extend()
+App.MovimientosController = Ember.ObjectController.extend
+  actions :
+    doRealizarMovimiento : ->
+      currentDragAlumno = @get('cursoSelectedA.currentDragItem') if @get('cursoSelectedA.currentDragItem')
+      currentDragAlumno = @get('cursoSelectedB.currentDragItem') if @get('cursoSelectedB.currentDragItem')
+      currentDragAlumno.set('cursoProgramado', currentDragAlumno.get('droppingTarget'))
+      currentDragAlumno.save()
+      currentDragAlumno.setProperties
+        'isDragging' : false
+        'droppingTarget', null
+      ($ "#confirmarMovimientoDialog").modal('hide')
+
+    doCancelMovimiento : ->
+      ($ "#confirmarMovimientoDialog").modal('hide')
