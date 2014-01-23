@@ -5,6 +5,7 @@
     this.route('notificacion');
     this.route('busqueda');
     this.route('movimientos');
+    this.route('oficios');
     this.resource('cursosNuevos', function() {
       return this.resource('crear', function() {
         return this.route('participantes');
@@ -78,9 +79,15 @@
     }
   });
 
-  App.MovimientosRoute = App.BusquedaRoute.extend({
+  App.MovimientosRoute = Ember.Route.extend({
     model: function() {
       return this.get('store').find('cursoProgramado');
+    }
+  });
+
+  App.OficiosRoute = Ember.Route.extend({
+    model: function() {
+      return this.get('store').find('instructor');
     }
   });
 
