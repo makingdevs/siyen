@@ -59,9 +59,11 @@
                       <li>
                         {{#linkTo "cursosAutorizados" }}Autorizados{{/linkTo}}
                       </li>
-                      <li>
-                        {{#linkTo "movimientos" }}Movimientos{{/linkTo}}
-                      </li>
+                      <sec:access expression="hasRole('ROLE_ADMIN')">
+                        <li>
+                          {{#linkTo "movimientos" }}Movimientos{{/linkTo}}
+                        </li>
+                      </sec:access>
                     </ul>
                   </li>
                   <li>
@@ -69,6 +71,9 @@
                   </li>
                   <li>
                     {{#linkTo "busqueda" }}Busqueda{{/linkTo}}
+                  </li>
+                  <li>
+                    {{#linkTo "oficios" }}Oficios{{/linkTo}}
                   </li>
                   <sec:access expression="hasRole('ROLE_ADMIN')">
                     <li>
@@ -128,6 +133,8 @@
 
     <input type="hidden" id="frenteParaCursoPorAlumno" value="${g.createLink(action:'generarFrenteParaCursoPorAlumno', controller:'certificado')}" />
     <input type="hidden" id="reversoParaCursoPorAlumno" value="${g.createLink(action:'generarReversoParaCursoPorAlumno', controller:'certificado')}" />
+
+    <input type="hidden" id="generarOficios" value="${g.createLink(action:'generarOficio', controller:'oficio')}" />
 
     <input type="hidden" id="urlBusqueda" value="${g.createLink(action:'realizarBusqueda', controller:'busqueda')}" />
 
