@@ -129,3 +129,46 @@ Ember.TEMPLATES['cursoNuevoForm'] = Ember.Handlebars.compile('' +
       '{{/if}}' +
     '</div>' +
   '</div>' )
+
+Ember.TEMPLATES['oficios'] = Ember.Handlebars.compile("""
+  <div class="page-header">
+    <h1>Generación de oficios</h1>
+  </div>
+  <div class="form-horizontal">
+    <div class="control-group">
+      <label class="control-label" for="dirigidoA">Dirigido a :</label>
+      <div class="controls">
+        {{ input id="dirigidoA" name="dirigidoA" class="input-xxlarge" value=dirigidoA }}
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="puesto">Puesto :</label>
+      <div class="controls">
+        {{ input id="puesto" name="puesto" class="input-xxlarge" value=puesto }}
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="direccion">Direccion :</label>
+      <div class="controls">
+        {{ textarea id="direccion" name="direccion" class="input-xxlarge" value=direccion }}
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="deParteDe">De parte de :</label>
+      <div class="controls">
+        {{ view Ember.Select prompt="Selecciona un instructor : "
+                             contentBinding="model"
+                             optionValuePath="content.id"
+                             optionLabelPath="content.nombre"
+                             selectionBinding="deParteDe" }}
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-large btn-primary" {{ action "generarInforme" }} > Generar </button>
+    </div>
+  </div>
+  """)
