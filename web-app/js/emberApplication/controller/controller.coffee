@@ -404,3 +404,27 @@ App.MovimientosController = Ember.ObjectController.extend
 
     doCancelMovimiento : ->
       ($ "#confirmarMovimientoDialog").modal('hide')
+
+App.OficiosController = Ember.ObjectController.extend
+  actions :
+    generarInforme : ->
+      urlGenerarOficios = ($ '#generarOficios').val()
+      dirigidoA = @get('dirigidoA')
+      puesto = @get('puesto')
+      direccion = @get('direccion')
+      deParteDe = @get('deParteDe')
+
+      $.ajax(
+        type: "POST"
+        url: urlGenerarOficios
+        data:
+          dirigidoA : dirigidoA
+          puesto : puesto
+          direccion : direccion
+          deParteDe : deParteDe
+        success: (res, status, xhr) ->
+          console.log res
+        error: (xhr, status, err) ->
+          console.log "error"
+      )
+

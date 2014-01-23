@@ -413,4 +413,33 @@
     }
   });
 
+  App.OficiosController = Ember.ObjectController.extend({
+    actions: {
+      generarInforme: function() {
+        var deParteDe, direccion, dirigidoA, puesto, urlGenerarOficios;
+        urlGenerarOficios = ($('#generarOficios')).val();
+        dirigidoA = this.get('dirigidoA');
+        puesto = this.get('puesto');
+        direccion = this.get('direccion');
+        deParteDe = this.get('deParteDe');
+        return $.ajax({
+          type: "POST",
+          url: urlGenerarOficios,
+          data: {
+            dirigidoA: dirigidoA,
+            puesto: puesto,
+            direccion: direccion,
+            deParteDe: deParteDe
+          },
+          success: function(res, status, xhr) {
+            return console.log(res);
+          },
+          error: function(xhr, status, err) {
+            return console.log("error");
+          }
+        });
+      }
+    }
+  });
+
 }).call(this);
