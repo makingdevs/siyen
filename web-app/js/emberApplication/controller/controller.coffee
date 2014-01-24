@@ -412,7 +412,9 @@ App.OficiosController = Ember.ObjectController.extend
       dirigidoA = @get('dirigidoA')
       puesto = @get('puesto')
       direccion = @get('direccion')
-      deParteDe = @get('deParteDe')
+      deParteDe = @get('deParteDe.id')
+      desde = moment(@get('desde'), "DD/MMM/YYYY").format('DD/MM/YYYY')
+      hasta = moment(@get('hasta'), "DD/MMM/YYYY").format('DD/MM/YYYY')
 
       $.ajax(
         type: "POST"
@@ -422,6 +424,8 @@ App.OficiosController = Ember.ObjectController.extend
           puesto : puesto
           direccion : direccion
           deParteDe : deParteDe
+          desde : desde
+          hasta : hasta
         success: (res, status, xhr) ->
           console.log res
         error: (xhr, status, err) ->
