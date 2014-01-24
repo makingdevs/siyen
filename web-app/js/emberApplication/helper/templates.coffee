@@ -167,6 +167,20 @@ Ember.TEMPLATES['oficios'] = Ember.Handlebars.compile("""
       </div>
     </div>
 
+    <div class="control-group">
+      <label class="control-label" for="desde">Desde :</label>
+      <div class="controls">
+        {{ view App.DatePickerView fechaValueBinding="desde" initValue=false }}
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="hasta">Hasta :</label>
+      <div class="controls">
+        {{ view App.DatePickerView fechaValueBinding="hasta" initValue=false }}
+      </div>
+    </div>
+
     <div class="form-actions">
       <button class="btn btn-large btn-primary" {{ action "generarInforme" }} > Generar </button>
     </div>
