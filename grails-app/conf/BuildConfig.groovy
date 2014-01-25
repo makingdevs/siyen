@@ -48,6 +48,8 @@ grails.project.dependency.resolution = {
     compile 'io.vertx:vertx-core:2.0.0-final'
 
     test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
+    runtime 'org.xhtmlrenderer:core-renderer:R8'
+    runtime 'com.lowagie:itext:2.1.0'
   }
 
   plugins {
@@ -63,10 +65,15 @@ grails.project.dependency.resolution = {
     compile(":jasper:1.6.1"){
       exclude 'poi'
       exclude 'jackson-core-asl'
+      excludes 'itext', 'itext-rtf'
     }
 
     test(":spock:0.7") {
       exclude "spock-grails-support"
+    }
+
+    compile(":rendering:0.4.4") {
+      excludes 'itext', 'itext-rtf'
     }
 
     build ":tomcat:$grailsVersion"
