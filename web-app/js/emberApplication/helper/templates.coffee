@@ -157,10 +157,22 @@ Ember.TEMPLATES['oficios'] = Ember.Handlebars.compile("""
     </div>
 
     <div class="control-group">
+      <label class="control-label" for="puertoDeEnvio">Puerto de envio :</label>
+      <div class="controls">
+        {{ view Ember.Select prompt="Selecciona un puerto : "
+                             contentBinding="puertos"
+                             optionValuePath="content.id"
+                             optionLabelPath="content.descripcion"
+                             selectionBinding="puerto" }}
+      </div>
+    </div>
+
+    <div class="control-group">
       <label class="control-label" for="deParteDe">De parte de :</label>
       <div class="controls">
         {{ view Ember.Select prompt="Selecciona un instructor : "
-                             contentBinding="model"
+                             id="deParteDe"
+                             contentBinding="instructores"
                              optionValuePath="content.id"
                              optionLabelPath="content.nombre"
                              selectionBinding="deParteDe" }}
@@ -182,7 +194,7 @@ Ember.TEMPLATES['oficios'] = Ember.Handlebars.compile("""
     </div>
 
     <div class="form-actions">
-      <button class="btn btn-large btn-primary" {{ action "generarInforme" }} > Generar </button>
+      {{ view App.OficioButton }}
     </div>
   </div>
   """)
