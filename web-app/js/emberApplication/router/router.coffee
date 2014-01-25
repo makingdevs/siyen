@@ -61,5 +61,7 @@ App.MovimientosRoute = Ember.Route.extend
     @get('store').find('cursoProgramado')
 
 App.OficiosRoute = Ember.Route.extend
-  model : ->
-    @get('store').find('instructor')
+  setupController : (controller, model) ->
+    @_super(controller, model)
+    controller.set('instructores', @get('store').find('instructor'))
+    controller.set('puertos', @get('store').find('puerto'))

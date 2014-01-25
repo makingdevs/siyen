@@ -86,8 +86,10 @@
   });
 
   App.OficiosRoute = Ember.Route.extend({
-    model: function() {
-      return this.get('store').find('instructor');
+    setupController: function(controller, model) {
+      this._super(controller, model);
+      controller.set('instructores', this.get('store').find('instructor'));
+      return controller.set('puertos', this.get('store').find('puerto'));
     }
   });
 
