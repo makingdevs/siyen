@@ -406,29 +406,14 @@ App.MovimientosController = Ember.ObjectController.extend
       ($ "#confirmarMovimientoDialog").modal('hide')
 
 App.OficiosController = Ember.ObjectController.extend
-  actions :
-    generarInforme : ->
-      urlGenerarOficios = ($ '#generarOficios').val()
-      dirigidoA = @get('dirigidoA')
-      puesto = @get('puesto')
-      direccion = @get('direccion')
-      deParteDe = @get('deParteDe.id')
-      desde = moment(@get('desde'), "DD/MMM/YYYY").format('DD/MM/YYYY')
-      hasta = moment(@get('hasta'), "DD/MMM/YYYY").format('DD/MM/YYYY')
+  instructores : []
+  puertos : []
 
-      $.ajax(
-        type: "POST"
-        url: urlGenerarOficios
-        data:
-          dirigidoA : dirigidoA
-          puesto : puesto
-          direccion : direccion
-          deParteDe : deParteDe
-          desde : desde
-          hasta : hasta
-        success: (res, status, xhr) ->
-          console.log res
-        error: (xhr, status, err) ->
-          console.log "error"
-      )
+  dirigidoA : null
+  puesto : null
+  direccion : null
+  puerto : null
+  deParteDe : null
+  desde : null
+  hasta : null
 

@@ -414,36 +414,15 @@
   });
 
   App.OficiosController = Ember.ObjectController.extend({
-    actions: {
-      generarInforme: function() {
-        var deParteDe, desde, direccion, dirigidoA, hasta, puesto, urlGenerarOficios;
-        urlGenerarOficios = ($('#generarOficios')).val();
-        dirigidoA = this.get('dirigidoA');
-        puesto = this.get('puesto');
-        direccion = this.get('direccion');
-        deParteDe = this.get('deParteDe.id');
-        desde = moment(this.get('desde'), "DD/MMM/YYYY").format('DD/MM/YYYY');
-        hasta = moment(this.get('hasta'), "DD/MMM/YYYY").format('DD/MM/YYYY');
-        return $.ajax({
-          type: "POST",
-          url: urlGenerarOficios,
-          data: {
-            dirigidoA: dirigidoA,
-            puesto: puesto,
-            direccion: direccion,
-            deParteDe: deParteDe,
-            desde: desde,
-            hasta: hasta
-          },
-          success: function(res, status, xhr) {
-            return console.log(res);
-          },
-          error: function(xhr, status, err) {
-            return console.log("error");
-          }
-        });
-      }
-    }
+    instructores: [],
+    puertos: [],
+    dirigidoA: null,
+    puesto: null,
+    direccion: null,
+    puerto: null,
+    deParteDe: null,
+    desde: null,
+    hasta: null
   });
 
 }).call(this);
