@@ -30,6 +30,7 @@ App.CursosNuevosController = Ember.ArrayController.extend App.BusquedaForGetType
       @set( 'autorizarCurso', null )
 
     doRealizarAutorizacion : ->
+      ($ "#primary").attr('disabled', 'disabled')
       cursoProgramadoTemp = @get('autorizarCurso')
 
       cursoProgramadoLocal = {
@@ -96,6 +97,7 @@ App.CursosNuevosController = Ember.ArrayController.extend App.BusquedaForGetType
 
           ($ "#duplicacion").modal('show')
       )
+      ($ "#primary").attr('disabled', false)
 
 App.CursosAutorizadosController = Ember.ArrayController.extend()
 

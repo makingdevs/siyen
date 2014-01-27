@@ -41,6 +41,7 @@
       doRealizarAutorizacion: function() {
         var alumno, cursoProgramado, cursoProgramadoLocal, cursoProgramadoTemp, _i, _len, _ref,
           _this = this;
+        ($("#primary")).attr('disabled', 'disabled');
         cursoProgramadoTemp = this.get('autorizarCurso');
         cursoProgramadoLocal = {
           fechaDeInicio: cursoProgramadoTemp.get('fechaDeInicio').format('DD/MM/YYYY'),
@@ -58,7 +59,7 @@
             monto: alumno.get('monto')
           });
         }
-        return cursoProgramado.save().then(function(value) {
+        cursoProgramado.save().then(function(value) {
           ($("#confirmarAutorizacionDialog")).modal('hide');
           _this.content.removeObject(_this.get('autorizarCurso'));
           return _this.transitionToRoute('cursosAutorizados');
@@ -81,6 +82,7 @@
           });
           return ($("#duplicacion")).modal('show');
         });
+        return ($("#primary")).attr('disabled', false);
       }
     }
   });
