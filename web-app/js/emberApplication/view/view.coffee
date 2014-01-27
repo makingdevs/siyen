@@ -120,8 +120,8 @@ App.ParticipanteView = Ember.View.extend
   template: Ember.Handlebars.compile('' +
     """
       <td> {{ nombreCompleto }} </td>
-      <td> {{#if observaciones}} - <small>{{ observaciones }}</small>{{/if}} </td>
-      <td> {{#if monto}} - <span class="badge badge-info">${{ monto }}</span>{{/if}} </td>
+      <td> {{#if observaciones}}{{ observaciones }}{{/if}} </td>
+      <td> {{#if monto}}<span class="badge badge-info">${{ monto }}</span>{{/if}} </td>
       <td> {{#if id}} {{ view App.CertificadoPorParticipanteButton }} {{/if}} </td>
     """ )
 
@@ -187,6 +187,25 @@ App.CertificadoPorParticipanteButton = Ember.View.extend(Ember.TargetActionSuppo
     return false
 
   template: Ember.Handlebars.compile('<i {{bindAttr class="view.iconName"}}></i>')
+)
+
+App.OficioButton = Ember.View.extend(Ember.TargetActionSupport,
+  tagName: 'a',
+  classNames: ['btn btn-primary']
+  click: ->
+    urlGenerarOficios = ($ '#generarOficios').val()
+    dirigidoA = @get('context.dirigidoA')
+    puesto = @get('context.puesto')
+    direccion = @get('context.direccion')
+    deParteDe = @get('context.deParteDe.id')
+    puerto = @get('context.puerto.id')
+    desde = @get('context.desde')
+    hasta = @get('context.hasta')
+
+    window.open("#{urlGenerarOficios}?dirigidoA=#{dirigidoA}&puesto=#{puesto}&direccion=#{direccion}&deParteDe=#{deParteDe}&puertoDeEnvio=#{puerto}&desde=#{desde}&hasta=#{hasta}")
+    return false
+
+  template: Ember.Handlebars.compile('Generar')
 )
 
 App.CursosAutorizadosView = Ember.View.extend()

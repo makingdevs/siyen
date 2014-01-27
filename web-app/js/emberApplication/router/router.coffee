@@ -3,6 +3,7 @@ App.Router.map ->
   @route 'notificacion'
   @route 'busqueda'
   @route 'movimientos'
+  @route 'oficios'
 
   @resource 'cursosNuevos', ->
     @resource 'crear', ->
@@ -55,6 +56,12 @@ App.BusquedaRoute = Ember.Route.extend
       $(".busquedaChosen").trigger("chosen:updated")
     )
 
-App.MovimientosRoute = App.BusquedaRoute.extend
+App.MovimientosRoute = Ember.Route.extend
   model : ->
     @get('store').find('cursoProgramado')
+
+App.OficiosRoute = Ember.Route.extend
+  setupController : (controller, model) ->
+    @_super(controller, model)
+    controller.set('instructores', @get('store').find('instructor'))
+    controller.set('puertos', @get('store').find('puerto'))

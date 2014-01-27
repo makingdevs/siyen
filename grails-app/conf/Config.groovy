@@ -119,7 +119,11 @@ log4j = {
         'grails.app.taglib',
         'org.grails.datastore.mapping.core',
         'io.netty',
-        'com.hazelcast'
+        'com.hazelcast',
+        'grails.plugin.rendering',
+        'org.compass',
+        'liquibase',
+        'grails.app.services.grails.plugin.rendering'
 }
 
 // Added by the Spring Security Core plugin:

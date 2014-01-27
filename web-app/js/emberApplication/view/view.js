@@ -86,7 +86,7 @@
 
   App.ParticipanteView = Ember.View.extend({
     tagName: 'tr',
-    template: Ember.Handlebars.compile('' + "<td> {{ nombreCompleto }} </td>\n<td> {{#if observaciones}} - <small>{{ observaciones }}</small>{{/if}} </td>\n<td> {{#if monto}} - <span class=\"badge badge-info\">${{ monto }}</span>{{/if}} </td>\n<td> {{#if id}} {{ view App.CertificadoPorParticipanteButton }} {{/if}} </td>"),
+    template: Ember.Handlebars.compile('' + "<td> {{ nombreCompleto }} </td>\n<td> {{#if observaciones}}{{ observaciones }}{{/if}} </td>\n<td> {{#if monto}}<span class=\"badge badge-info\">${{ monto }}</span>{{/if}} </td>\n<td> {{#if id}} {{ view App.CertificadoPorParticipanteButton }} {{/if}} </td>"),
     click: function(event) {
       var controller;
       controller = this.get('controller');
@@ -150,6 +150,25 @@
       return false;
     },
     template: Ember.Handlebars.compile('<i {{bindAttr class="view.iconName"}}></i>')
+  });
+
+  App.OficioButton = Ember.View.extend(Ember.TargetActionSupport, {
+    tagName: 'a',
+    classNames: ['btn btn-primary'],
+    click: function() {
+      var deParteDe, desde, direccion, dirigidoA, hasta, puerto, puesto, urlGenerarOficios;
+      urlGenerarOficios = ($('#generarOficios')).val();
+      dirigidoA = this.get('context.dirigidoA');
+      puesto = this.get('context.puesto');
+      direccion = this.get('context.direccion');
+      deParteDe = this.get('context.deParteDe.id');
+      puerto = this.get('context.puerto.id');
+      desde = this.get('context.desde');
+      hasta = this.get('context.hasta');
+      window.open("" + urlGenerarOficios + "?dirigidoA=" + dirigidoA + "&puesto=" + puesto + "&direccion=" + direccion + "&deParteDe=" + deParteDe + "&puertoDeEnvio=" + puerto + "&desde=" + desde + "&hasta=" + hasta);
+      return false;
+    },
+    template: Ember.Handlebars.compile('Generar')
   });
 
   App.CursosAutorizadosView = Ember.View.extend();

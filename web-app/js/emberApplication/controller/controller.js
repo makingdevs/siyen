@@ -413,4 +413,16 @@
     }
   });
 
+  App.OficiosController = Ember.ObjectController.extend({
+    instructores: [],
+    puertos: [],
+    dirigidoA: null,
+    puesto: null,
+    direccion: null,
+    puerto: null,
+    deParteDe: null,
+    desde: null,
+    hasta: null
+  });
+
 }).call(this);
