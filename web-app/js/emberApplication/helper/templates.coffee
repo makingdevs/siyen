@@ -150,13 +150,6 @@ Ember.TEMPLATES['oficios'] = Ember.Handlebars.compile("""
     </div>
 
     <div class="control-group">
-      <label class="control-label" for="direccion">Direccion :</label>
-      <div class="controls">
-        {{ textarea id="direccion" name="direccion" class="input-xxlarge" value=direccion }}
-      </div>
-    </div>
-
-    <div class="control-group">
       <label class="control-label" for="puertoDeEnvio">Puerto de envio :</label>
       <div class="controls">
         {{ view Ember.Select prompt="Selecciona un puerto : "
