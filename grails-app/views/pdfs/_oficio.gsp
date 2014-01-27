@@ -23,10 +23,11 @@
 
       table {
         border-collapse:collapse;
-        width : 690px;
+        width : 100%;
         margin-left:auto;
         margin-right:auto;
         font-size : 15px;
+        margin-bottom:10px;
       }
 
       table th {
@@ -49,9 +50,7 @@
 
       footer {
         font-size : 12px;
-        line-height:20%;
       }
-
     </style>
   </head>
 
@@ -71,32 +70,32 @@
       <p> Distinguido Capitán de Puerto</p>
       <p> El <span> Instituto de Educación Náutica y Portuaria Océano Pacífico S.A. de C.V.</span>, impartió en <span>${data.puerto}</span> del <span>${data.desde} al ${data.hasta}</span> los curso de : </p>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Curso</th>
-            <th>Fecha Inicio</th>
-            <th>Fecha Fin</th>
-            <th>Nombre de Curso</th>
-            <th>Clave</th>
-            <th>Participantes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <g:each in="${data.cursos?.sort({ it.id })}" var="it" status="i">
-            <tr class="${ (i % 2) == 0 ? 'even' : 'odd'}">
-              <td> ${it.id} </td>
-              <td> ${it.fechaDeInicio.format('dd/MMMM/yyyy')} </td>
-              <td> ${it.fechaDeTermino.format('dd/MMMM/yyyy')} </td>
-              <td> ${it.curso.nombre} </td>
-              <td> ${it.curso.clave} </td>
-              <td> ${it.alumnos.size()} </td>
+      <g:each in="${data.cursos}">
+        <span style="text-align:left">
+          <h3>${it.key.split('-')[0]} <br /><small>${it.key.split('-')[1]}</small></h3>
+        </span>
+        <table>
+          <thead>
+            <tr>
+              <th>Curso</th>
+              <th>Fecha Inicio</th>
+              <th>Fecha Fin</th>
+              <th>Participantes</th>
             </tr>
-          </g:each>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <g:each in="${it.value.sort({it.id})}" var="cursoProgramado" status="i">
+              <tr class="${ (i % 2) == 0 ? 'even' : 'odd'}">
+                <td> ${cursoProgramado.id} </td>
+                <td> ${cursoProgramado.fechaDeInicio.format('dd/mmmm/yyyy')} </td>
+                <td> ${cursoProgramado.fechaDeTermino.format('dd/mmmm/yyyy')} </td>
+                <td> ${cursoProgramado.alumnos.size()} </td>
+              </tr>
+            </g:each>
+          </tbody>
+        </table>
+      </g:each>
     </div>
-
 
     <div>
       <p> De los cuales adjuntamos las constancias que amparan la participación de los tripulantes para su entrega </p>
@@ -110,10 +109,10 @@
           </tr>
         </thead>
         <tbody>
-          <g:each in="${data.cursos*.alumnos.flatten().sort({it.numeroDeControl})}" var="it" status="i">
+          <g:each in="${data.cursos*.value*.alumnos.flatten().sort({it.numeroDeControl})}" var="it" status="i">
             <tr class="${ (i % 2) == 0 ? 'even' : 'odd'}">
-              <td style="width:10%"> ${it.cursoProgramado.id} </td>
-              <td style="width:10%"> ${it.numeroDeControl} </td>
+              <td style="width:15%"> ${it.cursoProgramado.id} </td>
+              <td style="width:15%"> ${it.numeroDeControl} </td>
               <td> ${it.nombreCompleto} </td>
             </tr>
           </g:each>
@@ -128,9 +127,9 @@
     </div>
 
     <footer>
-      <p> c.c.p. Dirección General de Marina Mercante </p>
-      <p> c.c.p. Instructor </p>
-      <p> c.c.p. Expediente </p>
+      <div> c.c.p. Dirección General de Marina Mercante </div>
+      <div> c.c.p. Instructor </div>
+      <div> c.c.p. Expediente </div>
     </footer>
 
   </body>
