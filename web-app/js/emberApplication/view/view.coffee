@@ -196,13 +196,12 @@ App.OficioButton = Ember.View.extend(Ember.TargetActionSupport,
     urlGenerarOficios = ($ '#generarOficios').val()
     dirigidoA = @get('context.dirigidoA')
     puesto = @get('context.puesto')
-    direccion = @get('context.direccion')
     deParteDe = @get('context.deParteDe.id')
     puerto = @get('context.puerto.id')
     desde = @get('context.desde')
     hasta = @get('context.hasta')
 
-    window.open("#{urlGenerarOficios}?dirigidoA=#{dirigidoA}&puesto=#{puesto}&direccion=#{direccion}&deParteDe=#{deParteDe}&puertoDeEnvio=#{puerto}&desde=#{desde}&hasta=#{hasta}")
+    window.open("#{urlGenerarOficios}?dirigidoA=#{dirigidoA}&puesto=#{puesto}&deParteDe=#{deParteDe}&puertoDeEnvio=#{puerto}&desde=#{desde}&hasta=#{hasta}")
     return false
 
   template: Ember.Handlebars.compile('Generar')

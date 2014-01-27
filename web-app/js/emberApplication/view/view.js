@@ -156,16 +156,15 @@
     tagName: 'a',
     classNames: ['btn btn-primary'],
     click: function() {
-      var deParteDe, desde, direccion, dirigidoA, hasta, puerto, puesto, urlGenerarOficios;
+      var deParteDe, desde, dirigidoA, hasta, puerto, puesto, urlGenerarOficios;
       urlGenerarOficios = ($('#generarOficios')).val();
       dirigidoA = this.get('context.dirigidoA');
       puesto = this.get('context.puesto');
-      direccion = this.get('context.direccion');
       deParteDe = this.get('context.deParteDe.id');
       puerto = this.get('context.puerto.id');
       desde = this.get('context.desde');
       hasta = this.get('context.hasta');
-      window.open("" + urlGenerarOficios + "?dirigidoA=" + dirigidoA + "&puesto=" + puesto + "&direccion=" + direccion + "&deParteDe=" + deParteDe + "&puertoDeEnvio=" + puerto + "&desde=" + desde + "&hasta=" + hasta);
+      window.open("" + urlGenerarOficios + "?dirigidoA=" + dirigidoA + "&puesto=" + puesto + "&deParteDe=" + deParteDe + "&puertoDeEnvio=" + puerto + "&desde=" + desde + "&hasta=" + hasta);
       return false;
     },
     template: Ember.Handlebars.compile('Generar')
