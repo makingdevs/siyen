@@ -120,12 +120,10 @@
         } else {
           alumno = this.store.createRecord('alumno');
         }
-        alumno.setProperties({
-          nombreCompleto: this.nombreCompleto,
-          observaciones: this.observaciones,
-          monto: this.monto,
-          cursoProgramado: cursoProgramado
-        });
+        alumno.set('nombreCompleto', this.nombreCompleto);
+        alumno.set('observaciones', this.observaciones);
+        alumno.set('monto', this.monto);
+        alumno.set('cursoProgramado', cursoProgramado);
         alumno.save().then(function(sucess) {
           return cursoProgramado.decrementProperty('alumnosRestantes');
         }, function(reason) {

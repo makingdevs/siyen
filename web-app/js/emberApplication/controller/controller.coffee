@@ -133,11 +133,10 @@ App.EditController = Ember.ObjectController.extend
       else
         alumno = @store.createRecord('alumno')
 
-      alumno.setProperties
-        nombreCompleto: @nombreCompleto
-        observaciones: @observaciones
-        monto: @monto
-        cursoProgramado: cursoProgramado
+      alumno.set 'nombreCompleto', @nombreCompleto
+      alumno.set 'observaciones', @observaciones
+      alumno.set 'monto', @monto
+      alumno.set 'cursoProgramado', cursoProgramado
 
       alumno.save().then(
         (sucess) ->
