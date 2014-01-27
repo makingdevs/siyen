@@ -413,7 +413,6 @@ App.OficiosController = Ember.ObjectController.extend
 
   dirigidoA : null
   puesto : null
-  direccion : null
   puerto : null
   deParteDe : null
   desde : null
