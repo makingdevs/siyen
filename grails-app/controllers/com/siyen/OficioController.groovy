@@ -10,7 +10,7 @@ class OficioController {
     def data = [:]
     data.dirigidoA = params.dirigidoA
     data.puesto = params.puesto
-    data.direccion = params.direccion
+    data.direccion = puerto.direccion
     data.deParteDe = Instructor.get(params.deParteDe.toLong()).nombre
 
     data.fechaActual = new Date().format("dd 'de' MMMM 'del' yyyy")
