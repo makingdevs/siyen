@@ -13,15 +13,15 @@
     <div class="span4">
       <ul>
         {{#each participantes }}
-          {{ view App.ParticipanteView }}
+          <li> {{ nombreCompleto }}<small>{{#if observaciones}}-{{ observaciones }}{{/if}}</small></li>
         {{/each}}
       </ul>
     </div>
 
     {{#if participantes}}
-      {{ view App.CursoNuevoFormulario 
-          target="controller" 
-          header="Datos del curso" 
+      {{ view App.CursoNuevoFormulario
+          target="controller"
+          header="Datos del curso"
       }}
     {{/if}}
   </div>
