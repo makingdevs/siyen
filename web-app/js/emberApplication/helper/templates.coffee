@@ -30,7 +30,9 @@ Ember.TEMPLATES['movimientos'] = Ember.Handlebars.compile("""
                                  selectionBinding="cursoSelectedA" }}
           </div>
         </div>
-        {{ view App.ListaAlumnosView contentBinding=cursoSelectedA }}
+        {{#if cursoSelectedA}}
+          {{ view App.ListaAlumnosView contentBinding=cursoSelectedA }}
+        {{/if}}
       </div>
 
       <div class="span6">
@@ -44,7 +46,9 @@ Ember.TEMPLATES['movimientos'] = Ember.Handlebars.compile("""
                                  selectionBinding="cursoSelectedB" }}
           </div>
         </div>
-        {{ view App.ListaAlumnosView contentBinding=cursoSelectedB }}
+        {{#if this.cursoSelectedB}}
+          {{ view App.ListaAlumnosView contentBinding=cursoSelectedB }}
+        {{/if}}
       </div>
     </div>
   </div>
