@@ -314,12 +314,18 @@ DragNDrop.Dragable = Ember.Mixin.create
   style : 'cursor:move;'
   dragStart: (event) ->
     @set('style', 'cursor:move;opacity:0.4')
+    $(".well").css
+      "opacity" : '0.4'
+      "background-image": "url('/images/arrastra_aqui.png')"
     dataTransfer = event.originalEvent.dataTransfer
-    dataTransfer.setData('Text', this.get('elementId'))
+    dataTransfer.setData('Text', @get('elementId'))
     @set('_context.isDragging', true)
 
   dragEnd : (event) ->
     @set('style', 'cursor:move;opacity:1.0')
+    $(".well").css
+      "opacity" : '1.0'
+      "background-image": ""
 
 DragNDrop.Droppable = Ember.Mixin.create
   dragEnter: DragNDrop.cancel
@@ -363,25 +369,13 @@ App.ListaAlumnosView = Ember.View.extend DragNDrop.Droppable,
     {{/if}}
 
     {{#each view.content.alumnos}}
-      {{ view App.AlumnoDnDView }}
+      <li> {{ view App.AlumnoDnDView }} {{ descripcion }} </li>
     {{/each}}
   """)
 
-
-
 App.AlumnoDnDView = Ember.View.extend DragNDrop.Dragable,
-  tagName : 'li'
+  tagName : 'i'
+  classNames : "icon-move"
   dragStart: (event) ->
     @_super(event)
     dataTransfer = event.originalEvent.dataTransfer
-    $(".well").css
-      "opacity" : '0.4'
-      "background-image": "url('/images/arrastra_aqui.png')"
-
-  dragEnd : (event) ->
-    $(".well").css
-      "opacity" : '1.0'
-      "background-image": ""
-    @_super(event)
-
-  template : Ember.Handlebars.compile("<i class='icon-move'></i> {{ descripcion }}")

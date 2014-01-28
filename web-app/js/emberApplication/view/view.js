@@ -265,12 +265,20 @@
     dragStart: function(event) {
       var dataTransfer;
       this.set('style', 'cursor:move;opacity:0.4');
+      $(".well").css({
+        "opacity": '0.4',
+        "background-image": "url('/images/arrastra_aqui.png')"
+      });
       dataTransfer = event.originalEvent.dataTransfer;
       dataTransfer.setData('Text', this.get('elementId'));
       return this.set('_context.isDragging', true);
     },
     dragEnd: function(event) {
-      return this.set('style', 'cursor:move;opacity:1.0');
+      this.set('style', 'cursor:move;opacity:1.0');
+      return $(".well").css({
+        "opacity": '1.0',
+        "background-image": ""
+      });
     }
   });
 
@@ -302,28 +310,17 @@
       }
       return this._super(event);
     },
-    template: Ember.Handlebars.compile("{{#if view.content}}\n  <dl class=\"dl-horizontal\">\n    <dt>Fecha de inicio</dt>\n    <dd>{{ date view.content.fechaDeInicio }}</dd>\n\n    <dt>Instructor</dt>\n    <dd>{{ view.content.instructor.nombre }}</dd>\n\n    <dt>Curso</dt>\n    <dd>{{ view.content.curso.clave }}</dd>\n\n    <dt>Puerto</dt>\n    <dd>{{ view.content.puerto.descripcion }}</dd>\n  </dl>\n{{/if}}\n\n{{#each view.content.alumnos}}\n  {{ view App.AlumnoDnDView }}\n{{/each}}")
+    template: Ember.Handlebars.compile("{{#if view.content}}\n  <dl class=\"dl-horizontal\">\n    <dt>Fecha de inicio</dt>\n    <dd>{{ date view.content.fechaDeInicio }}</dd>\n\n    <dt>Instructor</dt>\n    <dd>{{ view.content.instructor.nombre }}</dd>\n\n    <dt>Curso</dt>\n    <dd>{{ view.content.curso.clave }}</dd>\n\n    <dt>Puerto</dt>\n    <dd>{{ view.content.puerto.descripcion }}</dd>\n  </dl>\n{{/if}}\n\n{{#each view.content.alumnos}}\n  <li> {{ view App.AlumnoDnDView }} {{ descripcion }} </li>\n{{/each}}")
   });
 
   App.AlumnoDnDView = Ember.View.extend(DragNDrop.Dragable, {
-    tagName: 'li',
+    tagName: 'i',
+    classNames: "icon-move",
     dragStart: function(event) {
       var dataTransfer;
       this._super(event);
-      dataTransfer = event.originalEvent.dataTransfer;
-      return $(".well").css({
-        "opacity": '0.4',
-        "background-image": "url('/images/arrastra_aqui.png')"
-      });
-    },
-    dragEnd: function(event) {
-      $(".well").css({
-        "opacity": '1.0',
-        "background-image": ""
-      });
-      return this._super(event);
-    },
-    template: Ember.Handlebars.compile("<i class='icon-move'></i> {{ descripcion }}")
+      return dataTransfer = event.originalEvent.dataTransfer;
+    }
   });
 
 }).call(this);
