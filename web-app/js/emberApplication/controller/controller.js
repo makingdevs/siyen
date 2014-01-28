@@ -263,24 +263,9 @@
     },
     actions: {
       procesarArchivo: function() {
-        var dropzone,
-          _this = this;
+        var dropzone;
         dropzone = Dropzone.forElement("div#dropzone.dropzone");
-        dropzone.processQueue();
-        return dropzone.on("success", function(file, response) {
-          var fila, _i, _len, _ref, _results;
-          file.previewElement.classList.add("dz-success");
-          _ref = response.contenidoDeFilas;
-          _results = [];
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            fila = _ref[_i];
-            _results.push(_this.participantes.pushObject(Ember.Object.create({
-              nombreCompleto: fila.get(1),
-              observaciones: $.trim(fila.get(2))
-            })));
-          }
-          return _results;
-        });
+        return dropzone.processQueue();
       },
       finalizar: function() {
         var content, cursoProgramado, cursosNuevosController, _ref;
@@ -295,8 +280,20 @@
         });
         content.pushObject(cursoProgramado);
         cursosNuevosController.set('currentCurso', null);
-        console.log(cursoProgramado);
+        this.send('limpiarProceso');
         return this.transitionToRoute('cursosNuevos.index');
+      },
+      limpiarProceso: function() {
+        var dropzone;
+        this.setProperties({
+          fechaDeInicio: null,
+          puertoSelected: null,
+          instructorSelected: null,
+          cursoSelected: null,
+          participantes: []
+        });
+        dropzone = Dropzone.forElement("div#dropzone.dropzone");
+        return dropzone.removeAllFiles(true);
       }
     }
   });

@@ -281,14 +281,6 @@ App.ArchivoController = Ember.ObjectController.extend
       dropzone = Dropzone.forElement("div#dropzone.dropzone")
       dropzone.processQueue()
 
-      dropzone.on "success", (file, response) =>
-        file.previewElement.classList.add("dz-success")
-        for fila in response.contenidoDeFilas
-          @participantes.pushObject( Ember.Object.create
-            nombreCompleto : fila.get(1)
-            observaciones : $.trim(fila.get(2))
-          )
-
     finalizar : ->
       cursosNuevosController = @get('controllers.cursosNuevos')
       content = cursosNuevosController.get('content')
@@ -302,8 +294,18 @@ App.ArchivoController = Ember.ObjectController.extend
 
       content.pushObject( cursoProgramado )
       cursosNuevosController.set( 'currentCurso', null )
-      console.log cursoProgramado
+      @send('limpiarProceso')
       @transitionToRoute('cursosNuevos.index')
+
+    limpiarProceso : ->
+      @setProperties
+        fechaDeInicio : null
+        puertoSelected : null
+        instructorSelected : null
+        cursoSelected : null
+        participantes : []
+      dropzone = Dropzone.forElement("div#dropzone.dropzone")
+      dropzone.removeAllFiles(true)
 
 App.NotificacionController = Ember.ArrayController.extend
   content : []
