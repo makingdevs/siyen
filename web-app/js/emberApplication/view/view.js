@@ -105,7 +105,7 @@
 
   App.ParticipanteView = Ember.View.extend({
     tagName: 'tr',
-    template: Ember.Handlebars.compile('' + "<td> {{ nombreCompleto }} </td>\n<td> {{#if observaciones}}{{ observaciones }}{{/if}} </td>\n<td> {{#if monto}}<span class=\"badge badge-info\">${{ monto }}</span>{{/if}} </td>\n<td> {{#if id}} {{ view App.CertificadoPorParticipanteButton }} {{/if}} </td>"),
+    template: Ember.Handlebars.compile('' + "<td> {{ nombreCompleto }} </td>\n<td> {{#if observaciones}}{{ observaciones }}{{/if}} </td>\n<td> {{#if monto}}<span class=\"badge badge-info\">${{ monto }}</span>{{/if}} </td>\n<td> {{#if id}} {{ view App.CertificadoPorParticipanteButton class=\"btn btn-success\"}} {{/if}} </td>"),
     click: function(event) {
       var controller;
       controller = this.get('controller');
@@ -155,7 +155,6 @@
 
   App.CertificadoPorParticipanteButton = Ember.View.extend(Ember.TargetActionSupport, {
     tagName: 'a',
-    classNames: ['btn btn-success'],
     iconName: "icon-print icon-white",
     click: function() {
       var id, urlBaseFrente, urlBaseReverso, urlFrente, urlReverso;
@@ -310,7 +309,7 @@
       }
       return this._super(event);
     },
-    template: Ember.Handlebars.compile("{{#if view.content}}\n  <dl class=\"dl-horizontal\">\n    <dt>Fecha de inicio</dt>\n    <dd>{{ date view.content.fechaDeInicio }}</dd>\n\n    <dt>Instructor</dt>\n    <dd>{{ view.content.instructor.nombre }}</dd>\n\n    <dt>Curso</dt>\n    <dd>{{ view.content.curso.clave }}</dd>\n\n    <dt>Puerto</dt>\n    <dd>{{ view.content.puerto.descripcion }}</dd>\n  </dl>\n{{/if}}\n\n{{#each view.content.alumnos}}\n  <li> {{ view App.AlumnoDnDView }} {{ descripcion }} </li>\n{{/each}}")
+    template: Ember.Handlebars.compile("{{#if view.content}}\n  <dl class=\"dl-horizontal\">\n    <dt>Fecha de inicio</dt>\n    <dd>{{ date view.content.fechaDeInicio }}</dd>\n\n    <dt>Instructor</dt>\n    <dd>{{ view.content.instructor.nombre }}</dd>\n\n    <dt>Curso</dt>\n    <dd>{{ view.content.curso.clave }}</dd>\n\n    <dt>Puerto</dt>\n    <dd>{{ view.content.puerto.descripcion }}</dd>\n  </dl>\n{{/if}}\n\n{{#each view.content.alumnos}}\n  <li> {{ view App.AlumnoDnDView }} {{ descripcion }} {{ view App.CertificadoPorParticipanteButton class='btn-link' iconName=\"icon-print\" }} </li>\n{{/each}}")
   });
 
   App.AlumnoDnDView = Ember.View.extend(DragNDrop.Dragable, {

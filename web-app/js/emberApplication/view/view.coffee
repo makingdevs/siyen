@@ -133,7 +133,7 @@ App.ParticipanteView = Ember.View.extend
       <td> {{ nombreCompleto }} </td>
       <td> {{#if observaciones}}{{ observaciones }}{{/if}} </td>
       <td> {{#if monto}}<span class="badge badge-info">${{ monto }}</span>{{/if}} </td>
-      <td> {{#if id}} {{ view App.CertificadoPorParticipanteButton }} {{/if}} </td>
+      <td> {{#if id}} {{ view App.CertificadoPorParticipanteButton class="btn btn-success"}} {{/if}} </td>
     """ )
 
   click : (event) ->
@@ -182,7 +182,6 @@ App.CertificadoButton = Ember.View.extend(Ember.TargetActionSupport,
 
 App.CertificadoPorParticipanteButton = Ember.View.extend(Ember.TargetActionSupport,
   tagName: 'a',
-  classNames: ['btn btn-success']
   iconName : "icon-print icon-white"
   click: ->
     id = @get('context.id')
@@ -369,7 +368,7 @@ App.ListaAlumnosView = Ember.View.extend DragNDrop.Droppable,
     {{/if}}
 
     {{#each view.content.alumnos}}
-      <li> {{ view App.AlumnoDnDView }} {{ descripcion }} </li>
+      <li> {{ view App.AlumnoDnDView }} {{ descripcion }} {{ view App.CertificadoPorParticipanteButton class='btn-link' iconName="icon-print" }} </li>
     {{/each}}
   """)
 
