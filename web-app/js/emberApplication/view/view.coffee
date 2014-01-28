@@ -332,6 +332,7 @@ DragNDrop.Droppable = Ember.Mixin.create
 
 App.ListaAlumnosView = Ember.View.extend DragNDrop.Droppable,
   tagName : 'ul'
+  classNames : "well"
   drop : (event) ->
     viewId = event.originalEvent.dataTransfer.getData('Text')
     view = Ember.View.views[viewId]

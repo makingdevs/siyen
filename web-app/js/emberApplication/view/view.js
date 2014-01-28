@@ -287,6 +287,7 @@
 
   App.ListaAlumnosView = Ember.View.extend(DragNDrop.Droppable, {
     tagName: 'ul',
+    classNames: "well",
     drop: function(event) {
       var cursoProgramadoTarget, dropTargetId, view, viewId;
       viewId = event.originalEvent.dataTransfer.getData('Text');
