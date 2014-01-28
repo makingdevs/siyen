@@ -10,8 +10,8 @@ App.CursoProgramado = DS.Model.extend
   alumnos : DS.hasMany('alumno')
 
   descripcion : (->
-    "#{@get('id')} - #{@get('puerto.clave')} - #{@get('curso.clave')} - #{moment(@get('fechadeinicio')).format('DD/MMMM/YYYY')}"
-  ).property('id', 'puerto', 'curso', 'fechadeinicio')
+    "#{@get('id')} - #{@get('puerto.clave')} - #{@get('curso.clave')} - #{moment(@get('fechaDeInicio')).format('DD/MMMM/YYYY')}"
+  ).property('id', 'puerto', 'curso', 'fechaDeInicio')
 
   currentDragItem: ( ->
     @get('alumnos').findBy("isDragging", true)
