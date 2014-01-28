@@ -29,13 +29,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Siyen</a>
+          <a class="brand" href="#">PIPE</a>
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
               <sec:ifNotLoggedIn>
                 <li class="dropdown">
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
-                    Ingresa
+                    Ingresa al PIPE
                     <b class="caret"></b>
                   </a>
                   <div class="dropdown-menu">
