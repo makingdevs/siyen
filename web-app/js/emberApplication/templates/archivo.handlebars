@@ -6,8 +6,12 @@
         <h1>Procesar archivo</h1>
       </div>
 
+      <a class="btn btn-primary btn-block" href="/templates/template.xls">
+        <i class="icon-white icon-download"></i>
+        Para descargar la plantilla de click Aquí
+      </a>
       {{ view App.DropzoneView }}
-      <button class="btn btn-large btn-block btn-primary" {{ action "procesarArchivo" }} > Procesar </button>
+      <button class="btn btn-large btn-block btn-success" {{ action "procesarArchivo" }}><i class="icon-cog icon-white"></i> Procesar </button>
     </div>
 
     <div class="span4">
