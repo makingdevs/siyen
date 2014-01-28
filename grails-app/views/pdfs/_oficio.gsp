@@ -89,6 +89,8 @@
 
     <div>
       <p> Agradeciendo de antemano sus atenciones me reitero con un atento saludo. </p>
+      <br />
+      <br />
     </div>
 
     <div class="center">
@@ -100,6 +102,7 @@
       <div> c.c.p. Dirección General de Marina Mercante </div>
       <div> c.c.p. Instructor </div>
       <div> c.c.p. Expediente </div>
+      <div> c.c.p. Capitanía de Puerto </div>
     </footer>
 
   </body>
