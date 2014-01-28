@@ -29,12 +29,31 @@
   App.DropzoneView = Ember.View.extend({
     template: Ember.Handlebars.compile('<div id="dropzone" class="dropzone"> </div>'),
     didInsertElement: function() {
-      return $('div#dropzone').dropzone({
+      var dropzone,
+        _this = this;
+      Dropzone.autoDiscover = false;
+      $('div#dropzone').dropzone({
         url: "procesarArchivo",
         addRemoveLinks: true,
         maxFiles: 1,
         maxFilesize: 3,
         autoProcessQueue: false
+      });
+      dropzone = Dropzone.forElement("div#dropzone.dropzone");
+      return dropzone.on("success", function(file, response) {
+        var fila, participantes, _i, _len, _ref, _results;
+        file.previewElement.classList.add("dz-success");
+        _ref = response.contenidoDeFilas;
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          fila = _ref[_i];
+          participantes = _this.get("controller.participantes");
+          _results.push(participantes.pushObject(Ember.Object.create({
+            nombreCompleto: fila.get(0),
+            observaciones: $.trim(fila.get(1))
+          })));
+        }
+        return _results;
       });
     }
   });

@@ -27,6 +27,7 @@ App.DropzoneView = Ember.View.extend
   template : Ember.Handlebars.compile('<div id="dropzone" class="dropzone"> </div>')
 
   didInsertElement: ->
+    Dropzone.autoDiscover = false
     $('div#dropzone').dropzone(
       url : "procesarArchivo"
       addRemoveLinks : true
@@ -34,6 +35,16 @@ App.DropzoneView = Ember.View.extend
       maxFilesize: 3
       autoProcessQueue : false
     )
+
+    dropzone = Dropzone.forElement("div#dropzone.dropzone")
+    dropzone.on "success", (file, response) =>
+      file.previewElement.classList.add("dz-success")
+      for fila in response.contenidoDeFilas
+        participantes = @get("controller.participantes")
+        participantes.pushObject( Ember.Object.create
+          nombreCompleto : fila.get(0)
+          observaciones : $.trim(fila.get(1))
+        )
 
 App.CursoNuevoListView = Ember.View.extend
   elementId: 'cursoNuevoList'
