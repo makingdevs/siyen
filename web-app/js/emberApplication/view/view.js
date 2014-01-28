@@ -310,7 +310,18 @@
     dragStart: function(event) {
       var dataTransfer;
       this._super(event);
-      return dataTransfer = event.originalEvent.dataTransfer;
+      dataTransfer = event.originalEvent.dataTransfer;
+      return $(".well").css({
+        "opacity": '0.4',
+        "background-image": "url('/images/arrastra_aqui.png')"
+      });
+    },
+    dragEnd: function(event) {
+      $(".well").css({
+        "opacity": '1.0',
+        "background-image": ""
+      });
+      return this._super(event);
     },
     template: Ember.Handlebars.compile("<i class='icon-move'></i> {{ descripcion }}")
   });

@@ -374,5 +374,14 @@ App.AlumnoDnDView = Ember.View.extend DragNDrop.Dragable,
   dragStart: (event) ->
     @_super(event)
     dataTransfer = event.originalEvent.dataTransfer
+    $(".well").css
+      "opacity" : '0.4'
+      "background-image": "url('/images/arrastra_aqui.png')"
+
+  dragEnd : (event) ->
+    $(".well").css
+      "opacity" : '1.0'
+      "background-image": ""
+    @_super(event)
 
   template : Ember.Handlebars.compile("<i class='icon-move'></i> {{ descripcion }}")
