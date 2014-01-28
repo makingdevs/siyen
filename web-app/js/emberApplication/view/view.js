@@ -266,7 +266,9 @@
       this.set('style', 'cursor:move;opacity:0.4');
       $(".well").css({
         "opacity": '0.4',
-        "background-image": "url('/images/arrastra_aqui.png')"
+        "background-image": "url('/images/arrastra_aqui.png')",
+        "background-repeat": "no-repeat",
+        "background-position": "center"
       });
       dataTransfer = event.originalEvent.dataTransfer;
       dataTransfer.setData('Text', this.get('elementId'));

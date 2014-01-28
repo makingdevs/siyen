@@ -316,6 +316,9 @@ DragNDrop.Dragable = Ember.Mixin.create
     $(".well").css
       "opacity" : '0.4'
       "background-image": "url('/images/arrastra_aqui.png')"
+      "background-repeat":"no-repeat"
+      "background-position":"center"
+
     dataTransfer = event.originalEvent.dataTransfer
     dataTransfer.setData('Text', @get('elementId'))
     @set('_context.isDragging', true)
