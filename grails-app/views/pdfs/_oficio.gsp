@@ -71,53 +71,23 @@
       <p> El <span> Instituto de Educación Náutica y Portuaria Océano Pacífico S.A. de C.V.</span>, impartió en <span>${data.puerto}</span> del <span>${data.desde} al ${data.hasta}</span> los curso de : </p>
 
       <g:each in="${data.cursos}">
-        <span style="text-align:left">
+        <div style="border-top:1px dashed black; border-bottom:1px solid black; text-align:left">
           <h3>${it.key.split('-')[0]} <br /><small>${it.key.split('-')[1]}</small></h3>
-        </span>
-        <table>
-          <thead>
-            <tr>
-              <th>Curso</th>
-              <th>Fecha Inicio</th>
-              <th>Fecha Fin</th>
-              <th>Participantes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <g:each in="${it.value.sort({it.id})}" var="cursoProgramado" status="i">
-              <tr class="${ (i % 2) == 0 ? 'even' : 'odd'}">
-                <td> ${cursoProgramado.id} </td>
-                <td> ${cursoProgramado.fechaDeInicio.format('dd/MMMM/yyyy')} </td>
-                <td> ${cursoProgramado.fechaDeTermino.format('dd/MMMM/yyyy')} </td>
-                <td> ${cursoProgramado.alumnos.size()} </td>
-              </tr>
+        </div>
+        <g:each in="${it.value.sort({it.id})}" var="cursoProgramado">
+          <div>
+            <p>Con número de curso <strong>${cursoProgramado.id}</strong> realizado del ${cursoProgramado.fechaDeInicio.format("dd 'de' MMMM")} al ${cursoProgramado.fechaDeTermino.format("dd 'de' MMMM 'del' yyyy")}, con los siguientes participantes </p>
+          </div>
+          <ul>
+            <g:each in="${cursoProgramado.alumnos.sort({it.numeroDeControl})}" var="alumno" status="i">
+              <li> ${alumno.numeroDeControl} - ${alumno.nombreCompleto} </li>
             </g:each>
-          </tbody>
-        </table>
+          </ul>
+        </g:each>
       </g:each>
     </div>
 
     <div>
-      <p> De los cuales adjuntamos las constancias que amparan la participación de los tripulantes para su entrega </p>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Curso</th>
-            <th>No. Control</th>
-            <th>Nombre</th>
-          </tr>
-        </thead>
-        <tbody>
-          <g:each in="${data.cursos*.value*.alumnos.flatten().sort({it.numeroDeControl})}" var="it" status="i">
-            <tr class="${ (i % 2) == 0 ? 'even' : 'odd'}">
-              <td style="width:15%"> ${it.cursoProgramado.id} </td>
-              <td style="width:15%"> ${it.numeroDeControl} </td>
-              <td> ${it.nombreCompleto} </td>
-            </tr>
-          </g:each>
-        </tbody>
-      </table>
       <p> Agradeciendo de antemano sus atenciones me reitero con un atento saludo. </p>
     </div>
 
