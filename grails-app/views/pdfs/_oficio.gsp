@@ -87,8 +87,8 @@
             <g:each in="${it.value.sort({it.id})}" var="cursoProgramado" status="i">
               <tr class="${ (i % 2) == 0 ? 'even' : 'odd'}">
                 <td> ${cursoProgramado.id} </td>
-                <td> ${cursoProgramado.fechaDeInicio.format('dd/mmmm/yyyy')} </td>
-                <td> ${cursoProgramado.fechaDeTermino.format('dd/mmmm/yyyy')} </td>
+                <td> ${cursoProgramado.fechaDeInicio.format('dd/MMMM/yyyy')} </td>
+                <td> ${cursoProgramado.fechaDeTermino.format('dd/MMMM/yyyy')} </td>
                 <td> ${cursoProgramado.alumnos.size()} </td>
               </tr>
             </g:each>
