@@ -5,6 +5,7 @@ beans = {
 
   switch(Environment.current) {
     case Environment.DEVELOPMENT:
+    case Environment.TEST:
       defaultPlatformManager(DefaultPlatformManager, 9090, "localhost")
     break
     case Environment.PRODUCTION:
