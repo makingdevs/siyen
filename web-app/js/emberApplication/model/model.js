@@ -9,8 +9,8 @@
     instructor: DS.belongsTo('instructor'),
     alumnos: DS.hasMany('alumno'),
     descripcion: (function() {
-      return "" + (this.get('id')) + " - " + (this.get('puerto.clave')) + " - " + (this.get('curso.clave')) + " - " + (moment(this.get('fechadeinicio')).format('DD/MMMM/YYYY'));
-    }).property('id', 'puerto', 'curso', 'fechadeinicio'),
+      return "" + (this.get('id')) + " - " + (this.get('puerto.clave')) + " - " + (this.get('curso.clave')) + " - " + (moment(this.get('fechaDeInicio')).format('DD/MMMM/YYYY'));
+    }).property('id', 'puerto', 'curso', 'fechaDeInicio'),
     currentDragItem: (function() {
       return this.get('alumnos').findBy("isDragging", true);
     }).property("alumnos.@each.isDragging")
