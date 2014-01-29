@@ -98,7 +98,7 @@
                     <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
                       <li>
                         <g:link controller="logout" tabindex="-1">
-                          Logout
+                          Salir del PIPE
                         </g:link>
                       </li>
                     </ul>
