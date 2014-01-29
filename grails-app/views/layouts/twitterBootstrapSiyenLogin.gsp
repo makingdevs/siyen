@@ -59,14 +59,24 @@
                       <li>
                         {{#linkTo "cursosAutorizados" }}Autorizados{{/linkTo}}
                       </li>
-                      <sec:access expression="hasRole('ROLE_ADMIN')">
-                        <li>
-                          {{#linkTo "movimientos" }}Movimientos{{/linkTo}}
-                        </li>
-                      </sec:access>
                     </ul>
                   </li>
+
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <b class="caret"></b>
+                      Movimientos
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        {{#linkTo "movimientos" }}Entre cursos{{/linkTo}}
+                      </li>
+                      <li>
+                        {{#linkTo "alumnos" }}A un nuevo curso{{/linkTo}}
+                      </li>
+                    </ul>
                   <li>
+
                     {{#linkTo "archivo" }}Procesar archivo{{/linkTo}}
                   </li>
                   <li>
@@ -122,6 +132,16 @@
       </footer>
     </script>
 
+    <script type="text/x-handlebars" data-template-name="alumnos">
+      <div id="busquedaDiv" class="input-append">
+        {{ view App.TextField id="busqueda" name="busqueda" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}
+        <button type="submit" class="btn" {{ action "realizarBusqueda" }}>Buscar</button>
+      </div>
+
+      <div id="resultados"> </div>
+      {{ outlet }}
+    </script>
+
     <div id="alertas" class="hide">
       <strong></strong>
       <span class="message">
@@ -137,6 +157,7 @@
     <input type="hidden" id="generarOficios" value="${g.createLink(action:'generarOficio', controller:'oficio')}" />
 
     <input type="hidden" id="urlBusqueda" value="${g.createLink(action:'realizarBusqueda', controller:'busqueda')}" />
+    <input type="hidden" id="urlBusquedaDeAlumnos" value="${g.createLink(action:'realizarBusquedaDeAlumnos', controller:'busqueda')}" />
 
     <r:layoutResources />
   </body>
