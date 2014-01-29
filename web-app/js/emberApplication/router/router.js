@@ -4,11 +4,16 @@
     this.route('archivo');
     this.route('notificacion');
     this.route('busqueda');
-    this.route('movimientos');
     this.route('oficios');
+    this.route('movimientos');
     this.resource('cursosNuevos', function() {
       return this.resource('crear', function() {
         return this.route('participantes');
+      });
+    });
+    this.resource('alumnos', function() {
+      return this.resource('alumno', {
+        path: ":alumno_id"
       });
     });
     return this.resource('cursosAutorizados', function() {
