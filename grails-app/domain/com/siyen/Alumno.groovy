@@ -19,8 +19,6 @@ class Alumno {
     monto blank: true, nullable: true
   }
 
-  static searchable = {
-    root false
-  }
+  static searchable = true
 
 }
