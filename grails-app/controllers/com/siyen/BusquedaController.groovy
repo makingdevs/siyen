@@ -11,6 +11,7 @@ class BusquedaController {
     String instructores = params.instructores?.replace(',', " ")?.trim()
 
     def busquedaDeResultados = searchableService.search({
+      mustNot(term("alias", "Alumno"))
       if(busqueda) {
         must(queryString(busqueda))
       }
@@ -35,6 +36,19 @@ class BusquedaController {
 
     }, params)
     render template:"/cursoProgramado/list", model:[ busqueda : busqueda, cursos : cursos, puertos : puertos, instructores : instructores,  desde : params.desde, hasta : params.hasta, totalResultados : busquedaDeResultados.total, lista : busquedaDeResultados.results]
+  }
+
+  def realizarBusquedaDeAlumnos() {
+    String busqueda = params.buscar
+
+    def busquedaDeResultados = searchableService.search({
+      mustNot(term("alias", "CursoProgramado"))
+      if(busqueda) {
+        must(queryString(busqueda))
+      }
+    }, params)
+
+    render template:"/alumno/list", model:[ busqueda : busqueda, totalResultados : busquedaDeResultados.total, lista : busquedaDeResultados.results ]
   }
 
 }
