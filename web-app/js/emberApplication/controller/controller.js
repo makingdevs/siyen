@@ -387,6 +387,33 @@
     }
   });
 
+  App.AlumnosController = Ember.ObjectController.extend({
+    busqueda: null,
+    urlBusquedaDeAlumnos: null,
+    init: function() {
+      return this.set('urlBusquedaDeAlumnos', $("#urlBusquedaDeAlumnos").val());
+    },
+    actions: {
+      realizarBusqueda: function() {
+        var busqueda;
+        busqueda = this.get('busqueda');
+        return $.ajax({
+          type: "POST",
+          url: this.get('urlBusquedaDeAlumnos'),
+          data: {
+            buscar: busqueda
+          },
+          success: function(res, status, xhr) {
+            return $("#resultados").html(res);
+          },
+          error: function(xhr, status, err) {
+            return console.log("error");
+          }
+        });
+      }
+    }
+  });
+
   App.MovimientosController = Ember.ObjectController.extend({
     actions: {
       doRealizarMovimiento: function() {
@@ -419,6 +446,32 @@
     deParteDe: null,
     desde: null,
     hasta: null
+  });
+
+  App.AlumnoController = Ember.ObjectController.extend({
+    cursos: [],
+    init: function() {
+      this._super();
+      return this.set('cursos', this.get('store').find("curso"));
+    },
+    actions: {
+      cambiarCurso: function() {
+        var cursoProgramado;
+        cursoProgramado = this.store.createRecord('cursoProgramado', {
+          fechaDeInicio: moment(this.get('cursoProgramado.fechaDeInicio')).format('DD/MM/YYYY'),
+          puerto: this.get('cursoProgramado.puerto'),
+          curso: this.get('cursoProgramado.curso'),
+          instructor: this.get('cursoProgramado.instructor')
+        });
+        cursoProgramado.get('alumnos').createRecord({
+          numeroDeControl: this.get('numeroDeControl'),
+          nombreCompleto: this.get('nombreCompleto'),
+          observaciones: this.get('observaciones'),
+          monto: this.get('monto')
+        });
+        return cursoProgramado.save();
+      }
+    }
   });
 
 }).call(this);

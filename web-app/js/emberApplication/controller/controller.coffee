@@ -393,6 +393,28 @@ App.BusquedaController = Ember.ObjectController.extend App.BusquedaForGetType,
           console.log "error"
       )
 
+App.AlumnosController = Ember.ObjectController.extend
+  busqueda : null
+  urlBusquedaDeAlumnos : null
+
+  init : ->
+    @set('urlBusquedaDeAlumnos', $("#urlBusquedaDeAlumnos").val())
+
+  actions :
+    realizarBusqueda : ->
+      busqueda = @get('busqueda')
+
+      $.ajax(
+        type: "POST"
+        url: @get('urlBusquedaDeAlumnos')
+        data:
+          buscar : busqueda
+        success: (res, status, xhr) ->
+          $("#resultados").html( res )
+        error: (xhr, status, err) ->
+          console.log "error"
+      )
+
 App.MovimientosController = Ember.ObjectController.extend
   actions :
     doRealizarMovimiento : ->
@@ -419,3 +441,25 @@ App.OficiosController = Ember.ObjectController.extend
   desde : null
   hasta : null
 
+App.AlumnoController = Ember.ObjectController.extend
+  cursos : []
+  init : ->
+    @_super()
+    @set 'cursos', @get('store').find("curso")
+
+  actions :
+    cambiarCurso : ->
+      cursoProgramado = @store.createRecord('cursoProgramado',
+        fechaDeInicio : moment(@get('cursoProgramado.fechaDeInicio')).format('DD/MM/YYYY')
+        puerto: @get('cursoProgramado.puerto')
+        curso : @get('cursoProgramado.curso')
+        instructor : @get('cursoProgramado.instructor')
+      )
+      cursoProgramado.get('alumnos').createRecord(
+        numeroDeControl : @get('numeroDeControl')
+        nombreCompleto : @get('nombreCompleto')
+        observaciones : @get('observaciones')
+        monto : @get('monto')
+      )
+
+      cursoProgramado.save()
