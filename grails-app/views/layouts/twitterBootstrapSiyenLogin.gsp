@@ -132,16 +132,6 @@
       </footer>
     </script>
 
-    <script type="text/x-handlebars" data-template-name="alumnos">
-      <div id="busquedaDiv" class="input-append">
-        {{ view App.TextField id="busqueda" name="busqueda" class="input-xxlarge" action="realizarBusqueda" valueBinding="busqueda" }}
-        <button type="submit" class="btn" {{ action "realizarBusqueda" }}>Buscar</button>
-      </div>
-
-      <div id="resultados"> </div>
-      {{ outlet }}
-    </script>
-
     <div id="alertas" class="hide">
       <strong></strong>
       <span class="message">
