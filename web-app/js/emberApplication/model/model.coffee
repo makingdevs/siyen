@@ -40,6 +40,7 @@ App.Alumno = DS.Model.extend
   nombreCompleto : DS.attr('string')
   observaciones : DS.attr('string')
   monto : DS.attr('number')
+  tipoDePago : DS.attr('string')
 
   cursoProgramado : DS.belongsTo('cursoProgramado')
   descripcion : (->
