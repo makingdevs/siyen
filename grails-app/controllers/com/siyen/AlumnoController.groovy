@@ -28,9 +28,7 @@ class AlumnoController {
       cursoProgramado.save()
     } else {
       render(status:417, contentType: "text/json") {
-        [
-          message : "No es posible agregar más alumnos a este curso"
-        ]
+        [ message : "No es posible agregar más alumnos a este curso" ]
       }
       return
     }
@@ -52,20 +50,41 @@ class AlumnoController {
       }
     }
 
-    Alumno alumno = Alumno.get(cmd.id)
-    alumno.cursoProgramado = CursoProgramado.get(cmd.cursoProgramado)
-    alumno.nombreCompleto = cmd.nombreCompleto
-    alumno.observaciones = cmd.observaciones
-    alumno.monto = cmd.monto
-    alumno.save(failOnError:true)
+    try {
+      Alumno alumno = validarDatosDeMovimiento(cmd.id, cmd.cursoProgramado)
+      alumno.cursoProgramado = CursoProgramado.get(cmd.cursoProgramado)
+      alumno.nombreCompleto = cmd.nombreCompleto
+      alumno.observaciones = cmd.observaciones
+      alumno.monto = cmd.monto
+      alumno.save(failOnError:true)
 
-    notificacionService.enviarNotificacion('cursoProgramado.alumno_edit', alumno.cursoProgramado)
-
-    respuestaJson(alumno)
+      notificacionService.enviarNotificacion('cursoProgramado.alumno_edit', alumno.cursoProgramado)
+      respuestaJson(alumno)
+    }catch(ex) {
+      render(status:409, contentType: "text/json") {
+        [ message : ex.message ]
+      }
+      return
+    }
   }
 
   def show() {
     respuestaJson(Alumno.get(params.id))
+  }
+
+  private def validarDatosDeMovimiento(alumnoId, cursoProgramadoId) {
+    Alumno alumno = Alumno.get(alumnoId)
+
+    CursoProgramado cursoOrigen = alumno.cursoProgramado
+    CursoProgramado cursoDestino = CursoProgramado.get(cursoProgramadoId)
+
+    if( cursoOrigen.instructor.id != cursoDestino.instructor.id ||
+        cursoOrigen.puerto.id != cursoDestino.puerto.id ||
+        cursoOrigen.fechaDeInicio.format('dd/MM/yyyy') != cursoDestino.fechaDeInicio.format('dd/MM/yyyy')) {
+      throw new BusinessException("Los movimientos deben ser entre el mismo puerto, instructor y fecha de inicio", cursoOrigen)
+    }
+
+    alumno
   }
 
   private void respuestaJson(Alumno alumno) {
