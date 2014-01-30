@@ -8,6 +8,7 @@ class CursoProgramadoService {
 
   def springSecurityService
   def notificacionService
+  def searchableService
 
   def crearCursoDesdeCommand(CursoProgramadoCommand cmd) {
     CursoProgramado cursoProgramado = validaTraslapeDeCursos(cmd)
@@ -15,15 +16,25 @@ class CursoProgramadoService {
     cursoProgramado.user = springSecurityService.currentUser
 
     cmd.alumnos.each { alumnoData ->
-      Alumno alumno = generarAlumnoConParams(alumnoData)
-      cursoProgramado.addToAlumnos(alumno)
+      if(alumnoData.numeroDeControl) {
+        def alumno = Alumno.findByNumeroDeControl(alumnoData.numeroDeControl)
+        def tempCursoProgramado = alumno.cursoProgramado
+        tempCursoProgramado.removeFromAlumnos(alumno)
+        tempCursoProgramado.save()
+        cursoProgramado.addToAlumnos(alumno)
+      } else {
+        Alumno alumno = generarAlumnoConParams(alumnoData)
+        cursoProgramado.addToAlumnos(alumno)
+      }
     }
 
     cursoProgramado.save(failOnError:true)
 
     cursoProgramado.alumnos.each { alumno ->
-      alumno.numeroDeControl = generarNumeroDeControl(alumno.id)
-      alumno.save(failOnError:true)
+      if(!alumno.numeroDeControl) {
+        alumno.numeroDeControl = generarNumeroDeControl(alumno.id)
+        alumno.save(failOnError:true)
+      }
     }
 
     notificacionService.enviarNotificacion('cursoProgramado.autorizado', cursoProgramado)
@@ -42,10 +53,10 @@ class CursoProgramadoService {
   }
 
   private Alumno generarAlumnoConParams( def alumnoData ) {
-    Alumno alumno = new Alumno(
+    Alumno alumno =  new Alumno(
       nombreCompleto : alumnoData.nombreCompleto,
       observaciones : alumnoData.observaciones,
-      monto : alumnoData.monto )
+      monto : alumnoData.monto)
     alumno
   }
 

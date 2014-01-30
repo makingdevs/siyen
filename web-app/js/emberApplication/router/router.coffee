@@ -2,12 +2,15 @@ App.Router.map ->
   @route 'archivo'
   @route 'notificacion'
   @route 'busqueda'
-  @route 'movimientos'
   @route 'oficios'
+  @route 'movimientos'
 
   @resource 'cursosNuevos', ->
     @resource 'crear', ->
       @route 'participantes'
+
+  @resource 'alumnos', ->
+    @resource 'alumno', { path : ":alumno_id" }
 
   @resource 'cursosAutorizados', ->
     @resource 'edit', { path: ":curso_programado_id" }

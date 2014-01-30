@@ -393,6 +393,29 @@ App.BusquedaController = Ember.ObjectController.extend App.BusquedaForGetType,
           console.log "error"
       )
 
+App.AlumnosController = Ember.ObjectController.extend App.BusquedaForGetType,
+  busquedaDeAlumno : null
+  urlBusquedaDeAlumnos : null
+
+  init : ->
+    @set('urlBusquedaDeAlumnos', $("#urlBusquedaDeAlumnos").val())
+    @busquedaGetWithSelector('.pagination li a')
+
+  actions :
+    realizarBusqueda : ->
+      busqueda = @get('busquedaDeAlumno')
+
+      $.ajax(
+        type: "POST"
+        url: @get('urlBusquedaDeAlumnos')
+        data:
+          buscar : busqueda
+        success: (res, status, xhr) ->
+          $("#resultados").html( res )
+        error: (xhr, status, err) ->
+          console.log "error"
+      )
+
 App.MovimientosController = Ember.ObjectController.extend
   actions :
     doRealizarMovimiento : ->
@@ -419,3 +442,87 @@ App.OficiosController = Ember.ObjectController.extend
   desde : null
   hasta : null
 
+App.AlumnoController = Ember.ObjectController.extend App.BusquedaForGetType,
+  cursos : []
+  needs : ['alumnos']
+  init : ->
+    @_super()
+    @set 'cursos', @get('store').find("curso")
+
+  actions :
+    realizarMovimiento : ->
+      ($ "#movimientoConfirmDialog").modal( show: true )
+
+    doCancelarMovimiento : ->
+      ($ "#movimientoConfirmDialog").modal('hide')
+
+    doConfirmarMovimiento : ->
+      cursoProgramado = @store.createRecord('cursoProgramado',
+        fechaDeInicio : moment(@get('cursoProgramado.fechaDeInicio')).format('DD/MM/YYYY')
+        puerto: @get('cursoProgramado.puerto')
+        curso : @get('cursoProgramado.curso')
+        instructor : @get('cursoProgramado.instructor')
+      )
+      cursoProgramado.get('alumnos').createRecord(
+        numeroDeControl : @get('numeroDeControl')
+        nombreCompleto : @get('nombreCompleto')
+        observaciones : @get('observaciones')
+        monto : @get('monto')
+      )
+      cursoProgramado.save().then(
+        (value) =>
+          ($ "#movimientoConfirmDialog").modal('hide')
+          ($ "#alertas strong").text('ÉXITO')
+          ($ "#alertas .message").text("El cambio se ha realizado satisfactoriamente.")
+          ($ "#alertas").addClass("alert alert-success")
+          ($ "#alertas").fadeIn 'slow', ->
+            ($ @).delay(5000).fadeOut('slow')
+
+          alumnosController = @get('controllers.alumnos')
+          alumnosController.send('realizarBusqueda')
+          @transitionToRoute('alumnos')
+
+        (reason) =>
+          cursoProgramado.rollback()
+          ($ "#movimientoConfirmDialog").modal('hide')
+          jsonData = eval('(' + reason.responseText + ')')
+          cursos = "#{jsonData.curso},"
+          puertos = "#{jsonData.puerto},"
+          instructores = "#{jsonData.instructor},"
+          desde = moment(jsonData.fechaDeInicio, "YYYY-MM-DD").format('DD/MM/YYYY')
+          hasta = moment(jsonData.fechaDeTermino, "YYYY-MM-DD").format('DD/MM/YYYY')
+
+          ($ "#duplicacion > .modal-body").html("""
+            <p> Se ha encontrado un curso con los mismos datos : </p>
+
+            <dl class="dl-horizontal">
+              <dt>Fecha de inicio</dt>
+              <dd>#{desde}</dd>
+
+              <dt>Fecha de término</dt>
+              <dd>#{hasta}</dd>
+
+              <dt>Instructor</dt>
+              <dd>#{instructores.replace(',', '')}</dd>
+
+              <dt>Curso</dt>
+              <dd>#{cursos.replace(',', '')}</dd>
+
+              <dt>Puerto</dt>
+              <dd>#{puertos.replace(',', '')}</dd>
+            </dl>
+          """)
+
+          ($ "#duplicacion > .modal-footer").html("""
+            <a href="/busqueda/realizarBusqueda?buscar=&cursos=#{cursos}&puertos=#{puertos}&instructores=#{instructores}&desde=#{desde}&hasta=#{hasta}&offset=0&max=10" id="busqueda" class="btn btn-primary"> Ver los datos duplicados </a>
+          """)
+
+          @busquedaGetWithSelector("#busqueda")
+
+          $("body").on "click", "#busqueda", (event) =>
+            $("#duplicacion").modal('hide')
+            @transitionToRoute('busqueda')
+
+          ($ "#duplicacion").modal('show')
+      )
+      ($ "#primary").attr('disabled', false)

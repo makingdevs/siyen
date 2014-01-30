@@ -64,6 +64,10 @@ class AlumnoController {
     respuestaJson(alumno)
   }
 
+  def show() {
+    respuestaJson(Alumno.get(params.id))
+  }
+
   private void respuestaJson(Alumno alumno) {
     def jsonResponse = [:]
     jsonResponse.alumno = alumno
