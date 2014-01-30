@@ -12,7 +12,7 @@ Handlebars.getTemplate = (name) ->
 
   Ember.TEMPLATES[name]
 
-templates = [ 'cursosNuevos', 'cursosAutorizados', 'edit', 'confirmDialog', 'crear.participantes', 'archivo', 'notificacion', 'busqueda' ]
+templates = [ 'cursosNuevos', 'cursosAutorizados', 'edit', 'confirmDialog', 'crear.participantes', 'archivo', 'notificacion', 'busqueda', 'alumnos' ]
 for template in templates
   Handlebars.getTemplate( template )
 
@@ -62,10 +62,26 @@ Ember.TEMPLATES['alumno'] = Ember.Handlebars.compile("""
           </dd>
         </dl>
 
-        <button class="btn btn-danger btn-large btn-block" {{ action cambiarCurso }}><i class="icon-warning-sign icon-white"></i> Crear nuevo curso para alumno certificado con el mismo puerto, instructor y fecha, con cambio de categoría</button>
+        <button class="btn btn-danger btn-large btn-block" {{ action realizarMovimiento }}><i class="icon-warning-sign icon-white"></i> Crear nuevo curso para alumno certificado con el mismo puerto, instructor y fecha, con cambio de categoría</button>
       </div>
     </div>
   </div>
+
+  {{ view App.ConfirmDialogView
+       elementId="movimientoConfirmDialog"
+       okAction="doConfirmarMovimiento"
+       cancelAction="doCancelarMovimiento"
+       target="controller"
+       header="¿Autorizar movimiento?"
+       message="¿Está seguro de crear el nuevo curso con un solo alumno? ¡Esta acción no se puede deshacer!"
+  }}
+
+  {{ view App.ConfirmDialogView
+       elementId="duplicacion"
+       target="controller"
+       header="Datos duplicados"
+  }}
+
   """)
 
 Ember.TEMPLATES['movimientos'] = Ember.Handlebars.compile("""
