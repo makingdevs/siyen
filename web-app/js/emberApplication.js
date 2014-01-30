@@ -3,15 +3,26 @@
   window.App = Ember.Application.create();
 
   $(function() {
-    return ($("body")).on("click", "#impresion", function() {
+    ($("body")).on("click", "#impresion", function() {
+      var id, urlbasefrente, urlbasereverso, urlfrente, urlreverso;
+      id = ($(this)).attr('name');
+      urlbasefrente = ($('#frenteparacurso')).val();
+      urlfrente = "" + urlbasefrente + "/" + id;
+      urlbasereverso = ($('#reversoparacurso')).val();
+      urlreverso = "" + urlbasereverso + "/" + id;
+      window.open(urlfrente);
+      return window.open(urlreverso);
+    });
+    return ($("body")).on("click", "#impresionDeAlumno", function() {
       var id, urlBaseFrente, urlBaseReverso, urlFrente, urlReverso;
       id = ($(this)).attr('name');
-      urlBaseFrente = ($('#frenteParaCurso')).val();
+      urlBaseFrente = ($('#frenteParaCursoPorAlumno')).val();
       urlFrente = "" + urlBaseFrente + "/" + id;
-      urlBaseReverso = ($('#reversoParaCurso')).val();
+      urlBaseReverso = ($('#reversoParaCursoPorAlumno')).val();
       urlReverso = "" + urlBaseReverso + "/" + id;
       window.open(urlFrente);
-      return window.open(urlReverso);
+      window.open(urlReverso);
+      return false;
     });
   });
 
