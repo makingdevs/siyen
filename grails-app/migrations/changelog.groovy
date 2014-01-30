@@ -435,4 +435,6 @@ databaseChangeLog = {
 	include file: 'adding-monto-to-alumno.groovy'
 
 	include file: 'adding-alumnos-restantes-field.groovy'
+
+	include file: 'adding-tipo-de-pago-field.groovy'
 }
