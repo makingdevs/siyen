@@ -26,6 +26,7 @@
         <td>${it.cursoProgramado.curso.clave}</td>
         <td>
           <a href="#/alumnos/${it.id}" class="btn btn-primary"><i class="icon-edit icon-white"></i></a>
+          <button id="impresionDeAlumno" class="btn btn-success" name="${it.id}"><i class="icon-print icon-white"></i></button>
         </td>
       </tr>
     </g:each>
