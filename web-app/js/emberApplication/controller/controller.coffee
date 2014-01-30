@@ -147,8 +147,9 @@ App.EditController = Ember.ObjectController.extend
 
           ($ "#alertas strong").text('ERROR')
           ($ "#alertas .message").text(jsonData.message)
-          ($ "#alertas").addClass("alert alert-error")
-          ($ "#alertas").show('slow')
+          ($ "#alertas").attr("class", "alert alert-error")
+          ($ "#alertas").fadeIn 'slow', ->
+            ($ @).delay(5000).fadeOut('slow')
       )
 
       @setProperties
@@ -421,8 +422,28 @@ App.MovimientosController = Ember.ObjectController.extend
     doRealizarMovimiento : ->
       currentDragAlumno = @get('cursoSelectedA.currentDragItem') if @get('cursoSelectedA.currentDragItem')
       currentDragAlumno = @get('cursoSelectedB.currentDragItem') if @get('cursoSelectedB.currentDragItem')
+      cursoProgramadoOriginal = currentDragAlumno.get('cursoProgramado')
       currentDragAlumno.set('cursoProgramado', currentDragAlumno.get('droppingTarget'))
-      currentDragAlumno.save()
+
+      currentDragAlumno.save().then(
+        (success) ->
+          ($ "#alertas strong").text('ÉXITO')
+          ($ "#alertas .message").text("El cambio se ha realizado satisfactoriamente.")
+          ($ "#alertas").attr("class", "alert alert-success")
+          ($ "#alertas").fadeIn 'slow', ->
+            ($ @).delay(3000).fadeOut('slow')
+
+        (reason) ->
+          currentDragAlumno.set('cursoProgramado', cursoProgramadoOriginal)
+          currentDragAlumno.rollback()
+          jsonData = eval('(' + reason.responseText + ')')
+
+          ($ "#alertas strong").text('ERROR')
+          ($ "#alertas .message").text(jsonData.message)
+          ($ "#alertas").attr("class", "alert alert-error")
+          ($ "#alertas").fadeIn 'slow', ->
+            ($ @).delay(3000).fadeOut('slow')
+      )
       currentDragAlumno.setProperties
         'isDragging' : false
         'droppingTarget', null
@@ -474,7 +495,7 @@ App.AlumnoController = Ember.ObjectController.extend App.BusquedaForGetType,
           ($ "#movimientoConfirmDialog").modal('hide')
           ($ "#alertas strong").text('ÉXITO')
           ($ "#alertas .message").text("El cambio se ha realizado satisfactoriamente.")
-          ($ "#alertas").addClass("alert alert-success")
+          ($ "#alertas").attr("class", "alert alert-success")
           ($ "#alertas").fadeIn 'slow', ->
             ($ @).delay(5000).fadeOut('slow')
 
