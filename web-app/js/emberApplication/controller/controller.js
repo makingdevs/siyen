@@ -387,16 +387,17 @@
     }
   });
 
-  App.AlumnosController = Ember.ObjectController.extend({
-    busqueda: null,
+  App.AlumnosController = Ember.ObjectController.extend(App.BusquedaForGetType, {
+    busquedaDeAlumno: null,
     urlBusquedaDeAlumnos: null,
     init: function() {
-      return this.set('urlBusquedaDeAlumnos', $("#urlBusquedaDeAlumnos").val());
+      this.set('urlBusquedaDeAlumnos', $("#urlBusquedaDeAlumnos").val());
+      return this.busquedaGetWithSelector('.pagination li a');
     },
     actions: {
       realizarBusqueda: function() {
         var busqueda;
-        busqueda = this.get('busqueda');
+        busqueda = this.get('busquedaDeAlumno');
         return $.ajax({
           type: "POST",
           url: this.get('urlBusquedaDeAlumnos'),
@@ -448,15 +449,25 @@
     hasta: null
   });
 
-  App.AlumnoController = Ember.ObjectController.extend({
+  App.AlumnoController = Ember.ObjectController.extend(App.BusquedaForGetType, {
     cursos: [],
+    needs: ['alumnos'],
     init: function() {
       this._super();
       return this.set('cursos', this.get('store').find("curso"));
     },
     actions: {
-      cambiarCurso: function() {
-        var cursoProgramado;
+      realizarMovimiento: function() {
+        return ($("#movimientoConfirmDialog")).modal({
+          show: true
+        });
+      },
+      doCancelarMovimiento: function() {
+        return ($("#movimientoConfirmDialog")).modal('hide');
+      },
+      doConfirmarMovimiento: function() {
+        var cursoProgramado,
+          _this = this;
         cursoProgramado = this.store.createRecord('cursoProgramado', {
           fechaDeInicio: moment(this.get('cursoProgramado.fechaDeInicio')).format('DD/MM/YYYY'),
           puerto: this.get('cursoProgramado.puerto'),
@@ -469,7 +480,38 @@
           observaciones: this.get('observaciones'),
           monto: this.get('monto')
         });
-        return cursoProgramado.save();
+        cursoProgramado.save().then(function(value) {
+          var alumnosController;
+          ($("#movimientoConfirmDialog")).modal('hide');
+          ($("#alertas strong")).text('ÉXITO');
+          ($("#alertas .message")).text("El cambio se ha realizado satisfactoriamente.");
+          ($("#alertas")).addClass("alert alert-success");
+          ($("#alertas")).fadeIn('slow', function() {
+            return ($(this)).delay(5000).fadeOut('slow');
+          });
+          alumnosController = _this.get('controllers.alumnos');
+          alumnosController.send('realizarBusqueda');
+          return _this.transitionToRoute('alumnos');
+        }, function(reason) {
+          var cursos, desde, hasta, instructores, jsonData, puertos;
+          cursoProgramado.rollback();
+          ($("#movimientoConfirmDialog")).modal('hide');
+          jsonData = eval('(' + reason.responseText + ')');
+          cursos = "" + jsonData.curso + ",";
+          puertos = "" + jsonData.puerto + ",";
+          instructores = "" + jsonData.instructor + ",";
+          desde = moment(jsonData.fechaDeInicio, "YYYY-MM-DD").format('DD/MM/YYYY');
+          hasta = moment(jsonData.fechaDeTermino, "YYYY-MM-DD").format('DD/MM/YYYY');
+          ($("#duplicacion > .modal-body")).html("<p> Se ha encontrado un curso con los mismos datos : </p>\n\n<dl class=\"dl-horizontal\">\n  <dt>Fecha de inicio</dt>\n  <dd>" + desde + "</dd>\n\n  <dt>Fecha de término</dt>\n  <dd>" + hasta + "</dd>\n\n  <dt>Instructor</dt>\n  <dd>" + (instructores.replace(',', '')) + "</dd>\n\n  <dt>Curso</dt>\n  <dd>" + (cursos.replace(',', '')) + "</dd>\n\n  <dt>Puerto</dt>\n  <dd>" + (puertos.replace(',', '')) + "</dd>\n</dl>");
+          ($("#duplicacion > .modal-footer")).html("<a href=\"/busqueda/realizarBusqueda?buscar=&cursos=" + cursos + "&puertos=" + puertos + "&instructores=" + instructores + "&desde=" + desde + "&hasta=" + hasta + "&offset=0&max=10\" id=\"busqueda\" class=\"btn btn-primary\"> Ver los datos duplicados </a>");
+          _this.busquedaGetWithSelector("#busqueda");
+          $("body").on("click", "#busqueda", function(event) {
+            $("#duplicacion").modal('hide');
+            return _this.transitionToRoute('busqueda');
+          });
+          return ($("#duplicacion")).modal('show');
+        });
+        return ($("#primary")).attr('disabled', false);
       }
     }
   });
