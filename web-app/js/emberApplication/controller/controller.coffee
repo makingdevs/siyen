@@ -30,7 +30,7 @@ App.CursosNuevosController = Ember.ArrayController.extend App.BusquedaForGetType
       @set( 'autorizarCurso', null )
 
     doRealizarAutorizacion : ->
-      ($ "#primary").attr('disabled', 'disabled')
+      ($ "#primary").attr('disabled', true)
       cursoProgramadoTemp = @get('autorizarCurso')
 
       cursoProgramadoLocal = {
@@ -253,11 +253,32 @@ App.CrearParticipantesController = Ember.ObjectController.extend
   actions :
     agregar : ->
       currentCurso = @get('controllers.cursosNuevos').get('currentCurso')
+
+      unless @tipoDePagoSelected
+        ($ "#error .message").text('El tipo de pago es obligatorio')
+        ($ "#error").fadeIn 'slow', ->
+          ($ @).delay(3000).fadeOut('slow')
+        return
+
       alumno = Ember.Object.create
         nombreCompleto : @nombreCompleto
         tipoDePago : @tipoDePagoSelected.id
         observaciones : @observaciones
         monto : @monto
+
+      switch @tipoDePagoSelected.id
+        when "EFECTIVO", "DEPOSITO_BANCARIO"
+          if @monto <= 0
+            ($ "#error .message").text('El campo de monto es obligatorio')
+            ($ "#error").fadeIn 'slow', ->
+              ($ @).delay(3000).fadeOut('slow')
+            return
+        when 'BECADO'
+          unless @observaciones
+            ($ "#error .message").text('El campo de observaciones es obligatorio')
+            ($ "#error").fadeIn 'slow', ->
+              ($ @).delay(3000).fadeOut('slow')
+            return
 
       if @currentParticipanteIndex >= 0
         currentCurso.get('alumnos').replace(@currentParticipanteIndex, 1, [alumno])

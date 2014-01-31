@@ -41,7 +41,7 @@
       doRealizarAutorizacion: function() {
         var alumno, cursoProgramado, cursoProgramadoLocal, cursoProgramadoTemp, _i, _len, _ref,
           _this = this;
-        ($("#primary")).attr('disabled', 'disabled');
+        ($("#primary")).attr('disabled', true);
         cursoProgramadoTemp = this.get('autorizarCurso');
         cursoProgramadoLocal = {
           fechaDeInicio: cursoProgramadoTemp.get('fechaDeInicio').format('DD/MM/YYYY'),
@@ -244,12 +244,39 @@
       agregar: function() {
         var alumno, currentCurso;
         currentCurso = this.get('controllers.cursosNuevos').get('currentCurso');
+        if (!this.tipoDePagoSelected) {
+          ($("#error .message")).text('El tipo de pago es obligatorio');
+          ($("#error")).fadeIn('slow', function() {
+            return ($(this)).delay(3000).fadeOut('slow');
+          });
+          return;
+        }
         alumno = Ember.Object.create({
           nombreCompleto: this.nombreCompleto,
           tipoDePago: this.tipoDePagoSelected.id,
           observaciones: this.observaciones,
           monto: this.monto
         });
+        switch (this.tipoDePagoSelected.id) {
+          case "EFECTIVO":
+          case "DEPOSITO_BANCARIO":
+            if (this.monto <= 0) {
+              ($("#error .message")).text('El campo de monto es obligatorio');
+              ($("#error")).fadeIn('slow', function() {
+                return ($(this)).delay(3000).fadeOut('slow');
+              });
+              return;
+            }
+            break;
+          case 'BECADO':
+            if (!this.observaciones) {
+              ($("#error .message")).text('El campo de observaciones es obligatorio');
+              ($("#error")).fadeIn('slow', function() {
+                return ($(this)).delay(3000).fadeOut('slow');
+              });
+              return;
+            }
+        }
         if (this.currentParticipanteIndex >= 0) {
           currentCurso.get('alumnos').replace(this.currentParticipanteIndex, 1, [alumno]);
         } else {
