@@ -56,6 +56,7 @@ class CursoProgramadoService {
     Alumno alumno =  new Alumno(
       nombreCompleto : alumnoData.nombreCompleto,
       observaciones : alumnoData.observaciones,
+      tipoDePago : alumnoData.tipoDePago,
       monto : alumnoData.monto)
     alumno
   }
