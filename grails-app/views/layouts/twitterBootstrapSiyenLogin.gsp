@@ -138,6 +138,12 @@
       </span>
     </div>
 
+    <div id="error" class="alert alert-error hide">
+      <strong>ERROR</strong>
+      <span class="message">
+      </span>
+    </div>
+
     <input type="hidden" id="frenteParaCurso" value="${g.createLink(action:'generarFrenteParaCurso', controller:'certificado')}" />
     <input type="hidden" id="reversoParaCurso" value="${g.createLink(action:'generarReversoParaCurso', controller:'certificado')}" />
 
