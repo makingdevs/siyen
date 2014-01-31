@@ -16,7 +16,7 @@ class AlumnoMarshaller implements ObjectMarshaller<JSON> {
       id : alumno.id,
       numeroDeControl : alumno.numeroDeControl,
       nombreCompleto : alumno.nombreCompleto,
-      tipoDePago : alumno.tipoDePago,
+      tipoDePago : alumno.tipoDePago.key,
       observaciones : alumno.observaciones,
       monto : alumno.monto,
       cursoProgramado : alumno.cursoProgramado.id
