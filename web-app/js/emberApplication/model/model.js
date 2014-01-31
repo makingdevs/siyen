@@ -41,6 +41,7 @@
     nombreCompleto: DS.attr('string'),
     observaciones: DS.attr('string'),
     monto: DS.attr('number'),
+    tipoDePago: DS.attr('string'),
     cursoProgramado: DS.belongsTo('cursoProgramado'),
     descripcion: (function() {
       return "" + (this.get('numeroDeControl')) + " - " + (this.get('nombreCompleto'));

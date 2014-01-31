@@ -10,6 +10,8 @@ class Alumno {
   Date dateCreated
   Date lastUpdated
 
+  TipoDePago tipoDePago = TipoDePago.EFECTIVO
+
   static belongsTo = [cursoProgramado : CursoProgramado]
 
   static constraints = {

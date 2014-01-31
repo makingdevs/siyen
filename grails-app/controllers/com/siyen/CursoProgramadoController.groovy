@@ -3,6 +3,8 @@ package com.siyen
 import java.text.SimpleDateFormat
 import grails.converters.*
 
+import com.siyen.exceptions.BusinessException
+
 class CursoProgramadoController {
 
   static allowedMethods = [show : "GET", save : "POST", update : "PUT"]
@@ -44,7 +46,7 @@ class CursoProgramadoController {
     try {
       CursoProgramado cursoProgramado = cursoProgramadoService.crearCursoDesdeCommand(cmd)
       renderResponseWithCursosProgramados(cursoProgramado)
-    }catch(ex) {
+    }catch(BusinessException ex) {
       render(status:409, contentType: "text/json") {
         [
           message : ex.message,

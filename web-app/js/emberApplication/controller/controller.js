@@ -41,7 +41,7 @@
       doRealizarAutorizacion: function() {
         var alumno, cursoProgramado, cursoProgramadoLocal, cursoProgramadoTemp, _i, _len, _ref,
           _this = this;
-        ($("#primary")).attr('disabled', 'disabled');
+        ($("#primary")).attr('disabled', true);
         cursoProgramadoTemp = this.get('autorizarCurso');
         cursoProgramadoLocal = {
           fechaDeInicio: cursoProgramadoTemp.get('fechaDeInicio').format('DD/MM/YYYY'),
@@ -56,6 +56,7 @@
           cursoProgramado.get('alumnos').createRecord({
             nombreCompleto: alumno.get('nombreCompleto'),
             observaciones: alumno.get('observaciones'),
+            tipoDePago: alumno.get('tipoDePago'),
             monto: alumno.get('monto')
           });
         }
@@ -95,6 +96,7 @@
     nombreCompleto: null,
     observaciones: null,
     monto: null,
+    tipoDePago: null,
     currentParticipanteIndex: -1,
     disabled: false,
     alumnosAddObserves: (function() {
@@ -121,6 +123,7 @@
           alumno = this.store.createRecord('alumno');
         }
         alumno.set('nombreCompleto', this.nombreCompleto);
+        alumno.set('tipoDePago', this.tipoDePago);
         alumno.set('observaciones', this.observaciones);
         alumno.set('monto', this.monto);
         alumno.set('cursoProgramado', cursoProgramado);
@@ -209,7 +212,20 @@
     needs: "cursosNuevos",
     nombreCompleto: null,
     observaciones: null,
-    monto: null,
+    monto: 0,
+    tiposDePagos: [
+      {
+        id: 'EFECTIVO',
+        name: 'Efectivo'
+      }, {
+        id: 'BECADO',
+        name: 'Becado'
+      }, {
+        id: 'DEPOSITO_BANCARIO',
+        name: 'Depósito Bancario'
+      }
+    ],
+    tipoDePagoSelected: null,
     currentParticipanteIndex: -1,
     currentCursoObserves: (function() {
       var currentCurso, cursosNuevosController;
@@ -219,6 +235,7 @@
         return this.setProperties({
           nombreCompleto: null,
           observaciones: null,
+          tipoDePagoSelected: null,
           monto: null
         });
       }
@@ -227,11 +244,39 @@
       agregar: function() {
         var alumno, currentCurso;
         currentCurso = this.get('controllers.cursosNuevos').get('currentCurso');
+        if (!this.tipoDePagoSelected) {
+          ($("#error .message")).text('El tipo de pago es obligatorio');
+          ($("#error")).fadeIn('slow', function() {
+            return ($(this)).delay(3000).fadeOut('slow');
+          });
+          return;
+        }
         alumno = Ember.Object.create({
           nombreCompleto: this.nombreCompleto,
+          tipoDePago: this.tipoDePagoSelected.id,
           observaciones: this.observaciones,
           monto: this.monto
         });
+        switch (this.tipoDePagoSelected.id) {
+          case "EFECTIVO":
+          case "DEPOSITO_BANCARIO":
+            if (this.monto <= 0) {
+              ($("#error .message")).text('El campo de monto es obligatorio');
+              ($("#error")).fadeIn('slow', function() {
+                return ($(this)).delay(3000).fadeOut('slow');
+              });
+              return;
+            }
+            break;
+          case 'BECADO':
+            if (!this.observaciones) {
+              ($("#error .message")).text('El campo de observaciones es obligatorio');
+              ($("#error")).fadeIn('slow', function() {
+                return ($(this)).delay(3000).fadeOut('slow');
+              });
+              return;
+            }
+        }
         if (this.currentParticipanteIndex >= 0) {
           currentCurso.get('alumnos').replace(this.currentParticipanteIndex, 1, [alumno]);
         } else {
@@ -241,6 +286,7 @@
         return this.setProperties({
           nombreCompleto: null,
           observaciones: null,
+          tipoDePagoSelected: null,
           monto: null
         });
       }
