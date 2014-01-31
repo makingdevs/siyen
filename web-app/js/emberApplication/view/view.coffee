@@ -93,6 +93,7 @@ App.EditarParticipantesListView = Ember.View.extend
       <thead>
         <tr>
           <th>Nombre</th>
+          <th>Tipo de pago</th>
           <th>Observaciones</th>
           <th>Monto</th>
           <th>&nbsp;</th>
@@ -132,7 +133,7 @@ App.ParticipanteView = Ember.View.extend
   template: Ember.Handlebars.compile('' +
     """
       <td> {{ nombreCompleto }} </td>
-      <td> {{ tipoDePago.name }} </td>
+      <td> {{ tipoDePago }} </td>
       <td> {{ observaciones }} </td>
       <td> <span class="badge badge-info">${{ monto }}</span> </td>
       <td> {{#if id}} {{ view App.CertificadoPorParticipanteButton class="btn btn-success"}} {{/if}} </td>
