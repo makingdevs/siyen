@@ -225,6 +225,8 @@ App.CrearParticipantesController = Ember.ObjectController.extend
   observaciones : null
   monto : null
 
+  tiposDePagos : ['Efectivo', 'Becado', 'Depósito Bancario']
+
   currentParticipanteIndex : -1
 
   currentCursoObserves : (->

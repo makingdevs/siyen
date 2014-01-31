@@ -210,6 +210,7 @@
     nombreCompleto: null,
     observaciones: null,
     monto: null,
+    tiposDePagos: ['Efectivo', 'Becado', 'Depósito Bancario'],
     currentParticipanteIndex: -1,
     currentCursoObserves: (function() {
       var currentCurso, cursosNuevosController;
