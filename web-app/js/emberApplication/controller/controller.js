@@ -56,6 +56,7 @@
           cursoProgramado.get('alumnos').createRecord({
             nombreCompleto: alumno.get('nombreCompleto'),
             observaciones: alumno.get('observaciones'),
+            tipoDePago: alumno.get('tipoDePago'),
             monto: alumno.get('monto')
           });
         }
@@ -95,6 +96,7 @@
     nombreCompleto: null,
     observaciones: null,
     monto: null,
+    tipoDePago: null,
     currentParticipanteIndex: -1,
     disabled: false,
     alumnosAddObserves: (function() {
@@ -121,6 +123,7 @@
           alumno = this.store.createRecord('alumno');
         }
         alumno.set('nombreCompleto', this.nombreCompleto);
+        alumno.set('tipoDePago', this.tipoDePago);
         alumno.set('observaciones', this.observaciones);
         alumno.set('monto', this.monto);
         alumno.set('cursoProgramado', cursoProgramado);
@@ -209,8 +212,20 @@
     needs: "cursosNuevos",
     nombreCompleto: null,
     observaciones: null,
-    monto: null,
-    tiposDePagos: ['Efectivo', 'Becado', 'Depósito Bancario'],
+    monto: 0,
+    tiposDePagos: [
+      {
+        id: 'EFECTIVO',
+        name: 'Efectivo'
+      }, {
+        id: 'BECADO',
+        name: 'Becado'
+      }, {
+        id: 'DEPOSITO_BANCARIO',
+        name: 'Depósito Bancario'
+      }
+    ],
+    tipoDePagoSelected: null,
     currentParticipanteIndex: -1,
     currentCursoObserves: (function() {
       var currentCurso, cursosNuevosController;
@@ -220,6 +235,7 @@
         return this.setProperties({
           nombreCompleto: null,
           observaciones: null,
+          tipoDePagoSelected: null,
           monto: null
         });
       }
@@ -230,6 +246,7 @@
         currentCurso = this.get('controllers.cursosNuevos').get('currentCurso');
         alumno = Ember.Object.create({
           nombreCompleto: this.nombreCompleto,
+          tipoDePago: this.tipoDePagoSelected.id,
           observaciones: this.observaciones,
           monto: this.monto
         });
@@ -242,6 +259,7 @@
         return this.setProperties({
           nombreCompleto: null,
           observaciones: null,
+          tipoDePagoSelected: null,
           monto: null
         });
       }

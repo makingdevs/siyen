@@ -45,6 +45,7 @@ App.CursosNuevosController = Ember.ArrayController.extend App.BusquedaForGetType
         cursoProgramado.get('alumnos').createRecord(
           nombreCompleto : alumno.get('nombreCompleto')
           observaciones : alumno.get('observaciones')
+          tipoDePago : alumno.get('tipoDePago')
           monto : alumno.get('monto')
         )
 
@@ -108,6 +109,7 @@ App.EditController = Ember.ObjectController.extend
   nombreCompleto : null
   observaciones : null
   monto : null
+  tipoDePago : null
   currentParticipanteIndex : -1
   disabled : false
 
@@ -134,6 +136,7 @@ App.EditController = Ember.ObjectController.extend
         alumno = @store.createRecord('alumno')
 
       alumno.set 'nombreCompleto', @nombreCompleto
+      alumno.set 'tipoDePago', @tipoDePago
       alumno.set 'observaciones', @observaciones
       alumno.set 'monto', @monto
       alumno.set 'cursoProgramado', cursoProgramado
@@ -223,9 +226,14 @@ App.CrearParticipantesController = Ember.ObjectController.extend
 
   nombreCompleto : null
   observaciones : null
-  monto : null
+  monto : 0
 
-  tiposDePagos : ['Efectivo', 'Becado', 'Depósito Bancario']
+  tiposDePagos : [
+    { id:'EFECTIVO', name:'Efectivo' },
+    { id:'BECADO', name:'Becado' },
+    { id:'DEPOSITO_BANCARIO', name:'Depósito Bancario' }
+  ]
+  tipoDePagoSelected : null
 
   currentParticipanteIndex : -1
 
@@ -237,6 +245,7 @@ App.CrearParticipantesController = Ember.ObjectController.extend
       @setProperties
         nombreCompleto: null
         observaciones: null
+        tipoDePagoSelected : null
         monto: null
 
   ).observes('controllers.cursosNuevos.currentCurso')
@@ -246,6 +255,7 @@ App.CrearParticipantesController = Ember.ObjectController.extend
       currentCurso = @get('controllers.cursosNuevos').get('currentCurso')
       alumno = Ember.Object.create
         nombreCompleto : @nombreCompleto
+        tipoDePago : @tipoDePagoSelected.id
         observaciones : @observaciones
         monto : @monto
 
@@ -258,6 +268,7 @@ App.CrearParticipantesController = Ember.ObjectController.extend
       @setProperties
         nombreCompleto: null
         observaciones: null
+        tipoDePagoSelected : null
         monto: null
 
 App.ArchivoController = Ember.ObjectController.extend
