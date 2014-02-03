@@ -209,12 +209,10 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
       ]
   }
 
-  def "Obteniendo los datos de graficación para el tipo de libreta por año, puerto y mes"() {
+  def "Obteniendo los datos de graficación para los puertos para los meses del año"() {
     setup : "Asignando los valores a graficar"
       def params = [:]
       params.anio = 2012
-      params.puerto = "GYS"
-      params.libreta = "A"
       params.mes = [3, 4]
 
     when : "Llamando al servicio de graficación"
@@ -228,25 +226,47 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
       datosAGraficar << [
         [
           3 : [
-                CAPACO3234 : 2,
-                CAPCAM311 : 2,
-                CAPCOC312 : 1,
-                CAPCON322 : 3,
-                CAPMOT331 : 1,
-                FAMBT1 : 2,
-                STCW95 : 3,
-                STCW95_1 : 3
-              ],
+            0     :   2,
+            ACG   :  10,
+            ATL   :   1,
+            CSL   :  10,
+            CULS  :   1,
+            DF    :   8,
+            ENS   :  39,
+            GYS   :  30,
+            LCM   :   1,
+            LPB   :  17,
+            MZO   :   9,
+            MZS   : 105,
+            PZM   :   1,
+            SBN   :   2,
+            SCO   :  31,
+            SFBC  :   0,
+            TOP   :   3,
+            VBEM  :   0,
+            ZIH   :  10
+          ],
           4 : [
-                CAPACO3234 : 2,
-                CAPCAM311 : 2,
-                CAPCOC312 : 1,
-                CAPCON322 : 3,
-                CAPMOT331 : 1,
-                FAMBT1 : 2,
-                STCW95 : 3,
-                STCW95_1 : 3
-              ]
+            0     :   0,
+            ACG   :  34,
+            ATL   :   0,
+            CSL   :   0,
+            CULS  :   0,
+            DF    :   3,
+            ENS   :  19,
+            GYS   :  35,
+            LCM   :   2,
+            LPB   :   1,
+            MZO   :  17,
+            MZS   :  95,
+            PZM   :   0,
+            SBN   :   1,
+            SCO   :  17,
+            SFBC  :  13,
+            TOP   :   6,
+            VBEM  :   2,
+            ZIH   :   0
+          ]
         ]
       ]
   }
