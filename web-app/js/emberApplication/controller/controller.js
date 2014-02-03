@@ -99,6 +99,19 @@
     tipoDePago: null,
     currentParticipanteIndex: -1,
     disabled: false,
+    tiposDePagos: [
+      {
+        id: 'EFECTIVO',
+        name: 'Efectivo'
+      }, {
+        id: 'BECADO',
+        name: 'Becado'
+      }, {
+        id: 'DEPOSITO_BANCARIO',
+        name: 'Depósito Bancario'
+      }
+    ],
+    tipoDePagoSelected: null,
     alumnosAddObserves: (function() {
       if (this.get('model.alumnosRestantes') <= 0) {
         return this.set('disabled', true);
@@ -123,7 +136,7 @@
           alumno = this.store.createRecord('alumno');
         }
         alumno.set('nombreCompleto', this.nombreCompleto);
-        alumno.set('tipoDePago', this.tipoDePago);
+        alumno.set('tipoDePago', this.tipoDePagoSelected);
         alumno.set('observaciones', this.observaciones);
         alumno.set('monto', this.monto);
         alumno.set('cursoProgramado', cursoProgramado);

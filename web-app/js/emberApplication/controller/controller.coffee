@@ -113,6 +113,13 @@ App.EditController = Ember.ObjectController.extend
   currentParticipanteIndex : -1
   disabled : false
 
+  tiposDePagos : [
+    { id:'EFECTIVO', name:'Efectivo' },
+    { id:'BECADO', name:'Becado' },
+    { id:'DEPOSITO_BANCARIO', name:'Depósito Bancario' }
+  ]
+  tipoDePagoSelected : null
+
   alumnosAddObserves : (->
     @set('disabled', true) if @get('model.alumnosRestantes') <= 0
   ).observes('model.alumnosRestantes')
@@ -136,7 +143,7 @@ App.EditController = Ember.ObjectController.extend
         alumno = @store.createRecord('alumno')
 
       alumno.set 'nombreCompleto', @nombreCompleto
-      alumno.set 'tipoDePago', @tipoDePago
+      alumno.set 'tipoDePago', @tipoDePagoSelected
       alumno.set 'observaciones', @observaciones
       alumno.set 'monto', @monto
       alumno.set 'cursoProgramado', cursoProgramado
