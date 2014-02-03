@@ -142,6 +142,26 @@ App.EditController = Ember.ObjectController.extend
       else
         alumno = @store.createRecord('alumno')
 
+      unless @tipoDePagoSelected
+        ($ "#error .message").text('El tipo de pago es obligatorio')
+        ($ "#error").fadeIn 'slow', ->
+          ($ @).delay(3000).fadeOut('slow')
+        return
+
+      switch @tipoDePagoSelected.id
+        when "EFECTIVO", "DEPOSITO_BANCARIO"
+          if @monto <= 0
+            ($ "#error .message").text('El campo de monto es obligatorio')
+            ($ "#error").fadeIn 'slow', ->
+              ($ @).delay(3000).fadeOut('slow')
+            return
+        when 'BECADO'
+          unless @observaciones
+            ($ "#error .message").text('El campo de observaciones es obligatorio')
+            ($ "#error").fadeIn 'slow', ->
+              ($ @).delay(3000).fadeOut('slow')
+            return
+
       alumno.set 'nombreCompleto', @nombreCompleto
       alumno.set 'tipoDePago', @tipoDePagoSelected.id
       alumno.set 'observaciones', @observaciones
@@ -164,6 +184,7 @@ App.EditController = Ember.ObjectController.extend
 
       @setProperties
         currentParticipanteIndex : -1
+        tipoDePagoSelected : null
         nombreCompleto : null
         observaciones : null
         monto : null

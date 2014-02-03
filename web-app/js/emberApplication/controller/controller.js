@@ -135,6 +135,33 @@
         } else {
           alumno = this.store.createRecord('alumno');
         }
+        if (!this.tipoDePagoSelected) {
+          ($("#error .message")).text('El tipo de pago es obligatorio');
+          ($("#error")).fadeIn('slow', function() {
+            return ($(this)).delay(3000).fadeOut('slow');
+          });
+          return;
+        }
+        switch (this.tipoDePagoSelected.id) {
+          case "EFECTIVO":
+          case "DEPOSITO_BANCARIO":
+            if (this.monto <= 0) {
+              ($("#error .message")).text('El campo de monto es obligatorio');
+              ($("#error")).fadeIn('slow', function() {
+                return ($(this)).delay(3000).fadeOut('slow');
+              });
+              return;
+            }
+            break;
+          case 'BECADO':
+            if (!this.observaciones) {
+              ($("#error .message")).text('El campo de observaciones es obligatorio');
+              ($("#error")).fadeIn('slow', function() {
+                return ($(this)).delay(3000).fadeOut('slow');
+              });
+              return;
+            }
+        }
         alumno.set('nombreCompleto', this.nombreCompleto);
         alumno.set('tipoDePago', this.tipoDePagoSelected.id);
         alumno.set('observaciones', this.observaciones);
@@ -155,6 +182,7 @@
         });
         return this.setProperties({
           currentParticipanteIndex: -1,
+          tipoDePagoSelected: null,
           nombreCompleto: null,
           observaciones: null,
           monto: null
