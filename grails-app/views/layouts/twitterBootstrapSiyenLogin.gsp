@@ -69,10 +69,10 @@
                     </a>
                     <ul class="dropdown-menu">
                       <li>
-                        {{#link-to "movimientos" }}Entre cursos{{/linkTo}}
+                        {{#link-to "movimientos" }}Entre cursos{{/link-to}}
                       </li>
                       <li>
-                        {{#link-to "alumnos" }}A un nuevo curso{{/linkTo}}
+                        {{#link-to "alumnos" }}A un nuevo curso{{/link-to}}
                       </li>
                     </ul>
                   <li>
@@ -82,7 +82,7 @@
                     {{#link-to "busqueda" }}Busqueda{{/link-to}}
                   </li>
                   <li>
-                    {{#link-to "oficios" }}Oficios{{/linkTo}}
+                    {{#link-to "oficios" }}Oficios{{/link-to}}
                   </li>
                   <sec:access expression="hasRole('ROLE_ADMIN')">
                     <li>
