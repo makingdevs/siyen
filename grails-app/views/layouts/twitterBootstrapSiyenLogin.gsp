@@ -54,10 +54,10 @@
                     </a>
                     <ul class="dropdown-menu">
                       <li>
-                        {{#linkTo "cursosNuevos" }}Nuevo{{/linkTo}}
+                        {{#link-to "cursosNuevos" }}Nuevo{{/link-to}}
                       </li>
                       <li>
-                        {{#linkTo "cursosAutorizados" }}Autorizados{{/linkTo}}
+                        {{#link-to "cursosAutorizados" }}Autorizados{{/link-to}}
                       </li>
                     </ul>
                   </li>
@@ -69,25 +69,24 @@
                     </a>
                     <ul class="dropdown-menu">
                       <li>
-                        {{#linkTo "movimientos" }}Entre cursos{{/linkTo}}
+                        {{#link-to "movimientos" }}Entre cursos{{/linkTo}}
                       </li>
                       <li>
-                        {{#linkTo "alumnos" }}A un nuevo curso{{/linkTo}}
+                        {{#link-to "alumnos" }}A un nuevo curso{{/linkTo}}
                       </li>
                     </ul>
                   <li>
-
-                    {{#linkTo "archivo" }}Procesar archivo{{/linkTo}}
+                    {{#link-to "archivo" }}Procesar archivo{{/link-to}}
                   </li>
                   <li>
-                    {{#linkTo "busqueda" }}Busqueda{{/linkTo}}
+                    {{#link-to "busqueda" }}Busqueda{{/link-to}}
                   </li>
                   <li>
-                    {{#linkTo "oficios" }}Oficios{{/linkTo}}
+                    {{#link-to "oficios" }}Oficios{{/linkTo}}
                   </li>
                   <sec:access expression="hasRole('ROLE_ADMIN')">
                     <li>
-                      {{#linkTo "notificacion" }}Notificaciones{{/linkTo}}
+                      {{#link-to "notificacion" }}Notificaciones{{/link-to}}
                     </li>
 
                     <li>
@@ -154,6 +153,11 @@
 
     <input type="hidden" id="urlBusqueda" value="${g.createLink(action:'realizarBusqueda', controller:'busqueda')}" />
     <input type="hidden" id="urlBusquedaDeAlumnos" value="${g.createLink(action:'realizarBusquedaDeAlumnos', controller:'busqueda')}" />
+
+    <input type="hidden" id="frenteParaCurso" value="${g.createLink(action:'generarFrenteParaCurso', controller:'certificado')}" />
+    <input type="hidden" id="reversoParaCurso" value="${g.createLink(action:'generarReversoParaCurso', controller:'certificado')}" />
+
+    <input type="hidden" id="urlBusqueda" value="${g.createLink(action:'realizarBusqueda', controller:'busqueda')}" />
 
     <r:layoutResources />
   </body>
