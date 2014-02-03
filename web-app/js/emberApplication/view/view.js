@@ -107,10 +107,12 @@
     tagName: 'tr',
     template: Ember.Handlebars.compile('' + "<td> {{ nombreCompleto }} </td>\n<td> {{ tipoDePago }} </td>\n<td> {{ observaciones }} </td>\n<td> <span class=\"badge badge-info\">${{ monto }}</span> </td>\n<td> {{#if id}} {{ view App.CertificadoPorParticipanteButton class=\"btn btn-success\"}} {{/if}} </td>"),
     click: function(event) {
-      var controller;
+      var controller, tipoDePagoSelected;
       controller = this.get('controller');
       controller.set('nombreCompleto', this.get('context.nombreCompleto'));
       controller.set('observaciones', this.get('context.observaciones'));
+      tipoDePagoSelected = controller.get('tiposDePagos').findBy('id', this.get('context.tipoDePago'));
+      controller.set('tipoDePagoSelected', tipoDePagoSelected);
       controller.set('monto', this.get('context.monto'));
       controller.set('currentParticipanteIndex', this.get('_parentView.contentIndex'));
       return ($('#nombreCompleto')).focus();

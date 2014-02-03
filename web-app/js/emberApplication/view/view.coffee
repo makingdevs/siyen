@@ -143,6 +143,10 @@ App.ParticipanteView = Ember.View.extend
     controller = @get('controller')
     controller.set('nombreCompleto', @get('context.nombreCompleto'))
     controller.set('observaciones', @get('context.observaciones'))
+
+    tipoDePagoSelected = controller.get('tiposDePagos').findBy('id', @get('context.tipoDePago'))
+
+    controller.set('tipoDePagoSelected', tipoDePagoSelected )
     controller.set('monto', @get('context.monto'))
     controller.set('currentParticipanteIndex', @get('_parentView.contentIndex'))
     ($ '#nombreCompleto').focus()
