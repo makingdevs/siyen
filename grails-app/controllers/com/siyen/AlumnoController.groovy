@@ -19,6 +19,7 @@ class AlumnoController {
     Alumno alumno = new Alumno(
       nombreCompleto : cmd.nombreCompleto,
       observaciones : cmd.observaciones,
+      tipoDePago : cmd.tipoDePago,
       monto : cmd.monto
     )
 
@@ -55,6 +56,7 @@ class AlumnoController {
       alumno.cursoProgramado = CursoProgramado.get(cmd.cursoProgramado)
       alumno.nombreCompleto = cmd.nombreCompleto
       alumno.observaciones = cmd.observaciones
+      alumno.tipoDePago = cmd.tipoDePago
       alumno.monto = cmd.monto
       alumno.save(failOnError:true)
 
@@ -108,12 +110,14 @@ class AlumnoUpdateCommad {
   Long cursoProgramado
   String nombreCompleto
   String observaciones
+  String tipoDePago
   Long monto
 
   static constraints = {
     id nullable: false
     cursoProgramado nullable: false
     nombreCompleto nullable: false
+    tipoDePago nullable: false
   }
 
 }
@@ -122,10 +126,12 @@ class AlumnoCommand {
   Long cursoProgramado
   String nombreCompleto
   String observaciones
+  String tipoDePago
   Long monto
 
   static constraints = {
     cursoProgramado nullable: false
     nombreCompleto nullable: false
+    tipoDePago nullable: false
   }
 }
