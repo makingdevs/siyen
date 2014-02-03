@@ -143,7 +143,7 @@ App.EditController = Ember.ObjectController.extend
         alumno = @store.createRecord('alumno')
 
       alumno.set 'nombreCompleto', @nombreCompleto
-      alumno.set 'tipoDePago', @tipoDePagoSelected
+      alumno.set 'tipoDePago', @tipoDePagoSelected.id
       alumno.set 'observaciones', @observaciones
       alumno.set 'monto', @monto
       alumno.set 'cursoProgramado', cursoProgramado

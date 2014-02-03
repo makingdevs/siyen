@@ -136,7 +136,7 @@
           alumno = this.store.createRecord('alumno');
         }
         alumno.set('nombreCompleto', this.nombreCompleto);
-        alumno.set('tipoDePago', this.tipoDePagoSelected);
+        alumno.set('tipoDePago', this.tipoDePagoSelected.id);
         alumno.set('observaciones', this.observaciones);
         alumno.set('monto', this.monto);
         alumno.set('cursoProgramado', cursoProgramado);
