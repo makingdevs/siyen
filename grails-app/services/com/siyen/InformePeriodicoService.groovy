@@ -2,47 +2,51 @@ package com.siyen
 
 class InformePeriodicoService {
 
-  def datosDeGraficacion(def params) {
-    if(params.mes instanceof List) {
-      def datos = [:]
-      params.mes.each { mes ->
-        def (relacion, propiedad) = seleccionarMetodoDeConteo(params.keySet())
-        def cursoProgramadoCriteria = CursoProgramado.createCriteria()
-        def listaCriteriaClosures = []
+  private def conteoPorMeses(params) {
+    def datos = [:]
+    params.mes.each { mes ->
+      def (relacion, propiedad) = seleccionarMetodoDeConteo(params.keySet())
+      def cursoProgramadoCriteria = CursoProgramado.createCriteria()
+      def listaCriteriaClosures = []
 
-        (params.keySet() - "mes").each { key ->
-          def value = params["${key}"]
-          def criteriaBuilder = "criteriaBuilderFor${key.capitalize()}"(value)
-          listaCriteriaClosures << {
-            criteriaBuilder.delegate = delegate
-            criteriaBuilder.call()
-          }
-        }
-
-        def criteriaBuilder = criteriaBuilderForMes(mes)
+      (params.keySet() - "mes").each { key ->
+        def value = params["${key}"]
+        def criteriaBuilder = "criteriaBuilderFor${key.capitalize()}"(value)
         listaCriteriaClosures << {
           criteriaBuilder.delegate = delegate
           criteriaBuilder.call()
         }
-
-        def resultados = cursoProgramadoCriteria.list {
-          listaCriteriaClosures*.delegate = delegate
-          listaCriteriaClosures*.call()
-        }
-
-        datos.("${mes}") = conteo(resultados, relacion, propiedad).withDefault { d -> 0 }
       }
 
-      datos*.value*.keySet().flatten().unique().collectEntries {
-        datos*.value*.get( it )
+      def criteriaBuilder = criteriaBuilderForMes(mes)
+      listaCriteriaClosures << {
+        criteriaBuilder.delegate = delegate
+        criteriaBuilder.call()
       }
 
-      def newData = [:]
-      datos.each { k, v ->
-        newData.("${k}") = v.sort { it.key }
+      def resultados = cursoProgramadoCriteria.list {
+        listaCriteriaClosures*.delegate = delegate
+        listaCriteriaClosures*.call()
       }
 
-      return newData
+      datos.("${mes}") = conteo(resultados, relacion, propiedad).withDefault { d -> 0 }
+    }
+
+    datos*.value*.keySet().flatten().unique().collectEntries {
+      datos*.value*.get( it )
+    }
+
+    def newData = [:]
+    datos.each { k, v ->
+      newData.("${k}") = v.sort { it.key }
+    }
+
+    newData
+  }
+
+  def datosDeGraficacion(def params) {
+    if( params.mes instanceof List ) {
+      return conteoPorMeses(params)
     }
 
     def (relacion, propiedad) = seleccionarMetodoDeConteo(params.keySet())
