@@ -2,7 +2,8 @@ package com.siyen
 
 class InformePeriodicoService {
 
-  def creacionDeCriteria(params, mes = null) {
+  private def obtencionDeValoresAPartirDeLosParams(params, mes = null) {
+    def (relacion, propiedad) = seleccionarMetodoDeConteo(params.keySet())
     def cursoProgramadoCriteria = CursoProgramado.createCriteria()
     def listaCriteriaClosures = []
 
@@ -28,7 +29,7 @@ class InformePeriodicoService {
       listaCriteriaClosures*.call()
     }
 
-    resultados
+    conteo(resultados, relacion, propiedad).withDefault { d -> 0 }
   }
 
   private def conteoPorMeses(params) {
@@ -37,10 +38,7 @@ class InformePeriodicoService {
       def listaDeLlavesSinMes = params.keySet() - "mes"
       def paramsSinMes = params.findAll { k, v -> k != "mes" }
 
-      def (relacion, propiedad) = seleccionarMetodoDeConteo(params.keySet())
-      def resultados = creacionDeCriteria( paramsSinMes, mes )
-
-      datos.("${mes}") = conteo(resultados, relacion, propiedad).withDefault { d -> 0 }
+      datos.("${mes}") = obtencionDeValoresAPartirDeLosParams( paramsSinMes, mes )
     }
 
     datos*.value*.keySet().flatten().unique().collectEntries {
@@ -60,10 +58,7 @@ class InformePeriodicoService {
       return conteoPorMeses(params)
     }
 
-    def (relacion, propiedad) = seleccionarMetodoDeConteo(params.keySet())
-    def resultados = creacionDeCriteria( params )
-
-    conteo(resultados, relacion, propiedad)
+    obtencionDeValoresAPartirDeLosParams( params )
   }
 
   private def criteriaBuilderForAnio(anio) {
