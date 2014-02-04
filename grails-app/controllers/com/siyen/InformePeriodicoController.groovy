@@ -5,6 +5,7 @@ import grails.converters.JSON
 class InformePeriodicoController {
 
   def catalogoService
+  def informePeriodicoService
 
   def index() {
 
@@ -17,7 +18,10 @@ class InformePeriodicoController {
   }
 
   def realizarInforme() {
-    informePeriodicoService.datosDeGraficacion(params)
+    def paramsFiltrado = params.findAll { k, v -> k != "agrupacion" && k != "action" && k != "controller" && v }
+
+    def resultados = informePeriodicoService.datosDeGraficacion(paramsFiltrado)
+    render resultados as JSON
   }
 
 }
