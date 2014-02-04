@@ -2,7 +2,15 @@ package com.siyen
 
 class InformePeriodicoService {
 
-  private def obtencionDeValoresAPartirDeLosParams(params, mes = null) {
+  def datosDeGraficacion(def params) {
+    if( params.mes instanceof List ) {
+      return conteoDeResultadosPorMeses(params)
+    }
+
+    conteoDeResultados( params )
+  }
+
+  private def conteoDeResultados(params, mes = null) {
     def (relacion, propiedad) = seleccionarMetodoDeConteo(params.keySet())
     def cursoProgramadoCriteria = CursoProgramado.createCriteria()
     def listaCriteriaClosures = []
@@ -32,33 +40,24 @@ class InformePeriodicoService {
     conteo(resultados, relacion, propiedad).withDefault { d -> 0 }
   }
 
-  private def conteoPorMeses(params) {
-    def datos = [:]
+  private def conteoDeResultadosPorMeses(params) {
+    def conteoAgrupadoPorMeses = [:]
     params.mes.each { mes ->
       def listaDeLlavesSinMes = params.keySet() - "mes"
       def paramsSinMes = params.findAll { k, v -> k != "mes" }
-
-      datos.("${mes}") = obtencionDeValoresAPartirDeLosParams( paramsSinMes, mes )
+      conteoAgrupadoPorMeses.("${mes}") = conteoDeResultados( paramsSinMes, mes )
     }
 
-    datos*.value*.keySet().flatten().unique().collectEntries {
-      datos*.value*.get( it )
+    conteoAgrupadoPorMeses*.value*.keySet().flatten().unique().collectEntries {
+      conteoAgrupadoPorMeses*.value*.get( it )
     }
 
-    def newData = [:]
-    datos.each { k, v ->
-      newData.("${k}") = v.sort { it.key }
+    def ordenamientoDeConteoAgrupadoPorMeses = [:]
+    conteoAgrupadoPorMeses.each { k, v ->
+      ordenamientoDeConteoAgrupadoPorMeses.("${k}") = v.sort { it.key }
     }
 
-    newData
-  }
-
-  def datosDeGraficacion(def params) {
-    if( params.mes instanceof List ) {
-      return conteoPorMeses(params)
-    }
-
-    obtencionDeValoresAPartirDeLosParams( params )
+    ordenamientoDeConteoAgrupadoPorMeses
   }
 
   private def criteriaBuilderForAnio(anio) {
