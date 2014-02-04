@@ -3,7 +3,6 @@ package com.siyen
 class InformePeriodicoService {
 
   def datosDeGraficacion(def params) {
-
     if(params.mes instanceof List) {
       def datos = [:]
       params.mes.each { mes ->
@@ -31,9 +30,19 @@ class InformePeriodicoService {
           listaCriteriaClosures*.call()
         }
 
-        datos << [(mes) : conteo(resultados, relacion, propiedad)]
+        datos.("${mes}") = conteo(resultados, relacion, propiedad).withDefault { d -> 0 }
       }
-      return datos
+
+      datos*.value*.keySet().flatten().unique().collectEntries {
+        datos*.value*.get( it )
+      }
+
+      def newData = [:]
+      datos.each { k, v ->
+        newData.("${k}") = v.sort { it.key }
+      }
+
+      return newData
     }
 
     def (relacion, propiedad) = seleccionarMetodoDeConteo(params.keySet())
