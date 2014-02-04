@@ -220,52 +220,54 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
 
     then :
       resultados.size() == datosAGraficar.size()
+      assert resultados.get('3')
+
       resultados == datosAGraficar
 
     where :
       datosAGraficar << [
         [
-          3 : [
-            0     :   2,
-            ACG   :  10,
-            ATL   :   1,
-            CSL   :  10,
-            CULS  :   1,
-            DF    :   8,
-            ENS   :  39,
-            GYS   :  30,
-            LCM   :   1,
-            LPB   :  17,
-            MZO   :   9,
-            MZS   : 105,
-            PZM   :   1,
-            SBN   :   2,
-            SCO   :  31,
-            SFBC  :   0,
-            TOP   :   3,
-            VBEM  :   0,
-            ZIH   :  10
+          '3' : [
+            '0'    :   2,
+            'ACG'  :  10,
+            'ATL'  :   1,
+            'CSL'  :  10,
+            'CULS' :   1,
+            'DF'   :   8,
+            'ENS'  :  39,
+            'GYS'  :  30,
+            'LCM'  :   1,
+            'LPB'  :  17,
+            'MZO'  :   9,
+            'MZS'  : 105,
+            'PZM'  :   1,
+            'SBN'  :   2,
+            'SCO'  :  31,
+            'SFBC' :   0,
+            'TOP'  :   3,
+            'VBEM' :   0,
+            'ZIH'  :  10
           ],
-          4 : [
-            0     :   0,
-            ACG   :  34,
-            ATL   :   0,
-            CSL   :   0,
-            CULS  :   0,
-            DF    :   3,
-            ENS   :  19,
-            GYS   :  35,
-            LCM   :   2,
-            LPB   :   1,
-            MZO   :  17,
-            MZS   :  95,
-            PZM   :   0,
-            SBN   :   1,
-            SCO   :  17,
-            SFBC  :  13,
-            TOP   :   6,
-            VBEM  :   2,
-            ZIH   :   0
+          '4' : [
+            '0'    :   0,
+            'ACG'  :  34,
+            'ATL'  :   0,
+            'CSL'  :   0,
+            'CULS' :   0,
+            'DF'   :   3,
+            'ENS'  :  19,
+            'GYS'  :  35,
+            'LCM'  :   2,
+            'LPB'  :   1,
+            'MZO'  :  17,
+            'MZS'  :  95,
+            'PZM'  :   0,
+            'SBN'  :   1,
+            'SCO'  :  17,
+            'SFBC' :  13,
+            'TOP'  :   6,
+            'VBEM' :   2,
+            'ZIH'  :   0
           ]
         ]
       ]
