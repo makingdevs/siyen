@@ -3,6 +3,7 @@ package com.siyen
 class InformePeriodicoService {
 
   def creacionDeCriteria(params, mes = null) {
+    def cursoProgramadoCriteria = CursoProgramado.createCriteria()
     def listaCriteriaClosures = []
 
     params.keySet().each { key ->
@@ -22,7 +23,12 @@ class InformePeriodicoService {
       }
     }
 
-    listaCriteriaClosures
+    def resultados = cursoProgramadoCriteria.list {
+      listaCriteriaClosures*.delegate = delegate
+      listaCriteriaClosures*.call()
+    }
+
+    resultados
   }
 
   private def conteoPorMeses(params) {
@@ -32,13 +38,7 @@ class InformePeriodicoService {
       def paramsSinMes = params.findAll { k, v -> k != "mes" }
 
       def (relacion, propiedad) = seleccionarMetodoDeConteo(params.keySet())
-      def cursoProgramadoCriteria = CursoProgramado.createCriteria()
-      def listaCriteriaClosures = creacionDeCriteria( paramsSinMes, mes )
-
-      def resultados = cursoProgramadoCriteria.list {
-        listaCriteriaClosures*.delegate = delegate
-        listaCriteriaClosures*.call()
-      }
+      def resultados = creacionDeCriteria( paramsSinMes, mes )
 
       datos.("${mes}") = conteo(resultados, relacion, propiedad).withDefault { d -> 0 }
     }
@@ -61,13 +61,7 @@ class InformePeriodicoService {
     }
 
     def (relacion, propiedad) = seleccionarMetodoDeConteo(params.keySet())
-    def cursoProgramadoCriteria = CursoProgramado.createCriteria()
-    def listaCriteriaClosures = creacionDeCriteria( params )
-
-    def resultados = cursoProgramadoCriteria.list {
-      listaCriteriaClosures*.delegate = delegate
-      listaCriteriaClosures*.call()
-    }
+    def resultados = creacionDeCriteria( params )
 
     conteo(resultados, relacion, propiedad)
   }
