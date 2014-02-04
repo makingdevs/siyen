@@ -3,6 +3,39 @@ package com.siyen
 class InformePeriodicoService {
 
   def datosDeGraficacion(def params) {
+
+    if(params.mes instanceof List) {
+      def datos = [:]
+      params.mes.each { mes ->
+        def (relacion, propiedad) = seleccionarMetodoDeConteo(params.keySet())
+        def cursoProgramadoCriteria = CursoProgramado.createCriteria()
+        def listaCriteriaClosures = []
+
+        (params.keySet() - "mes").each { key ->
+          def value = params["${key}"]
+          def criteriaBuilder = "criteriaBuilderFor${key.capitalize()}"(value)
+          listaCriteriaClosures << {
+            criteriaBuilder.delegate = delegate
+            criteriaBuilder.call()
+          }
+        }
+
+        def criteriaBuilder = criteriaBuilderForMes(mes)
+        listaCriteriaClosures << {
+          criteriaBuilder.delegate = delegate
+          criteriaBuilder.call()
+        }
+
+        def resultados = cursoProgramadoCriteria.list {
+          listaCriteriaClosures*.delegate = delegate
+          listaCriteriaClosures*.call()
+        }
+
+        datos << [(mes) : conteo(resultados, relacion, propiedad)]
+      }
+      return datos
+    }
+
     def (relacion, propiedad) = seleccionarMetodoDeConteo(params.keySet())
     def cursoProgramadoCriteria = CursoProgramado.createCriteria()
     def listaCriteriaClosures = []
@@ -62,13 +95,13 @@ class InformePeriodicoService {
       }
       agrupamiento.(cursoProgramado."$relacion"."$propiedad") += 1
     }
-    agrupamiento
+    agrupamiento.sort { it.key }
   }
 
   private def seleccionarMetodoDeConteo(def keySet) {
     if(keySet.contains('libreta'))
       return ["curso", "clave"]
-    
+
     if(keySet.contains('puerto'))
       return ["curso", "libreta"]
 
