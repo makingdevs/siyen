@@ -39,7 +39,7 @@
       </div>
 
       <div class="control-group">
-        <label class="control-label" for="libretas">Meses : </label>
+        <label class="control-label" for="libretas">Agrupación : </label>
         <div class="controls">
           <label class="radio">
             <input type="radio" name="agrupacion" value="curso" checked> Curso
