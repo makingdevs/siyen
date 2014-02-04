@@ -2,12 +2,20 @@ package com.siyen
 
 class InformePeriodicoService {
 
-  def creacionDeCriteria(params) {
+  def creacionDeCriteria(params, mes = null) {
     def listaCriteriaClosures = []
 
     params.keySet().each { key ->
       def value = params["${key}"]
       def criteriaBuilder = "criteriaBuilderFor${key.capitalize()}"(value)
+      listaCriteriaClosures << {
+        criteriaBuilder.delegate = delegate
+        criteriaBuilder.call()
+      }
+    }
+
+    if( mes ) {
+      def criteriaBuilder = criteriaBuilderForMes(mes)
       listaCriteriaClosures << {
         criteriaBuilder.delegate = delegate
         criteriaBuilder.call()
@@ -25,13 +33,7 @@ class InformePeriodicoService {
 
       def (relacion, propiedad) = seleccionarMetodoDeConteo(params.keySet())
       def cursoProgramadoCriteria = CursoProgramado.createCriteria()
-      def listaCriteriaClosures = creacionDeCriteria( paramsSinMes )
-
-      def criteriaBuilder = criteriaBuilderForMes(mes)
-      listaCriteriaClosures << {
-        criteriaBuilder.delegate = delegate
-        criteriaBuilder.call()
-      }
+      def listaCriteriaClosures = creacionDeCriteria( paramsSinMes, mes )
 
       def resultados = cursoProgramadoCriteria.list {
         listaCriteriaClosures*.delegate = delegate
