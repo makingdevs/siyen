@@ -2,18 +2,6 @@
 (function() {
   var colorChooser;
 
-  $(".busquedaChosen").chosen({
-    disable_search: true,
-    search_contains: true,
-    display_selected_options: false,
-    placeholder_text_single: "Selecciona una opción",
-    no_results_text: "Oops, ¡No hubo resultados!"
-  });
-
-  ($(".datepicker")).attr('readonly', 'true');
-
-  ($(".datepicker")).val(moment().format('DD/MMMM/YYYY'));
-
   ($("select")).change(function() {
     var divs;
     if (($(this)).val()) {
