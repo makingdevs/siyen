@@ -5,11 +5,14 @@ class InformePeriodicoService {
   private def conteoPorMeses(params) {
     def datos = [:]
     params.mes.each { mes ->
+
+      def listaDeLlavesSinMes = params.keySet() - "mes"
+
       def (relacion, propiedad) = seleccionarMetodoDeConteo(params.keySet())
       def cursoProgramadoCriteria = CursoProgramado.createCriteria()
       def listaCriteriaClosures = []
 
-      (params.keySet() - "mes").each { key ->
+      listaDeLlavesSinMes.each { key ->
         def value = params["${key}"]
         def criteriaBuilder = "criteriaBuilderFor${key.capitalize()}"(value)
         listaCriteriaClosures << {
