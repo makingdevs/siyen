@@ -4,7 +4,6 @@ import grails.converters.JSON
 
 class InformePeriodicoController {
 
-  def searchableService
   def catalogoService
 
   def index() {
@@ -18,7 +17,7 @@ class InformePeriodicoController {
   }
 
   def realizarInforme() {
-    
+    informePeriodicoService.datosDeGraficacion(params)
   }
 
 }

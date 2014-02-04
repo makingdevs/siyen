@@ -13,12 +13,12 @@ class InformePeriodicoService {
   private def conteoDeResultados(params, mes = null) {
     def (relacion, propiedad) = seleccionarMetodoDeConteo(params.keySet())
     def cursoProgramadoCriteria = CursoProgramado.createCriteria()
-    def listaCriteriaClosures = []
+    def listaDeClosuresDeCriteria = []
 
     params.keySet().each { key ->
       def value = params["${key}"]
       def criteriaBuilder = "criteriaBuilderFor${key.capitalize()}"(value)
-      listaCriteriaClosures << {
+      listaDeClosuresDeCriteria << {
         criteriaBuilder.delegate = delegate
         criteriaBuilder.call()
       }
@@ -26,15 +26,15 @@ class InformePeriodicoService {
 
     if( mes ) {
       def criteriaBuilder = criteriaBuilderForMes(mes)
-      listaCriteriaClosures << {
+      listaDeClosuresDeCriteria << {
         criteriaBuilder.delegate = delegate
         criteriaBuilder.call()
       }
     }
 
     def resultados = cursoProgramadoCriteria.list {
-      listaCriteriaClosures*.delegate = delegate
-      listaCriteriaClosures*.call()
+      listaDeClosuresDeCriteria*.delegate = delegate
+      listaDeClosuresDeCriteria*.call()
     }
 
     conteo(resultados, relacion, propiedad).withDefault { d -> 0 }
