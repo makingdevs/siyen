@@ -23,15 +23,15 @@
         data.push v
 
       datasets = []
-      datasets.push ({
+
+      properties =
         fillColor : "rgba(151, 187, 205, 0.5)"
         strokeColor : "rgba(151, 187, 205, 1)"
         pointColor : "rgba(151, 187, 205, 1)"
         pointStrokeColor : "#fff"
         data : data
-      })
 
-      console.log datasets
+      datasets.push properties
 
       #valoresDelDatasets = {}
 

@@ -21,7 +21,7 @@
       url: "realizarInforme",
       data: ($("form")).serialize(),
       success: function(response) {
-        var chartData, ctx, data, datasets, labels;
+        var chartData, ctx, data, datasets, labels, properties;
         labels = [];
         data = [];
         $.each(response, function(k, v) {
@@ -29,14 +29,14 @@
           return data.push(v);
         });
         datasets = [];
-        datasets.push({
+        properties = {
           fillColor: "rgba(151, 187, 205, 0.5)",
           strokeColor: "rgba(151, 187, 205, 1)",
           pointColor: "rgba(151, 187, 205, 1)",
           pointStrokeColor: "#fff",
           data: data
-        });
-        console.log(datasets);
+        };
+        datasets.push(properties);
         chartData = {
           labels: labels,
           datasets: datasets
