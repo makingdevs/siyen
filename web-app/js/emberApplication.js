@@ -4,14 +4,14 @@
 
   $(function() {
     ($("body")).on("click", "#impresion", function() {
-      var id, urlbasefrente, urlbasereverso, urlfrente, urlreverso;
+      var id, urlBaseFrente, urlBaseReverso, urlFrente, urlReverso;
       id = ($(this)).attr('name');
-      urlbasefrente = ($('#frenteparacurso')).val();
-      urlfrente = "" + urlbasefrente + "/" + id;
-      urlbasereverso = ($('#reversoparacurso')).val();
-      urlreverso = "" + urlbasereverso + "/" + id;
-      window.open(urlfrente);
-      return window.open(urlreverso);
+      urlBaseFrente = ($('#frenteParaCurso')).val();
+      urlFrente = "" + urlBaseFrente + "/" + id;
+      urlBaseReverso = ($('#reversoParaCurso')).val();
+      urlReverso = "" + urlBaseReverso + "/" + id;
+      window.open(urlFrente);
+      return window.open(urlReverso);
     });
     return ($("body")).on("click", "#impresionDeAlumno", function() {
       var id, urlBaseFrente, urlBaseReverso, urlFrente, urlReverso;
