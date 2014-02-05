@@ -18,8 +18,14 @@ class InformePeriodicoController {
   }
 
   def realizarInforme() {
-    def paramsFiltrado = params.findAll { k, v -> k != "agrupacion" && k != "action" && k != "controller" && v }
 
+    if( params.mes instanceof Object[] ) {
+      def meses = []
+      meses.addAll( params.mes )
+      params.mes = meses
+    }
+
+    def paramsFiltrado = params.findAll { k, v -> k != "agrupacion" && k != "action" && k != "controller" && v }
     def resultados = informePeriodicoService.datosDeGraficacion(paramsFiltrado)
     render resultados as JSON
   }
