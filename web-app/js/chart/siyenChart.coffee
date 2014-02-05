@@ -83,7 +83,7 @@ colorChooser = (value) ->
 
 
 $.each moment.months(), (k, v) ->
-  element = "<label class='checkbox'> <input type='checkbox' name='meses' value='#{k + 1}'> #{v} </label> <br />"
+  element = "<label class='checkbox'> <input type='checkbox' name='mes' value='#{k + 1}'> #{v} </label> <br />"
 
   if k % 4 == 0
     div = $("<div class='span2'> </div>")
