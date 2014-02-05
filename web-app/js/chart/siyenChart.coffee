@@ -22,35 +22,45 @@
         labels.push k
         data.push v
 
-      valoresDelDatasets = {}
-
-      $.each data, (k, v) ->
-        $.each v, (key, value) ->
-          valoresDelDatasets[key] = [] unless valoresDelDatasets[key]
-          valoresDelDatasets[key].push value
-
       datasets = []
-      $.each valoresDelDatasets, (k, v) ->
-        properties = {}
-        [red, green, blue] = colorChooser(k)
-        properties['fillColor'] = "rgba( #{red}, #{green}, #{blue}, 0.5)"
-        properties['strokeColor'] = "rgba( #{red}, #{green}, #{blue}, 1)"
-        properties['pointColor'] = "rgba( #{red}, #{green}, #{blue}, 1)"
-        properties['pointStrokeColor'] = "#fff"
-        properties['data'] = v
-        datasets.push properties
+      datasets.push ({
+        fillColor : "rgba(151, 187, 205, 0.5)"
+        strokeColor : "rgba(151, 187, 205, 1)"
+        pointColor : "rgba(151, 187, 205, 1)"
+        pointStrokeColor : "#fff"
+        data : data
+      })
 
-      $.each ($ "input:checked"), (k, v) ->
-        [red, green, blue] = colorChooser(k)
-        monthNumber = ($ v).val()
-        month = moment(monthNumber).format('MMMM')
-        elementIsRender = ($ "##{month}").size()
-        ($ "#grafica").before(($ "<div id='#{month}' class='span2'> #{month} </div>")) unless elementIsRender
-        ($ "##{month}").css 'background-color', "rgba( #{red}, #{green}, #{blue}, 0.5)"
+      console.log datasets
 
+      #valoresDelDatasets = {}
+
+      #$.each data, (k, v) ->
+      #  $.each v, (key, value) ->
+      #    valoresDelDatasets[key] = [] unless valoresDelDatasets[key]
+      #    valoresDelDatasets[key].push value
+
+      #datasets = []
+      #$.each valoresDelDatasets, (k, v) ->
+      #  properties = {}
+      #  [red, green, blue] = colorChooser(k)
+      #  properties['fillColor'] = "rgba( #{red}, #{green}, #{blue}, 0.5)"
+      #  properties['strokeColor'] = "rgba( #{red}, #{green}, #{blue}, 1)"
+      #  properties['pointColor'] = "rgba( #{red}, #{green}, #{blue}, 1)"
+      #  properties['pointStrokeColor'] = "#fff"
+      #  properties['data'] = v
+      #  datasets.push properties
+
+      #$.each ($ "input:checked"), (k, v) ->
+      #  [red, green, blue] = colorChooser(k)
+      #  monthNumber = ($ v).val()
+      #  month = moment(monthNumber).format('MMMM')
+      #  elementIsRender = ($ "##{month}").size()
+      #  ($ "#grafica").before(($ "<div id='#{month}' class='span2'> #{month} </div>")) unless elementIsRender
+      #  ($ "##{month}").css 'background-color', "rgba( #{red}, #{green}, #{blue}, 0.5)"
 
       chartData =
-        labels : labels,
+        labels : labels
         datasets : datasets
 
       ctx = $("#grafica").get(0).getContext("2d")

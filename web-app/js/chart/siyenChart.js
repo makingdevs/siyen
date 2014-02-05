@@ -21,45 +21,22 @@
       url: "realizarInforme",
       data: ($("form")).serialize(),
       success: function(response) {
-        var chartData, ctx, data, datasets, labels, valoresDelDatasets;
+        var chartData, ctx, data, datasets, labels;
         labels = [];
         data = [];
         $.each(response, function(k, v) {
           labels.push(k);
           return data.push(v);
         });
-        valoresDelDatasets = {};
-        $.each(data, function(k, v) {
-          return $.each(v, function(key, value) {
-            if (!valoresDelDatasets[key]) {
-              valoresDelDatasets[key] = [];
-            }
-            return valoresDelDatasets[key].push(value);
-          });
-        });
         datasets = [];
-        $.each(valoresDelDatasets, function(k, v) {
-          var blue, green, properties, red, _ref;
-          properties = {};
-          _ref = colorChooser(k), red = _ref[0], green = _ref[1], blue = _ref[2];
-          properties['fillColor'] = "rgba( " + red + ", " + green + ", " + blue + ", 0.5)";
-          properties['strokeColor'] = "rgba( " + red + ", " + green + ", " + blue + ", 1)";
-          properties['pointColor'] = "rgba( " + red + ", " + green + ", " + blue + ", 1)";
-          properties['pointStrokeColor'] = "#fff";
-          properties['data'] = v;
-          return datasets.push(properties);
+        datasets.push({
+          fillColor: "rgba(151, 187, 205, 0.5)",
+          strokeColor: "rgba(151, 187, 205, 1)",
+          pointColor: "rgba(151, 187, 205, 1)",
+          pointStrokeColor: "#fff",
+          data: data
         });
-        $.each($("input:checked"), function(k, v) {
-          var blue, elementIsRender, green, month, monthNumber, red, _ref;
-          _ref = colorChooser(k), red = _ref[0], green = _ref[1], blue = _ref[2];
-          monthNumber = ($(v)).val();
-          month = moment(monthNumber).format('MMMM');
-          elementIsRender = ($("#" + month)).size();
-          if (!elementIsRender) {
-            ($("#grafica")).before($("<div id='" + month + "' class='span2'> " + month + " </div>"));
-          }
-          return ($("#" + month)).css('background-color', "rgba( " + red + ", " + green + ", " + blue + ", 0.5)");
-        });
+        console.log(datasets);
         chartData = {
           labels: labels,
           datasets: datasets
