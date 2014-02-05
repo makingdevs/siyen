@@ -15,41 +15,46 @@
     url: "realizarInforme"
     data: ($ "form").serialize()
     success: (response) ->
+      console.log response
       labels = []
       data = []
 
-      $.each response, (k,v) ->
-        labels.push k
-        data.push v
-
       datasets = []
+      hasMonthsSelected = ($ ".checkbox :checked").size() > 1
 
-      properties =
-        fillColor : "rgba(151, 187, 205, 0.5)"
-        strokeColor : "rgba(151, 187, 205, 1)"
-        pointColor : "rgba(151, 187, 205, 1)"
-        pointStrokeColor : "#fff"
-        data : data
+      unless hasMonthsSelected
+        $.each response, (k,v) ->
+          labels.push k
+          data.push v
 
-      datasets.push properties
+        properties =
+          fillColor : "rgba(151, 187, 205, 0.5)"
+          strokeColor : "rgba(151, 187, 205, 1)"
+          pointColor : "rgba(151, 187, 205, 1)"
+          pointStrokeColor : "#fff"
+          data : data
+        datasets.push properties
+      else
+        valoresDelDatasets = {}
+        $.each response, (k, v) ->
+          $.each v, (key, value) ->
+            console.log "#{k} : #{v}"
+            console.log "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            console.log "#{key} : #{value}"
+            console.log "------------------------------"
+            labels.push key unless key in labels
+            valoresDelDatasets[k] = [] unless valoresDelDatasets[k]
+            valoresDelDatasets[k].push value
 
-      #valoresDelDatasets = {}
-
-      #$.each data, (k, v) ->
-      #  $.each v, (key, value) ->
-      #    valoresDelDatasets[key] = [] unless valoresDelDatasets[key]
-      #    valoresDelDatasets[key].push value
-
-      #datasets = []
-      #$.each valoresDelDatasets, (k, v) ->
-      #  properties = {}
-      #  [red, green, blue] = colorChooser(k)
-      #  properties['fillColor'] = "rgba( #{red}, #{green}, #{blue}, 0.5)"
-      #  properties['strokeColor'] = "rgba( #{red}, #{green}, #{blue}, 1)"
-      #  properties['pointColor'] = "rgba( #{red}, #{green}, #{blue}, 1)"
-      #  properties['pointStrokeColor'] = "#fff"
-      #  properties['data'] = v
-      #  datasets.push properties
+        $.each valoresDelDatasets, (k, v) ->
+          properties = {}
+          [red, green, blue] = colorChooser(k)
+          properties['fillColor'] = "rgba( #{red}, #{green}, #{blue}, 0.5)"
+          properties['strokeColor'] = "rgba( #{red}, #{green}, #{blue}, 1)"
+          properties['pointColor'] = "rgba( #{red}, #{green}, #{blue}, 1)"
+          properties['pointStrokeColor'] = "#fff"
+          properties['data'] = v
+          datasets.push properties
 
       #$.each ($ "input:checked"), (k, v) ->
       #  [red, green, blue] = colorChooser(k)
