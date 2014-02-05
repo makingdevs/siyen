@@ -52,6 +52,7 @@
 
     </form>
 
+    <div id="acotaciones"></div>
     <canvas id="grafica" width="1000" height="600"></canvas>
   </body>
 
