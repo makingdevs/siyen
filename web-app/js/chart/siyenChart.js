@@ -23,11 +23,11 @@
       data: ($("form")).serialize(),
       success: function(response) {
         var chartData, ctx, data, datasets, hasMonthsSelected, labels, properties, valoresDelDatasets;
-        console.log(response);
         labels = [];
         data = [];
         datasets = [];
         hasMonthsSelected = ($(".checkbox :checked")).size() > 1;
+        ($("#acotaciones")).html(" ");
         if (!hasMonthsSelected) {
           $.each(response, function(k, v) {
             labels.push(k);
@@ -45,10 +45,6 @@
           valoresDelDatasets = {};
           $.each(response, function(k, v) {
             return $.each(v, function(key, value) {
-              console.log("" + k + " : " + v);
-              console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-              console.log("" + key + " : " + value);
-              console.log("------------------------------");
               if (__indexOf.call(labels, key) < 0) {
                 labels.push(key);
               }
@@ -68,6 +64,17 @@
             properties['pointStrokeColor'] = "#fff";
             properties['data'] = v;
             return datasets.push(properties);
+          });
+          $.each($(".checkbox :checked"), function(k, v) {
+            var blue, elementIsRender, green, month, monthNumber, red, _ref;
+            monthNumber = ($(v)).val();
+            _ref = colorChooser(monthNumber), red = _ref[0], green = _ref[1], blue = _ref[2];
+            month = moment(monthNumber).format('MMMM');
+            elementIsRender = ($("#" + month)).size();
+            if (!elementIsRender) {
+              ($("#acotaciones")).append($("<div id='" + month + "' class='span2'> " + month + " </div>"));
+            }
+            return ($("#" + month)).css('background-color', "rgba( " + red + ", " + green + ", " + blue + ", 0.5)");
           });
         }
         chartData = {

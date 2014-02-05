@@ -15,12 +15,12 @@
     url: "realizarInforme"
     data: ($ "form").serialize()
     success: (response) ->
-      console.log response
       labels = []
       data = []
 
       datasets = []
       hasMonthsSelected = ($ ".checkbox :checked").size() > 1
+      ($ "#acotaciones").html(" ")
 
       unless hasMonthsSelected
         $.each response, (k,v) ->
@@ -38,10 +38,6 @@
         valoresDelDatasets = {}
         $.each response, (k, v) ->
           $.each v, (key, value) ->
-            console.log "#{k} : #{v}"
-            console.log "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            console.log "#{key} : #{value}"
-            console.log "------------------------------"
             labels.push key unless key in labels
             valoresDelDatasets[k] = [] unless valoresDelDatasets[k]
             valoresDelDatasets[k].push value
@@ -56,13 +52,13 @@
           properties['data'] = v
           datasets.push properties
 
-      #$.each ($ "input:checked"), (k, v) ->
-      #  [red, green, blue] = colorChooser(k)
-      #  monthNumber = ($ v).val()
-      #  month = moment(monthNumber).format('MMMM')
-      #  elementIsRender = ($ "##{month}").size()
-      #  ($ "#grafica").before(($ "<div id='#{month}' class='span2'> #{month} </div>")) unless elementIsRender
-      #  ($ "##{month}").css 'background-color', "rgba( #{red}, #{green}, #{blue}, 0.5)"
+        $.each ($ ".checkbox :checked"), (k, v) ->
+          monthNumber = ($ v).val()
+          [red, green, blue] = colorChooser(monthNumber)
+          month = moment(monthNumber).format('MMMM')
+          elementIsRender = ($ "##{month}").size()
+          ($ "#acotaciones").append(($ "<div id='#{month}' class='span2'> #{month} </div>")) unless elementIsRender
+          ($ "##{month}").css 'background-color', "rgba( #{red}, #{green}, #{blue}, 0.5)"
 
       chartData =
         labels : labels
