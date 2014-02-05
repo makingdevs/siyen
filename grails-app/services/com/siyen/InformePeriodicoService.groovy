@@ -48,7 +48,7 @@ class InformePeriodicoService {
       conteoAgrupadoPorMeses.("${mes}") = conteoDeResultados( paramsSinMes, mes )
     }
 
-    conteoAgrupadoPorMeses*.value*.keySet().flatten().unique().collectEntries {
+    conteoAgrupadoPorMeses*.value*.keySet().flatten().unique().each {
       conteoAgrupadoPorMeses*.value*.get( it )
     }
 
