@@ -15,7 +15,7 @@ class InformePeriodicoService {
     def cursoProgramadoCriteria = CursoProgramado.createCriteria()
     def listaDeClosuresDeCriteria = []
 
-    params.keySet().each { key ->
+    (params.keySet() - "agrupacion").each { key ->
       def value = params["${key}"]
       def criteriaBuilder = "criteriaBuilderFor${key.capitalize()}"(value)
       listaDeClosuresDeCriteria << {
