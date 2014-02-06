@@ -24,7 +24,7 @@ class CursoProgramadoServiceSpec extends Specification {
         curso : 1,
         instructor : 1,
         alumnos : [
-          [ nombreCompleto : "uno" ]
+          [ nombreCompleto : "uno", tipoDePago : "EFECTIVO" ]
         ]
       )
 
