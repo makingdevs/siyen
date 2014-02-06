@@ -37,7 +37,12 @@ class InformePeriodicoService {
       listaDeClosuresDeCriteria*.call()
     }
 
-    conteo(resultados, relacion, propiedad).withDefault { d -> 0 }
+    def acumulador = { 1 }
+    if(params.agrupacion) {
+      acumulador = { it.alumnos.size() }
+    }
+
+    conteo(resultados, relacion, propiedad, acumulador).withDefault { d -> 0 }
   }
 
   private def conteoDeResultadosPorMeses(params) {
@@ -90,13 +95,14 @@ class InformePeriodicoService {
     mesCriteria
   }
 
-  private def conteo(data, relacion, propiedad) {
+  private def conteo(data, relacion, propiedad, Closure acumulador) {
     def agrupamiento = [:]
     data.each { cursoProgramado ->
       if(!agrupamiento.(cursoProgramado."$relacion"."$propiedad")) {
         agrupamiento.(cursoProgramado."$relacion"."$propiedad") = 0
       }
-      agrupamiento.(cursoProgramado."$relacion"."$propiedad") += 1
+
+      agrupamiento.(cursoProgramado."$relacion"."$propiedad") += acumulador(cursoProgramado)
     }
     agrupamiento.sort { it.key }
   }
