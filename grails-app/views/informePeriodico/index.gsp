@@ -38,8 +38,21 @@
         </div>
       </div>
 
+      <div class="control-group">
+        <label class="control-label" for="agrupacion">Agrupación : </label>
+        <div class="controls">
+          <label class="radio">
+            <input type="radio" name="agrupacion" value="curso" checked> Curso
+          </label>
+          <label class="radio">
+            <input type="radio" name="agrupacion" value="participantes"> Participante
+          </label>
+        </div>
+      </div>
+
     </form>
 
+    <div id="acotaciones"></div>
     <canvas id="grafica" width="1000" height="600"></canvas>
   </body>
 

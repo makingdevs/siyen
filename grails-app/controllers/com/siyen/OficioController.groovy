@@ -19,7 +19,7 @@ class OficioController {
     data.desde = desde.format("dd 'de' MMMM 'del' yyyy")
     data.hasta = hasta.format("dd 'de' MMMM 'del' yyyy")
 
-    def consulta = CursoProgramado.findAllByFechaDeInicioBetween(desde, hasta)
+    def consulta = CursoProgramado.findAllByFechaDeInicioBetweenAndPuerto(desde, hasta, puerto)
     data.cursos = consulta.groupBy({ "${it.curso.nombre}-${it.curso.clave}" })
 
     renderPdf(template: "/pdfs/oficio", model: [data:data], filename: "oficio")

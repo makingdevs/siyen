@@ -3,14 +3,14 @@ window.App = Ember.Application.create()
 $ ->
   ($ "body").on "click", "#impresion", ->
     id = ($ this).attr('name')
-    urlbasefrente = ($ '#frenteparacurso').val()
-    urlfrente = "#{urlbasefrente}/#{id}"
+    urlBaseFrente = ($ '#frenteParaCurso').val()
+    urlFrente = "#{urlBaseFrente}/#{id}"
 
-    urlbasereverso = ($ '#reversoparacurso').val()
-    urlreverso = "#{urlbasereverso}/#{id}"
+    urlBaseReverso = ($ '#reversoParaCurso').val()
+    urlReverso = "#{urlBaseReverso}/#{id}"
 
-    window.open(urlfrente)
-    window.open(urlreverso)
+    window.open(urlFrente)
+    window.open(urlReverso)
 
   ($ "body").on "click", "#impresionDeAlumno", ->
     id = ($ this).attr('name')

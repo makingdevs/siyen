@@ -1,14 +1,3 @@
-$(".busquedaChosen").chosen
-  disable_search: true
-  search_contains : true
-  display_selected_options : false
-  placeholder_text_single : "Selecciona una opción"
-  no_results_text: "Oops, ¡No hubo resultados!"
-
-($ ".datepicker").attr('readonly', 'true')
-($ ".datepicker").val(moment().format('DD/MMMM/YYYY'))
-
-
 ($ "select").change ->
   if ($ @).val()
     ($ @).parent().parent().next().show()
@@ -29,39 +18,50 @@ $(".busquedaChosen").chosen
       labels = []
       data = []
 
-      $.each response, (k,v) ->
-        labels.push k
-        data.push v
-
-      valoresDelDatasets = {}
-
-      $.each data, (k, v) ->
-        $.each v, (key, value) ->
-          valoresDelDatasets[key] = [] unless valoresDelDatasets[key]
-          valoresDelDatasets[key].push value
-
       datasets = []
-      $.each valoresDelDatasets, (k, v) ->
-        properties = {}
-        [red, green, blue] = colorChooser(k)
-        properties['fillColor'] = "rgba( #{red}, #{green}, #{blue}, 0.5)"
-        properties['strokeColor'] = "rgba( #{red}, #{green}, #{blue}, 1)"
-        properties['pointColor'] = "rgba( #{red}, #{green}, #{blue}, 1)"
-        properties['pointStrokeColor'] = "#fff"
-        properties['data'] = v
+      hasMonthsSelected = ($ ".checkbox :checked").size() > 1
+      ($ "#acotaciones").html(" ")
+
+      unless hasMonthsSelected
+        $.each response, (k,v) ->
+          labels.push k
+          data.push v
+
+        properties =
+          fillColor : "rgba(151, 187, 205, 0.5)"
+          strokeColor : "rgba(151, 187, 205, 1)"
+          pointColor : "rgba(151, 187, 205, 1)"
+          pointStrokeColor : "#fff"
+          data : data
         datasets.push properties
+      else
+        valoresDelDatasets = {}
+        $.each response, (k, v) ->
+          $.each v, (key, value) ->
+            labels.push key unless key in labels
+            valoresDelDatasets[k] = [] unless valoresDelDatasets[k]
+            valoresDelDatasets[k].push value
 
-      $.each ($ "input:checked"), (k, v) ->
-        [red, green, blue] = colorChooser(k)
-        monthNumber = ($ v).val()
-        month = moment(monthNumber).format('MMMM')
-        elementIsRender = ($ "##{month}").size()
-        ($ "#grafica").before(($ "<div id='#{month}' class='span2'> #{month} </div>")) unless elementIsRender
-        ($ "##{month}").css 'background-color', "rgba( #{red}, #{green}, #{blue}, 0.5)"
+        $.each valoresDelDatasets, (k, v) ->
+          properties = {}
+          [red, green, blue] = colorChooser(k)
+          properties['fillColor'] = "rgba( #{red}, #{green}, #{blue}, 0.5)"
+          properties['strokeColor'] = "rgba( #{red}, #{green}, #{blue}, 1)"
+          properties['pointColor'] = "rgba( #{red}, #{green}, #{blue}, 1)"
+          properties['pointStrokeColor'] = "#fff"
+          properties['data'] = v
+          datasets.push properties
 
+        $.each ($ ".checkbox :checked"), (k, v) ->
+          monthNumber = ($ v).val()
+          [red, green, blue] = colorChooser(monthNumber)
+          month = moment(monthNumber).format('MMMM')
+          elementIsRender = ($ "##{month}").size()
+          ($ "#acotaciones").append(($ "<div id='#{month}' class='span2'> #{month} </div>")) unless elementIsRender
+          ($ "##{month}").css 'background-color', "rgba( #{red}, #{green}, #{blue}, 0.5)"
 
       chartData =
-        labels : labels,
+        labels : labels
         datasets : datasets
 
       ctx = $("#grafica").get(0).getContext("2d")
@@ -84,7 +84,7 @@ colorChooser = (value) ->
 
 
 $.each moment.months(), (k, v) ->
-  element = "<label class='checkbox'> <input type='checkbox' name='meses' value='#{k + 1}'> #{v} </label> <br />"
+  element = "<label class='checkbox'> <input type='checkbox' name='mes' value='#{k + 1}'> #{v} </label> <br />"
 
   if k % 4 == 0
     div = $("<div class='span2'> </div>")
@@ -100,6 +100,9 @@ $.each moment.months(), (k, v) ->
   if ($ ':checkbox:checked').length
     checked = false
   checkboxes.attr 'checked', checked
+  ($ "form").trigger 'submit'
+
+($ ":radio").click ->
   ($ "form").trigger 'submit'
 
 ($ ":checkbox").click ->

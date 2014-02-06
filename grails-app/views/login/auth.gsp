@@ -41,7 +41,7 @@
     <h3 class="form-signin-heading"><g:message code="springSecurity.login.header"/></h3>
 
     <input type="text" class="input-block-level" name='j_username' id='username' placeholder="Correo" autocomplete="off" keyev="true" clickev="true">
-    <input type="password" class="input-block-level" name='j_password' id='password' placeholder="Password" autocomplete="off" keyev="true" clickev="true">
+    <input type="password" class="input-block-level" name='j_password' id='password' placeholder="Contraseña" autocomplete="off" keyev="true" clickev="true">
 
     <button class="btn btn-large btn-primary" type="submit">${message(code: "springSecurity.login.button")}</button>
     <div class='inner'>

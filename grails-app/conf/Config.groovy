@@ -61,6 +61,7 @@ environments {
   development {
     grails.logging.jul.usebridge = true
     grails.app.context = "/"
+    grails.serverURL = ""
     jasper.dir.reports = "${userHome}/.grails/reports"
   }
   production {
