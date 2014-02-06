@@ -139,6 +139,10 @@
     return ($("form")).trigger('submit');
   });
 
+  ($(":radio")).click(function() {
+    return ($("form")).trigger('submit');
+  });
+
   ($(":checkbox")).click(function() {
     return ($("form")).trigger('submit');
   });

@@ -102,5 +102,8 @@ $.each moment.months(), (k, v) ->
   checkboxes.attr 'checked', checked
   ($ "form").trigger 'submit'
 
+($ ":radio").click ->
+  ($ "form").trigger 'submit'
+
 ($ ":checkbox").click ->
   ($ "form").trigger 'submit'
