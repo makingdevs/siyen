@@ -38,7 +38,7 @@ class InformePeriodicoService {
     }
 
     def acumulador = { 1 }
-    if(params.agrupacion) {
+    if(params.agrupacion == "participantes") {
       acumulador = { it.alumnos.size() }
     }
 
