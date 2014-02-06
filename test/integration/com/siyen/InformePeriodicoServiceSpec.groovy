@@ -324,4 +324,99 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
         ]
       ]
   }
+
+  def "Obteniendo los datos de graficación por participante para los puertos por año en el mes de marzo"() {
+    setup : "Asignando los valores a graficar"
+      def params = ['anio':2012, 'agrupacion' : 'participantes', 'mes': 3]
+
+    when : "Llamando al servicio de graficación"
+      def resultados = informePeriodicoService.datosDeGraficacion(params)
+
+    then :
+      resultados.size() == datosAGraficar.size()
+      resultados == datosAGraficar
+
+    where :
+      datosAGraficar << [
+        [
+          '0'     :   2,
+          'ACG'   :  29,
+          'ATL'   :   1,
+          'CSL'   :  82,
+          'CULS'  :   1,
+          'DF'    :  30,
+          'ENS'   :  91,
+          'GYS'   :  39,
+          'LCM'   :   1,
+          'LPB'   :  45,
+          'MZO'   :  23,
+          'MZS'   : 176,
+          'PZM'   :  33,
+          'SBN'   : 148,
+          'SCO'   : 117,
+          'TOP'   :   3,
+          'ZIH'   :  32
+        ]
+      ]
+  }
+
+  def "Obteniendo los datos de graficación por participante para los puertos por año en los meses de febrero y marzo"() {
+    setup : "Asignando los valores a graficar"
+      def params = ['anio':2012, 'agrupacion' : 'participantes', 'mes': [2, 3] ]
+
+    when : "Llamando al servicio de graficación"
+      def resultados = informePeriodicoService.datosDeGraficacion(params)
+
+    then :
+      resultados.size() == datosAGraficar.size()
+      resultados == datosAGraficar
+
+    where :
+      datosAGraficar << [
+        [
+          '2' : [
+            '0'    :   0,
+            'ACG'  :  52,
+            'ATL'  :   0,
+            'CHX'  :  42,
+            'CSL'  :   0,
+            'CULS' :   0,
+            'DF'   :   3,
+            'ENS'  :  78,
+            'GYS'  :  60,
+            'LCM'  :   3,
+            'LPB'  : 123,
+            'MZO'  :  33,
+            'MZS'  :  95,
+            'PVJ'  :  58,
+            'PZM'  :   0,
+            'SBN'  :   0,
+            'SCO'  : 140,
+            'TOP'  :   5,
+            'ZIH'  :   0
+          ],
+          '3' : [
+            '0'     :   2,
+            'ACG'   :  29,
+            'ATL'   :   1,
+            'CHX'   :   0,
+            'CSL'   :  82,
+            'CULS'  :   1,
+            'DF'    :  30,
+            'ENS'   :  91,
+            'GYS'   :  39,
+            'LCM'   :   1,
+            'LPB'   :  45,
+            'MZO'   :  23,
+            'MZS'   : 176,
+            'PVJ'   :   0,
+            'PZM'   :  33,
+            'SBN'   : 148,
+            'SCO'   : 117,
+            'TOP'   :   3,
+            'ZIH'   :  32
+          ]
+        ]
+      ]
+  }
 }
