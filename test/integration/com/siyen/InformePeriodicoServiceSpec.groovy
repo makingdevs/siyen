@@ -272,4 +272,56 @@ class InformePeriodicoServiceSpec extends IntegrationSpec {
         ]
       ]
   }
+
+  def "Obteniendo los datos de graficación por participante para los puertos por año"() {
+    setup : "Asignando los valores a graficar"
+      def params = ['anio':2012, 'agrupacion' : 'participantes']
+
+    when : "Llamando al servicio de graficación"
+      def resultados = informePeriodicoService.datosDeGraficacion(params)
+
+    then :
+      resultados.size() == datosAGraficar.size()
+      resultados == datosAGraficar
+
+    where :
+      datosAGraficar << [
+        [
+          '0'     :   38,
+          'ACG'   :  609,
+          'ATL'   :   50,
+          'BABC'  :   37,
+          'BTBC'  :  107,
+          'CHJ'   :   30,
+          'CHX'   :   42,
+          'CSL'   :  296,
+          'CULS'  :    2,
+          'DF'    :   80,
+          'EJMC'  :   38,
+          'ENS'   : 1112,
+          'GJJ'   :    3,
+          'GNBC'  :   58,
+          'GYS'   :  734,
+          'ICBC'  :  115,
+          'LCM'   :   26,
+          'LIBC'  :   49,
+          'LPB'   :  484,
+          'MZO'   :  276,
+          'MZS'   : 2683,
+          'PMCH'  :  528,
+          'PPS'   :  135,
+          'PVJ'   :  273,
+          'PZM'   :   61,
+          'RIN'   :   43,
+          'SBN'   :  422,
+          'SCO'   : 1336,
+          'SFBC'  :  554,
+          'TOP'   :  100,
+          'VBEM'  :   38,
+          'YAS'   :   38,
+          'YUR'   :   29,
+          'ZIH'   :   95
+        ]
+      ]
+  }
 }
