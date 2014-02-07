@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width" />
-    <title>. : Bienvenido a Siyen - <g:layoutTitle default="Principal"/> : .</title>
+    <title>. : Bienvenido a PIPE - <g:layoutTitle default="Principal"/> : .</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -30,7 +30,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="/#">Siyen</a>
+          <a class="brand" href="/#">PIPE</a>
           <sec:ifLoggedIn>
             <div class="nav-collapse collapse">
               <ul class="nav">
@@ -100,7 +100,7 @@
                 </li>
 
                 <li>
-                  <g:link controller="informePeriodico" action="index"> Informe </g:link>
+                  <g:link controller="informePeriodico" action="index"> Gráficas </g:link>
                 </li>
                 <!-- END: Menu de opciones -->
               </ul>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width" />
-    <title>. : Bienvenido a Siyen - <g:layoutTitle default="Principal"/> : .</title>
+    <title>. : Bienvenido a PIPE - <g:layoutTitle default="Principal"/> : .</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -59,6 +59,9 @@
                       <li>
                         {{#link-to "cursosAutorizados" }}Autorizados{{/link-to}}
                       </li>
+                      <li>
+                        {{#link-to "oficios" }}Oficios{{/link-to}}
+                      </li>
                     </ul>
                   </li>
 
@@ -75,15 +78,23 @@
                         {{#link-to "alumnos" }}A un nuevo curso{{/link-to}}
                       </li>
                     </ul>
-                  <li>
-                    {{#link-to "archivo" }}Procesar archivo{{/link-to}}
                   </li>
-                  <li>
-                    {{#link-to "busqueda" }}Busqueda{{/link-to}}
+
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <b class="caret"></b>
+                      Avanzadas
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        {{#link-to "archivo" }}Procesar archivo{{/link-to}}
+                      </li>
+                      <li>
+                        {{#link-to "busqueda" }}Busqueda{{/link-to}}
+                      </li>
+                    </ul>
                   </li>
-                  <li>
-                    {{#link-to "oficios" }}Oficios{{/link-to}}
-                  </li>
+
                   <sec:access expression="hasRole('ROLE_ADMIN')">
                     <li>
                       {{#link-to "notificacion" }}Notificaciones{{/link-to}}
