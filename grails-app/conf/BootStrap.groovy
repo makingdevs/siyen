@@ -93,6 +93,7 @@ class BootStrap {
           libreta : data.get(3).trim()).save(failOnError:true)
       }
     }
+    log.debug Curso.count()
   }
 
   private cargarPuertos() {
