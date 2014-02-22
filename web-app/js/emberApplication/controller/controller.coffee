@@ -373,7 +373,7 @@ App.NotificacionController = Ember.ArrayController.extend
 
   init : ->
     @_super()
-    eventBus = new vertx.EventBus('http://pipe.ienpop.net:9090/eventbus')
+    eventBus = new vertx.EventBus('http://pipe.ienpop.net:9091/eventbus')
 
     eventBus.onopen = =>
       console.log "Event Bus connected"
