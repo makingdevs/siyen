@@ -12,7 +12,7 @@ class CursoProgramadoService {
 
   def crearCursoDesdeCommand(CursoProgramadoCommand cmd) {
     CursoProgramado cursoProgramado = validaTraslapeDeCursos(cmd)
-    cursoProgramado.fechaDeTermino = cursoProgramado.fechaDeInicio.clone().plus( cursoProgramado.curso.duracion )
+    cursoProgramado.fechaDeTermino = cursoProgramado.fechaDeInicio.clone().plus( (cursoProgramado.curso.duracion - 1) )
     cursoProgramado.user = springSecurityService.currentUser
 
     cmd.alumnos.each { alumnoData ->
