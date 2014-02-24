@@ -16,7 +16,7 @@
         autoclose: true,
         todayHighlight: true,
         language: 'es',
-        startDate: this.get('initValue') === true ? '1d' : void 0,
+        startDate: this.get('initValue') === true ? '-15d' : void 0,
         clearBtn: !this.get('initValue')
       });
       ($(".datepicker")).attr('readonly', 'true');

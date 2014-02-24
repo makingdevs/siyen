@@ -17,7 +17,7 @@ App.DatePickerView = Ember.View.extend
       autoclose       : true
       todayHighlight  : true
       language        : 'es'
-      startDate       : '1d' if @get('initValue') == true
+      startDate       : '-15d' if @get('initValue') == true
       clearBtn        : !@get('initValue')
 
     ($ ".datepicker").attr('readonly', 'true')
