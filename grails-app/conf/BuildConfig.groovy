@@ -87,6 +87,8 @@ grails.project.dependency.resolution = {
     compile ":qr-code:0.1.4"
 
     compile ":searchable:0.6.4"
+
+    compile ":grails-melody:1.49.2"
   }
 
 }
