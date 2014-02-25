@@ -17,6 +17,7 @@ class BootStrap {
   def defaultPlatformManager
 
   def init = { servletContext ->
+    Locale.setDefault( new Locale("es", "ES") )
     def vertx = defaultPlatformManager.vertx()
     def eventBus = vertx.eventBus()
 
@@ -135,5 +136,5 @@ class BootStrap {
 
   def destroy = {
   }
-  
+
 }
