@@ -90,7 +90,9 @@ grails.project.dependency.resolution = {
 
     compile ":searchable:0.6.4"
 
-    compile ":grails-melody:1.49.2"
+    compile ":grails-melody:1.49.2" {
+      excludes 'itext'
+    }
   }
 
 }
