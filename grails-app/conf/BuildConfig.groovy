@@ -48,6 +48,8 @@ grails.project.dependency.resolution = {
     compile 'io.vertx:vertx-core:2.0.0-final'
 
     test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
+
+    runtime 'org.springframework:spring-test:3.1.0.RELEASE'
     runtime 'org.xhtmlrenderer:core-renderer:R8'
     runtime 'com.lowagie:itext:2.1.0'
   }
