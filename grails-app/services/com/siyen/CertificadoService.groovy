@@ -24,7 +24,12 @@ class CertificadoService {
     data.nombreCompleto = alumno.nombreCompleto
     data.numeroControl = alumno.numeroDeControl
     data.nombreDelCurso = cursoProgramado.curso.nombre
+
     data.claveDelCurso = cursoProgramado.curso.clave
+    if(data.claveDelCurso.startsWith('PATRON_DE_YATE_')) {
+      data.claveDelCurso = 'PATRON_DE_YATE'
+    }
+
     data.puertoNombre = cursoProgramado.puerto.puerto
     data.puertoEstado = cursoProgramado.puerto.estado
     data.fechaDeInicio = cursoProgramado.fechaDeInicio
