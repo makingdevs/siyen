@@ -99,7 +99,7 @@ class AlumnoController {
 
   private String generarNumeroDeControl(def id) {
     String prefijo = "II"
-    Integer numerosEnMatricula = 6
+    Integer numerosEnMatricula = 7
     String numeroDeControl = prefijo + String.format("%0${numerosEnMatricula}d", id)
     numeroDeControl
   }
