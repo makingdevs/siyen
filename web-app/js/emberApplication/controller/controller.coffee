@@ -244,6 +244,16 @@ App.CrearController = Ember.ObjectController.extend
           ($ @).delay(3000).fadeOut('slow')
         return
 
+      if cursosNuevosController.get('currentCurso')
+        cursoProgramado = cursosNuevosController.get('currentCurso')
+        cursoProgramado.setProperties(
+          "fechaDeInicio": moment(@fechaDeInicio ? moment(), 'DD/MMMM/YYYY')
+          "puerto" : @get('puertoSelected')
+          "instructor" : @get('instructorSelected')
+          "curso" : @get('cursoSelected')
+        )
+        return
+
       cursoProgramado = Ember.Object.create
         "fechaDeInicio": moment(@fechaDeInicio ? moment(), 'DD/MMMM/YYYY')
         "puerto" : @get('puertoSelected')
