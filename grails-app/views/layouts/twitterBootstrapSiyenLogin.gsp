@@ -26,6 +26,17 @@
         position : absolute;
         background : #fff;
       }
+
+      .overlay {
+        position         : absolute;
+        top              : 0;
+        left             : 0;
+        width            : 100%;
+        height           : 100%;
+        z-index          : 10;
+        background       : rgba(0,0,0,0.5) url(../images/spinner.gif) 50% 50% no-repeat;
+        display          : none;
+      }
     </style>
 
     <g:layoutHead/>
@@ -33,114 +44,115 @@
   </head>
 
   <body>
-    <script type="text/x-handlebars" data-template-name="application">
-
-      <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-          <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="brand" href="#">PIPE</a>
-            <div class="nav-collapse collapse">
-              <ul class="nav">
-                <!-- BEGIN: Menu de opciones -->
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <b class="caret"></b>
-                      Cursos
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li>
-                        {{#link-to "cursosNuevos" }}Nuevo{{/link-to}}
-                      </li>
-                      <li>
-                        {{#link-to "cursosAutorizados" }}Autorizados{{/link-to}}
-                      </li>
-                      <li>
-                        {{#link-to "oficios" }}Oficios{{/link-to}}
-                      </li>
-                    </ul>
-                  </li>
-
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <b class="caret"></b>
-                      Movimientos
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li>
-                        {{#link-to "movimientos" }}Entre cursos{{/link-to}}
-                      </li>
-                      <li>
-                        {{#link-to "alumnos" }}A un nuevo curso{{/link-to}}
-                      </li>
-                    </ul>
-                  </li>
-
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <b class="caret"></b>
-                      Avanzadas
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li>
-                        {{#link-to "archivo" }}Procesar archivo{{/link-to}}
-                      </li>
-                      <li>
-                        {{#link-to "busqueda" }}Busqueda{{/link-to}}
-                      </li>
-                    </ul>
-                  </li>
-
-                  <sec:access expression="hasRole('ROLE_ADMIN')">
-                    <li>
-                      {{#link-to "notificacion" }}Notificaciones{{/link-to}}
+    <div class="overlay">
+      <script type="text/x-handlebars" data-template-name="application">
+        <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+            <div class="container">
+              <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="brand" href="#">PIPE</a>
+              <div class="nav-collapse collapse">
+                <ul class="nav">
+                  <!-- BEGIN: Menu de opciones -->
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <b class="caret"></b>
+                        Cursos
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li>
+                          {{#link-to "cursosNuevos" }}Nuevo{{/link-to}}
+                        </li>
+                        <li>
+                          {{#link-to "cursosAutorizados" }}Autorizados{{/link-to}}
+                        </li>
+                        <li>
+                          {{#link-to "oficios" }}Oficios{{/link-to}}
+                        </li>
+                      </ul>
                     </li>
 
-                    <li>
-                      <g:link controller="puerto">Catálogos</g:link>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <b class="caret"></b>
+                        Movimientos
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li>
+                          {{#link-to "movimientos" }}Entre cursos{{/link-to}}
+                        </li>
+                        <li>
+                          {{#link-to "alumnos" }}A un nuevo curso{{/link-to}}
+                        </li>
+                      </ul>
                     </li>
-                  </sec:access>
 
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <b class="caret"></b>
+                        Avanzadas
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li>
+                          {{#link-to "archivo" }}Procesar archivo{{/link-to}}
+                        </li>
+                        <li>
+                          {{#link-to "busqueda" }}Busqueda{{/link-to}}
+                        </li>
+                      </ul>
+                    </li>
 
-                <!-- END: Menu de opciones -->
-              </ul>
-              <sec:ifLoggedIn>
-                <ul class="nav pull-right">
-                  <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" role="button" href="#" id="drop10">
-                      <sec:loggedInUserInfo field="username"/>
-                      <b class="caret"></b>
-                    </a>
-                    <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
+                    <sec:access expression="hasRole('ROLE_ADMIN')">
                       <li>
-                        <g:link controller="logout" tabindex="-1">
-                          Salir del PIPE
-                        </g:link>
+                        {{#link-to "notificacion" }}Notificaciones{{/link-to}}
                       </li>
-                    </ul>
-                  </li>
+
+                      <li>
+                        <g:link controller="puerto">Catálogos</g:link>
+                      </li>
+                    </sec:access>
+
+
+                  <!-- END: Menu de opciones -->
                 </ul>
-              </sec:ifLoggedIn>
-            </div><!--/.nav-collapse -->
+                <sec:ifLoggedIn>
+                  <ul class="nav pull-right">
+                    <li class="dropdown">
+                      <a data-toggle="dropdown" class="dropdown-toggle" role="button" href="#" id="drop10">
+                        <sec:loggedInUserInfo field="username"/>
+                        <b class="caret"></b>
+                      </a>
+                      <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
+                        <li>
+                          <g:link controller="logout" tabindex="-1">
+                            Salir del PIPE
+                          </g:link>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </sec:ifLoggedIn>
+              </div><!--/.nav-collapse -->
+            </div>
           </div>
         </div>
-      </div>
 
-      {{ outlet }}
+        {{ outlet }}
 
-      <g:layoutBody />
+        <g:layoutBody />
 
-      <hr>
-      <footer>
-        <div class="footer">
-          <p>&copy; Siyen 2013</p>
-        </div>
-      </footer>
-    </script>
+        <hr>
+        <footer>
+          <div class="footer">
+            <p>&copy; Siyen 2013</p>
+          </div>
+        </footer>
+      </script>
+    </div>
 
     <div id="alertas" class="hide">
       <strong></strong>
@@ -166,7 +178,6 @@
     <input type="hidden" id="reversoParaCurso" value="${g.createLink(action:'generarReversoParaCurso', controller:'certificado')}" />
 
     <input type="hidden" id="eventBusURL" value="${grailsApplication.config.grails.app.vertx.eventbus}" />
-
     <r:layoutResources />
   </body>
 </html>
