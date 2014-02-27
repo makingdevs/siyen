@@ -165,7 +165,7 @@
     <input type="hidden" id="frenteParaCurso" value="${g.createLink(action:'generarFrenteParaCurso', controller:'certificado')}" />
     <input type="hidden" id="reversoParaCurso" value="${g.createLink(action:'generarReversoParaCurso', controller:'certificado')}" />
 
-    <input type="hidden" id="urlBusqueda" value="${g.createLink(action:'realizarBusqueda', controller:'busqueda')}" />
+    <input type="hidden" id="eventBusURL" value="${grailsApplication.config.grails.app.vertx.eventbus}" />
 
     <r:layoutResources />
   </body>
