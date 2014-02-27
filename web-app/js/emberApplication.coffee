@@ -1,6 +1,12 @@
 window.App = Ember.Application.create()
 
 $ ->
+  $(document).ajaxStart ->
+    ($ '.overlay').show()
+
+  $(document).ajaxStop ->
+    ($ '.overlay').hide()
+
   ($ "body").on "click", "#impresion", ->
     id = ($ this).attr('name')
     urlBaseFrente = ($ '#frenteParaCurso').val()
