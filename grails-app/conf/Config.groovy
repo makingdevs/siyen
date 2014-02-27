@@ -61,14 +61,10 @@ environments {
   development {
     grails.logging.jul.usebridge = true
     grails.app.context = "/"
-    grails.serverURL = ""
-    jasper.dir.reports = "${userHome}/.grails/reports"
   }
   production {
     grails.logging.jul.usebridge = false
     logDirectory = 'logs/'
-    grails.serverURL = "http://pipe.ienpop.net"
-    jasper.dir.reports = "${userHome}/siyen"
   }
 }
 
@@ -126,33 +122,3 @@ log4j = {
         'liquibase',
         'grails.app.services.grails.plugin.rendering'
 }
-
-// Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.siyen.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.siyen.UserRole'
-grails.plugins.springsecurity.authority.className = 'com.siyen.Role'
-grails.plugins.springsecurity.requestMap.className = 'com.siyen.RequestMap'
-grails.plugins.springsecurity.securityConfigType = 'InterceptUrlMap'
-grails.plugins.springsecurity.successHandler.defaultTargetUrl = '/#'
-
-grails.plugins.springsecurity.interceptUrlMap = [
-   '/'                      : ['permitAll'],
-   '/index'                 : ['permitAll'],
-   '/index.gsp'             : ['permitAll'],
-   '/**/js/**'              : ['permitAll'],
-   '/**/css/**'             : ['permitAll'],
-   '/**/images/**'          : ['permitAll'],
-   '/**/favicon.ico'        : ['permitAll'],
-   '/login/**'              : ['permitAll'],
-   '/logout/**'             : ['permitAll'],
-   '/user/**'               : ['ROLE_ADMIN'],
-   '/puerto/**'             : ['ROLE_ADMIN'],
-   '/instructor/**'         : ['ROLE_ADMIN'],
-   '/curso/**'              : ['ROLE_ADMIN'],
-   '/catalogo/**'           : ['ROLE_ADMIN'],
-   '/instructores'          : ['ROLE_USER','ROLE_ADMIN'],
-   '/puertos'               : ['ROLE_USER','ROLE_ADMIN'],
-   '/cursos'                : ['ROLE_USER','ROLE_ADMIN'],
-   '/cursos_programados'    : ['ROLE_USER','ROLE_ADMIN'],
-   '/informePeriodico/**'   : ['ROLE_ADMIN']
-]
