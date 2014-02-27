@@ -388,10 +388,11 @@
   App.NotificacionController = Ember.ArrayController.extend({
     content: [],
     init: function() {
-      var crearNotificacionConRespuesta, eventBus,
+      var crearNotificacionConRespuesta, eventBus, eventBusURL,
         _this = this;
       this._super();
-      eventBus = new vertx.EventBus('http://pipe.ienpop.net:9091/eventbus');
+      eventBusURL = ($('#eventBusURL')).val();
+      eventBus = new vertx.EventBus(eventBusURL);
       eventBus.onopen = function() {
         console.log("Event Bus connected");
         eventBus.registerHandler('cursoProgramado.autorizado', function(jsonMessage) {
