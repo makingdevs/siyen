@@ -226,6 +226,24 @@ App.CrearController = Ember.ObjectController.extend
       cursosNuevosController = @get('controllers.cursosNuevos')
       content = cursosNuevosController.get('content')
 
+      unless @get('puertoSelected')
+        ($ "#error .message").text('El puerto es obligatorio')
+        ($ "#error").fadeIn 'slow', ->
+          ($ @).delay(3000).fadeOut('slow')
+        return
+
+      unless @get('instructorSelected')
+        ($ "#error .message").text('El instructor es obligatorio')
+        ($ "#error").fadeIn 'slow', ->
+          ($ @).delay(3000).fadeOut('slow')
+        return
+
+      unless @get('cursoSelected')
+        ($ "#error .message").text('El curso es obligatorio')
+        ($ "#error").fadeIn 'slow', ->
+          ($ @).delay(3000).fadeOut('slow')
+        return
+
       cursoProgramado = Ember.Object.create
         "fechaDeInicio": moment(@fechaDeInicio ? moment(), 'DD/MMMM/YYYY')
         "puerto" : @get('puertoSelected')

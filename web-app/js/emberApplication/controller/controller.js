@@ -224,6 +224,27 @@
         var content, cursoProgramado, cursosNuevosController, _ref;
         cursosNuevosController = this.get('controllers.cursosNuevos');
         content = cursosNuevosController.get('content');
+        if (!this.get('puertoSelected')) {
+          ($("#error .message")).text('El puerto es obligatorio');
+          ($("#error")).fadeIn('slow', function() {
+            return ($(this)).delay(3000).fadeOut('slow');
+          });
+          return;
+        }
+        if (!this.get('instructorSelected')) {
+          ($("#error .message")).text('El instructor es obligatorio');
+          ($("#error")).fadeIn('slow', function() {
+            return ($(this)).delay(3000).fadeOut('slow');
+          });
+          return;
+        }
+        if (!this.get('cursoSelected')) {
+          ($("#error .message")).text('El curso es obligatorio');
+          ($("#error")).fadeIn('slow', function() {
+            return ($(this)).delay(3000).fadeOut('slow');
+          });
+          return;
+        }
         cursoProgramado = Ember.Object.create({
           "fechaDeInicio": moment((_ref = this.fechaDeInicio) != null ? _ref : moment(), 'DD/MMMM/YYYY'),
           "puerto": this.get('puertoSelected'),
