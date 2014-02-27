@@ -3,6 +3,12 @@
   window.App = Ember.Application.create();
 
   $(function() {
+    $(document).ajaxStart(function() {
+      return ($('.overlay')).show();
+    });
+    $(document).ajaxStop(function() {
+      return ($('.overlay')).hide();
+    });
     ($("body")).on("click", "#impresion", function() {
       var id, urlBaseFrente, urlBaseReverso, urlFrente, urlReverso;
       id = ($(this)).attr('name');
