@@ -51,11 +51,13 @@ App.CursosNuevosController = Ember.ArrayController.extend App.BusquedaForGetType
 
       cursoProgramado.save().then(
         (value) =>
+          ($ "#primary").attr('disabled', false)
           ($ "#confirmarAutorizacionDialog").modal('hide')
           @content.removeObject(@get('autorizarCurso'))
           @transitionToRoute('cursosAutorizados')
 
         (reason) =>
+          ($ "#primary").attr('disabled', false)
           cursoProgramado.rollback()
           ($ "#confirmarAutorizacionDialog").modal('hide')
           jsonData = eval('(' + reason.responseText + ')')
@@ -98,7 +100,6 @@ App.CursosNuevosController = Ember.ArrayController.extend App.BusquedaForGetType
 
           ($ "#duplicacion").modal('show')
       )
-      ($ "#primary").attr('disabled', false)
 
 App.CursosAutorizadosController = Ember.ArrayController.extend()
 
