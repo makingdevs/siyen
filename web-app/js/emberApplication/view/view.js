@@ -93,7 +93,7 @@
     elementId: 'participantes',
     tagName: 'table',
     classNames: ["table", "table-condensed", "table-striped", "table-hover"],
-    template: Ember.Handlebars.compile("<thead>\n  <tr>\n    <th>Nombre</th>\n    <th>Tipo de pago</th>\n    <th>Observaciones</th>\n    <th>Monto</th>\n    <th>&nbsp;</th>\n  </tr>\n</thead>\n<tbody>\n  {{#each model.alumnos}}\n    {{ view App.ParticipanteView contentBinding=\"this\" classNameBindings=this.id }}\n  {{/each}}\n</tbody>")
+    template: Ember.Handlebars.compile("<thead>\n  <tr>\n    <th>Nombre</th>\n    <th>Tipo de pago</th>\n    <th>Observaciones</th>\n    <th>Monto</th>\n    <th>&nbsp;</th>\n  </tr>\n</thead>\n<tbody>\n  {{#each model.alumnos}}\n    {{ view App.ParticipanteView contentBinding=\"this\" classNameBindings=this.infoLabel }}\n  {{/each}}\n</tbody>")
   });
 
   App.ParticipantesListView = Ember.View.extend({
