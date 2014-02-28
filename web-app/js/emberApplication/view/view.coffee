@@ -123,7 +123,7 @@ App.ParticipantesListView = Ember.View.extend
       </thead>
       <tbody>
         {{#each controllers.cursosNuevos.currentCurso.alumnos}}
-          {{ view App.ParticipanteView contentBinding="this" }}
+          {{ view App.ParticipanteView contentBinding="this" classNameBindings=this.isNew }}
         {{/each}}
       </tbody>
     """)
