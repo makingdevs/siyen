@@ -168,7 +168,9 @@
         alumno.set('observaciones', this.observaciones);
         alumno.set('monto', this.monto);
         alumno.set('cursoProgramado', cursoProgramado);
-        alumno.save().then(function(sucess) {
+        alumno.save().then(function(success) {
+          ($(".info")).first().removeClass('info');
+          ($("." + (success.get('id')))).first().addClass('info');
           return cursoProgramado.decrementProperty('alumnosRestantes');
         }, function(reason) {
           var jsonData;
