@@ -101,7 +101,7 @@ App.EditarParticipantesListView = Ember.View.extend
       </thead>
       <tbody>
         {{#each model.alumnos}}
-          {{ view App.ParticipanteView contentBinding="this" }}
+          {{ view App.ParticipanteView contentBinding="this" classNameBindings=this.id }}
         {{/each}}
       </tbody>
     """)
