@@ -326,7 +326,8 @@
           nombreCompleto: this.nombreCompleto,
           tipoDePago: this.tipoDePagoSelected.id,
           observaciones: this.observaciones,
-          monto: this.monto
+          monto: this.monto,
+          isNew: 'info'
         });
         switch (this.tipoDePagoSelected.id) {
           case "EFECTIVO":
@@ -347,6 +348,9 @@
               });
               return;
             }
+        }
+        if (currentCurso.get('alumnos').length) {
+          currentCurso.get('alumnos').findBy('isNew', 'info').set('isNew', '');
         }
         if (this.currentParticipanteIndex >= 0) {
           currentCurso.get('alumnos').replace(this.currentParticipanteIndex, 1, [alumno]);
