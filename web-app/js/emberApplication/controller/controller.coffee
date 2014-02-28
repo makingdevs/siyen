@@ -170,7 +170,9 @@ App.EditController = Ember.ObjectController.extend
       alumno.set 'cursoProgramado', cursoProgramado
 
       alumno.save().then(
-        (sucess) ->
+        (success) ->
+          cursoProgramado.get('currentInfoLabel')?.set('infoLabel', '')
+          success.set('infoLabel', 'info')
           cursoProgramado.decrementProperty('alumnosRestantes')
         (reason) ->
           alumno.rollback()
@@ -320,6 +322,7 @@ App.CrearParticipantesController = Ember.ObjectController.extend
         tipoDePago : @tipoDePagoSelected.id
         observaciones : @observaciones
         monto : @monto
+        isNew : 'info'
 
       switch @tipoDePagoSelected.id
         when "EFECTIVO", "DEPOSITO_BANCARIO"
@@ -335,6 +338,7 @@ App.CrearParticipantesController = Ember.ObjectController.extend
               ($ @).delay(3000).fadeOut('slow')
             return
 
+      currentCurso.get('alumnos').findBy('isNew', 'info').set('isNew', '') if currentCurso.get('alumnos').length
       if @currentParticipanteIndex >= 0
         currentCurso.get('alumnos').replace(@currentParticipanteIndex, 1, [alumno])
       else

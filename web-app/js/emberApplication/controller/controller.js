@@ -168,7 +168,12 @@
         alumno.set('observaciones', this.observaciones);
         alumno.set('monto', this.monto);
         alumno.set('cursoProgramado', cursoProgramado);
-        alumno.save().then(function(sucess) {
+        alumno.save().then(function(success) {
+          var _ref;
+          if ((_ref = cursoProgramado.get('currentInfoLabel')) != null) {
+            _ref.set('infoLabel', '');
+          }
+          success.set('infoLabel', 'info');
           return cursoProgramado.decrementProperty('alumnosRestantes');
         }, function(reason) {
           var jsonData;
@@ -326,7 +331,8 @@
           nombreCompleto: this.nombreCompleto,
           tipoDePago: this.tipoDePagoSelected.id,
           observaciones: this.observaciones,
-          monto: this.monto
+          monto: this.monto,
+          isNew: 'info'
         });
         switch (this.tipoDePagoSelected.id) {
           case "EFECTIVO":
@@ -347,6 +353,9 @@
               });
               return;
             }
+        }
+        if (currentCurso.get('alumnos').length) {
+          currentCurso.get('alumnos').findBy('isNew', 'info').set('isNew', '');
         }
         if (this.currentParticipanteIndex >= 0) {
           currentCurso.get('alumnos').replace(this.currentParticipanteIndex, 1, [alumno]);

@@ -17,6 +17,10 @@ App.CursoProgramado = DS.Model.extend
     @get('alumnos').findBy("isDragging", true)
   ).property("alumnos.@each.isDragging")
 
+  currentInfoLabel: ( ->
+    @get('alumnos').findBy("infoLabel", 'info')
+  ).property("alumnos.@each.infoLabel")
+
 App.Puerto = DS.Model.extend
   clave : DS.attr('string')
   puerto : DS.attr('string')
@@ -49,3 +53,4 @@ App.Alumno = DS.Model.extend
 
   isDragging : false
   droppingTarget : null
+  infoLabel : ''
