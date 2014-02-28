@@ -13,7 +13,10 @@
     }).property('id', 'puerto', 'curso', 'fechaDeInicio'),
     currentDragItem: (function() {
       return this.get('alumnos').findBy("isDragging", true);
-    }).property("alumnos.@each.isDragging")
+    }).property("alumnos.@each.isDragging"),
+    currentInfoLabel: (function() {
+      return this.get('alumnos').findBy("infoLabel", 'info');
+    }).property("alumnos.@each.infoLabel")
   });
 
   App.Puerto = DS.Model.extend({
@@ -47,7 +50,8 @@
       return "" + (this.get('numeroDeControl')) + " - " + (this.get('nombreCompleto'));
     }).property('numeroDeControl', 'nombreCompleto'),
     isDragging: false,
-    droppingTarget: null
+    droppingTarget: null,
+    infoLabel: ''
   });
 
 }).call(this);
