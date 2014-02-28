@@ -171,8 +171,8 @@ App.EditController = Ember.ObjectController.extend
 
       alumno.save().then(
         (success) ->
-          ($ ".info").first().removeClass('info')
-          ($ ".#{success.get('id')}").first().addClass('info')
+          cursoProgramado.get('currentInfoLabel')?.set('infoLabel', '')
+          success.set('infoLabel', 'info')
           cursoProgramado.decrementProperty('alumnosRestantes')
         (reason) ->
           alumno.rollback()
