@@ -17,8 +17,9 @@
     success: (response) ->
       labels = []
       data = []
-
+      scaleStepWidth = 0
       datasets = []
+
       hasMonthsSelected = ($ ".checkbox :checked").size() > 1
       ($ "#acotaciones").html(" ")
 
@@ -27,6 +28,7 @@
           labels.push k
           data.push v
 
+        scaleStepWidth = calculateScaleStepWidth(data)
         properties =
           fillColor : "rgba(151, 187, 205, 0.5)"
           strokeColor : "rgba(151, 187, 205, 1)"
@@ -42,6 +44,8 @@
             valoresDelDatasets[k] = [] unless valoresDelDatasets[k]
             valoresDelDatasets[k].push value
 
+        completeData = []
+        flattenData = []
         $.each valoresDelDatasets, (k, v) ->
           properties = {}
           [red, green, blue] = colorChooser(k)
@@ -50,7 +54,11 @@
           properties['pointColor'] = "rgba( #{red}, #{green}, #{blue}, 1)"
           properties['pointStrokeColor'] = "#fff"
           properties['data'] = v
+          completeData.push( v )
           datasets.push properties
+
+        flattenData = flattenData.concat.apply(flattenData, completeData)
+        scaleStepWidth = calculateScaleStepWidth(flattenData)
 
         $.each ($ ".checkbox :checked"), (k, v) ->
           monthNumber = ($ v).val()
@@ -64,8 +72,22 @@
         labels : labels
         datasets : datasets
 
+      options =
+        scaleOverride : true
+        scaleSteps : 10
+        scaleStepWidth : scaleStepWidth
+        scaleStartValue : 0
+
       ctx = $("#grafica").get(0).getContext("2d")
-      new Chart(ctx).Bar(chartData)
+      new Chart(ctx).Bar(chartData, options)
+
+calculateScaleStepWidth = (array, number) ->
+  maxValue = Math.max.apply(Math, array)
+  if(maxValue < 100)
+    return (Math.ceil(maxValue / 10) * 10) / 10
+
+  (Math.ceil(maxValue / 100) * 100) / 10
+
 
 colorChooser = (value) ->
   switch parseInt(value)
