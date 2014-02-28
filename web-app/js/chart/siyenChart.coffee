@@ -28,8 +28,7 @@
           labels.push k
           data.push v
 
-        maxValue = Math.max.apply(Math, data)
-        scaleStepWidth = (Math.ceil(maxValue / 100) * 100) / 10
+        scaleStepWidth = calculateScaleStepWidth(data)
         properties =
           fillColor : "rgba(151, 187, 205, 0.5)"
           strokeColor : "rgba(151, 187, 205, 1)"
@@ -59,9 +58,7 @@
           datasets.push properties
 
         flattenData = flattenData.concat.apply(flattenData, completeData)
-        maxValue = Math.max.apply(Math, flattenData)
-        scaleStepWidth = (Math.ceil(maxValue / 100) * 100) / 10
-        debugger
+        scaleStepWidth = calculateScaleStepWidth(flattenData)
 
         $.each ($ ".checkbox :checked"), (k, v) ->
           monthNumber = ($ v).val()
@@ -83,6 +80,14 @@
 
       ctx = $("#grafica").get(0).getContext("2d")
       new Chart(ctx).Bar(chartData, options)
+
+calculateScaleStepWidth = (array, number) ->
+  maxValue = Math.max.apply(Math, array)
+  if(maxValue < 100)
+    return (Math.ceil(maxValue / 10) * 10) / 10
+
+  (Math.ceil(maxValue / 100) * 100) / 10
+
 
 colorChooser = (value) ->
   switch parseInt(value)
