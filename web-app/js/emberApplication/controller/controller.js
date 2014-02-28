@@ -60,12 +60,14 @@
             monto: alumno.get('monto')
           });
         }
-        cursoProgramado.save().then(function(value) {
+        return cursoProgramado.save().then(function(value) {
+          ($("#primary")).attr('disabled', false);
           ($("#confirmarAutorizacionDialog")).modal('hide');
           _this.content.removeObject(_this.get('autorizarCurso'));
           return _this.transitionToRoute('cursosAutorizados');
         }, function(reason) {
           var cursos, desde, hasta, instructores, jsonData, puertos;
+          ($("#primary")).attr('disabled', false);
           cursoProgramado.rollback();
           ($("#confirmarAutorizacionDialog")).modal('hide');
           jsonData = eval('(' + reason.responseText + ')');
@@ -83,7 +85,6 @@
           });
           return ($("#duplicacion")).modal('show');
         });
-        return ($("#primary")).attr('disabled', false);
       }
     }
   });
