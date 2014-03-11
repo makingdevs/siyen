@@ -450,6 +450,29 @@ App.NotificacionController = Ember.ArrayController.extend
 
       @content.pushObject(notificacion)
 
+App.BusquedaAlumnosController = Ember.ObjectController.extend App.BusquedaForGetType,
+  busquedaDeAlumno : null
+  urlBusquedaDeAlumnos : null
+
+  init : ->
+    @set('urlBusquedaDeAlumnos', $("#urlBusquedaDeAlumnos").val())
+    @busquedaGetWithSelector('.pagination li a')
+
+  actions :
+    realizarBusqueda : ->
+      busqueda = @get('busquedaDeAlumno')
+
+      $.ajax(
+        type: "POST"
+        url: @get('urlBusquedaDeAlumnos')
+        data:
+          buscar : busqueda
+        success: (res, status, xhr) ->
+          $("#resultados").html( res )
+        error: (xhr, status, err) ->
+          console.log "error"
+      )
+
 App.BusquedaController = Ember.ObjectController.extend App.BusquedaForGetType,
   busqueda : null
   urlBusqueda : null

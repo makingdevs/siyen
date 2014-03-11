@@ -473,6 +473,34 @@
     }
   });
 
+  App.BusquedaAlumnosController = Ember.ObjectController.extend(App.BusquedaForGetType, {
+    busquedaDeAlumno: null,
+    urlBusquedaDeAlumnos: null,
+    init: function() {
+      this.set('urlBusquedaDeAlumnos', $("#urlBusquedaDeAlumnos").val());
+      return this.busquedaGetWithSelector('.pagination li a');
+    },
+    actions: {
+      realizarBusqueda: function() {
+        var busqueda;
+        busqueda = this.get('busquedaDeAlumno');
+        return $.ajax({
+          type: "POST",
+          url: this.get('urlBusquedaDeAlumnos'),
+          data: {
+            buscar: busqueda
+          },
+          success: function(res, status, xhr) {
+            return $("#resultados").html(res);
+          },
+          error: function(xhr, status, err) {
+            return console.log("error");
+          }
+        });
+      }
+    }
+  });
+
   App.BusquedaController = Ember.ObjectController.extend(App.BusquedaForGetType, {
     busqueda: null,
     urlBusqueda: null,
