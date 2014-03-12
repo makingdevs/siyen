@@ -25,7 +25,7 @@ class AlumnoController {
 
     CursoProgramado cursoProgramado = CursoProgramado.get(cmd.cursoProgramado)
     cursoProgramado.alumnosRestantes -= 1
-    if(cursoProgramado.alumnosRestantes >= 0) {
+    if(cursoProgramado.alumnosRestantes >= 0 && (cursoProgramado.fechaDeInicio > (new Date() - 15))) {
       cursoProgramado.save()
     } else {
       render(status:417, contentType: "text/json") {
