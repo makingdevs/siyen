@@ -2,6 +2,7 @@ App.Router.map ->
   @route 'archivo'
   @route 'notificacion'
   @route 'busqueda'
+  @route 'busquedaAlumnos'
   @route 'oficios'
   @route 'movimientos'
 

@@ -76,20 +76,22 @@
                       </ul>
                     </li>
 
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <b class="caret"></b>
-                        Movimientos
-                      </a>
-                      <ul class="dropdown-menu">
-                        <li>
-                          {{#link-to "movimientos" }}Entre cursos{{/link-to}}
-                        </li>
-                        <li>
-                          {{#link-to "alumnos" }}A un nuevo curso{{/link-to}}
-                        </li>
-                      </ul>
-                    </li>
+                    <sec:access expression="hasRole('ROLE_ADMIN')">
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                          <b class="caret"></b>
+                          Movimientos
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li>
+                            {{#link-to "movimientos" }}Entre cursos{{/link-to}}
+                          </li>
+                          <li>
+                            {{#link-to "alumnos" }}A un nuevo curso{{/link-to}}
+                          </li>
+                        </ul>
+                      </li>
+                    </sec:access>
 
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -102,6 +104,9 @@
                         </li>
                         <li>
                           {{#link-to "busqueda" }}Busqueda{{/link-to}}
+                        </li>
+                        <li>
+                          {{#link-to "busquedaAlumnos" }}Busqueda por alumnos{{/link-to}}
                         </li>
                       </ul>
                     </li>

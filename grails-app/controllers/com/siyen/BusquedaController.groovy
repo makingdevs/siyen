@@ -48,7 +48,7 @@ class BusquedaController {
       }
     }, params)
 
-    render template:"/alumno/list", model:[ busqueda : busqueda, totalResultados : busquedaDeResultados.total, lista : busquedaDeResultados.results ]
+    render template:"/alumno/list", model:[ busqueda : busqueda, totalResultados : busquedaDeResultados.total, lista : busquedaDeResultados.results, edicion : params.edicion ]
   }
 
 }
