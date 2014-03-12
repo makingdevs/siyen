@@ -488,7 +488,8 @@
           type: "POST",
           url: this.get('urlBusquedaDeAlumnos'),
           data: {
-            buscar: busqueda
+            buscar: busqueda,
+            edicion: true
           },
           success: function(res, status, xhr) {
             return $("#resultados").html(res);

@@ -467,6 +467,7 @@ App.BusquedaAlumnosController = Ember.ObjectController.extend App.BusquedaForGet
         url: @get('urlBusquedaDeAlumnos')
         data:
           buscar : busqueda
+          edicion : true
         success: (res, status, xhr) ->
           $("#resultados").html( res )
         error: (xhr, status, err) ->
