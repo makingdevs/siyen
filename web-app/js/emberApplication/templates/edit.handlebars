@@ -26,21 +26,8 @@
       <div class="control-group">
         <label class="control-label" for="cursos">Curso :</label>
         <div class="controls">
-          {{ view Ember.Select prompt="Selecciona un curso : "
-                               contentBinding="cursos"
-                               optionValuePath="content.clave"
-                               optionLabelPath="content.clave"
-                               selectionBinding="model.curso"
-                               disabledBinding="disabled" }}
+          {{ view Ember.TextField valueBinding="model.curso.clave" disabled="disabled" }}
         </div>
-      </div>
-      <div class="form-actions">
-        {{ view App.BootstrapButton
-                content="Actualizar datos del curso"
-                action="actualizarCurso"
-                target="controller"
-                classNames="btn-success"
-        }}
       </div>
     </div>
     <div class="span4">
@@ -56,8 +43,7 @@
                     target="controller"
                     action="actualizar"
                     valueBinding="controller.nombreCompleto"
-                    placeholder="Nombre completo"
-                    disabledBinding="disabled" }}
+                    placeholder="Nombre completo" }}
           </div>
         </div>
 
@@ -81,8 +67,7 @@
                     class="span9"
                     target="controller"
                     action="actualizar"
-                    valueBinding="controller.monto"
-                    disabledBinding="disabled" }}
+                    valueBinding="controller.monto" }}
             <span class="add-on">.00</span>
           </div>
           <div class="controls">
@@ -94,8 +79,7 @@
           <div class="controls">
             {{ view Ember.TextArea
                     valueBinding="observaciones"
-                    placeholder="Observaciones"
-                    disabledBinding="disabled" }}
+                    placeholder="Observaciones" }}
           </div>
         </div>
 
