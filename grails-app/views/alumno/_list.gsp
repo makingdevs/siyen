@@ -9,10 +9,9 @@
     <tr>
       <th>Número de control</th>
       <th>Nombre completo</th>
-      <th>Observaciones</th>
-      <th>Monto</th>
-      <th>Número de curso</th>
+      <th>Puerto</th>
       <th>Clave del curso</th>
+      <th>Fecha de inicio</th>
     </tr>
   </thead>
   <tbody>
@@ -20,12 +19,16 @@
       <tr>
         <td>${it.numeroDeControl}</td>
         <td>${it.nombreCompleto}</td>
-        <td>${it.observaciones}</td>
-        <td>${it.monto}</td>
-        <td>${it.cursoProgramado.id}</td>
+        <td>${it.cursoProgramado.puerto.clave}</td>
         <td>${it.cursoProgramado.curso.clave}</td>
+        <td>${it.cursoProgramado.fechaDeInicio.format('dd/MMMM/yyyy')}</td>
         <td>
-          <a href="#/alumnos/${it.id}" class="btn btn-primary"><i class="icon-edit icon-white"></i></a>
+          <g:if test="${edicion}">
+            <a href="#/cursosAutorizados/${it.cursoProgramado.id}" class="btn btn-primary"><i class="icon-edit icon-white"></i></a>
+          </g:if>
+          <g:else>
+            <a href="#/alumnos/${it.id}" class="btn btn-primary"><i class="icon-edit icon-white"></i></a>
+          </g:else>
           <button id="impresionDeAlumno" class="btn btn-success" name="${it.id}"><i class="icon-print icon-white"></i></button>
         </td>
       </tr>
