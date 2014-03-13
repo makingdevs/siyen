@@ -39,7 +39,7 @@
 <div class="pagination pagination-centered">
   <ul>
     <li>
-      <g:paginate total="${totalResultados}" params="[buscar : busqueda]" />
+      <g:paginate total="${totalResultados}" params="[buscar : busqueda, edicion : edicion]" />
     </li>
   </ul>
 </div>

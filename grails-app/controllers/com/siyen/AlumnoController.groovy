@@ -8,6 +8,7 @@ class AlumnoController {
   static allowedMethods = [save : "POST", update : "PUT"]
 
   def notificacionService
+  def springSecurityService
 
   def save(AlumnoCommand cmd) {
     if(cmd.hasErrors()) {
@@ -25,10 +26,10 @@ class AlumnoController {
 
     CursoProgramado cursoProgramado = CursoProgramado.get(cmd.cursoProgramado)
     cursoProgramado.alumnosRestantes -= 1
-    if(cursoProgramado.alumnosRestantes >= 0) {
+    if(cursoProgramado.alumnosRestantes >= 0 && (cursoProgramado.fechaDeInicio > (new Date() - 15))) {
       cursoProgramado.save()
     } else {
-      render(status:417, contentType: "text/json") {
+      render(status:403, contentType: "text/json") {
         [ message : "No es posible agregar más alumnos a este curso" ]
       }
       return
@@ -53,6 +54,16 @@ class AlumnoController {
 
     try {
       Alumno alumno = validarDatosDeMovimiento(cmd.id, cmd.cursoProgramado)
+      def cursoProgramado = CursoProgramado.get(cmd.cursoProgramado)
+      def authority = springSecurityService.currentUser.authorities.find{ it.authority == 'ROLE_ADMIN' }
+      if( authority != 'ROLE_ADMIN' ) {
+        if(!(cursoProgramado.fechaDeInicio > (new Date() - 15))) {
+          render (status : 403, contentType:"text/json") {
+            [ message : "Contacte al administrador para verificar este cambio" ]
+          }
+          return
+        }
+      }
       alumno.cursoProgramado = CursoProgramado.get(cmd.cursoProgramado)
       alumno.nombreCompleto = cmd.nombreCompleto
       alumno.observaciones = cmd.observaciones

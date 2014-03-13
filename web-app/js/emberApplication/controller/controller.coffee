@@ -104,15 +104,12 @@ App.CursosNuevosController = Ember.ArrayController.extend App.BusquedaForGetType
 App.CursosAutorizadosController = Ember.ArrayController.extend()
 
 App.EditController = Ember.ObjectController.extend
-  cursos : []
-
   fechaDeInicio : null
   nombreCompleto : null
   observaciones : null
   monto : null
   tipoDePago : null
   currentParticipanteIndex : -1
-  disabled : false
 
   tiposDePagos : [
     { id:'EFECTIVO', name:'Efectivo' },
@@ -121,20 +118,7 @@ App.EditController = Ember.ObjectController.extend
   ]
   tipoDePagoSelected : null
 
-  alumnosAddObserves : (->
-    @set('disabled', true) if @get('model.alumnosRestantes') <= 0
-  ).observes('model.alumnosRestantes')
-
-  init : ->
-    @_super()
-    @set 'cursos', @get('store').find("curso")
-
   actions :
-
-    actualizarCurso : ->
-      cursoProgramado = @get('model')
-      cursoProgramado.save()
-
     actualizar : ->
       cursoProgramado = @get('model')
 
