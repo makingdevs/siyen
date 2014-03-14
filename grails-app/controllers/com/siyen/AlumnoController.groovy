@@ -55,8 +55,8 @@ class AlumnoController {
     try {
       Alumno alumno = validarDatosDeMovimiento(cmd.id, cmd.cursoProgramado)
       def cursoProgramado = CursoProgramado.get(cmd.cursoProgramado)
-      def authority = springSecurityService.currentUser.authorities.find{ it.authority == 'ROLE_ADMIN' }
-      if( authority != 'ROLE_ADMIN' ) {
+      def authority = springSecurityService.currentUser.authorities.any { it.authority == 'ROLE_ADMIN' }
+      if(!authority) {
         if(!(cursoProgramado.fechaDeInicio > (new Date() - 15))) {
           render (status : 403, contentType:"text/json") {
             [ message : "Contacte al administrador para verificar este cambio" ]
