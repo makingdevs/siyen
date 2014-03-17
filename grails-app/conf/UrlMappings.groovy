@@ -12,8 +12,12 @@ class UrlMappings {
     "/participanteInfo"(controller:"participante", action:"index")
 
     "/cursos"(controller:"curso", action:"jsonList")
+
     "/puertos"(controller:"puerto", action:"jsonList")
+    "/puertos/$id"(controller:"puerto", action:"view")
+
     "/instructores"(controller:"instructor", action:"jsonList")
+    "/instructores/$id"(controller:"instructor", action:"view")
 
     "/"(view:"/index")
     "500"(view:'/error')
