@@ -15,4 +15,11 @@ class InstructorController {
     }
   }
 
+  def view(Long id) {
+    def jsonResponse = [ instructores : Instructor.get(id) ]
+    JSON.use('siyen') {
+      render jsonResponse as JSON
+    }
+  }
+
 }
