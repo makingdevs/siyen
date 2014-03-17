@@ -15,4 +15,11 @@ class PuertoController {
     }
   }
 
+  def view(Long id) {
+    def jsonResponse = [ puertos : Puerto.get(id) ]
+    JSON.use('siyen') {
+      render jsonResponse as JSON
+    }
+  }
+
 }
