@@ -19,3 +19,7 @@ App.Store = DS.Store.extend
 App.ApplicationSerializer = DS.RESTSerializer.extend
   serializeIntoHash: (data, type, record, options) ->
     @serialize(record, options)
+
+App.NotificacionSerializer = DS.LSSerializer.extend()
+App.NotificacionAdapter = DS.LSAdapter.extend
+  namespace: 'notificaciones'
