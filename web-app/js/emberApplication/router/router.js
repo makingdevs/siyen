@@ -32,7 +32,11 @@
 
   App.ArchivoRoute = Ember.Route.extend();
 
-  App.NotificacionRoute = Ember.Route.extend();
+  App.NotificacionRoute = Ember.Route.extend({
+    model: function() {
+      return this.get('store').find('notificacion');
+    }
+  });
 
   App.CursosAutorizadosRoute = Ember.Route.extend({
     model: function() {
