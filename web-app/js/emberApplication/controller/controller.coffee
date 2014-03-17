@@ -421,8 +421,8 @@ App.NotificacionController = Ember.ArrayController.extend
       )
 
     crearNotificacionConRespuesta = (jsonMessage) =>
-      notificacion = Ember.Object.create
-        id : jsonMessage.id
+      notificacion = @get('store').createRecord('notificacion',
+        inconmingId : jsonMessage.id
         fechaDeAutorizacion : jsonMessage.fechaDeAutorizacion
         fechaDeInicio : jsonMessage.fechaDeInicio
         puerto : jsonMessage.puerto
@@ -431,8 +431,8 @@ App.NotificacionController = Ember.ArrayController.extend
         alumnos : jsonMessage.alumnos
         creadoPor : jsonMessage.creadoPor
         accion : jsonMessage.accion
-
-      @content.pushObject(notificacion)
+      )
+      notificacion.save()
 
 App.BusquedaAlumnosController = Ember.ObjectController.extend App.BusquedaForGetType,
   busquedaDeAlumno : null

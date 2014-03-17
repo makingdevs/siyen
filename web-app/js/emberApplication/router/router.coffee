@@ -20,7 +20,9 @@ App.CursosNuevosRoute = Ember.Route.extend()
 App.CursosNuevosCrearRoute = Ember.Route.extend()
 App.CrearParticipantesRoute = Ember.Route.extend()
 App.ArchivoRoute = Ember.Route.extend()
-App.NotificacionRoute = Ember.Route.extend()
+App.NotificacionRoute = Ember.Route.extend
+  model : ->
+    @get('store').find('notificacion')
 
 App.CursosAutorizadosRoute = Ember.Route.extend
   model : ->

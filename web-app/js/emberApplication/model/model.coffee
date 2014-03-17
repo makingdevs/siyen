@@ -1,3 +1,15 @@
+App.Notificacion = DS.Model.extend
+  url : "/notificaciones/"
+  fechaDeAutorizacion : DS.attr('string')
+  fechaDeInicio : DS.attr('string')
+  puerto : DS.attr('string')
+  curso : DS.attr('string')
+  instructor : DS.attr('string')
+  alumnos : DS.attr('string')
+  accion : DS.attr('string')
+  creadoPor : DS.attr('string')
+
+
 App.CursoProgramado = DS.Model.extend
   fechaDeInicio : DS.attr('string')
   fechaDeTermino : DS.attr('string')

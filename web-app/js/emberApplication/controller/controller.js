@@ -446,8 +446,8 @@
       return crearNotificacionConRespuesta = (function(_this) {
         return function(jsonMessage) {
           var notificacion;
-          notificacion = Ember.Object.create({
-            id: jsonMessage.id,
+          notificacion = _this.get('store').createRecord('notificacion', {
+            inconmingId: jsonMessage.id,
             fechaDeAutorizacion: jsonMessage.fechaDeAutorizacion,
             fechaDeInicio: jsonMessage.fechaDeInicio,
             puerto: jsonMessage.puerto,
@@ -457,7 +457,7 @@
             creadoPor: jsonMessage.creadoPor,
             accion: jsonMessage.accion
           });
-          return _this.content.pushObject(notificacion);
+          return notificacion.save();
         };
       })(this);
     }
