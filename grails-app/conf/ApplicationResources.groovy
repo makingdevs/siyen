@@ -32,6 +32,7 @@ modules = {
     resource url:'js/ember/handlebars-1.0.0.js'
     resource url:'js/ember/ember-1.0.0.js'
     resource url:'js/ember/ember-data-1.0.0.js'
+    resource url:'js/ember-localstorage/localstorage_adapter.js'
   }
 
   momentjs {
