@@ -77,9 +77,7 @@ class CursoProgramadoController {
     jsonResponse.puertos = springSecurityService.currentUser.puertos.findAll { it.activo }
     jsonResponse.cursos = Curso.findAll { activo == true }
     jsonResponse.instructores = springSecurityService.currentUser.instructores.findAll { it.activo }
-    jsonResponse.alumnos = Alumno.findAll {
-      dateCreated > (new Date() - 15)
-    }
+    jsonResponse.alumnos = cursosProgramados*.alumnos.flatten()
 
     JSON.use('siyen') {
       render jsonResponse as JSON
