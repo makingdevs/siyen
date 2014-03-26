@@ -13,6 +13,6 @@ class EstadoDeCuentaController {
     def puerto = Puerto.get(params.puerto)
     def cursosProgramados = CursoProgramado.findAllByInstructorAndPuertoAndDateCreatedBetween(instructor, puerto, fechaDeInicio, fechaDeTermino)
 
-    render template:'estadoDeCuenta', model : [cursosProgramados : cursosProgramados]
+    render template:'estadoDeCuenta',model:[ cursosProgramados : cursosProgramados, fechaDeInicio : fechaDeInicio, fechaDeTermino : fechaDeTermino, puerto : puerto, instructor : instructor ]
   }
 }
