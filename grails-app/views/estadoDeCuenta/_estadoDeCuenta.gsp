@@ -2,7 +2,7 @@
 
 <h1> Del ${fechaDeInicio.format("dd 'de' MMMM")} al ${fechaDeTermino.format("dd 'de' MMMM 'del' yyyy")}</h1>
 <h2> ${puerto.puerto}, ${puerto.estado} </h2>
-<h3> Usuario : ${instructor.nombre} </h3>
+<h3> Usuario : ${user.username} </h3>
 
 <table class="table table-condensed table-striped table-hover">
   <thead>
