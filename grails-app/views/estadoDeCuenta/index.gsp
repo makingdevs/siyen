@@ -20,18 +20,18 @@
   </head>
 
   <body>
-    <form class="form-horizontal" controller="estadoDeCuenta" action="generarEstadoDeCuenta">
+    <g:formRemote name="estadoDeCuentaForm" update="result" class="form-horizontal" url="[controller:'estadoDeCuenta', action:'generarEstadoDeCuenta']">
       <div class="control-group">
         <label class="control-label" for="anio">Instructor:</label>
         <div class="controls">
-          <g:select name="instructor" id="instructor" from="${instructores}" noSelection="['':'-Elige un instructor-']"/>
+          <g:select name="instructor" id="instructor" from="${instructores}" optionKey="id" noSelection="['':'-Elige un instructor-']"/>
         </div>
       </div>
 
       <div class="control-group">
         <label class="control-label" for="anio">Puertos:</label>
         <div class="controls">
-          <g:select name="puerto" id="puerto" from="${puertos}" noSelection="['':'-Elige un puerto-']"/>
+          <g:select name="puerto" id="puerto" from="${puertos}" optionKey="id" noSelection="['':'-Elige un puerto-']"/>
         </div>
       </div>
 
@@ -55,7 +55,12 @@
         </div>
       </div>
 
-    </form>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-large btn-primary">Generar</button>
+      </div>
+    </g:formRemote>
+
+    <div id="result"></div>
 
   </body>
 </html>
