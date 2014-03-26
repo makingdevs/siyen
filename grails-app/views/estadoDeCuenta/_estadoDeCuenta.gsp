@@ -26,23 +26,25 @@
         <td> ${ it.alumnos.sum(0) { a -> a.monto ?: 0 } } </td>
       </tr>
     </g:each>
-    <tr>
+    <tr class="info">
       <td></td>
       <td></td>
-      <td>${ cursosProgramados*.alumnos.flatten().findAll { a -> a.tipoDePago == TipoDePago.BECADO }.sum(0) { a -> a.monto } }</td>
-      <td>${ cursosProgramados*.alumnos.flatten().findAll { a -> a.tipoDePago == TipoDePago.DEPOSITO_BANCARIO }.sum(0) { a -> a.monto } }</td>
-      <td>${ cursosProgramados*.alumnos.flatten().findAll { a -> a.tipoDePago == TipoDePago.EFECTIVO }.sum(0) { a -> a.monto } }</td>
-      <td>${ cursosProgramados*.alumnos.flatten().sum(0) { a -> a.monto ?: 0 } }</td>
+      <td><b>${ cursosProgramados*.alumnos.flatten().findAll { a -> a.tipoDePago == TipoDePago.BECADO }.sum(0) { a -> a.monto } }</b></td>
+      <td><b>${ cursosProgramados*.alumnos.flatten().findAll { a -> a.tipoDePago == TipoDePago.DEPOSITO_BANCARIO }.sum(0) { a -> a.monto } }</b></td>
+      <td><b>${ cursosProgramados*.alumnos.flatten().findAll { a -> a.tipoDePago == TipoDePago.EFECTIVO }.sum(0) { a -> a.monto } }</b></td>
+      <td><b>${ cursosProgramados*.alumnos.flatten().sum(0) { a -> a.monto ?: 0 } }</td>
     <tr>
   </tbody>
 </table>
 
-<h1 id="total"> Total : ${ cursosProgramados*.alumnos.flatten().sum(0) { a -> a.monto ?: 0 } } </td>
+<h1> Total : $<span id="total">${ cursosProgramados*.alumnos.flatten().sum(0) { a -> a.monto ?: 0 } }</span></h1>
 
 <div>
   <div class="input-prepend input-append">
     <input class="span2" id="porcentaje" type="text" value="20">
     <span class="add-on">%</span>
-    <button class="btn" type="button">Calcular porcentaje</button>
+    <button class="btn" id="calcular" type="button">Calcular porcentaje</button>
   </div>
+
+  <div id="totalPorcentaje"></div>
 </div>
