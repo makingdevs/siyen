@@ -102,6 +102,10 @@
                 <li>
                   <g:link controller="informePeriodico" action="index"> Gráficas </g:link>
                 </li>
+
+                <li>
+                  <g:link controller="estadoDeCuenta" action="index"> Estado de cuenta </g:link>
+                </li>
                 <!-- END: Menu de opciones -->
               </ul>
             </div><!--/.nav-collapse -->
