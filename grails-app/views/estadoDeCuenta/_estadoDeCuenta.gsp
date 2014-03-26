@@ -18,13 +18,31 @@
   <tbody>
     <g:each in="${cursosProgramados}">
       <tr>
-        <td> ${it.curso.clave} </td>
-        <td> ${it.dateCreated.format('dd/MM/yyyy')} </td>
-        <td> ${ it.alumnos.findAll { a -> a.tipoDePago == TipoDePago.BECADO }.sum(0) { a -> a.monto } } </td>
+        <td> ${ it.curso.clave } </td>
+        <td> ${ it.dateCreated.format('dd/MM/yyyy') } </td>
+        <td> ${ it.alumnos.findAll { a -> a.tipoDePago == TipoDePago.BECADO }.sum(0) { a -> a.monto ?: 0 } } </td>
         <td> ${ it.alumnos.findAll { a -> a.tipoDePago == TipoDePago.DEPOSITO_BANCARIO }.sum(0) { a -> a.monto } } </td>
         <td> ${ it.alumnos.findAll { a -> a.tipoDePago == TipoDePago.EFECTIVO }.sum(0) { a -> a.monto } } </td>
-        <td> ${ it.alumnos.sum(0) { a -> a.monto } } </td>
+        <td> ${ it.alumnos.sum(0) { a -> a.monto ?: 0 } } </td>
       </tr>
     </g:each>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>${ cursosProgramados*.alumnos.flatten().findAll { a -> a.tipoDePago == TipoDePago.BECADO }.sum(0) { a -> a.monto } }</td>
+      <td>${ cursosProgramados*.alumnos.flatten().findAll { a -> a.tipoDePago == TipoDePago.DEPOSITO_BANCARIO }.sum(0) { a -> a.monto } }</td>
+      <td>${ cursosProgramados*.alumnos.flatten().findAll { a -> a.tipoDePago == TipoDePago.EFECTIVO }.sum(0) { a -> a.monto } }</td>
+      <td>${ cursosProgramados*.alumnos.flatten().sum(0) { a -> a.monto ?: 0 } }</td>
+    <tr>
   </tbody>
 </table>
+
+<h1 id="total"> Total : ${ cursosProgramados*.alumnos.flatten().sum(0) { a -> a.monto ?: 0 } } </td>
+
+<div>
+  <div class="input-prepend input-append">
+    <input class="span2" id="porcentaje" type="text" value="20">
+    <span class="add-on">%</span>
+    <button class="btn" type="button">Calcular porcentaje</button>
+  </div>
+</div>
