@@ -44,15 +44,15 @@ grails.project.dependency.resolution = {
 
     test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
 
-    runtime 'org.springframework:spring-test:3.1.0.RELEASE'
+    runtime 'org.springframework:spring-test:3.2.5.RELEASE'
     runtime 'org.xhtmlrenderer:core-renderer:R8'
     runtime 'com.lowagie:itext:2.1.0'
   }
 
   plugins {
-    runtime ":hibernate:$grailsVersion"
+    compile ":hibernate:3.6.10.4"
     runtime ":jquery:1.8.3"
-    runtime ":resources:1.1.6"
+    runtime ":resources:1.2"
 
     // Uncomment these (or add new ones) to enable additional resources capabilities
     //runtime ":zipped-resources:1.0"
@@ -73,7 +73,7 @@ grails.project.dependency.resolution = {
       excludes 'itext', 'itext-rtf'
     }
 
-    build ":tomcat:$grailsVersion"
+    build ":tomcat:7.0.47"
 
     runtime ":database-migration:1.3.2"
 
@@ -83,13 +83,13 @@ grails.project.dependency.resolution = {
 
     compile ":qr-code:0.1.4"
 
-    compile ":searchable:0.6.4"
+    compile ":searchable:0.6.6"
 
     compile(":grails-melody:1.49.2") {
       excludes 'itext'
     }
 
-    compile ':surveyable:0.1'
+    compile ':surveyable:0.1.1'
   }
 
 }
