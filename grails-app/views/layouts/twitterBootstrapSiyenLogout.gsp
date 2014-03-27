@@ -14,6 +14,24 @@
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
       }
+
+      .custom {
+        display : none;
+      }
+
+      .dropdown.custom {
+        display : block;
+      }
+
+      @media(max-width:1000px) {
+        .custom {
+          display : block;
+        }
+
+        .dropdown.custom {
+          display : none;
+        }
+      }
     </style>
 
     <g:layoutHead/>
@@ -33,14 +51,17 @@
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
               <sec:ifNotLoggedIn>
-                <li class="dropdown">
+                <li class="dropdown custom">
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
                     Ingresa al PIPE
                     <b class="caret"></b>
                   </a>
-                  <div class="dropdown-menu">
-                    <g:render template="/login/form" model="[postUrl:postUrl,rememberMeParameter:rememberMeParameter]"/>
-                  </div>
+                  <ul class="dropdown-menu">
+                    <g:render template="/login/form" model="[postUrl:postUrl,rememberMeParameter:rememberMeParameter]" class="navbar-form"/>
+                  </ul>
+                </li>
+                <li class="custom">
+                  <g:render template="/login/form" model="[postUrl:postUrl,rememberMeParameter:rememberMeParameter]" class="navbar-form"/>
                 </li>
               </sec:ifNotLoggedIn>
             </ul>
