@@ -30,12 +30,7 @@ grails.project.dependency.resolution = {
 
     mavenLocal()
     mavenCentral()
-
-    // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
-    //mavenRepo "http://snapshots.repository.codehaus.org"
-    //mavenRepo "http://repository.codehaus.org"
-    //mavenRepo "http://download.java.net/maven/2/"
-    //mavenRepo "http://repository.jboss.com/maven2/"
+    mavenRepo "http://makingdevs.com:8081/nexus/content/repositories/thirdparty"
   }
 
   dependencies {
@@ -93,6 +88,8 @@ grails.project.dependency.resolution = {
     compile(":grails-melody:1.49.2") {
       excludes 'itext'
     }
+
+    compile ':surveyable:0.1'
   }
 
 }
