@@ -24,6 +24,7 @@ modules = {
   bootstrap {
     dependsOn 'jquery'
     resource url:'css/bootstrap/bootstrap.min.css'
+    resource url:'css/bootstrap/bootstrap-responsive.min.css'
     resource url:'js/bootstrap/bootstrap.min.js'
   }
 
