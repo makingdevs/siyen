@@ -24,7 +24,7 @@ class CursoSpec extends Specification {
     where:
     clave_ | nombre_ | duracion_ | libreta_   || expected
     null   | null    | null      | null       || ["nullable"] * 4
-    ""     | ""      | 1         | ""         || ["blank"] * 3
+    ""     | ""      | 1         | ""         || ["nullable"] * 3
     "1"*31 | "1"*256 | 1         | "12"       || ["size.toobig"] * 3
     "1"    | "10"    | 6         | "1"        || ["max.exceeded"]
     "1"    | "10"    | 5         | "1"        || []

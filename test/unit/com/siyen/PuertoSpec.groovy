@@ -22,8 +22,8 @@ class PuertoSpec extends Specification {
 
     where:
     clave_ | puerto_ | estado_ | direccion_ || expected
-    null   | null    | null    | null       || ["nullable"] * 4
-    ""     | ""      | ""      | ""         || ["blank"] * 3
+    null   | null    | null    | null       || ["nullable"] * 3
+    ""     | ""      | ""      | ""         || ["nullable"] * 3
     "1"*5  | "1"*36  | "1"*31  | "1"*501    || ["size.toobig"] * 4
     "1"*5  | "1"*36  | "1"*31  | ""         || ["size.toobig"] * 3
   }
@@ -54,7 +54,7 @@ class PuertoSpec extends Specification {
     "1"*4  | "1"*35  | "1"*30  | "1"        || ["unique"]
   }
 
-  void "Validando unique constraint"() {
+  void "Validando unique constraint with new data"() {
     setup:
     def puerto = new Puerto(
       clave : clave_,
