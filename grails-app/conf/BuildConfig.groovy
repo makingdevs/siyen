@@ -91,6 +91,8 @@ grails.project.dependency.resolution = {
     }
 
     compile ':surveyable:0.1.1'
+
+    compile ":scaffolding:2.0.1"
   }
 
 }
