@@ -36,7 +36,7 @@
         </tbody>
       </table>
       <div class="pagination">
-        <g:paginate total="${instructorInstanceTotal}" />
+        <g:paginate total="${instructorInstanceCount ?: 0}" />
       </div>
     </div>
   </body>
