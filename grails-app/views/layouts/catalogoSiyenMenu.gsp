@@ -41,7 +41,7 @@
                   </a>
                   <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
                     <li>
-                      <g:link class="list" controller="puerto" action="list"> Listado de puertos </g:link>
+                      <g:link class="list" controller="puerto" action="index"> Listado de puertos </g:link>
                     </li>
                     <li>
                       <li>
@@ -57,7 +57,7 @@
                   </a>
                   <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
                     <li>
-                      <g:link class="list" controller="curso" action="list"> Listado de cursos </g:link>
+                      <g:link class="list" controller="curso" action="index"> Listado de cursos </g:link>
                     </li>
                     <li>
                       <li>
@@ -73,7 +73,7 @@
                   </a>
                   <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
                     <li>
-                      <g:link class="list" controller="instructor" action="list"> Listado de instructores </g:link>
+                      <g:link class="list" controller="instructor" action="index"> Listado de instructores </g:link>
                     </li>
                     <li>
                       <li>
@@ -89,7 +89,7 @@
                   </a>
                   <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
                     <li>
-                      <g:link class="list" controller="user" action="list"> Listado de usuarios </g:link>
+                      <g:link class="list" controller="user" action="index"> Listado de usuarios </g:link>
                     </li>
                     <li>
                       <li>
