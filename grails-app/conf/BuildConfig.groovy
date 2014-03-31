@@ -90,7 +90,7 @@ grails.project.dependency.resolution = {
       excludes 'itext'
     }
 
-    compile ':surveyable:0.1.1'
+    compile ':surveyable:0.1.2'
 
     compile ":scaffolding:2.0.1"
   }
