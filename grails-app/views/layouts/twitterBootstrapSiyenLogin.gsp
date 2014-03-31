@@ -153,7 +153,7 @@
         <hr>
         <footer>
           <div class="footer">
-            <p>&copy; Siyen 2013</p>
+            <p>&copy; PIPE 2013</p>
           </div>
         </footer>
       </script>
