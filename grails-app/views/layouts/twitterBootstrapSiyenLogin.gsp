@@ -183,6 +183,7 @@
     <input type="hidden" id="reversoParaCurso" value="${g.createLink(action:'generarReversoParaCurso', controller:'certificado')}" />
 
     <input type="hidden" id="eventBusURL" value="${grailsApplication.config.grails.app.vertx.eventbus}" />
+    <input type="hidden" id="surveyable" value="${g.createLink(controller:'surveyable', action='show')}" />
     <r:layoutResources />
   </body>
 </html>
