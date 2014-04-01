@@ -99,6 +99,27 @@
                   </ul>
                 </li>
 
+                <li class="dropdown">
+                  <a data-toggle="dropdown" class="dropdown-toggle" role="button" href="#" id="drop10">
+                    Encuestas <b class="caret"></b>
+                  </a>
+                  <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
+                    <li>
+                      <g:link class="list" controller="survey" action="list"> Lista de encuestas </g:link>
+                    </li>
+                    <li>
+                      <g:link class="create" controller="survey" action="create"> Nueva encuesta </g:link>
+                    </li>
+                    <li class="divider">&nbps;&nbps;&nbps;&nbps;&nbps;</li>
+                    <li>
+                      <g:link class="list" controller="question" action="list"> Listado de preguntas </g:link>
+                    </li>
+                    <li>
+                      <g:link class="create" controller="question"> Crear pregunta </g:link>
+                    </li>
+                  </ul>
+                </li>
+
                 <li>
                   <g:link controller="informePeriodico" action="index"> Gráficas </g:link>
                 </li>
