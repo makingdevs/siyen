@@ -76,7 +76,7 @@ grails.project.dependency.resolution = {
 
     build ":tomcat:7.0.47"
 
-    runtime ":database-migration:1.3.2"
+    runtime ":database-migration:1.3.8"
 
     compile ':cache:1.0.1'
 
