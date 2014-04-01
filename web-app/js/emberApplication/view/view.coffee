@@ -96,6 +96,7 @@ App.EditarParticipantesListView = Ember.View.extend
           <th>Tipo de pago</th>
           <th>Observaciones</th>
           <th>Monto</th>
+          <th>Encuesta</th>
           <th>&nbsp;</th>
         </tr>
       </thead>
@@ -136,6 +137,7 @@ App.ParticipanteView = Ember.View.extend
       <td> {{ tipoDePago }} </td>
       <td> {{ observaciones }} </td>
       <td> <span class="badge badge-info">${{ monto }}</span> </td>
+      <td> {{#if id}} {{ view App.EncuestaButton class="btn btn-primary" }} {{/if}} </td>
       <td> {{#if id}} {{ view App.CertificadoPorParticipanteButton class="btn btn-success"}} {{/if}} </td>
     """ )
 
@@ -166,6 +168,20 @@ App.BootstrapButton = Ember.View.extend(Ember.TargetActionSupport,
       @.triggerAction()
 
   template: Ember.Handlebars.compile('{{#if view.iconName}}<i {{bindAttr class="view.iconName"}}></i>{{/if}} {{view.content}}')
+)
+
+App.EncuestaButton = Ember.View.extend(Ember.TargetActionSupport,
+  tagName: 'a',
+  classNames : ['btn btn-primary']
+  iconName : "icon-edit icon-white"
+  click: ->
+    id = @get('context.id')
+    urlSurveyBase = ($ "#surveyable").val()
+    urlSurvey = "#{urlSurveyBase}/#{id}"
+
+    window.open(urlSurvey)
+
+  template: Ember.Handlebars.compile('<i {{bindAttr class="view.iconName"}}></i>')
 )
 
 App.CertificadoButton = Ember.View.extend(Ember.TargetActionSupport,
