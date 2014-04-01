@@ -96,7 +96,6 @@ App.EditarParticipantesListView = Ember.View.extend
           <th>Tipo de pago</th>
           <th>Observaciones</th>
           <th>Monto</th>
-          <th>Encuesta</th>
           <th>&nbsp;</th>
         </tr>
       </thead>
@@ -137,8 +136,10 @@ App.ParticipanteView = Ember.View.extend
       <td> {{ tipoDePago }} </td>
       <td> {{ observaciones }} </td>
       <td> <span class="badge badge-info">${{ monto }}</span> </td>
-      <td> {{#if id}} {{ view App.EncuestaButton class="btn btn-primary" }} {{/if}} </td>
-      <td> {{#if id}} {{ view App.CertificadoPorParticipanteButton class="btn btn-success"}} {{/if}} </td>
+      <td>
+        {{#if id}} {{ view App.EncuestaButton class="btn btn-primary" }} {{/if}}
+        {{#if id}} {{ view App.CertificadoPorParticipanteButton class="btn btn-success"}} {{/if}}
+      </td>
     """ )
 
   click : (event) ->
