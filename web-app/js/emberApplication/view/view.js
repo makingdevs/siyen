@@ -94,7 +94,7 @@
     elementId: 'participantes',
     tagName: 'table',
     classNames: ["table", "table-condensed", "table-striped", "table-hover"],
-    template: Ember.Handlebars.compile("<thead>\n  <tr>\n    <th>Nombre</th>\n    <th>Tipo de pago</th>\n    <th>Observaciones</th>\n    <th>Monto</th>\n    <th>Encuesta</th>\n    <th>&nbsp;</th>\n  </tr>\n</thead>\n<tbody>\n  {{#each model.alumnos}}\n    {{ view App.ParticipanteView contentBinding=\"this\" classNameBindings=this.infoLabel }}\n  {{/each}}\n</tbody>")
+    template: Ember.Handlebars.compile("<thead>\n  <tr>\n    <th>Nombre</th>\n    <th>Tipo de pago</th>\n    <th>Observaciones</th>\n    <th>Monto</th>\n    <th>&nbsp;</th>\n  </tr>\n</thead>\n<tbody>\n  {{#each model.alumnos}}\n    {{ view App.ParticipanteView contentBinding=\"this\" classNameBindings=this.infoLabel }}\n  {{/each}}\n</tbody>")
   });
 
   App.ParticipantesListView = Ember.View.extend({
@@ -106,7 +106,7 @@
 
   App.ParticipanteView = Ember.View.extend({
     tagName: 'tr',
-    template: Ember.Handlebars.compile('' + "<td> {{ nombreCompleto }} </td>\n<td> {{ tipoDePago }} </td>\n<td> {{ observaciones }} </td>\n<td> <span class=\"badge badge-info\">${{ monto }}</span> </td>\n<td> {{#if id}} {{ view App.EncuestaButton class=\"btn btn-primary\" }} {{/if}} </td>\n<td> {{#if id}} {{ view App.CertificadoPorParticipanteButton class=\"btn btn-success\"}} {{/if}} </td>"),
+    template: Ember.Handlebars.compile('' + "<td> {{ nombreCompleto }} </td>\n<td> {{ tipoDePago }} </td>\n<td> {{ observaciones }} </td>\n<td> <span class=\"badge badge-info\">${{ monto }}</span> </td>\n<td>\n  {{#if id}} {{ view App.EncuestaButton class=\"btn btn-primary\" }} {{/if}}\n  {{#if id}} {{ view App.CertificadoPorParticipanteButton class=\"btn btn-success\"}} {{/if}}\n</td>"),
     click: function(event) {
       var controller, tipoDePagoSelected;
       controller = this.get('controller');
