@@ -437,4 +437,6 @@ databaseChangeLog = {
 	include file: 'adding-alumnos-restantes-field.groovy'
 
 	include file: 'adding-tipo-de-pago-field.groovy'
+
+	include file: 'adding-surveyable-plugin.groovy'
 }
