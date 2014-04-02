@@ -1,5 +1,6 @@
 App.Notificacion = DS.Model.extend
   url : "/notificaciones/"
+  inconmingId : DS.attr('string')
   fechaDeAutorizacion : DS.attr('string')
   fechaDeInicio : DS.attr('string')
   puerto : DS.attr('string')
