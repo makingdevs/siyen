@@ -12,7 +12,7 @@ Handlebars.getTemplate = (name) ->
 
   Ember.TEMPLATES[name]
 
-templates = [ 'cursosNuevos', 'cursosAutorizados', 'edit', 'confirmDialog', 'crear.participantes', 'archivo', 'notificacion', 'busqueda', 'alumnos', 'busquedaAlumnos' ]
+templates = [ 'cursosNuevos', 'cursosAutorizados', 'edit', 'confirmDialog', 'crear.participantes', 'archivo', 'notificacion', 'busqueda', 'alumnos', 'busquedaAlumnos','badGateway','gatewayTimeout' ]
 for template in templates
   Handlebars.getTemplate( template )
 

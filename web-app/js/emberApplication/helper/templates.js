@@ -12,6 +12,7 @@
           if (name.indexOf('.') > -1) {
             nombreDelTemplate = name.replace('.', '/');
           }
+          
           return Ember.TEMPLATES[nombreDelTemplate] = Ember.Handlebars.compile(data);
         },
         async: false
@@ -20,7 +21,7 @@
     return Ember.TEMPLATES[name];
   };
 
-  templates = ['cursosNuevos', 'cursosAutorizados', 'edit', 'confirmDialog', 'crear.participantes', 'archivo', 'notificacion', 'busqueda', 'alumnos', 'busquedaAlumnos'];
+  templates = ['cursosNuevos', 'cursosAutorizados', 'edit', 'confirmDialog', 'crear.participantes', 'archivo', 'notificacion', 'busqueda', 'alumnos', 'busquedaAlumnos','badGateway','gatewayTimeout'];
 
   for (_i = 0, _len = templates.length; _i < _len; _i++) {
     template = templates[_i];
