@@ -7,6 +7,8 @@
     this.route('busquedaAlumnos');
     this.route('oficios');
     this.route('movimientos');
+    this.resource('badGateway');
+    this.resource('gatewayTimeout');
     this.resource('cursosNuevos', function() {
       return this.resource('crear', function() {
         return this.route('participantes');
@@ -41,6 +43,17 @@
   App.CursosAutorizadosRoute = Ember.Route.extend({
     model: function() {
       return this.get('store').find('cursoProgramado');
+    },
+    actions: {
+      error: function(error, transition) {
+        if (error && error.status === 502) {
+          return this.transitionTo('badGateway');
+        }
+        if (error && error.status === 504) {
+          return this.transitionTo('gatewayTimeout');
+        }
+        return true;
+      }
     }
   });
 
