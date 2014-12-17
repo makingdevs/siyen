@@ -26,6 +26,20 @@
     });
   });
 
+  App.ApplicationRoute = Ember.Route.extend({
+    actions: {
+      error: function(error, transition) {
+        if (error && error.status === 502) {
+          return this.transitionTo('badGateway');
+        }
+        if (error && error.status === 504) {
+          return this.transitionTo('gatewayTimeout');
+        }
+        return true;
+      }
+    }
+  });
+
   App.CursosNuevosRoute = Ember.Route.extend();
 
   App.CursosNuevosCrearRoute = Ember.Route.extend();
@@ -43,17 +57,6 @@
   App.CursosAutorizadosRoute = Ember.Route.extend({
     model: function() {
       return this.get('store').find('cursoProgramado');
-    },
-    actions: {
-      error: function(error, transition) {
-        if (error && error.status === 502) {
-          return this.transitionTo('badGateway');
-        }
-        if (error && error.status === 504) {
-          return this.transitionTo('gatewayTimeout');
-        }
-        return true;
-      }
     }
   });
 
