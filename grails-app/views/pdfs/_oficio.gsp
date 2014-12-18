@@ -6,7 +6,7 @@
       body {
         font-family : Helvetica;
         text-align : justify;
-        padding-top : 200px;
+        padding-top : 170px;
       }
 
       div.right {
