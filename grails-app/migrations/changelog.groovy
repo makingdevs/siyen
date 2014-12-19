@@ -437,4 +437,8 @@ databaseChangeLog = {
 	include file: 'adding-alumnos-restantes-field.groovy'
 
 	include file: 'adding-tipo-de-pago-field.groovy'
+
+  changeSet(author: "makingdevs (generated)", id: "1384888852004-24") {
+    sql("update alumno set monto=0 where monto is null")
+  }
 }
