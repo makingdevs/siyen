@@ -1,58 +1,60 @@
 package com.siyen
 import grails.plugins.qrcode.*
+import javax.imageio.ImageIO
 
 class CertificadoService {
 
-  def QRCodeService
+  def QrCodeService
   def grailsApplication
 
   def poblarCertificado(CursoProgramado cursoProgramado) {
     def reportData = []
+    def dataCursoProgramado = obtenerDatosCursoProgramado(cursoProgramado)
     cursoProgramado.alumnos.each { alumno ->
-      reportData << obtenerDatosDelAlumno(cursoProgramado, alumno)
+      reportData << obtenerDatosDelAlumno(alumno) + dataCursoProgramado
     }
-
     reportData
   }
 
   def poblarCertificadoParaElAlumno(Alumno alumno) {
-    [ obtenerDatosDelAlumno(alumno.cursoProgramado, alumno) ]
+    def dataCursoProgramado = obtenerDatosCursoProgramado(cursoProgramado)
+    [ obtenerDatosDelAlumno(alumno) + dataCursoProgramado]
   }
 
-  private obtenerDatosDelAlumno(cursoProgramado, alumno) {
-    def data = [:]
-    data.nombreCompleto = alumno.nombreCompleto
-    data.numeroControl = alumno.numeroDeControl
-    data.nombreDelCurso = cursoProgramado.curso.nombre
-
-    data.claveDelCurso = cursoProgramado.curso.clave
-    if(data.claveDelCurso.startsWith('PATRON_DE_YATE_')) {
-      data.claveDelCurso = 'PATRON_DE_YATE'
+  private obtenerDatosCursoProgramado(cursoProgramado){
+    def dataCursoProgramado = [:]
+    dataCursoProgramado.nombreDelCurso = cursoProgramado.curso.nombre
+    dataCursoProgramado.claveDelCurso = cursoProgramado.curso.clave
+    if(dataCursoProgramado.claveDelCurso.startsWith('PATRON_DE_YATE_')) {
+      dataCursoProgramado.claveDelCurso = 'PATRON_DE_YATE'
     }
+    dataCursoProgramado.puertoNombre = cursoProgramado.puerto.puerto
+    dataCursoProgramado.puertoEstado = cursoProgramado.puerto.estado
+    dataCursoProgramado.fechaDeInicio = cursoProgramado.fechaDeInicio
+    dataCursoProgramado.fechaDeTermino = cursoProgramado.fechaDeTermino
+    dataCursoProgramado.duracionDelCurso = cursoProgramado.curso.duracion
+    dataCursoProgramado.nombreDelInstructor =  cursoProgramado.instructor.nombre
+    dataCursoProgramado
+  }
 
-    data.puertoNombre = cursoProgramado.puerto.puerto
-    data.puertoEstado = cursoProgramado.puerto.estado
-    data.fechaDeInicio = cursoProgramado.fechaDeInicio
-    data.fechaDeTermino = cursoProgramado.fechaDeTermino
-    data.duracionDelCurso = cursoProgramado.curso.duracion
-    data.nombreDelInstructor =  cursoProgramado.instructor.nombre
-    data.imagenPrueba = "${grailsApplication.config.jasper.dir.reports}/documento_de_prueba.png".toString()
-
-    data.qrImage = genearQRConElNumeroDeControl(alumno.numeroDeControl)
-
-    data
+  private obtenerDatosDelAlumno(alumno) {
+    def dataAlumno = [:]
+    dataAlumno.nombreCompleto = alumno.nombreCompleto
+    dataAlumno.numeroControl = alumno.numeroDeControl
+    dataAlumno.imagenPrueba = "${grailsApplication.config.jasper.dir.reports}/documento_de_prueba.png".toString()
+    dataAlumno.qrImage = genearQRConElNumeroDeControl(alumno.numeroDeControl)
+    dataAlumno
   }
 
   def genearQRConElNumeroDeControl(String numeroControl) {
     String serverURL = grailsApplication.config.grails.serverURL.toString()
-    Map informacion = [:]
-    def participanteInfo = "${serverURL}/participanteInfo?matricula=${numeroControl}"
-    informacion.put("chs", "250x250")
-    informacion.put("cht", "qr")
-    informacion.put("chl", participanteInfo)
-    informacion.put("chld", "H|1")
-    informacion.put("choe", "UTF-8")
-    QRCodeService.createQRCode(informacion, null, null, null)
+    OutputStream os = new FileOutputStream("${grailsApplication.config.jasper.dir.reports}/qrImage${numeroControl}.png");
+    def participanteInfo = "${serverURL}/participanteInfo?matricula=${numeroControl}".toString()
+    QrCodeService.renderPng(participanteInfo, 150, os)
+    def fileQRCode = new File("${grailsApplication.config.jasper.dir.reports}/qrImage${numeroControl}.png")
+    def image = ImageIO.read(fileQRCode)
+    fileQRCode.delete()
+    image
   }
 
 }
