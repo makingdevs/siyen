@@ -1,6 +1,8 @@
 package com.siyen
 
-class Alumno {
+import com.makingdevs.Surveyable
+
+class Alumno implements Surveyable{
 
   String numeroDeControl // (II 0's ID).size() == 8
   String nombreCompleto
