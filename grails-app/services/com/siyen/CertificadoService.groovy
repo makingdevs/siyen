@@ -17,7 +17,7 @@ class CertificadoService {
   }
 
   def poblarCertificadoParaElAlumno(Alumno alumno) {
-    def dataCursoProgramado = obtenerDatosCursoProgramado(cursoProgramado)
+    def dataCursoProgramado = obtenerDatosCursoProgramado(alumno.cursoProgramado)
     [ obtenerDatosDelAlumno(alumno) + dataCursoProgramado]
   }
 
