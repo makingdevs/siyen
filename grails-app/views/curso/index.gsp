@@ -38,7 +38,7 @@
         </tbody>
       </table>
       <div class="pagination">
-        <g:paginate total="${cursoInstanceTotal}" />
+        <g:paginate total="${cursoInstanceCount ?: 0}" />
       </div>
     </div>
   </body>
