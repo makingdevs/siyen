@@ -36,6 +36,7 @@ grails.project.dependency.resolution = {
     //mavenRepo "http://repository.codehaus.org"
     //mavenRepo "http://download.java.net/maven/2/"
     //mavenRepo "http://repository.jboss.com/maven2/"
+    mavenRepo "http://makingdevs.com:8081/nexus/content/repositories/thirdparty"
   }
 
   dependencies {
@@ -49,15 +50,15 @@ grails.project.dependency.resolution = {
 
     test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
 
-    runtime 'org.springframework:spring-test:3.1.0.RELEASE'
+    runtime 'org.springframework:spring-test:3.2.5.RELEASE'
     runtime 'org.xhtmlrenderer:core-renderer:R8'
     runtime 'com.lowagie:itext:2.1.0'
   }
 
   plugins {
-    runtime ":hibernate:$grailsVersion"
+    runtime ":hibernate:3.6.10.4"
     runtime ":jquery:1.8.3"
-    runtime ":resources:1.1.6"
+    runtime ":resources:1.2"
 
     // Uncomment these (or add new ones) to enable additional resources capabilities
     //runtime ":zipped-resources:1.0"
@@ -78,9 +79,9 @@ grails.project.dependency.resolution = {
       excludes 'itext', 'itext-rtf'
     }
 
-    build ":tomcat:$grailsVersion"
+    build ":tomcat:7.0.47"
 
-    runtime ":database-migration:1.3.2"
+    runtime ":database-migration:1.3.8"
 
     compile ':cache:1.0.1'
 
@@ -88,11 +89,15 @@ grails.project.dependency.resolution = {
 
     compile ":qrcode:0.6"
 
-    compile ":searchable:0.6.4"
+    compile ":searchable:0.6.9"
 
     compile(":grails-melody:1.49.2") {
       excludes 'itext'
     }
+
+    compile ':surveyable:0.1.3'
+
+    compile ":scaffolding:2.0.1"
   }
 
 }
