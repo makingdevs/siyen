@@ -41,7 +41,7 @@
                   </a>
                   <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
                     <li>
-                      <g:link class="list" controller="puerto" action="list"> Listado de puertos </g:link>
+                      <g:link class="list" controller="puerto" action="index"> Listado de puertos </g:link>
                     </li>
                     <li>
                       <li>
@@ -57,7 +57,7 @@
                   </a>
                   <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
                     <li>
-                      <g:link class="list" controller="curso" action="list"> Listado de cursos </g:link>
+                      <g:link class="list" controller="curso" action="index"> Listado de cursos </g:link>
                     </li>
                     <li>
                       <li>
@@ -73,7 +73,7 @@
                   </a>
                   <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
                     <li>
-                      <g:link class="list" controller="instructor" action="list"> Listado de instructores </g:link>
+                      <g:link class="list" controller="instructor" action="index"> Listado de instructores </g:link>
                     </li>
                     <li>
                       <li>
@@ -89,7 +89,7 @@
                   </a>
                   <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
                     <li>
-                      <g:link class="list" controller="user" action="list"> Listado de usuarios </g:link>
+                      <g:link class="list" controller="user" action="index"> Listado de usuarios </g:link>
                     </li>
                     <li>
                       <li>
@@ -99,6 +99,26 @@
                   </ul>
                 </li>
 
+                <li class="dropdown">
+                  <a data-toggle="dropdown" class="dropdown-toggle" role="button" href="#" id="drop10">
+                    Encuestas <b class="caret"></b>
+                  </a>
+                  <ul aria-labelledby="drop10" role="menu" class="dropdown-menu">
+                    <li>
+                      <g:link class="list" controller="survey" action="list"> Lista de encuestas </g:link>
+                    </li>
+                    <li>
+                      <g:link class="create" controller="survey" action="create"> Nueva encuesta </g:link>
+                    </li>
+                    <li class="divider">&nbps;&nbps;&nbps;&nbps;&nbps;</li>
+                    <li>
+                      <g:link class="list" controller="question" action="list"> Listado de preguntas </g:link>
+                    </li>
+                    <li>
+                      <g:link class="create" controller="question"> Crear pregunta </g:link>
+                    </li>
+                  </ul>
+                </li>
                 <li>
                   <g:link controller="informePeriodico" action="index"> Gráficas </g:link>
                 </li>
