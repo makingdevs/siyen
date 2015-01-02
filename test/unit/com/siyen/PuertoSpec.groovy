@@ -23,9 +23,9 @@ class PuertoSpec extends Specification {
     where:
     clave_ | puerto_ | estado_ | direccion_ || expected
     null   | null    | null    | null       || ["nullable"] * 4
-    ""     | ""      | ""      | ""         || ["blank"] * 3
+    ""     | ""      | ""      | ""         || ["nullable"] * 4
     "1"*5  | "1"*36  | "1"*31  | "1"*501    || ["size.toobig"] * 4
-    "1"*5  | "1"*36  | "1"*31  | ""         || ["size.toobig"] * 3
+    "1"*5  | "1"*36  | "1"*31  | ""         || ["size.toobig"] * 3 + ["nullable"]
   }
 
   void "Validando unique constraint"() {
@@ -72,7 +72,7 @@ class PuertoSpec extends Specification {
     where:
     clave_ | puerto_           | estado_   | direccion_                                                                             || expected
     "PVJ"  | "Puerto Vallarta" | "Jalisco" | "BLVD.FCO.MEDINA ASCENCIO. KM. 4.6 TERMINAL MARITIMA PUERTO VALLARTA, JAL. C.P. 48302" || []
-    "PVJ"  | "Puerto Vallarta" | "Jalisco" | ""                                                                                     || []
+    "PVJ"  | "Puerto Vallarta" | "Jalisco" | ""                                                                                     || ["nullable"]
   }
 
 

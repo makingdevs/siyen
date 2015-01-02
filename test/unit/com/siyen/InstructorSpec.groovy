@@ -21,7 +21,7 @@ class InstructorSpec extends Specification {
     where:
       nombre_         | numeroDeOficio_           || expected
       null            | null                 || ["nullable"]*2
-      ""              | ""                   || ["blank"]*2
+      ""              | ""                   || ["nullable"]*2
       "1"*256         | "1"*51               || ["size.toobig"]*2
       "Cap. Altamira" | "XXX.XXX/XXXX-XXXX"  || []
   }
