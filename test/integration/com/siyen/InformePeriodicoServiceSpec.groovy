@@ -1,8 +1,10 @@
 package com.siyen
 
-import grails.plugin.spock.IntegrationSpec
+import grails.test.mixin.TestFor
+import spock.lang.Specification
 
-class InformePeriodicoServiceSpec extends IntegrationSpec {
+@TestFor(InformePeriodicoService)
+class InformePeriodicoServiceSpec extends Specification {
 
   def informePeriodicoService
 
