@@ -2,8 +2,9 @@ grails.servlet.version = "2.5" // Change depending on target container complianc
 grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
 grails.project.test.reports.dir = "target/test-reports"
-grails.project.target.level = 1.7
-grails.project.source.level = 1.7
+grails.project.work.dir = "target/work"
+grails.project.target.level = 1.6
+grails.project.source.level = 1.6
 grails.project.war.file = "target/${appName}-${appVersion}.war"
 
 // uncomment (and adjust settings) to fork the JVM to isolate classpaths
@@ -47,8 +48,13 @@ grails.project.dependency.resolution = {
   dependencies {
     // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
     runtime 'mysql:mysql-connector-java:5.1.22'
-
-    compile 'net.sourceforge.jexcelapi:jxl:2.6.12'
+    
+    compile ('net.sf.jasperreports:jasperreports:4.7.0'){
+      exclude 'commons-collections'
+    }
+    compile ('net.sourceforge.jexcelapi:jxl:2.6.12'){
+      exclude 'jasperreports'
+    }
 
     compile 'io.vertx:vertx-platform:2.0.0-final'
     compile 'io.vertx:vertx-core:2.0.0-final'
@@ -74,8 +80,8 @@ grails.project.dependency.resolution = {
       excludes 'itext', 'itext-rtf'
     }
 
-    compile(":rendering:0.4.4") {
-      excludes 'itext', 'itext-rtf'
+    compile(":rendering:1.0.0") {
+      excludes 'itext'
     }
 
     build ":tomcat:7.0.47"
