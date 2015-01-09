@@ -9,38 +9,34 @@ class AlumnoController {
 
   def notificacionService
   def springSecurityService
+  def alumnoService
 
   def save(AlumnoCommand cmd) {
+    log.debug "save AlumnoController"
     if(cmd.hasErrors()) {
       render (status : 400, contentType:"text/json") {
         [ errors : cmd.errors ]
       }
+      return
     }
+    log.debug "inicio save por servicio"
+    def alumno = alumnoService.saveAlumno(cmd)
+    log.debug "paso save por servicio"
 
-    Alumno alumno = new Alumno(
-      nombreCompleto : cmd.nombreCompleto,
-      observaciones : cmd.observaciones,
-      tipoDePago : cmd.tipoDePago,
-      monto : cmd.monto
-    )
-
-    CursoProgramado cursoProgramado = CursoProgramado.get(cmd.cursoProgramado)
-    cursoProgramado.alumnosRestantes -= 1
-    if(cursoProgramado.alumnosRestantes >= 0 && (cursoProgramado.fechaDeInicio > (new Date() - 15))) {
-      cursoProgramado.save()
-    } else {
+    if(alumno == 403){
       render(status:403, contentType: "text/json") {
         [ message : "No es posible agregar más alumnos a este curso" ]
       }
       return
     }
-
-    alumno.cursoProgramado = cursoProgramado
-    alumno.save(failOnError:true)
-
-    alumno.numeroDeControl = generarNumeroDeControl(alumno.id)
-    alumno.save(failOnError:true)
-
+    log.debug "save hay cupo"
+    if(!alumno){
+      render(status:500, contentType: "text/json") {
+        [ message : "El alumno no se creó. Intenta de nuevo" ]
+      }
+      return
+    }
+    log.debug "todo tuvo exito"
     notificacionService.enviarNotificacion('cursoProgramado.alumno_add', alumno.cursoProgramado)
     respuestaJson(alumno)
   }
@@ -108,12 +104,6 @@ class AlumnoController {
     }
   }
 
-  private String generarNumeroDeControl(def id) {
-    String prefijo = "II"
-    Integer numerosEnMatricula = 7
-    String numeroDeControl = prefijo + String.format("%0${numerosEnMatricula}d", id)
-    numeroDeControl
-  }
 }
 
 class AlumnoUpdateCommad {
