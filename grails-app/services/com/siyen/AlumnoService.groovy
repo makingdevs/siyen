@@ -7,7 +7,6 @@ class AlumnoService {
 
   def saveAlumno(alumnoData) {
 
-    log.debug "saveAlumno -- AlumnoService"
     Alumno alumno = new Alumno(
       nombreCompleto : alumnoData.nombreCompleto,
       observaciones : alumnoData.observaciones,
@@ -17,9 +16,8 @@ class AlumnoService {
 
     CursoProgramado cursoProgramado = CursoProgramado.get(alumnoData.cursoProgramado)
     cursoProgramado.alumnosRestantes -= 1
-    log.debug "cursoProgramado.alumnosRestantes ${cursoProgramado.alumnosRestantes}"
+
     def cupoRegla = cursoProgramado.alumnosRestantes >= 0 && (cursoProgramado.fechaDeInicio > (new Date() - 15))
-    log.debug "cupoRegla ${cupoRegla}"
     if(!cupoRegla) {
       return 403
     }
@@ -39,6 +37,7 @@ class AlumnoService {
     tmpCursoProgramado.save()
     cursoProgramado.addToAlumnos(alumno)
     cursoProgramado.save()
+    alumno
 
   }
 

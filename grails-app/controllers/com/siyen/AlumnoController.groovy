@@ -12,31 +12,30 @@ class AlumnoController {
   def alumnoService
 
   def save(AlumnoCommand cmd) {
-    log.debug "save AlumnoController"
+
     if(cmd.hasErrors()) {
       render (status : 400, contentType:"text/json") {
         [ errors : cmd.errors ]
       }
       return
     }
-    log.debug "inicio save por servicio"
-    def alumno = alumnoService.saveAlumno(cmd)
-    log.debug "paso save por servicio"
 
+    def alumno = alumnoService.saveAlumno(cmd)
+    
     if(alumno == 403){
       render(status:403, contentType: "text/json") {
         [ message : "No es posible agregar más alumnos a este curso" ]
       }
       return
     }
-    log.debug "save hay cupo"
+
     if(!alumno){
       render(status:500, contentType: "text/json") {
         [ message : "El alumno no se creó. Intenta de nuevo" ]
       }
       return
     }
-    log.debug "todo tuvo exito"
+
     notificacionService.enviarNotificacion('cursoProgramado.alumno_add', alumno.cursoProgramado)
     respuestaJson(alumno)
   }
