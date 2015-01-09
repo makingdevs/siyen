@@ -8,7 +8,7 @@ import com.siyen.exceptions.BusinessException
 import grails.plugins.springsecurity.SpringSecurityService
 
 @TestFor(CursoProgramadoService)
-@Mock([CursoProgramado, Alumno, NotificacionService, Puerto, Curso, Instructor, User])
+@Mock([CursoProgramado, Alumno, NotificacionService, AlumnoService, Puerto, Curso, Instructor, User])
 class CursoProgramadoServiceSpec extends Specification {
 
   def "Validando generación de cursos"() {
@@ -24,7 +24,7 @@ class CursoProgramadoServiceSpec extends Specification {
         curso : 1,
         instructor : 1,
         alumnos : [
-          [ nombreCompleto : "uno", tipoDePago : "EFECTIVO" ]
+          [ nombreCompleto : "uno", observaciones : "nada", monto : 100, tipoDePago : TipoDePago.EFECTIVO ]
         ]
       )
 
@@ -35,10 +35,48 @@ class CursoProgramadoServiceSpec extends Specification {
       }
       service.springSecurityService = springSecurityServiceMock.createMock()
 
-      def notificacionServiceMock = mockFor(NotificacionService)
-      notificacionServiceMock.demand.enviarNotificacion { bus, data ->
+      def alumnoServiceMock = mockFor(AlumnoService)
+      alumnoServiceMock.demand.saveAlumno {alumnoData ->
+
       }
-      service.notificacionService = notificacionServiceMock.createMock()
+      service.alumnoService = alumnoServiceMock.createMock()
+
+    when :
+      def cursoProgramado = service.crearCursoDesdeCommand( cmd )
+
+    then:
+      cursoProgramado.id > 0
+  }
+
+  def "Validando generación de cursos con alumno a actualizar"() {
+    setup:
+      def puerto = new Puerto().save(validate:false)
+      def curso = new Curso(id:1, duracion:2).save(validate:false)
+      def instructor = new Instructor().save(validate:false)
+      def fechaDeInicio = new Date().format('dd/MM/yyyy')
+
+      def cmd = new CursoProgramadoCommand(
+        fechaDeInicio : fechaDeInicio,
+        puerto : 1,
+        curso : 1,
+        instructor : 1,
+        alumnos : [
+          [ nombreCompleto : "uno", observaciones : "nada", monto : 100, tipoDePago : TipoDePago.EFECTIVO, numeroDeControl : "II236789"]
+        ]
+      )
+
+    and :
+      def springSecurityServiceMock = mockFor(SpringSecurityService)
+      springSecurityServiceMock.demand.getCurrentUser { ->
+        new User().save(validate:false)
+      }
+      service.springSecurityService = springSecurityServiceMock.createMock()
+
+      def alumnoServiceMock = mockFor(AlumnoService)
+      alumnoServiceMock.demand.updateAlumno {alumnoData ->
+
+      }
+      service.alumnoService = alumnoServiceMock.createMock()
 
     when :
       def cursoProgramado = service.crearCursoDesdeCommand( cmd )
