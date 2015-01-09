@@ -11,6 +11,7 @@ class CursoProgramadoController {
 
   def springSecurityService
   def cursoProgramadoService
+  def notificacionService
 
   def show() {
     if(params.id) {
@@ -45,6 +46,7 @@ class CursoProgramadoController {
 
     try {
       CursoProgramado cursoProgramado = cursoProgramadoService.crearCursoDesdeCommand(cmd)
+      notificacionService.enviarNotificacion('cursoProgramado.autorizado', cursoProgramado)
       renderResponseWithCursosProgramados(cursoProgramado)
     }catch(BusinessException ex) {
       render(status:409, contentType: "text/json") {
