@@ -9,36 +9,22 @@ class CursoProgramadoService {
   def springSecurityService
   def notificacionService
   def searchableService
+  def alumnoService
 
   def crearCursoDesdeCommand(CursoProgramadoCommand cmd) {
     CursoProgramado cursoProgramado = validaTraslapeDeCursos(cmd)
     cursoProgramado.fechaDeTermino = cursoProgramado.fechaDeInicio.clone().plus( (cursoProgramado.curso.duracion - 1) )
     cursoProgramado.user = springSecurityService.currentUser
-
+    cursoProgramado.save()
     cmd.alumnos.each { alumnoData ->
+      alumnoData.cursoProgramado = cursoProgramado.id
       if(alumnoData.numeroDeControl) {
-        def alumno = Alumno.findByNumeroDeControl(alumnoData.numeroDeControl)
-        def tempCursoProgramado = alumno.cursoProgramado
-        tempCursoProgramado.removeFromAlumnos(alumno)
-        tempCursoProgramado.save()
-        cursoProgramado.addToAlumnos(alumno)
+        alumnoService.updateAlumno(alumnoData)
       } else {
-        Alumno alumno = generarAlumnoConParams(alumnoData)
-        cursoProgramado.addToAlumnos(alumno)
+        alumnoService.saveAlumno(alumnoData)
       }
     }
-
-    cursoProgramado.save(failOnError:true)
-
-    cursoProgramado.alumnos.each { alumno ->
-      if(!alumno.numeroDeControl) {
-        alumno.numeroDeControl = generarNumeroDeControl(alumno.id)
-        alumno.save(failOnError:true)
-      }
-    }
-
-    notificacionService.enviarNotificacion('cursoProgramado.autorizado', cursoProgramado)
-
+    cursoProgramado.save()
     cursoProgramado
   }
 
@@ -59,13 +45,6 @@ class CursoProgramadoService {
       tipoDePago : alumnoData.tipoDePago,
       monto : alumnoData.monto)
     alumno
-  }
-
-  private String generarNumeroDeControl(def id) {
-    String prefijo = "II"
-    Integer numerosEnMatricula = 7
-    String numeroDeControl = prefijo + String.format("%0${numerosEnMatricula}d", id)
-    numeroDeControl
   }
 
   private def validaTraslapeDeCursos(CursoProgramadoCommand cmd) {
