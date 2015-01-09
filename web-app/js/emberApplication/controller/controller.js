@@ -307,6 +307,13 @@
       agregar: function() {
         var alumno, currentCurso;
         currentCurso = this.get('controllers.cursosNuevos').get('currentCurso');
+        if(currentCurso.get('alumnos').length >= 10 ){
+          ($("#error .message")).text('No es posible agregar más alumnos a este curso');
+          ($("#error")).fadeIn('slow', function() {
+            return ($(this)).delay(3000).fadeOut('slow');
+          });
+          return;
+        }
         if (!this.tipoDePagoSelected) {
           ($("#error .message")).text('El tipo de pago es obligatorio');
           ($("#error")).fadeIn('slow', function() {
