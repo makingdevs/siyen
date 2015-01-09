@@ -24,5 +24,15 @@ class Alumno implements Surveyable{
   }
 
   static searchable = true
+ 
+ def afterInsert(){
+  
+  def prefijo = "II"
+  def numerosEnMatricula = 7
+    if(numeroDeControl == null){
+      numeroDeControl = prefijo + String.format("%0${numerosEnMatricula}d", id)
+    }
+    
+ }
 
 }
