@@ -68,4 +68,10 @@ modules = {
     resource url:'js/chart/siyenChart.js'
   }
 
+  payujs {
+    resource url:'js/md5/core-min.js'
+    resource url:'js/md5/md5.js'
+    resource url:'js/payu/payu.js'
+  }
+
 }
