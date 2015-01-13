@@ -33,31 +33,32 @@ var payuModule = (function(){
   };
 
   showMessage = function(msg){
-    console.log(msg);
+    $('.hero-unit').find( ".alert" ).remove();
+    var htmlAlert = '<div class="alert alert-block"><button type="button" class="close" data-dismiss="alert">&times;</button><h4>Olvidaste..</h4>'+msg+'</div>';
+    $('.hero-unit').prepend(htmlAlert);
   };
 
   setSignature = function(){
     var signature = getApiKey()+"~"+getMerchantId()+"~"+getReferenceCode()+"~"+getAmount()+"~"+getCurrency();
-    console.log("antes de encriptar-->>"+signature);
     signature = CryptoJS.MD5(signature);
     $('#signature').val(signature);
   };
 
   hasInvalidFileds = function(){
     if(getDescription() == ""){
-      showMessage("Elige un curso");
+      showMessage("eligir un curso");
       return true;
     }
     if(getPayerFullName() == ""){
-      showMessage("Escribe tu nombre");
+      showMessage("escribir tu nombre");
       return true;
     }
     if(getBuyerEmail() == ""){
-      showMessage("Escribe tu email");
+      showMessage("escribir tu email");
       return true;
     }
     if(getAmount() == ""){
-      showMessage("Cantidad a pagar es necesaria");
+      showMessage("colocar la cantidad a pagar");
       return true;
     }
     return false;
