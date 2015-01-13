@@ -4,12 +4,13 @@ class PayUController {
 
     def index() { }
 
-    def response(){
-      log.debug "respuesta del sistema payU --- ${params}"
+    def response(PayUResponseCommand payUResponseCommand){
+      log.debug "respuesta del sistema payU --- ${payUResponseCommand}"
+      render(view: "responsePayU", model: [payUResponse: payUResponseCommand])
     }
 
-    def confirmation(){
-      log.debug "confirmación del sistema payU -- ${params}"
+    def confirmation(PayUConfirmationCommand payUConfirmationCommand){
+      log.debug "confirmación del sistema payU -- ${payUConfirmationCommand}"
     }
 
 }
