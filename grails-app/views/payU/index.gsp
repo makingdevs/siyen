@@ -66,13 +66,13 @@
             <div class="control-group">
               <label class="control-label" for="inputEmail">Email</label>
               <div class="controls">
-                <input type="text" id="buyerEmail" name="buyerEmail">
+                <input type="email" id="buyerEmail" name="buyerEmail">
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">Precio MXN</label>
               <div class="controls">
-                <input type="text" id="amount" name="amount">
+                <input type="number" id="amount" name="amount" min="0">
               </div>
             </div>
             <div class="control-group">
