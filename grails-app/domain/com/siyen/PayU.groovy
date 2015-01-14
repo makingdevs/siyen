@@ -10,8 +10,8 @@ class PayU {
   String polPaymentMethod
   String polPaymentMethodType
   String installmentsNumber
-  String TX_VALUE
-  String TX_TAX
+  String tx_value
+  String tx_tax
   String buyerEmail
   String processingDate
   String currency
@@ -22,11 +22,30 @@ class PayU {
   String authorizationCode
   String transactionId
   String trazabilityCode
-  String TX_ADMINISTRATIVE_FEE
-  String TX_TAX_ADMINISTRATIVE_FEE
-  String TX_TAX_ADMINISTRATIVE_FEE_RETURN_BASE
+  String tx_administrative_fee
+  String tx_tax_administrative_fee
+  String tx_tax_administrative_fee_return_base
 
   static contraints = {
-
+    transactionState nullable:true
+    reference_pol nullable:true
+    polPaymentMethod nullable:true
+    polPaymentMethodType nullable:true
+    installmentsNumber nullable:true
+    tx_value nullable:true
+    tx_tax nullable:true
+    buyerEmail nullable:true
+    processingDate nullable:true
+    currency nullable:true
+    lapResponseCode nullable:true
+    lapPaymentMethodType nullable:true
+    lapTransactionState nullable:true
+    message nullable:true
+    authorizationCode nullable:true
+    transactionId nullable:true
+    trazabilityCode nullable:true
+    tx_administrative_fee nullable:true
+    tx_tax_administrative_fee nullable:true
+    tx_tax_administrative_fee_return_base nullable:true
   }
 }
