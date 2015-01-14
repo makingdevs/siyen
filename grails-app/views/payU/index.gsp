@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta name="layout" content="catalogoSiyenMenu"/>
-  <title>Create questionary</title>
+  <title>Pago PayU</title>
   <r:require module="payujs" />
 </head>
 <body>
