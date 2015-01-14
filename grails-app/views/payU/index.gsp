@@ -38,16 +38,17 @@
      </div>
       <div class="span6">
         <div class="hero-unit">
-          <h2>Paga tu curso</h2>
-          <form id="payu_form" class="form-horizontal" method="post" action="${grailsApplication.config.grails.app.payu.urlPayU}" onsubmit="return payuModule.onSubmitPayU()">
+          <h2>Ingresa datos</h2>
+          <form class="form-horizontal" method="post" action="${grailsApplication.config.grails.app.payu.urlPayU}" onsubmit="return payuModule.onSubmitPayU()">
             <input id="apiKey" name="apiKey" type="hidden" value="${grailsApplication.config.grails.app.payu.apiKey}">
             <input id="merchantId" name="merchantId" type="hidden" value="${grailsApplication.config.grails.app.payu.merchantId}">
             <input id="accountId" name="accountId" type="hidden" value="${grailsApplication.config.grails.app.payu.accountId}">
-            <input id="referenceCode" name="referenceCode" type="hidden"  value="TestPayU_2">
+            <input id="referenceCode" name="referenceCode" type="hidden"  value="${referenceCode}">
             <input id="tax" name="tax" type="hidden" value="0">
             <input id="taxReturnBase" name="taxReturnBase" type="hidden" value="0">
             <input id="currency" name="currency" type="hidden" value="${grailsApplication.config.grails.app.payu.currency}">
             <input id="signature" name="signature" type="hidden">
+            <input name="algorithmSignature" type="hidden" value="MD5">
             <input id="test" name="test" type="hidden" value="${grailsApplication.config.grails.app.payu.test}">
             <input id="responseUrl" name="responseUrl" type="hidden" value="${createLink(absolute:'true',controller:'payU', action:'response')}">
             <input id="confirmationUrl" name="confirmationUrl" type="hidden" value="${createLink(absolute:'true',controller:'payU', action:'confirmation')}">
@@ -58,7 +59,7 @@
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Nombre</label>
+              <label class="control-label">Nombre completo</label>
               <div class="controls">
                 <input type="text" id="payerFullName" name="payerFullName" placeholder="Nombre del Alumno">
               </div>
@@ -77,7 +78,7 @@
             </div>
             <div class="control-group">
               <div class="controls">
-                <button type="submit" class="btn">Enviar</button>
+                <button type="submit" class="btn">Pagar con PayU</button>
               </div>
             </div>
           </form>
