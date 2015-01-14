@@ -2,7 +2,9 @@ package com.siyen
 
 class PayUController {
 
-    def index() { }
+    def index() { 
+      [ cursos : Curso.findAll { activo == true }.collect{it.nombre} ]
+    }
 
     def response(PayUResponseCommand payUResponseCommand){
       log.debug "respuesta del sistema payU --- ${payUResponseCommand}"
