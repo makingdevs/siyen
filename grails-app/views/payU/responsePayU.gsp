@@ -12,7 +12,7 @@
     <h4>Detalles del pago</h4>
     <hr/>
     <div class="row">
-      <div class="span4">
+      <div class="span5">
         <table class="table">
           <thead>
             <tr>
@@ -36,7 +36,7 @@
           </tbody>
         </table>
       </div>
-      <div class="span4">
+      <div class="span3">
         <address>
           <strong>${payUResponse.merchant_name}</strong>
           <br>
