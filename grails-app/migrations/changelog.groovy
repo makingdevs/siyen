@@ -443,4 +443,6 @@ databaseChangeLog = {
   }
   
   include file: 'adding-surveyable-plugin.groovy'
+
+	include file: 'adding-payu-table.groovy'
 }
