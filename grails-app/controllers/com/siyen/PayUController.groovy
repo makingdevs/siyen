@@ -33,7 +33,26 @@ class PayUController {
   }
 
   def confirmation(PayUConfirmationCommand payUConfirmationCommand){
-    log.debug "confirmación del sistema payU -- ${payUConfirmationCommand}"
+
+    if(payUConfirmationCommand.hasErrors()){
+      render (status : 400, contentType:"text/json") {
+        [ errors : "bad request" ]
+      }
+      return
+    }
+
+    def payU = payUService.actualizarConfirmacionPayU(payUConfirmationCommand)
+
+    if(!payU){
+      render (status : 500, contentType:"text/json") {
+        [ errors : "no se guardaron datos de la transaccion" ]
+      }
+      return
+    }
+
+    render (status : 200, contentType:"text/json") {
+      [ success : "Datos almacenados" ]
+    }
   }
 
 }
