@@ -26,26 +26,26 @@ class PayU {
   String tx_tax_administrative_fee
   String tx_tax_administrative_fee_return_base
 
-  static contraints = {
-    transactionState nullable:true
-    reference_pol nullable:true
-    polPaymentMethod nullable:true
-    polPaymentMethodType nullable:true
-    installmentsNumber nullable:true
-    tx_value nullable:true
-    tx_tax nullable:true
-    buyerEmail nullable:true
-    processingDate nullable:true
-    currency nullable:true
-    lapResponseCode nullable:true
-    lapPaymentMethodType nullable:true
-    lapTransactionState nullable:true
-    message nullable:true
-    authorizationCode nullable:true
-    transactionId nullable:true
-    trazabilityCode nullable:true
-    tx_administrative_fee nullable:true
-    tx_tax_administrative_fee nullable:true
-    tx_tax_administrative_fee_return_base nullable:true
+  static constraints = {
+    transactionState blank: true, nullable: true
+    reference_pol blank: true, nullable: true
+    polPaymentMethod blank: true, nullable: true
+    polPaymentMethodType blank: true, nullable: true
+    installmentsNumber blank: true, nullable: true
+    tx_value blank: true, nullable: true
+    tx_tax blank: true, nullable: true
+    buyerEmail blank: true, nullable: true
+    processingDate blank: true, nullable: true
+    currency blank: true, nullable: true
+    lapResponseCode blank: true, nullable: true
+    lapPaymentMethodType blank: true, nullable: true
+    lapTransactionState blank: true, nullable: true
+    message blank: true, nullable: true
+    authorizationCode blank: true, nullable: true
+    transactionId blank: true, nullable: true
+    trazabilityCode blank: true, nullable: true
+    tx_administrative_fee blank: true, nullable: true
+    tx_tax_administrative_fee blank: true, nullable: true
+    tx_tax_administrative_fee_return_base blank: true, nullable: true
   }
 }
