@@ -3,39 +3,19 @@ package com.siyen
 class BusquedaController {
 
   def searchableService
+  def cursoProgramadoService
 
   def realizarBusqueda() {
-    String busqueda = params.buscar.replace(',', " ").trim()
-    String cursos = params.cursos?.replace(',', " ")?.trim()
-    String puertos = params.puertos?.replace(',', " ")?.trim()
-    String instructores = params.instructores?.replace(',', " ")?.trim()
 
-    def busquedaDeResultados = searchableService.search({
-      mustNot(term("alias", "Alumno"))
-      if(busqueda) {
-        must(queryString(busqueda))
-      }
+    def busquedaDeResultados = cursoProgramadoService.buscarCursosProgramados(params)
 
-      if(cursos) {
-        must(queryString(cursos, [useAndDefaultOperator: false, defaultSearchProperty: "clave"]))
-      }
+    render template:"/cursoProgramado/list", model:[ busqueda : params.buscar, cursos : params.cursos, puertos : params.puertos, instructores : params.instructores,  desde : params.desde, hasta : params.hasta, totalResultados : busquedaDeResultados.total, lista : busquedaDeResultados.results]
+  }
 
-      if(puertos) {
-        must(queryString(puertos, [useAndDefaultOperator: false, defaultSearchProperty: "clave"]))
-      }
+  def buscarCursosProgramados(){
+    def busquedaDeResultados = cursoProgramadoService.buscarCursosProgramados(params)
 
-      if(instructores) {
-        must(queryString(instructores, [useAndDefaultOperator: false, defaultSearchProperty: "nombre"]))
-      }
-
-      if(params.desde) {
-        Date desde = Date.parse("dd/MM/yyyy", params.desde)
-        Date hasta = params.hasta ? Date.parse("dd/MM/yyyy", params.hasta) : new Date()
-        must( between("fechaDeInicio", desde, hasta, true) )
-      }
-
-    }, params)
-    render template:"/cursoProgramado/list", model:[ busqueda : busqueda, cursos : cursos, puertos : puertos, instructores : instructores,  desde : params.desde, hasta : params.hasta, totalResultados : busquedaDeResultados.total, lista : busquedaDeResultados.results]
+    render template:"/cursoProgramado/listToEdit", model:[ busqueda : params.buscar, cursos : params.cursos, puertos : params.puertos, instructores : params.instructores,  desde : params.desde, hasta : params.hasta, totalResultados : busquedaDeResultados.total, lista : busquedaDeResultados.results]
   }
 
   def realizarBusquedaDeAlumnos() {
