@@ -43,6 +43,7 @@ grails.project.dependency.resolution = {
     //mavenRepo "http://download.java.net/maven/2/"
     //mavenRepo "http://repository.jboss.com/maven2/"
     mavenRepo "http://makingdevs.com:8081/nexus/content/repositories/thirdparty"
+    mavenRepo "http://repo.grails.org/grails/core"
   }
 
   dependencies {
@@ -94,7 +95,7 @@ grails.project.dependency.resolution = {
 
     compile ":qrcode:0.6"
 
-    compile ":searchable:0.6.5"
+    compile ":searchable:0.6.9"
 
     compile(":grails-melody:1.49.2") {
       excludes 'itext'
