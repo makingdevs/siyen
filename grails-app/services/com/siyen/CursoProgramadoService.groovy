@@ -38,6 +38,51 @@ class CursoProgramadoService {
     cursoProgramado
   }
 
+  def buscarCursosProgramados(params){
+
+    String busqueda = params.buscar.replace(',', " ").trim()
+    String cursos = params.cursos?.replace(',', " ")?.trim()
+    String puertos = params.puertos?.replace(',', " ")?.trim()
+    String instructores = params.instructores?.replace(',', " ")?.trim()
+
+    def busquedaDeResultados = searchableService.search({
+      mustNot(term("alias", "Alumno"))
+      if(busqueda) {
+        must(queryString(busqueda))
+      }
+
+      if(cursos) {
+        must(queryString(cursos){
+          useAndDefaultOperator()
+          setDefaultSearchProperty("clave")
+        })
+      }
+
+      if(puertos) {
+        must(queryString(puertos){
+          useAndDefaultOperator()
+          setDefaultSearchProperty("clave")
+        })
+      }
+
+      if(instructores) {
+        must(queryString(instructores){
+          useAndDefaultOperator()
+          setDefaultSearchProperty("nombre")
+        })
+      }
+
+      if(params.desde) {
+        Date desde = Date.parse("dd/MM/yyyy", params.desde)
+        Date hasta = params.hasta ? Date.parse("dd/MM/yyyy", params.hasta) : new Date()
+        must( between("fechaDeInicio", desde, hasta, true) )
+      }
+
+    }, params)
+
+    busquedaDeResultados
+  }
+
   private Alumno generarAlumnoConParams( def alumnoData ) {
     Alumno alumno =  new Alumno(
       nombreCompleto : alumnoData.nombreCompleto,

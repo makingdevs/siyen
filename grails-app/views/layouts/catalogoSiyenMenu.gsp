@@ -64,6 +64,9 @@
                         <g:link class="create" controller="curso" action="create"> Nuevo curso </g:link>
                       </li>
                     </li>
+                    <li>
+                      <g:link class="list" controller="cursoProgramado" action="searchToEdit"> Editar Cursos Programados </g:link>
+                    </li>
                   </ul>
                 </li>
 
