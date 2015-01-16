@@ -13,6 +13,10 @@ class CursoProgramadoController {
   def cursoProgramadoService
   def notificacionService
 
+  def searchToEdit(){
+    render view:"search"
+  }
+
   def show() {
     if(params.id) {
       def cursoProgramado = CursoProgramado.get( params.id )
