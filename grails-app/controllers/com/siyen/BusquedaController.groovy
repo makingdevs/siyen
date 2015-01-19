@@ -15,7 +15,18 @@ class BusquedaController {
   def buscarCursosProgramados(){
     def busquedaDeResultados = cursoProgramadoService.buscarCursosProgramados(params)
 
-    render template:"/cursoProgramado/listToEdit", model:[ busqueda : params.buscar, cursos : params.cursos, puertos : params.puertos, instructores : params.instructores,  desde : params.desde, hasta : params.hasta, totalResultados : busquedaDeResultados.total, lista : busquedaDeResultados.results]
+    render view:"/cursoProgramado/search", 
+          model:[ busqueda : params.buscar, 
+                  cursos : params.cursos, 
+                  puertos : params.puertos, 
+                  instructores : params.instructores,  
+                  desde : params.desde, hasta : params.hasta, 
+                  totalResultados : busquedaDeResultados.total, 
+                  lista : busquedaDeResultados.results,
+                  catCursos: Curso.findAll { activo == true },
+                  catPuertos: Puerto.findAll { it.activo },
+                  catInstructores: Instructor.findAll { it.activo }
+                ]
   }
 
   def realizarBusquedaDeAlumnos() {
