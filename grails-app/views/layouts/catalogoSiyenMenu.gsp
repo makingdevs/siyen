@@ -65,7 +65,7 @@
                       </li>
                     </li>
                     <li>
-                      <g:link class="list" controller="cursoProgramado" action="searchToEdit"> Editar Cursos Programados </g:link>
+                      <g:link class="list" controller="busqueda" action="buscarCursosProgramados"> Editar Cursos Programados </g:link>
                     </li>
                   </ul>
                 </li>
