@@ -74,4 +74,9 @@ modules = {
     resource url:'js/payu/payu.js'
   }
 
+  searchAdvanced {
+    dependsOn 'datepicker'
+    resource url:'css/searchCurso/search-curso-programado.css'
+    resource url:'js/searchCurso/search-curso-programado.js'
+  }
 }
