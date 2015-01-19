@@ -33,7 +33,7 @@
         <td>${it.instructor.nombre}</td>
         <td>${it.alumnos.size()}</td>
         <td>
-          <a href="" class="btn btn-primary">Edit</a>
+          <a href="${createLink(controller:'cursoProgramado', action:'edit', id:it.id)}" class="btn btn-primary">Edit</a>
         </td>
       </tr>
     </g:each>
