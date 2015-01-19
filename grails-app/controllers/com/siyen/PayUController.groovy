@@ -3,9 +3,11 @@ package com.siyen
 class PayUController {
 
   def payUService
+  def springSecurityService
 
   def index() { 
     [ 
+      username : springSecurityService.currentUser.username,
       cursos : Curso.findAll { activo == true }.collect{it.nombre},
       referenceCode : "PAYU_RC_${new Date().format('dd-MM-yyyy-HH-mm')}_${Math.abs(new Random().nextInt() % 600) + 1}"
     ]
