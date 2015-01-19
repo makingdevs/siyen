@@ -79,4 +79,8 @@ modules = {
     resource url:'css/searchCurso/search-curso-programado.css'
     resource url:'js/searchCurso/search-curso-programado.js'
   }
+  editCursoProgramado{
+    dependsOn 'datepicker'
+    resource url:'js/searchCurso/edit-curso-programado.js'
+  }
 }
