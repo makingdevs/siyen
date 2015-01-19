@@ -3,37 +3,36 @@
   <head>
     <meta name="layout" content="catalogoSiyenMenu"/>
     <title>Buscar curso Programado</title>
+    <r:require module="searchAdvanced" />
   </head>
   <body>
     <div class="page-header">
       <h3>Buscar curso programado</h3>
+      <p>Edita un curso programado</p>
     </div>
     <div id="busquedaDiv" class="input-append">
-      <input type="text" id="busqueda" name="busqueda" class="span2"/>
-      <div id="busquedaAvanzada" class="ember-view hide">
+      <input type="text" id="stringToSearch" class="span3" placeholder="Busca por palabra -Mínimo tres letras-"/>
+      <button id="mostrarBusquedaAvanzada" type="button" class="btn" title="Agrega más parametros">
+        <i class="icon-filter" ></i>
+      </button>
+      <button id="busquedaButton" type="button" class="btn" title="Buscar cursos programados">Buscar</button>
+    </div>
+      <div id="busquedaAvanzada" class="hide">
+        <h5>Elige parametros de busqueda</h5>
         <div class="control-group">
-          <label class="control-label" for="cursos">Cursos :</label>
-          <div class="controls">
-            <select id="cursos" class="busquedaChosen input-xxlarge" multiple> </select>
-          </div>
+          <g:select name="claveCurso" from="${catCursos}" optionKey="clave" optionValue="clave" noSelection="['':'-Elige un Curso-']"/>
         </div>
         <div class="control-group">
-          <label class="control-label" for="puertos">Puertos :</label>
-          <div class="controls">
-            <select id="puertos" class="busquedaChosen input-xxlarge" multiple> </select>
-          </div>
+          <g:select name="clavePuerto" from="${catPuertos}" optionValue="clave" noSelection="['':'-Elige un Puerto-']"/>
         </div>
         <div class="control-group">
-          <label class="control-label" for="instructores">Instructores :</label>
-          <div class="controls">
-            <select id="instructores" class="busquedaChosen input-xxlarge" multiple> </select>
-          </div>
+        <g:select name="nombreInstructor" from="${catInstructores}" optionValue="nombre" noSelection="['':'-Elige un Intructor-']"/>
         </div>
         <div class="control-group">
           <label class="control-label" for="instructores">Desde :</label>
           <div class="controls">
             <div class="input-append date" >
-              <input type="text" class="datepicker"/>
+              <input id="desde" type="text" class="datepicker" placeholder="comenzar desde"/>
               <span class="add-on"><i class="icon-th"></i></span>
             </div>
           </div>
@@ -42,19 +41,16 @@
           <label class="control-label" for="instructores">Hasta :</label>
           <div class="controls">
             <div class="input-append date" >
-              <input type="text" class="datepicker"/>
+              <input id="hasta" type="text" class="datepicker" placeholder="finaliza hasta"/>
               <span class="add-on"><i class="icon-th"></i></span>
             </div>
           </div>
         </div>
+        <p><small>*Oculta busqueda avanzada presionando "esc"</small></p>
       </div>
-      <button id="mostrarBusquedaAvanzada" type="button" class="btn">
-        <i class="icon-filter"></i>
-      </button>
-
-      <button type="submit" class="btn" {{ action "realizarBusqueda" }}>Buscar</button>
+    <input id="urlSearchCurso" type="hidden" value="${createLink(controller:'busqueda', action:'buscarCursosProgramados')}"/>
+    <div id="resultados">
+      <g:render template="/cursoProgramado/listToEdit" model="['totalResultados':totalResultados?:0]"/>
     </div>
-
-    <div id="resultados"> </div>
   </body>
 </html>
