@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat
 import grails.converters.*
 
 import com.siyen.exceptions.BusinessException
+ import java.text.DateFormat
+import java.text.SimpleDateFormat
 
 class CursoProgramadoController {
 
@@ -73,6 +75,26 @@ class CursoProgramadoController {
     renderResponseWithCursosProgramados(cursoProgramado)
   }
 
+  def edit(){
+
+    def cursoProgramado = CursoProgramado.get(params.id)
+    def msg = null
+    if(request.post && cursoProgramado){
+      DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy")
+      cursoProgramado.fechaDeInicio = formatter.parse(params.fechaDeInicio)
+      cursoProgramado.puerto = Puerto.get(params.puerto)
+      cursoProgramado.save()
+      msg = "Se han actualizado campos de ${cursoProgramado.curso.nombre}"
+    }
+
+    model:[
+      catCursos: Curso.findAll { activo == true },
+      catPuertos: Puerto.findAll { it.activo },
+      catInstructores: Instructor.findAll { it.activo },
+      msg: msg,
+      cursoProgramado: cursoProgramado
+    ]
+  }
   private renderResponseWithCursosProgramados(def cursosProgramados) {
     def jsonResponse = [:]
     jsonResponse.cursos_programados = cursosProgramados
