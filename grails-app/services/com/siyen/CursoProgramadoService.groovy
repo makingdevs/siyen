@@ -40,7 +40,7 @@ class CursoProgramadoService {
 
   def buscarCursosProgramados(params){
 
-    String busqueda = params.buscar.replace(',', " ").trim()
+    String busqueda = params.buscar?.replace(',', " ")?.trim()
     String cursos = params.cursos?.replace(',', " ")?.trim()
     String puertos = params.puertos?.replace(',', " ")?.trim()
     String instructores = params.instructores?.replace(',', " ")?.trim()
