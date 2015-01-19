@@ -64,7 +64,6 @@
                   <g:render template="/login/form" model="[postUrl:postUrl,rememberMeParameter:rememberMeParameter]" class="navbar-form"/>
                 </li>
               </sec:ifNotLoggedIn>
-              <li class="active"><a href="${createLink(controller:'payU')}"><r:img uri="images/credit-card.png" width="15" height="7"/> Pago</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

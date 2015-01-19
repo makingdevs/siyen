@@ -67,7 +67,7 @@
             <div class="control-group">
               <label class="control-label" for="inputEmail">Email</label>
               <div class="controls">
-                <input type="email" id="buyerEmail" name="buyerEmail" placeholder="Email del Alumno">
+                <input type="email" id="buyerEmail" name="buyerEmail" placeholder="Email del Alumno" value="${username}">
               </div>
             </div>
             <div class="control-group">
