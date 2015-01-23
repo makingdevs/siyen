@@ -9,7 +9,7 @@ var editCursoProgramado = (function(){
   };
 
   initModule = function(){
-    $(fechaDeInicio).datepicker();
+    $(fechaDeInicio).datepicker({format:'dd/mm/yyyy'});
     setTimeout(function() {
      hideMessage();
     }, 5000);

@@ -16,7 +16,7 @@
         <strong>Actualización!</strong> ${msg}.
       </div>
     </g:if>
-    <g:form class="form-horizontal" method="post" controller="cursoProgramado" action="edit" id="${cursoProgramado?.id}">
+    <g:form class="form-horizontal" method="post" controller="cursoProgramado" action="editCursoByAdmin" id="${cursoProgramado?.id}">
       <div class="control-group">
         <label class="control-label" for="instructores">Fecha de Inicio :</label>
         <div class="controls">
