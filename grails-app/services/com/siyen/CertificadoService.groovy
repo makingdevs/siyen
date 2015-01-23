@@ -34,6 +34,12 @@ class CertificadoService {
     dataCursoProgramado.fechaDeTermino = cursoProgramado.fechaDeTermino
     dataCursoProgramado.duracionDelCurso = cursoProgramado.curso.duracion
     dataCursoProgramado.nombreDelInstructor =  cursoProgramado.instructor.nombre
+    dataCursoProgramado.englishStringParticipant = ""
+    dataCursoProgramado.englishStringCourse = ""
+    if(grailsApplication.config.report."${cursoProgramado.curso.clave.toLowerCase()}"){
+      dataCursoProgramado.englishStringParticipant = grailsApplication.config.report."${cursoProgramado.curso.clave.toLowerCase()}".englishStringParticipant
+      dataCursoProgramado.englishStringCourse = grailsApplication.config.report."${cursoProgramado.curso.clave.toLowerCase()}".englishStringCourse
+    }
     dataCursoProgramado
   }
 
