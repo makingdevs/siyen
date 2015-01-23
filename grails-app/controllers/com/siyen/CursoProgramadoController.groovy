@@ -75,7 +75,7 @@ class CursoProgramadoController {
     renderResponseWithCursosProgramados(cursoProgramado)
   }
 
-  def edit(){
+  def editCursoByAdmin(){
 
     def cursoProgramado = CursoProgramado.get(params.id)
     def msg = null
@@ -86,14 +86,14 @@ class CursoProgramadoController {
       cursoProgramado.save()
       msg = "Se han actualizado campos de ${cursoProgramado.curso.nombre}"
     }
-
-    model:[
-      catCursos: Curso.findAll { activo == true },
-      catPuertos: Puerto.findAll { it.activo },
-      catInstructores: Instructor.findAll { it.activo },
-      msg: msg,
-      cursoProgramado: cursoProgramado
-    ]
+    render view:'/cursoProgramado/edit',
+            model:[
+              catCursos: Curso.findAll { activo == true },
+              catPuertos: Puerto.findAll { it.activo },
+              catInstructores: Instructor.findAll { it.activo },
+              msg: msg,
+              cursoProgramado: cursoProgramado
+            ]
   }
   private renderResponseWithCursosProgramados(def cursosProgramados) {
     def jsonResponse = [:]
