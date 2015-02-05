@@ -17,7 +17,6 @@ class EstadoDeCuentaController {
       eq 'instructor.id',instructor.id
       eq 'puerto.id',puerto.id
     }
-    log.debug"datos de CursoProgramado **** ${cursosProgramados}"
     render template:'estadoDeCuenta', model : [ cursosProgramados : cursosProgramados, fechaDeInicio : fechaDeInicio, fechaDeTermino : fechaDeTermino, puerto : puerto, instructor : instructor ]
   }
 }
