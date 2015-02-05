@@ -3,22 +3,21 @@ package com.siyen
 class EstadoDeCuentaController {
 
   def index() {
-    [ puertos : Puerto.findAll { it.activo }, usuario : User.findAll { it.enabled } ]
+    [ puertos : Puerto.findAll { it.activo }, instructor : Instructor.findAll { it.activo } ]
   }
 
   def generarEstadoDeCuenta() {
     Date fechaDeInicio = Date.parse("dd/MMMMM/yyyy", params.fechaDeInicio)
     Date fechaDeTermino = Date.parse("dd/MMMM/yyyy", params.fechaDeTermino)
-    def user = User.get(params.usuario)
+    def instructor = Instructor.get(params.instructor)
     def puerto = Puerto.get(params.puerto)
     def c = CursoProgramado.createCriteria()
     def cursosProgramados = c.listDistinct{
-      alumnos{
-        between('dateCreated',fechaDeInicio,fechaDeTermino)
-      }
-      eq 'user.id',user.id
+      between("fechaDeInicio", fechaDeInicio, fechaDeTermino)
+      eq 'instructor.id',instructor.id
       eq 'puerto.id',puerto.id
     }
-    render template:'estadoDeCuenta', model : [ cursosProgramados : cursosProgramados, fechaDeInicio : fechaDeInicio, fechaDeTermino : fechaDeTermino, puerto : puerto, user : user ]
+    log.debug"datos de CursoProgramado **** ${cursosProgramados}"
+    render template:'estadoDeCuenta', model : [ cursosProgramados : cursosProgramados, fechaDeInicio : fechaDeInicio, fechaDeTermino : fechaDeTermino, puerto : puerto, instructor : instructor ]
   }
 }
