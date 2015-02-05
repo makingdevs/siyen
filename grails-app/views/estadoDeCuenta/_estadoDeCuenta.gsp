@@ -1,5 +1,6 @@
 <%@ page import="com.siyen.TipoDePago" %>
 
+<g:if test="${cursosProgramados.size() > 0}">
 <h1> Del ${fechaDeInicio.format("dd 'de' MMMM")} al ${fechaDeTermino.format("dd 'de' MMMM 'del' yyyy")}</h1>
 <h2> ${puerto.puerto}, ${puerto.estado} </h2>
 <h3> Instructor : ${instructor.nombre} </h3>
@@ -48,3 +49,16 @@
 
   <div id="totalPorcentaje"></div>
 </div>
+</g:if>
+<g:else>
+  <div class="alert alert-info">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h4>Resultado vacío</h4>
+    No se han encontrado resultados para tu búsqueda con los siguientes criterios:
+    <lu>
+      <li>Instructor : <strong>${instructor.nombre}</strong> </li>
+      <li>${puerto.puerto}, <strong>${puerto.estado}</strong></li>
+      <li>Del <strong>${fechaDeInicio.format("dd 'de' MMMM")}</strong> al <strong>${fechaDeTermino.format("dd 'de' MMMM 'del' yyyy")}</strong></li>
+    </lu>
+  </div>
+</g:else>
