@@ -32,7 +32,7 @@
       <div class="control-group">
         <label class="control-label" for="anio">Instructor:</label>
         <div class="controls">
-          <g:select name="usuario" id="usuario" from="${usuario}" optionKey="id" noSelection="['':'-Elige un usuario-']"/>
+          <g:select name="instructor" id="instructor" from="${instructor}" optionKey="id" noSelection="['':'-Elige un Instructor-']"/>
         </div>
       </div>
 
