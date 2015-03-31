@@ -21,7 +21,7 @@ class AlumnoController {
     }
 
     def alumno = alumnoService.saveAlumno(cmd)
-    
+
     if(alumno == 403){
       render(status:403, contentType: "text/json") {
         [ message : "No es posible agregar más alumnos a este curso" ]
@@ -48,7 +48,7 @@ class AlumnoController {
     }
 
     try {
-      Alumno alumno = validarDatosDeMovimiento(cmd.id, cmd.cursoProgramado)
+      Alumno alumno = validarDatosDeMovimiento(params.id, cmd.cursoProgramado)
       def cursoProgramado = CursoProgramado.get(cmd.cursoProgramado)
       def authority = springSecurityService.currentUser.authorities.any { it.authority == 'ROLE_ADMIN' }
       if(!authority) {
@@ -114,7 +114,6 @@ class AlumnoUpdateCommad {
   Long monto
 
   static constraints = {
-    id nullable: false
     cursoProgramado nullable: false
     nombreCompleto nullable: false
     tipoDePago nullable: false
