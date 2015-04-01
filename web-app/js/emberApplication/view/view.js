@@ -50,7 +50,9 @@
             participantes = _this.get("controller.participantes");
             _results.push(participantes.pushObject(Ember.Object.create({
               nombreCompleto: fila.get(0),
-              observaciones: $.trim(fila.get(1))
+              observaciones: $.trim(fila.get(1)),
+              tipoDePago: "EFECTIVO",
+              monto: 0
             })));
           }
           return _results;
