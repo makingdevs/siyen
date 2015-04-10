@@ -51,8 +51,8 @@
             _results.push(participantes.pushObject(Ember.Object.create({
               nombreCompleto: fila.get(0),
               observaciones: $.trim(fila.get(1)),
-              tipoDePago: "EFECTIVO",
-              monto: 0
+              monto: fila.get(2),
+              tipoDePago: fila.get(3)
             })));
           }
           return _results;
