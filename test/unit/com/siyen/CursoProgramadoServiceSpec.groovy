@@ -96,7 +96,8 @@ class CursoProgramadoServiceSpec extends Specification {
         fechaDeInicio : fechaDeInicio.format('dd/MM/yyyy'),
         puerto : 1,
         curso : 1,
-        instructor : 1
+        instructor : 1,
+        alumnos: []
         )
     and : "guardando curso programado"
       new CursoProgramado(

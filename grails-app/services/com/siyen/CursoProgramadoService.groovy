@@ -15,6 +15,7 @@ class CursoProgramadoService {
     CursoProgramado cursoProgramado = validaTraslapeDeCursos(cmd)
     cursoProgramado.fechaDeTermino = cursoProgramado.fechaDeInicio.clone().plus( (cursoProgramado.curso.duracion - 1) )
     cursoProgramado.user = springSecurityService.currentUser
+    cursoProgramado.alumnosRestantes = cmd.alumnos.size() + 5
     cursoProgramado.save()
     cmd.alumnos.each { alumnoData ->
       alumnoData.cursoProgramado = cursoProgramado.id
