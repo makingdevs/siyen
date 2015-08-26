@@ -51,3 +51,14 @@
   </div>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: cursoInstance, field: 'ingles', 'error')} ">
+  <label class="control-label" for="ingles">
+    <g:message code="curso.ingles.label" default="Ingles" />
+  </label>
+  <div class="controls">
+    <label class="checkbox">
+      <g:checkBox name="ingles" value="${cursoInstance?.ingles}" />
+    </label>
+  </div>
+</div>
+
