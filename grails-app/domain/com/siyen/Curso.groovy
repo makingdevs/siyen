@@ -7,6 +7,7 @@ class Curso {
   Integer duracion // dias
   String libreta
   Boolean activo = true
+  Boolean ingles = false
 
   Date dateCreated
   Date lastUpdated

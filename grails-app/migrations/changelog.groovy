@@ -441,8 +441,10 @@ databaseChangeLog = {
   changeSet(author: "makingdevs (generated)", id: "1384888852004-24") {
     sql("update alumno set monto=0 where monto is null")
   }
-  
+
   include file: 'adding-surveyable-plugin.groovy'
 
 	include file: 'adding-payu-table.groovy'
+
+	include file: 'adding-english-field-on-course-catalog.groovy'
 }
