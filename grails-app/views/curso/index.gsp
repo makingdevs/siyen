@@ -21,6 +21,7 @@
             <g:sortableColumn property="duracion" title="${message(code: 'curso.duracion.label', default: 'Duracion')}" />
             <g:sortableColumn property="libreta" title="${message(code: 'curso.libreta.label', default: 'Libreta')}" />
             <g:sortableColumn property="activo" title="${message(code: 'curso.activo.label', default: 'Activo')}" />
+            <g:sortableColumn property="ingles" title="${message(code: 'curso.activo.ingles', default: 'Ingles')}" />
             <g:sortableColumn property="dateCreated" title="${message(code: 'curso.dateCreated.label', default: 'Date Created')}" />
           </tr>
         </thead>
@@ -32,6 +33,7 @@
             <td>${fieldValue(bean: cursoInstance, field: "duracion")}</td>
             <td>${fieldValue(bean: cursoInstance, field: "libreta")}</td>
             <td><g:formatBoolean boolean="${cursoInstance.activo}" /></td>
+            <td><g:formatBoolean boolean="${cursoInstance.ingles}" /></td>
             <td><g:formatDate date="${cursoInstance.dateCreated}" /></td>
           </tr>
         </g:each>
