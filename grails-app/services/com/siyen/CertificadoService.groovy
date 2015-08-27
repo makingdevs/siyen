@@ -28,6 +28,14 @@ class CertificadoService {
     if(dataCursoProgramado.claveDelCurso.startsWith('PATRON_DE_YATE_')) {
       dataCursoProgramado.claveDelCurso = 'PATRON_DE_YATE'
     }
+
+    dataCursoProgramado.nombreDelCertificado = "certificado.jrxml"
+    if(cursoProgramado.curso.ingles) {
+      dataCursoProgramado.nombreDelCertificado = "certificado_ingles.jrxml"
+      dataCursoProgramado.courseName = cursoProgramado.curso.englishName
+      dataCursoProgramado.description = cursoProgramado.curso.description
+    }
+
     dataCursoProgramado.puertoNombre = cursoProgramado.puerto.puerto
     dataCursoProgramado.puertoEstado = cursoProgramado.puerto.estado
     dataCursoProgramado.fechaDeInicio = cursoProgramado.fechaDeInicio

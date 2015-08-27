@@ -62,22 +62,20 @@
   </div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: cursoInstance, field: 'englishName', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: cursoInstance, field: 'englishName', 'error')}">
   <label class="control-label" for="englishName">
     <g:message code="curso.englishName.label" default="Nombre en inglés" />
-    <span class="required-indicator">*</span>
   </label>
   <div class="controls">
-    <g:textArea name="englishName" cols="40" rows="5" required="" value="${cursoInstance?.englishName}"/>
+    <g:textArea name="englishName" cols="40" rows="5" value="${cursoInstance?.englishName}"/>
   </div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: cursoInstance, field: 'description', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: cursoInstance, field: 'description', 'error')}">
   <label class="control-label" for="description">
-    <g:message code="curso.description.label" default="Descripción en inglés" />
-    <span class="required-indicator">*</span>
+    <g:message code="curso.description.label" default="Descripción (Ambos idiomas)" />
   </label>
   <div class="controls">
-    <g:textArea name="description" cols="40" rows="5" required="" value="${cursoInstance?.description}"/>
+    <g:textArea name="description" cols="40" rows="5" value="${cursoInstance?.description}"/>
   </div>
 </div>
