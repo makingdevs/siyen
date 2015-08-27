@@ -52,7 +52,7 @@ class CertificadoController {
 
   private def frenteDelCertificado(def reportData, String nombreDelCertificado) {
     def reportDef = new JasperReportDef(
-      name: 'certificado.jrxml',
+      name: reportData.nombreDelCertificado.first(),
       fileFormat: JasperExportFormat.PDF_FORMAT,
       reportData: reportData
     )
