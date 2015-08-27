@@ -447,4 +447,7 @@ databaseChangeLog = {
 	include file: 'adding-payu-table.groovy'
 
 	include file: 'adding-english-field-on-course-catalog.groovy'
+
+	include file: 'adding-description-and-english-name-for-curso.groovy'
+
 }
