@@ -29,6 +29,20 @@
         	</li>
         </g:if>
 
+        <g:if test="${cursoInstance?.englishName}">
+        	<li class="fieldcontain">
+          	<span id="englishName-label" class="property-label"><g:message code="curso.englishName.label" default="Nombre en inglés" /></span>
+            <span class="property-value" aria-labelledby="englishName-label"><g:fieldValue bean="${cursoInstance}" field="englishName"/></span>
+        	</li>
+        </g:if>
+
+        <g:if test="${cursoInstance?.description}">
+        	<li class="fieldcontain">
+          	<span id="description-label" class="property-label"><g:message code="curso.description.label" default="Descripción" /></span>
+            <span class="property-value" aria-labelledby="description-label"><g:fieldValue bean="${cursoInstance}" field="description"/></span>
+        	</li>
+        </g:if>
+
         <g:if test="${cursoInstance?.duracion}">
         	<li class="fieldcontain">
           	<span id="duracion-label" class="property-label"><g:message code="curso.duracion.label" default="Duracion" /></span>
