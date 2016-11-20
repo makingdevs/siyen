@@ -40,6 +40,7 @@ class CertificadoService {
     dataCursoProgramado.puertoEstado = cursoProgramado.puerto.estado
     dataCursoProgramado.fechaDeInicio = cursoProgramado.fechaDeInicio
     dataCursoProgramado.fechaDeTermino = cursoProgramado.fechaDeTermino
+    dataCursoProgramado.expirationDate = cursoProgramado.expirationDate
     dataCursoProgramado.duracionDelCurso = cursoProgramado.curso.duracion
     dataCursoProgramado.nombreDelInstructor =  cursoProgramado.instructor.nombre
     dataCursoProgramado.englishStringParticipant = ""
