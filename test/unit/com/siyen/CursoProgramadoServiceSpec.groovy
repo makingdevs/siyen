@@ -171,4 +171,44 @@ class CursoProgramadoServiceSpec extends Specification {
         new Date() + 2  | new Date()         | 2
   }
 
+  def "Validando generación de fecha de expiracion"() {
+    setup:
+      def puerto = new Puerto().save(validate:false)
+      def curso = new Curso(id:1, duracion:2).save(validate:false)
+      def instructor = new Instructor().save(validate:false)
+      String fechaDeInicioString = "19/11/2016 00:00:00"
+      def fechaDeInicio = new Date().parse("dd/MM/yyyy HH:mm:ss", fechaDeInicioString).format('dd/MM/yyyy')
+      def expirationDate = new Date().parse("dd/MM/yyyy HH:mm:ss", "18/11/2021 00:00:00")
+
+      def cmd = new CursoProgramadoCommand(
+        fechaDeInicio : fechaDeInicio,
+        puerto : 1,
+        curso : 1,
+        instructor : 1,
+        alumnos : [
+          [ nombreCompleto : "uno", observaciones : "nada", monto : 100, tipoDePago : TipoDePago.EFECTIVO ]
+        ]
+      )
+
+    and :
+      def springSecurityServiceMock = mockFor(SpringSecurityService)
+      springSecurityServiceMock.demand.getCurrentUser { ->
+        new User().save(validate:false)
+      }
+      service.springSecurityService = springSecurityServiceMock.createMock()
+
+      def alumnoServiceMock = mockFor(AlumnoService)
+      alumnoServiceMock.demand.saveAlumno {alumnoData ->
+
+      }
+      service.alumnoService = alumnoServiceMock.createMock()
+
+    when :
+      def cursoProgramado = service.crearCursoDesdeCommand( cmd )
+
+    then:
+      cursoProgramado.id > 0
+      cursoProgramado.expirationDate.format('dd/MM/yyyy') == expirationDate.format('dd/MM/yyyy')
+  }
+
 }
