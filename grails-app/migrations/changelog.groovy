@@ -450,4 +450,5 @@ databaseChangeLog = {
 
 	include file: 'adding-description-and-english-name-for-curso.groovy'
 
+	include file: 'adding-expiration-date.groovy'
 }

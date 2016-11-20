@@ -22,6 +22,7 @@ class CursoProgramadoSpec extends Specification {
       CursoProgramado cursoProgramado = new CursoProgramado(
         fechaDeInicio : fechaDeInicio_,
         fechaDeTermino : fechaDeTermino_,
+        expirationDate: fechaDeInicio_.clone().plus(365 * 5),
         puerto : puerto,
         curso : curso,
         instructor : instructor,

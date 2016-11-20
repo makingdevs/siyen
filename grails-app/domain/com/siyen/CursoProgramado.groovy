@@ -8,6 +8,7 @@ class CursoProgramado {
 
   Date dateCreated
   Date lastUpdated
+  Date expirationDate
 
   Puerto puerto
   Curso curso
@@ -19,6 +20,7 @@ class CursoProgramado {
   static hasMany = [alumnos : Alumno]
 
   static constraints = {
+    expirationDate nullable: false
   }
 
   static searchable = {
