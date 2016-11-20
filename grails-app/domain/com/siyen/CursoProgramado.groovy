@@ -20,6 +20,7 @@ class CursoProgramado {
   static hasMany = [alumnos : Alumno]
 
   static constraints = {
+    expirationDate nullable: false
   }
 
   static searchable = {
