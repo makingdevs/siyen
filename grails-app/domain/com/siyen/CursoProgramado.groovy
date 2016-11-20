@@ -8,6 +8,7 @@ class CursoProgramado {
 
   Date dateCreated
   Date lastUpdated
+  Date expirationDate
 
   Puerto puerto
   Curso curso
