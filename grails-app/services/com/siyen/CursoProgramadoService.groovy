@@ -11,9 +11,12 @@ class CursoProgramadoService {
   def searchableService
   def alumnoService
 
+  static final int FIVE_YEARS_IN_DAYS = 365 * 5
+
   def crearCursoDesdeCommand(CursoProgramadoCommand cmd) {
     CursoProgramado cursoProgramado = validaTraslapeDeCursos(cmd)
     cursoProgramado.fechaDeTermino = cursoProgramado.fechaDeInicio.clone().plus( (cursoProgramado.curso.duracion - 1) )
+    cursoProgramado.expirationDate = cursoProgramado.fechaDeInicio.clone().plus(FIVE_YEARS_IN_DAYS)
     cursoProgramado.user = springSecurityService.currentUser
     cursoProgramado.alumnosRestantes = cmd.alumnos.size() + 5
     cursoProgramado.save()
