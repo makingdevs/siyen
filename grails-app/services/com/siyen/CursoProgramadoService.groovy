@@ -15,7 +15,7 @@ class CursoProgramadoService {
 
   def crearCursoDesdeCommand(CursoProgramadoCommand cmd) {
     CursoProgramado cursoProgramado = validaTraslapeDeCursos(cmd)
-    cursoProgramado.fechaDeTermino = cursoProgramado.fechaDeInicio.clone().plus( (cursoProgramado.curso.duracion - 1) )
+    cursoProgramado.fechaDeTermino = cursoProgramado.fechaDeInicio.clone().plus( (cursoProgramado.curso.duracion - 1) as Integer )
     cursoProgramado.expirationDate = cursoProgramado.fechaDeInicio.clone().plus(FIVE_YEARS_IN_DAYS)
     cursoProgramado.user = springSecurityService.currentUser
     cursoProgramado.alumnosRestantes = cmd.alumnos.size() + 5
@@ -103,7 +103,7 @@ class CursoProgramadoService {
     Instructor instructor = Instructor.get(cmd.instructor)
 
     CursoProgramado cursoProgramado = CursoProgramado.createCriteria().get {
-      between "fechaDeTermino", fechaDeInicio, fechaDeInicio.clone().plus(curso.duracion)
+      between "fechaDeTermino", fechaDeInicio, fechaDeInicio.clone().plus(curso.duracion as Integer)
       eq "puerto", puerto
       eq "curso", curso
       eq "instructor", instructor
