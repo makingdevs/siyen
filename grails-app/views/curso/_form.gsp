@@ -26,7 +26,7 @@
     <span class="required-indicator">*</span>
   </label>
   <div class="controls">
-    <g:field name="duracion" type="number" max="5" value="${cursoInstance.duracion}" required=""/>
+    <g:field name="duracion" type="text" placeholder="0,5" value="${cursoInstance.duracion}" required=""/>
   </div>
 </div>
 
