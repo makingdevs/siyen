@@ -12,7 +12,7 @@
           if (name.indexOf('.') > -1) {
             nombreDelTemplate = name.replace('.', '/');
           }
-          
+
           return Ember.TEMPLATES[nombreDelTemplate] = Ember.Handlebars.compile(data);
         },
         async: false
@@ -21,14 +21,12 @@
     return Ember.TEMPLATES[name];
   };
 
-  templates = ['cursosNuevos', 'cursosAutorizados', 'edit', 'confirmDialog', 'crear.participantes', 'archivo', 'notificacion', 'busqueda', 'alumnos', 'busquedaAlumnos','badGateway','gatewayTimeout'];
+  templates = ['cursosNuevos', 'cursosAutorizados', 'edit', 'confirmDialog', 'crear.participantes', 'archivo', 'notificacion', 'busqueda', 'alumnos', 'busquedaAlumnos','badGateway','gatewayTimeout','alumno'];
 
   for (_i = 0, _len = templates.length; _i < _len; _i++) {
     template = templates[_i];
     Handlebars.getTemplate(template);
   }
-
-  Ember.TEMPLATES['alumno'] = Ember.Handlebars.compile("<div class=\"page-header\">\n  <h1> Datos del alumno </h1>\n</div>\n<div class=\"container-fluid\">\n  <div class=\"row-fluid\">\n    <div class=\"span6\">\n      <dl class=\"dl-horizontal\">\n        <dt>Número de control</dt>\n        <dd>{{ numeroDeControl }}</dd>\n\n        <dt>Nombre completo</dt>\n        <dd>{{ nombreCompleto }}</dd>\n\n        <dt>Observaciones</dt>\n        <dd>{{ observaciones }}</dd>\n\n        <dt>Monto</dt>\n        <dd>{{ monto }}</dd>\n      </dl>\n    </div>\n\n    <div class=\"span6\">\n      <dl class=\"dl-horizontal\">\n        <dt>Número de curso</dt>\n        <dd>{{ cursoProgramado.id }}</dd>\n\n        <dt>Fecha de inicio</dt>\n        <dd>{{ date cursoProgramado.fechaDeInicio }}</dd>\n\n        <dt>Puerto</dt>\n        <dd>{{ cursoProgramado.puerto.descripcion }}</dd>\n\n        <dt>Instructor</dt>\n        <dd>{{ cursoProgramado.instructor.nombre }}</dd>\n\n        <dt>Curso</dt>\n        <dd>\n          {{ view Ember.Select prompt=\"Selecciona un curso : \"\n                               contentBinding=\"cursos\"\n                               optionValuePath=\"content.clave\"\n                               optionLabelPath=\"content.clave\"\n                               selectionBinding=\"model.cursoProgramado.curso\" }}\n        </dd>\n      </dl>\n\n      <button class=\"btn btn-danger btn-large btn-block\" {{ action realizarMovimiento }}><i class=\"icon-warning-sign icon-white\"></i> Crear nuevo curso para alumno certificado con el mismo puerto, instructor y fecha, con cambio de categoría</button>\n    </div>\n  </div>\n</div>\n\n{{ view App.ConfirmDialogView\n     elementId=\"movimientoConfirmDialog\"\n     okAction=\"doConfirmarMovimiento\"\n     cancelAction=\"doCancelarMovimiento\"\n     target=\"controller\"\n     header=\"¿Autorizar movimiento?\"\n     message=\"¿Está seguro de crear el nuevo curso con un solo alumno? ¡Esta acción no se puede deshacer!\"\n}}\n\n{{ view App.ConfirmDialogView\n     elementId=\"duplicacion\"\n     target=\"controller\"\n     header=\"Datos duplicados\"\n}}\n");
 
   Ember.TEMPLATES['movimientos'] = Ember.Handlebars.compile("<div class=\"container-fluid\">\n  <div class=\"row-fluid\">\n    <div class=\"span6\">\n      <div class=\"control-group\">\n        <label class=\"control-label\" for=\"cursos\">Curso :</label>\n        <div class=\"controls\">\n          {{ view Ember.Select prompt=\"Selecciona un curso : \"\n                               contentBinding=\"model\"\n                               optionValuePath=\"content.id\"\n                               optionLabelPath=\"content.descripcion\"\n                               selectionBinding=\"cursoSelectedA\" }}\n        </div>\n      </div>\n      {{#if cursoSelectedA}}\n        {{ view App.ListaAlumnosView contentBinding=cursoSelectedA }}\n      {{/if}}\n    </div>\n\n    <div class=\"span6\">\n      <div class=\"control-group\">\n        <label class=\"control-label\" for=\"cursos\">Curso :</label>\n        <div class=\"controls\">\n          {{ view Ember.Select prompt=\"Selecciona un curso : \"\n                               contentBinding=\"model\"\n                               optionValuePath=\"content.id\"\n                               optionLabelPath=\"content.descripcion\"\n                               selectionBinding=\"cursoSelectedB\" }}\n        </div>\n      </div>\n      {{#if this.cursoSelectedB}}\n        {{ view App.ListaAlumnosView contentBinding=cursoSelectedB }}\n      {{/if}}\n    </div>\n  </div>\n</div>\n\n{{ view App.ConfirmDialogView\n     elementId=\"confirmarMovimientoDialog\"\n     okAction=\"doRealizarMovimiento\"\n     cancelAction=\"doCancelMovimiento\"\n     target=\"controller\"\n     header=\"Confirmación de movimiento\"\n     message=\"¿Está seguro de autorizar el movimiento?\"\n}}");
 

@@ -31,7 +31,7 @@
         <td>${it.puerto.clave} - ${it.puerto.puerto}</td>
         <td>${it.curso.clave}</td>
         <td>${it.instructor.nombre}</td>
-        <td>${it.alumnos.size()}</td>
+        <td>${it.alumnos?.size()}</td>
         <td>
           <a href="${createLink(controller:'cursoProgramado', action:'editCursoByAdmin', id:it.id)}" class="btn btn-primary">Edit</a>
         </td>

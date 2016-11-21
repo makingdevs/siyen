@@ -31,7 +31,7 @@
         <td>${it.puerto.clave} - ${it.puerto.puerto}</td>
         <td>${it.curso.clave}</td>
         <td>${it.instructor.nombre}</td>
-        <td>${it.alumnos.size()}</td>
+        <td>${it.alumnos?.size()}</td>
         <td>
           <a href="#/cursosAutorizados/${it.id}" class="btn btn-primary"><i class="icon-edit icon-white"></i></a>
           <button id="impresion" class="btn btn-success" name="${it.id}"><i class="icon-print icon-white"></i></button>
