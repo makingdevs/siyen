@@ -23,7 +23,7 @@ var searchCursoProgramado = (function(){
     $('#desde').datepicker();
     $('#hasta').datepicker();
     $(document).keyup(function(e) {
-      if (e.keyCode == 27 && isVisibleAdvancedSearch) { 
+      if (e.keyCode == 27 && isVisibleAdvancedSearch) {
         showAdvancedSearch();
       }
     });
@@ -31,7 +31,7 @@ var searchCursoProgramado = (function(){
 
   showAdvancedSearch = function(){
     if(isVisibleAdvancedSearch){
-      isVisibleAdvancedSearch = false; 
+      isVisibleAdvancedSearch = false;
       $(boxAdvancedSearch).addClass('hide');
     }else{
       isVisibleAdvancedSearch = true;
@@ -48,9 +48,6 @@ var searchCursoProgramado = (function(){
     }
     var url = getUrl();
     var parametros = jQuery.param( data );
-    console.log("peticion get ?????????");
-    console.log("url get ?????????"+url);
-    console.log("parametros  get ?????????"+parametros);
     window.location = url+"?"+parametros;
   };
 
