@@ -638,7 +638,7 @@
       doConfirmarMovimiento: function() {
         var cursoProgramado;
         cursoProgramado = this.store.createRecord('cursoProgramado', {
-          fechaDeInicio: moment(this.get('cursoProgramado.fechaDeInicio')).format('DD/MM/YYYY'),
+          fechaDeInicio: moment(this.get('cursoProgramado.fechaDeInicio'), "YYYY-MM-DD").format('DD/MM/YYYY'),
           puerto: this.get('cursoProgramado.puerto'),
           curso: this.get('cursoProgramado.curso'),
           instructor: this.get('cursoProgramado.instructor')

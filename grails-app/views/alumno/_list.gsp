@@ -21,7 +21,7 @@
         <td>${it.nombreCompleto}</td>
         <td>${it.cursoProgramado.puerto.clave}</td>
         <td>${it.cursoProgramado.curso.clave}</td>
-        <td>${it.cursoProgramado.fechaDeInicio.format('dd/MMMM/yyyy')}</td>
+        <td><g:formatDate format="dd/MMMM/yyyy" date="${it.fechaDeInicio}"/></td>
         <td>
           <g:if test="${edicion}">
             <a href="#/cursosAutorizados/${it.cursoProgramado.id}" class="btn btn-primary"><i class="icon-edit icon-white"></i></a>
