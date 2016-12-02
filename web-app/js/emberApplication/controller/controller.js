@@ -97,8 +97,7 @@
   App.EditController = Ember.ObjectController.extend({
     fechaDeInicio: null,
     fechaDeInicioFormatted: (function() {
-      console.log(this.fechaDeInicio);
-      return moment(this.fechaDeInicio, "DD/MMMM/YYYY").format("DD/MMMM/YYYY");
+      return moment(this.get('model.fechaDeInicio'), "YYYY-MM-DD").format('DD/MMMM/YYYY');
     }).property('fechaDeInicio'),
     nombreCompleto: null,
     observaciones: null,
