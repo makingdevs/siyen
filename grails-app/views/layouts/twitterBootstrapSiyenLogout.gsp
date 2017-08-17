@@ -8,34 +8,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <r:require modules="bootstrap" />
-
-    <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
-
-      .custom {
-        display : none;
-      }
-
-      .dropdown.custom {
-        display : block;
-      }
-
-      @media(max-width:1000px) {
-        .custom {
-          display : block;
-        }
-
-        .dropdown.custom {
-          display : none;
-        }
-      }
-    </style>
+    <asset:javascript modules="bootstrap.js" />
+    <asset:stylesheet src="logout.css"/>
 
     <g:layoutHead/>
-    <r:layoutResources />
   </head>
 
   <body>
@@ -77,6 +53,5 @@
       </div>
     </footer>
 
-    <r:layoutResources />
   </body>
 </html>
