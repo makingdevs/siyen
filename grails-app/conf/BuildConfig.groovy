@@ -42,14 +42,15 @@ grails.project.dependency.resolution = {
     //mavenRepo "http://repository.codehaus.org"
     //mavenRepo "http://download.java.net/maven/2/"
     //mavenRepo "http://repository.jboss.com/maven2/"
-    mavenRepo "http://makingdevs.com:8081/nexus/content/repositories/thirdparty"
+    // mavenRepo "http://makingdevs.com:8081/nexus/content/repositories/thirdparty"
+    mavenRepo "http://ci.makingdevs.com:8081/repository/md/"
     mavenRepo "http://repo.grails.org/grails/core"
   }
 
   dependencies {
     // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
     runtime 'mysql:mysql-connector-java:5.1.22'
-    
+
     compile ('net.sf.jasperreports:jasperreports:4.7.0'){
       exclude 'commons-collections'
     }
