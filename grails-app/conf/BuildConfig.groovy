@@ -7,6 +7,8 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 grails.project.war.file = "target/${appName}-${appVersion}.war"
 
+grails.plugin.location.surveyable = "/Users/makingdevs/Documents/surveyable"
+
 // uncomment (and adjust settings) to fork the JVM to isolate classpaths
 forkConfig = [maxMemory: 1024, minMemory: 64, debug: false, maxPerm: 256]
 grails.project.fork = [
@@ -67,44 +69,42 @@ grails.project.dependency.resolution = {
   }
 
   plugins {
-    runtime ":hibernate:3.6.10.4"
-    runtime ":jquery:1.8.3"
-    runtime ":resources:1.2"
 
-    // Uncomment these (or add new ones) to enable additional resources capabilities
-    //runtime ":zipped-resources:1.0"
-    //runtime ":cached-resources:1.0"
-    //runtime ":yui-minify-resources:0.1.5"
+    // plugins for the build system only
+    build 'org.grails.plugins:tomcat:7.0.52.1'
 
-    compile(":jasper:1.6.1"){
+
+    // plugins for the compile step
+    compile 'org.grails.plugins:scaffolding:2.1.0'
+    compile 'org.grails.plugins:cache:1.1.3'
+    compile 'org.grails.plugins:asset-pipeline:1.8.3'
+
+    // plugins needed at runtime but not for compilation
+    runtime 'org.grails.plugins:hibernate4:4.3.5.2'
+    runtime 'org.grails.plugins:database-migration:1.4.0'
+    // runtime ':jquery:1.11.0.2'
+
+    compile("org.grails.plugins:jasper:1.11.0"){
       exclude 'poi'
       exclude 'jackson-core-asl'
       excludes 'itext', 'itext-rtf'
     }
 
-    compile(":rendering:1.0.0") {
+    compile("org.grails.plugins:rendering:1.0.0") {
       excludes 'itext'
     }
 
-    build ":tomcat:7.0.47"
+    compile "org.grails.plugins:spring-security-core:2.0.0"
 
-    runtime ":database-migration:1.3.8"
+    compile "org.grails.plugins:qrcode:0.7"
 
-    compile ':cache:1.0.1'
+    compile "org.grails.plugins:searchable:0.6.9"
 
-    compile ":spring-security-core:1.2.7.3"
-
-    compile ":qrcode:0.6"
-
-    compile ":searchable:0.6.9"
-
-    compile(":grails-melody:1.49.2") {
+    compile("org.grails.plugins:grails-melody:1.59.0") {
       excludes 'itext'
     }
 
-    compile ':surveyable:0.1.3'
-
-    compile ":scaffolding:2.0.1"
+    // compile ':surveyable:0.1.3'
   }
 
 }
