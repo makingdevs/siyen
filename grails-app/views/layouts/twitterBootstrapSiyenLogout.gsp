@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <asset:javascript modules="bootstrap.js" />
+    <asset:javascript src="bootstrap.js" />
     <asset:stylesheet src="logout.css"/>
 
     <g:layoutHead/>
