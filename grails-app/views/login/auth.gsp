@@ -20,13 +20,7 @@
         </g:if>
       </div>
     </form>
-    <script type='text/javascript'>
-<!--
-(function() {
-  document.forms['loginForm'].elements['j_username'].focus();
-})();
-// -->
-    </script>
+    <asset:javascript src="auth/form.js"/>
   </body>
 </html>
 
