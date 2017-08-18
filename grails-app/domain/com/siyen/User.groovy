@@ -1,17 +1,24 @@
 package com.siyen
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 
-class User {
+@EqualsAndHashCode(includes='username')
+@ToString(includes='username', includeNames=true, includePackage=false)
+class User implements Serializable {
+  private static final long serialVersionUID = 1
 
   transient springSecurityService
 
   String username
   String password
-  boolean enabled
+  boolean enabled = true
   boolean accountExpired
   boolean accountLocked
   boolean passwordExpired
 
   static hasMany = [puertos : Puerto, instructores : Instructor]
+
+  static transients = ['springSecurityService']
 
   static constraints = {
     username blank: false, unique: true
@@ -19,11 +26,18 @@ class User {
   }
 
   static mapping = {
+    table '`user`'
     password column: '`password`'
   }
 
+  User(String username, String password) {
+    this()
+    this.username = username
+    this.password = password
+  }
+
   Set<Role> getAuthorities() {
-    UserRole.findAllByUser(this).collect { it.role } as Set
+    UserRole.findAllByUser(this)*.role
   }
 
   def beforeInsert() {
@@ -37,7 +51,9 @@ class User {
   }
 
   protected void encodePassword() {
-    password = springSecurityService.encodePassword(password)
+    password = springSecurityService?.passwordEncoder ?
+    springSecurityService.encodePassword(password) :
+    password
   }
 
   String toString() {
