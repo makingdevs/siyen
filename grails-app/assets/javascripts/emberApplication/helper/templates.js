@@ -5,7 +5,7 @@
   Handlebars.getTemplate = function(name) {
     if (!Ember.TEMPLATES || !Ember.TEMPLATES[name]) {
       $.ajax({
-        url: "js/emberApplication/templates/" + name + ".handlebars",
+        url: "assets/emberApplication/templates/" + name + ".handlebars",
         success: function(data) {
           var nombreDelTemplate;
           nombreDelTemplate = name;
