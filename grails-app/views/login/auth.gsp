@@ -7,7 +7,7 @@
   </head>
 
   <body>
-    <form action='${postUrl}' method='POST' id='loginForm' class='form-signin' autocomplete='off'>
+    <form action='${request.contextPath}/j_spring_security_check' method='POST' id='loginForm' class="form-signin" autocomplete='off'>
       <h3 class="form-signin-heading"><g:message code="springSecurity.login.header"/></h3>
 
       <input type="text" class="input-block-level" name='j_username' id='username' placeholder="Correo" autocomplete="off" keyev="true" clickev="true">
