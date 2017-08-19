@@ -8,15 +8,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-
     <asset:stylesheet src="bootstrap.css" />
     <asset:stylesheet src="menu/menu.css" />
 
-    <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
-    </style>
+    <asset:javascript src="bootstrap.js" />
 
     <g:layoutHead/>
   </head>

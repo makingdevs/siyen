@@ -3,7 +3,11 @@
   <head>
     <meta name="layout" content="catalogoSiyenMenu">
     <title>Graficas</title>
-    <r:require modules="chosen, siyenChart" />
+
+    <asset:stylesheet src='chosen/chosen.css' />
+    <asset:stylesheet src='css/datepicker/datepicker.css' />
+    <asset:javascript src='chart/siyenChart.js' />
+
   </head>
 
   <body>
@@ -56,4 +60,4 @@
     <canvas id="grafica" width="1000" height="600"></canvas>
   </body>
 
-</html> 
+</html>

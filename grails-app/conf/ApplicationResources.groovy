@@ -1,4 +1,16 @@
 modules = {
+  application {
+    resource url:'js/emberApplication.js'
+    resource url:'js/emberApplication/router/router.js'
+    resource url:'js/emberApplication/controller/controller.js'
+    resource url:'js/emberApplication/model/store.js'
+    resource url:'js/emberApplication/model/model.js'
+    resource url:'js/emberApplication/helper/helper.js'
+    resource url:'js/emberApplication/helper/templates.js'
+    resource url:'js/emberApplication/view/view.js'
+  }
+
+
   dropzonejs {
     resource url:'css/dropzone/basic.css'
     resource url:'css/dropzone/dropzone.css'
@@ -12,16 +24,12 @@ modules = {
     resource url:'js/bootstrap/bootstrap.min.js'
   }
 
-
-  momentjs {
-    resource url:'js/momentjs/moment.js'
-    resource url:'js/momentjs/lang/es.js'
-  }
-
-  datepicker {
-    resource url:'css/datepicker/datepicker.css'
-    resource url:'js/datepicker/bootstrap-datepicker.js'
-    resource url:'js/datepicker/locales/bootstrap-datepicker.es.js'
+  emberjs {
+    dependsOn 'jquery'
+    resource url:'js/ember/handlebars-1.0.0.js'
+    resource url:'js/ember/ember-1.0.0.js'
+    resource url:'js/ember/ember-data-1.0.0.js'
+    resource url:'js/ember-localstorage/localstorage_adapter.js'
   }
 
   vertx {
@@ -34,8 +42,24 @@ modules = {
     resource url:'css/menu/menu.css'
   }
 
+  chosen {
+    resource url:'css/chosen/chosen.css'
+    resource url:'js/chosen/chosen.jquery.js'
+  }
+
+  datepicker {
+    resource url:'css/datepicker/datepicker.css'
+    resource url:'js/datepicker/bootstrap-datepicker.js'
+    resource url:'js/datepicker/locales/bootstrap-datepicker.es.js'
+  }
+
   chartjs {
     resource url:'js/chart/Chart.js'
+  }
+
+  momentjs {
+    resource url:'js/momentjs/moment.js'
+    resource url:'js/momentjs/lang/es.js'
   }
 
   siyenChart {

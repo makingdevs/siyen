@@ -1,3 +1,10 @@
+//=require momentjs/moment.js
+//=require momentjs/lang/es.js
+//=require datepicker/bootstrap-datepicker.js
+//=require datepicker/locales/bootstrap-datepicker.es.js
+//=require dropzone/dropzone.js
+//=require vertx/sockjs.min.js
+//=require vertx/vertxbus.min.js
 
 (function() {
   window.App = Ember.Application.create();

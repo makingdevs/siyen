@@ -5,25 +5,13 @@
     <title>Estado de cuenta</title>
     <r:require modules="momentjs, datepicker" />
 
-    <r:script>
-      $('.datepicker').datepicker({
-        format          : "dd/MM/yyyy",
-        autoclose       : true,
-        todayHighlight  : true,
-        language        : 'es'
-      })
+    <asset:stylesheet src='css/datepicker/datepicker.css' />
 
-      $(".datepicker").attr('readonly', 'true');
-      $(".datepicker").val(moment().format('DD/MMMM/YYYY'));
-
-      $('#result').on('click', '#calcular', function() {
-        var porcentaje = parseInt( $("#porcentaje").val() );
-        var total = parseInt( $("#total").text() );
-        var porcentajeTotal = (porcentaje / 100) * total;
-        console.log(porcentajeTotal);
-        $('#totalPorcentaje').html( '<h1> Porcentaje otorgado : $' + porcentajeTotal + '</h1>' );
-      });
-    </r:script>
+    <asset:javascript src="momentjs/moment.js" />
+    <asset:javascript src="momentjs/lang/es.js" />
+    <asset:javascript src="datepicker/bootstrap-datepicker.js" />
+    <asset:javascript src="datepicker/locales/bootstrap-datepicker.es.js" />
+    <asset:javascript src="estadoDeCuenta/estadoDeCuenta.js" />
 
   </head>
 
