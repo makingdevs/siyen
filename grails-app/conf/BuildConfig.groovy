@@ -82,7 +82,7 @@ grails.project.dependency.resolution = {
     // plugins needed at runtime but not for compilation
     compile "org.grails.plugins:hibernate:3.6.10.19"
     runtime 'org.grails.plugins:database-migration:1.4.0'
-    runtime ':jquery:1.11.0.2'
+    // runtime ':jquery:1.11.0.2'
 
     compile("org.grails.plugins:jasper:1.11.0"){
       exclude 'poi'
