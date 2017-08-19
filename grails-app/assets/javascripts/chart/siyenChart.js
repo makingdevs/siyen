@@ -5,11 +5,11 @@
 //=require momentjs/moment.js
 //=require momentjs/lang/es.js
 
-(function() {
+$(function() {
   var calculateScaleStepWidth, colorChooser,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  ($("select")).change(function() {
+  $(".form-horizontal").on("change", "select", function() {
     var divs;
     if (($(this)).val()) {
       ($(this)).parent().parent().next().show();
@@ -175,4 +175,4 @@
     return ($("form")).trigger('submit');
   });
 
-}).call(this);
+});

@@ -7,7 +7,6 @@
     <asset:stylesheet src='chosen/chosen.css' />
     <asset:stylesheet src='css/datepicker/datepicker.css' />
     <asset:javascript src='chart/siyenChart.js' />
-
   </head>
 
   <body>
@@ -57,7 +56,7 @@
     </form>
 
     <div id="acotaciones"></div>
-    <canvas id="grafica" width="1000" height="600"></canvas>
+    <canvas id="grafica" width="600" height="600"></canvas>
   </body>
 
 </html>
