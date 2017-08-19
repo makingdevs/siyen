@@ -8,36 +8,19 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <r:require modules="bootstrap, chosen, emberjs, application, momentjs, datepicker, dropzonejs, vertx" />
+    <asset:javascript src="bootstrap.js" />
+    <asset:stylesheet src="auth/login.css" />
 
-    <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
+    <asset:stylesheet src='chosen/chosen.css' />
+    <asset:javascript src='chosen/chosen.jquery.js' />
 
-      #busquedaDiv {
-        padding:0 0 0 10px;
-      }
+    <asset:javascript src='ember/handlebars-1.0.0.js' />
+    <asset:javascript src='ember/ember-1.0.0.js' />
+    <asset:javascript src='ember/ember-data-1.0.0.js' />
+    <asset:javascript src='ember-localstorage/localstorage_adapter.js' />
 
-      #busquedaAvanzada {
-        position: absolute;
-        border: 1px solid #ddd;
-        padding: 10px 0 0 12px;
-        position : absolute;
-        background : #fff;
-      }
+    <asset:javascript src='application.js' />
 
-      .overlay {
-        position         : absolute;
-        top              : 0;
-        left             : 0;
-        width            : 100%;
-        height           : 100%;
-        z-index          : 10;
-        background       : rgba(0,0,0,0.5) url(../images/spinner.gif) 50% 50% no-repeat;
-        display          : none;
-      }
-    </style>
 
     <g:layoutHead/>
     <r:layoutResources />
