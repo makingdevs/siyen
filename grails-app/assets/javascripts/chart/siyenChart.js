@@ -82,7 +82,7 @@ $(function() {
             var blue, elementIsRender, green, month, monthNumber, red, _ref;
             monthNumber = ($(v)).val();
             _ref = colorChooser(monthNumber), red = _ref[0], green = _ref[1], blue = _ref[2];
-            month = moment(monthNumber).format('MMMM');
+            month = moment(monthNumber, 'M').format('MMMM');
             elementIsRender = ($("#" + month)).size();
             if (!elementIsRender) {
               ($("#acotaciones")).append($("<div id='" + month + "' class='span2'> " + month + " </div>"));
