@@ -19,6 +19,8 @@ class UrlMappings {
     "/instructores"(controller:"instructor", action:"jsonList")
     "/instructores/$id"(controller:"instructor", action:"view")
 
+    "/oficio/generarOficio"(controller:"oficio", action:"generarOficio")
+
     "/"(view:"/index")
     "500"(view:'/error')
   }
