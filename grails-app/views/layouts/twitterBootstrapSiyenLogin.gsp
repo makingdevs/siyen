@@ -26,7 +26,6 @@
     <asset:javascript src='application.js' />
 
     <g:layoutHead/>
-    <r:layoutResources />
   </head>
 
   <body>
