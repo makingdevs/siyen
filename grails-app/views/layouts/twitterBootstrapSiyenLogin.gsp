@@ -9,9 +9,9 @@
     <meta name="author" content="">
 
     <asset:stylesheet src="auth/login.css" />
-    <asset:stylesheet src="css/datepicker/datepicker.css" />
-    <asset:stylesheet src="css/dropzone/basic.css" />
-    <asset:stylesheet src="css/dropzone/dropzone.css" />
+    <asset:stylesheet src="datepicker/datepicker.css" />
+    <asset:stylesheet src="dropzone/basic.css" />
+    <asset:stylesheet src="dropzone/dropzone.css" />
 
     <asset:javascript src="bootstrap.js" />
 

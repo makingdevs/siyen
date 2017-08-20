@@ -6,7 +6,7 @@
 //=require vertx/sockjs.min.js
 //=require vertx/vertxbus.min.js
 
-(function() {
+$(function() {
   window.App = Ember.Application.create();
 
   $(function() {
@@ -39,4 +39,4 @@
     });
   });
 
-}).call(this);
+});
