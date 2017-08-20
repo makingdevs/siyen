@@ -5,7 +5,7 @@ import org.junit.*
 import spock.lang.Specification
 
 import com.siyen.exceptions.BusinessException
-import grails.plugins.springsecurity.SpringSecurityService
+import grails.plugin.springsecurity.SpringSecurityService
 
 @TestFor(CursoProgramadoService)
 @Mock([CursoProgramado, Alumno, NotificacionService, AlumnoService, Puerto, Curso, Instructor, User])
