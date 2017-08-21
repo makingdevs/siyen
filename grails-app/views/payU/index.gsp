@@ -3,6 +3,10 @@
 <head>
   <meta name="layout" content="catalogoSiyenMenu"/>
   <title>Pago PayU</title>
+  <asset:javascript src='md5/core-min.js' />
+  <asset:javascript src='md5/md5.js' />
+  <asset:javascript src='payu/payu.js' />
+
   <r:require module="payujs" />
 </head>
 <body>
