@@ -43,11 +43,10 @@ class CertificadoController {
 
   private def reversoParaElCurso(CursoProgramado cursoProgramado) {
     String claveDelCurso = cursoProgramado.curso.clave
+    String fullname = "${claveDelCurso}.pdf"
 
-    def reversoReporte = new File( grailsApplication.config.jasper.dir.reports + "/${claveDelCurso}.pdf" )
-    response.setHeader("Content-disposition", "attachment; filename=${claveDelCurso}.pdf")
-    response.outputStream << reversoReporte.readBytes()
-    response
+    def reversoReporte = new File(grailsApplication.config.jasper.dir.reports + "/${fullname}")
+    render(file: reversoReporte, contentType: "application/pdf", fileName: "${fullname}")
   }
 
   private def frenteDelCertificado(def reportData, String nombreDelCertificado) {
@@ -57,11 +56,15 @@ class CertificadoController {
       reportData: reportData
     )
 
-    def reporte = jasperService.generateReport(reportDef).toByteArray()
-    response.setHeader("Content-disposition", "attachment; filename=${nombreDelCertificado}.pdf")
-    response.outputStream << reporte
 
-    response
+    def reporteByteArray = jasperService.generateReport(reportDef).toByteArray()
+    def tempFile = File.createTempFile(nombreDelCertificado, ".pdf")
+
+    FileOutputStream fos = new FileOutputStream(tempFile);
+    fos.write(reporteByteArray)
+    fos.close()
+
+    render(file: tempFile, contentType: "application/pdf", fileName: "${nombreDelCertificado}.pdf")
   }
 
 }
