@@ -285,7 +285,7 @@ $(function() {
       this.set('style', 'cursor:move;opacity:0.4');
       $(".well").css({
         "opacity": '0.4',
-        "background-image": "url('/images/arrastra_aqui.png')",
+        "background-image": "url('/assets/arrastra_aqui.png')",
         "background-repeat": "no-repeat",
         "background-position": "center"
       });
