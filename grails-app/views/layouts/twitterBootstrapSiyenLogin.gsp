@@ -105,8 +105,10 @@
                         <g:link controller="puerto">Catálogos</g:link>
                       </li>
                     </sec:access>
-                    <li class="active">
-                      <a href="${createLink(controller:'payU')}"><r:img uri="images/credit-card.png" width="15" height="7"/> Pago con PayU</a>
+                    <li>
+                      <a href="${createLink(controller:'payU')}">
+                        <asset:image src="credit-card.png" width="15" height="7"/> Pago con PayU
+                      </a>
                     </li>
                   <!-- END: Menu de opciones -->
                 </ul>
