@@ -114,9 +114,9 @@ class AlumnoUpdateCommad {
   Long monto
 
   static constraints = {
-    cursoProgramado nullable: false
-    nombreCompleto nullable: false
-    tipoDePago nullable: false
+    id nullable: true
+    observaciones nullable: true
+    monto nullable: true
   }
 
 }
@@ -129,8 +129,7 @@ class AlumnoCommand {
   Long monto
 
   static constraints = {
-    cursoProgramado nullable: false
-    nombreCompleto nullable: false
-    tipoDePago nullable: false
+    observaciones nullable: true
+    monto nullable: true
   }
 }
