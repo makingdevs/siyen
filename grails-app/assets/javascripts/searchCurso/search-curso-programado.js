@@ -1,3 +1,6 @@
+//=require datepicker/bootstrap-datepicker.js
+//=require datepicker/locales/bootstrap-datepicker.es.js
+
 var searchCursoProgramado = (function(){
 
   //campos del formulario
@@ -18,8 +21,8 @@ var searchCursoProgramado = (function(){
   var initModule, showAdvancedSearch, search;
 
   initModule = function(){
-    $(buttonSearch).on( "click", search );
-    $(buttonAdvancedSearch).on( "click", showAdvancedSearch );
+    $("body").on("click", buttonSearch, search);
+    $("body").on("click", buttonAdvancedSearch, showAdvancedSearch);
     $('#desde').datepicker();
     $('#hasta').datepicker();
     $(document).keyup(function(e) {
@@ -30,6 +33,7 @@ var searchCursoProgramado = (function(){
   };
 
   showAdvancedSearch = function(){
+    console.log("showing advanced");
     if(isVisibleAdvancedSearch){
       isVisibleAdvancedSearch = false;
       $(boxAdvancedSearch).addClass('hide');
@@ -55,4 +59,7 @@ var searchCursoProgramado = (function(){
     initModule : initModule
   };
 }());
-searchCursoProgramado.initModule();
+
+$(function() {
+  searchCursoProgramado.initModule();
+});

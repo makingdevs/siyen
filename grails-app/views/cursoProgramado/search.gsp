@@ -3,7 +3,10 @@
   <head>
     <meta name="layout" content="catalogoSiyenMenu"/>
     <title>Buscar curso Programado</title>
-    <r:require module="searchAdvanced" />
+    <asset:stylesheet src="datepicker/datepicker.css" />
+    <asset:stylesheet src="searchCurso/search-curso-programado.css" />
+
+    <asset:javascript src="searchCurso/search-curso-programado.js" />
   </head>
   <body>
     <div class="page-header">

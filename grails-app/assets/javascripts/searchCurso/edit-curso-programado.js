@@ -1,3 +1,8 @@
+//=require datepicker/bootstrap-datepicker.js
+//=require datepicker/locales/bootstrap-datepicker.es.js
+//=require searchCurso/edit-curso-programado.js
+
+
 var editCursoProgramado = (function(){
   var fechaDeInicio = "#fechaDeInicio",
       msgBox = "#msgSuccessBox",
@@ -20,4 +25,6 @@ var editCursoProgramado = (function(){
   };
 }());
 
-editCursoProgramado.initModule();
+$(function() {
+  editCursoProgramado.initModule();
+});

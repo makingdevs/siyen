@@ -3,7 +3,9 @@
   <head>
     <meta name="layout" content="catalogoSiyenMenu"/>
     <title>Edición de Curso Programado</title>
-    <r:require module="editCursoProgramado" />
+    <asset:stylesheet src="datepicker/datepicker.css" />
+
+    <asset:javascript src="searchCurso/edit-curso-programado.js" />
   </head>
   <body>
     <div class="page-header">
