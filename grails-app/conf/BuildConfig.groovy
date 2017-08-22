@@ -7,8 +7,6 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 grails.project.war.file = "target/${appName}-${appVersion}.war"
 
-grails.plugin.location.surveyable = "/Users/makingdevs/Documents/surveyable"
-
 // uncomment (and adjust settings) to fork the JVM to isolate classpaths
 forkConfig = [maxMemory: 1024, minMemory: 64, debug: false, maxPerm: 256]
 grails.project.fork = [
@@ -103,8 +101,5 @@ grails.project.dependency.resolution = {
     compile("org.grails.plugins:grails-melody:1.59.0") {
       excludes 'itext'
     }
-
-    // compile ':surveyable:0.1.3'
   }
-
 }
