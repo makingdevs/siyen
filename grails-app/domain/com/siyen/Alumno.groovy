@@ -1,8 +1,6 @@
 package com.siyen
 
-import com.makingdevs.Surveyable
-
-class Alumno implements Surveyable{
+class Alumno {
 
   String numeroDeControl // (II 0's ID).size() == 8
   String nombreCompleto
@@ -24,15 +22,15 @@ class Alumno implements Surveyable{
   }
 
   static searchable = true
- 
+
  def afterInsert(){
-  
+
   def prefijo = "II"
   def numerosEnMatricula = 7
     if(numeroDeControl == null){
       numeroDeControl = prefijo + String.format("%0${numerosEnMatricula}d", id)
     }
-    
+
  }
 
 }

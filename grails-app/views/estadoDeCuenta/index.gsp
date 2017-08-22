@@ -3,9 +3,7 @@
   <head>
     <meta name="layout" content="catalogoSiyenMenu">
     <title>Estado de cuenta</title>
-    <r:require modules="momentjs, datepicker" />
-
-    <asset:stylesheet src='css/datepicker/datepicker.css' />
+    <asset:stylesheet src='datepicker/datepicker.css' />
 
     <asset:javascript src="momentjs/moment.js" />
     <asset:javascript src="momentjs/lang/es.js" />
