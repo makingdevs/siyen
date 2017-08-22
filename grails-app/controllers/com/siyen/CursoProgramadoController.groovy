@@ -76,12 +76,12 @@ class CursoProgramadoController {
   }
 
   def editCursoByAdmin(){
-
     def cursoProgramado = CursoProgramado.get(params.id)
     def msg = null
     if(request.post && cursoProgramado){
       DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy")
       cursoProgramado.fechaDeInicio = formatter.parse(params.fechaDeInicio)
+      cursoProgramado.fechaDeTermino = cursoProgramado.fechaDeInicio.clone().plus( (cursoProgramado.curso.duracion - 1) as Integer )
       cursoProgramado.puerto = Puerto.get(params.puerto)
       cursoProgramado.save()
       msg = "Se han actualizado campos de ${cursoProgramado.curso.nombre}"
