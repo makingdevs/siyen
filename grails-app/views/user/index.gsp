@@ -19,8 +19,6 @@
 
             <g:sortableColumn property="username" title="${message(code: 'user.username.label', default: 'Username')}" />
 
-            <g:sortableColumn property="password" title="${message(code: 'user.password.label', default: 'Password')}" />
-
             <g:sortableColumn property="accountExpired" title="${message(code: 'user.accountExpired.label', default: 'Account Expired')}" />
 
             <g:sortableColumn property="accountLocked" title="${message(code: 'user.accountLocked.label', default: 'Account Locked')}" />
@@ -28,6 +26,8 @@
             <g:sortableColumn property="enabled" title="${message(code: 'user.enabled.label', default: 'Enabled')}" />
 
             <g:sortableColumn property="passwordExpired" title="${message(code: 'user.passwordExpired.label', default: 'Password Expired')}" />
+
+            <th>Permisos</th>
 
           </tr>
         </thead>
@@ -37,8 +37,6 @@
 
             <td><g:link action="show" id="${userInstance.id}">${fieldValue(bean: userInstance, field: "username")}</g:link></td>
 
-            <td>${fieldValue(bean: userInstance, field: "password")}</td>
-
             <td><g:formatBoolean boolean="${userInstance.accountExpired}" /></td>
 
             <td><g:formatBoolean boolean="${userInstance.accountLocked}" /></td>
@@ -46,6 +44,8 @@
             <td><g:formatBoolean boolean="${userInstance.enabled}" /></td>
 
             <td><g:formatBoolean boolean="${userInstance.passwordExpired}" /></td>
+
+            <td><g:link controller="userRole" action="permisos" id="${userInstance.id}">Asignar/Cambiar</g:link></td>
 
           </tr>
         </g:each>
