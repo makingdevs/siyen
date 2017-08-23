@@ -3,8 +3,8 @@ grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
 grails.project.test.reports.dir = "target/test-reports"
 grails.project.work.dir = "target/work"
-grails.project.target.level = 1.6
-grails.project.source.level = 1.6
+grails.project.target.level = 1.8
+grails.project.source.level = 1.8
 grails.project.war.file = "target/${appName}-${appVersion}.war"
 
 // uncomment (and adjust settings) to fork the JVM to isolate classpaths
@@ -79,7 +79,7 @@ grails.project.dependency.resolution = {
     // plugins needed at runtime but not for compilation
     runtime 'org.grails.plugins:hibernate4:4.3.8.1'
 
-    runtime 'org.grails.plugins:database-migration:1.4.0'
+    runtime 'org.grails.plugins:database-migration:1.4.1'
     runtime ':jquery:1.11.0.2'
 
     compile("org.grails.plugins:jasper:1.11.0"){
@@ -95,8 +95,6 @@ grails.project.dependency.resolution = {
     compile "org.grails.plugins:spring-security-core:2.0.0"
 
     compile "org.grails.plugins:qrcode:0.7"
-
-    compile "org.grails.plugins:searchable:0.6.9"
 
     compile("org.grails.plugins:grails-melody:1.59.0") {
       excludes 'itext'
