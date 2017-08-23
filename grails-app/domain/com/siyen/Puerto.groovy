@@ -18,10 +18,6 @@ class Puerto {
     direccion size:1..500, blank: true
   }
 
-  static searchable = {
-    root false
-  }
-
   String toString() {
     clave
   }

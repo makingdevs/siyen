@@ -23,11 +23,4 @@ class CursoProgramado {
     expirationDate nullable: false
   }
 
-  static searchable = {
-    alumnos component: true
-    puerto component : true
-    curso component : true
-    instructor component : true
-  }
-
 }

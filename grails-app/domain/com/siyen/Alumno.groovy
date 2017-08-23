@@ -21,8 +21,6 @@ class Alumno {
     monto blank: true, nullable: true
   }
 
-  static searchable = true
-
  def afterInsert(){
 
   def prefijo = "II"
