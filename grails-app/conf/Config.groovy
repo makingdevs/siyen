@@ -71,10 +71,6 @@ environments {
 grails.plugin.databasemigration.updateOnStart = true
 grails.plugin.databasemigration.updateOnStartFileNames = ['changelog.groovy']
 
-searchable {
-  bulkIndexOnStartup = false
-}
-
 // log4j configuration
 log4j = {
   appenders {
@@ -123,8 +119,6 @@ log4j = {
         'grails.app.services.grails.plugin.rendering'
 }
 // Uncomment and edit the following lines to start using Grails encoding & escaping improvements
-
-/* remove this line 
 // GSP settings
 grails {
     views {
@@ -144,4 +138,3 @@ grails {
         }
     }
 }
-remove this line */
