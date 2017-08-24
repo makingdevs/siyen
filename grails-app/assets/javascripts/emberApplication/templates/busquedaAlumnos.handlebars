@@ -1,0 +1,7 @@
+<div id="busquedaDiv" class="input-append">
+  {{ view App.TextField id="busquedaDeAlumno" name="busquedaDeAlumno" class="input-xxlarge" action="realizarBusqueda" valueBinding="busquedaDeAlumno" }}
+  <button type="submit" class="btn" {{ action "realizarBusqueda" }}>Buscar</button>
+</div>
+
+<div id="resultados"> </div>
+{{ outlet }}
