@@ -1,7 +1,7 @@
 package com.siyen
+import grails.validation.Validateable
 
-@grails.validation.Validateable
-class PayUResponseCommand {
+class PayUResponseCommand implements Validateable {
   def grailsApplication
 
   String merchantId

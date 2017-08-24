@@ -4,7 +4,7 @@ import grails.converters.*
 
 class PuertoController {
 
-  static scaffold = true
+  static scaffold = Puerto
 
   def springSecurityService
 

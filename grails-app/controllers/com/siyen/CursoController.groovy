@@ -4,7 +4,7 @@ import grails.converters.*
 
 class CursoController {
 
-  static scaffold = true
+  static scaffold = Curso
 
   def jsonList() {
     def jsonResponse = [ cursos : Curso.findAll { activo == true } ]

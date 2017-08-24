@@ -1,6 +1,6 @@
 package com.siyen
 
-import org.vertx.java.core.json.*
+import io.vertx.core.json.JsonObject
 
 class NotificacionService {
 

@@ -1,6 +1,12 @@
+.DS_Store
+
 .classpath
+target/
 .project
 
 *.swp
-target/
-.DS_Store
+.gradle/
+build/
+.gradletasknamecache
+logs/
+app/grails-app/assets/javascripts/third-party/

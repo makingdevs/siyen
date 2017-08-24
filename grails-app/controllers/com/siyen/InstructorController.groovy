@@ -4,7 +4,7 @@ import grails.converters.*
 
 class InstructorController {
 
-  static scaffold = true
+  static scaffold = Instructor
 
   def springSecurityService
 

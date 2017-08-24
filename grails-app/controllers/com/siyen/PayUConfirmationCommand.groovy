@@ -1,7 +1,8 @@
 package com.siyen
 
-@grails.validation.Validateable
-class PayUConfirmationCommand {
+import grails.validation.Validateable
+
+class PayUConfirmationCommand implements Validateable {
 
   def grailsApplication
   def payUService
@@ -43,7 +44,7 @@ class PayUConfirmationCommand {
   String response_message_pol
   String transaction_bank_id
   String transaction_id
-  
+
   static constraints = {
     merchant_id blank: false, validator: {val, obj -> val == obj.grailsApplication.config.grails.app.payu.merchantId}
     reference_sale blank: false, nullable: false

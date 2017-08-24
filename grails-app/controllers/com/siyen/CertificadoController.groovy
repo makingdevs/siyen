@@ -1,15 +1,10 @@
 package com.siyen
 
-import org.codehaus.groovy.grails.plugins.jasper.JasperExportFormat
-import org.codehaus.groovy.grails.plugins.jasper.JasperReportDef
-
 class CertificadoController {
 
   def jasperService
   def certificadoService
   def notificacionService
-
-  def grailsApplication
 
   def generarFrenteParaCurso() {
     CursoProgramado cursoProgramado = CursoProgramado.get(params.id.toLong())
@@ -45,19 +40,19 @@ class CertificadoController {
     String claveDelCurso = cursoProgramado.curso.clave
     String fullname = "${claveDelCurso}.pdf"
 
-    def reversoReporte = new File(grailsApplication.config.jasper.dir.reports + "/${fullname}")
+    def reversoReporte = new File(grailsApplication.config.getProperty('jasper.dir.reports') + "/${fullname}")
     render(file: reversoReporte, contentType: "application/pdf", fileName: "${fullname}")
   }
 
   private def frenteDelCertificado(def reportData, String nombreDelCertificado) {
-    def reportDef = new JasperReportDef(
-      name: reportData.nombreDelCertificado.first(),
-      fileFormat: JasperExportFormat.PDF_FORMAT,
-      reportData: reportData
-    )
+    // def reportDef = new JasperReportDef(
+    //   name: reportData.nombreDelCertificado.first(),
+    //   fileFormat: JasperExportFormat.PDF_FORMAT,
+    //   reportData: reportData
+    // )
 
 
-    def reporteByteArray = jasperService.generateReport(reportDef).toByteArray()
+    def reporteByteArray = jasperService.generateReport(reportData).toByteArray()
     def tempFile = File.createTempFile(nombreDelCertificado, ".pdf")
 
     FileOutputStream fos = new FileOutputStream(tempFile);
