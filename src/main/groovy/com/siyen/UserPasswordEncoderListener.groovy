@@ -14,29 +14,29 @@ import groovy.transform.CompileStatic
 @CompileStatic
 class UserPasswordEncoderListener extends AbstractPersistenceEventListener {
 
-    @Autowired
-    SpringSecurityService springSecurityService
+  @Autowired
+  SpringSecurityService springSecurityService
 
-    UserPasswordEncoderListener(final Datastore datastore) {
-        super(datastore)
-    }
+  UserPasswordEncoderListener(final Datastore datastore) {
+    super(datastore)
+  }
 
-    @Override
-    protected void onPersistenceEvent(AbstractPersistenceEvent event) {
-        if (event.entityObject instanceof User) {
-            User u = (event.entityObject as User)
-            if (u.password && (event.eventType == EventType.PreInsert || (event.eventType == EventType.PreUpdate && u.isDirty('password')))) {
-                event.getEntityAccess().setProperty("password", encodePassword(u.password))
-            }
-        }
+  @Override
+  protected void onPersistenceEvent(AbstractPersistenceEvent event) {
+    if (event.entityObject instanceof User) {
+      User u = (event.entityObject as User)
+      if (u.password && (event.eventType == EventType.PreInsert || (event.eventType == EventType.PreUpdate && u.isDirty('password')))) {
+        event.getEntityAccess().setProperty("password", encodePassword(u.password))
+      }
     }
+  }
 
-    @Override
-    boolean supportsEventType(Class<? extends ApplicationEvent> eventType) {
-        eventType == PreUpdateEvent || eventType == PreInsertEvent
-    }
+  @Override
+  boolean supportsEventType(Class<? extends ApplicationEvent> eventType) {
+    eventType == PreUpdateEvent || eventType == PreInsertEvent
+  }
 
-    private String encodePassword(String password) {
-        springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
-    }
+  private String encodePassword(String password) {
+    springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
+  }
 }
