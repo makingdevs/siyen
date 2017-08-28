@@ -12,21 +12,21 @@
       <g:if test="${flash.message}">
       <div class="message" role="status">${flash.message}</div>
       </g:if>
-      <g:hasErrors bean="${instructorInstance}">
+      <g:hasErrors bean="${this.instructor}">
       <ul class="errors" role="alert">
-        <g:eachError bean="${instructorInstance}" var="error">
+        <g:eachError bean="${this.instructor}" var="error">
         <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-        </g:eachError>
+          </g:eachError>
       </ul>
-      </g:hasErrors>
-      <g:form url="[resource:instructorInstance, action:'save']" >
+        </g:hasErrors>
+        <g:form resource="${this.instructor}" method="POST">
         <fieldset class="form">
-          <g:render template="form"/>
+          <f:all bean="instructor"/>
         </fieldset>
         <fieldset class="buttons">
           <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
         </fieldset>
-      </g:form>
+          </g:form>
     </div>
   </body>
 </html>
