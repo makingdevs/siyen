@@ -14,7 +14,7 @@
   </head>
 
   <body>
-    <g:formRemote name="estadoDeCuentaForm" update="result" class="form-horizontal" url="[controller:'estadoDeCuenta', action:'generarEstadoDeCuenta']">
+    <g:form name="estadoDeCuentaForm" class="form-horizontal" url="[controller:'estadoDeCuenta', action:'generarEstadoDeCuenta']">
       <div class="control-group">
         <label class="control-label" for="anio">Instructor:</label>
         <div class="controls">
@@ -52,7 +52,7 @@
       <div class="form-actions">
         <button type="submit" class="btn btn-large btn-primary">Generar</button>
       </div>
-    </g:formRemote>
+    </g:form>
 
     <div id="result"></div>
 

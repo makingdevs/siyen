@@ -1,4 +1,14 @@
 $(function() {
+  $("form").on("submit", function(e) {
+    e.preventDefault();
+    var url = $(e.target).attr('action')
+    var data = $(e.target).serialize()
+
+    $.post(url, data, function(response) {
+      $('#result').html(response);
+    });
+  });
+
   $('.datepicker').datepicker({
     format          : "dd/MM/yyyy",
     autoclose       : true,
