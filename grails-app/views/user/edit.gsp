@@ -1,4 +1,3 @@
-<%@ page import="com.siyen.User" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -13,22 +12,22 @@
       <g:if test="${flash.message}">
       <div class="message" role="status">${flash.message}</div>
       </g:if>
-      <g:hasErrors bean="${userInstance}">
+      <g:hasErrors bean="${this.user}">
       <ul class="errors" role="alert">
-        <g:eachError bean="${userInstance}" var="error">
+        <g:eachError bean="${this.user}" var="error">
         <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-        </g:eachError>
+          </g:eachError>
       </ul>
-      </g:hasErrors>
-      <g:form url="[resource:userInstance, action:'update']" method="PUT" >
-        <g:hiddenField name="version" value="${userInstance?.version}" />
+        </g:hasErrors>
+        <g:form resource="${this.user}" method="PUT">
+        <g:hiddenField name="version" value="${this.user?.version}" />
         <fieldset class="form">
-          <g:render template="form"/>
+          <f:all bean="user"/>
         </fieldset>
         <fieldset class="buttons">
-          <g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+          <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
         </fieldset>
-      </g:form>
+        </g:form>
     </div>
   </body>
 </html>
