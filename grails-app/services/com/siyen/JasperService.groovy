@@ -1,41 +1,42 @@
 package com.siyen
 
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.JRException
+import net.sf.jasperreports.engine.JRExporter
+import net.sf.jasperreports.engine.JRExporterParameter
+import net.sf.jasperreports.engine.JREmptyDataSource
+import net.sf.jasperreports.engine.JasperCompileManager
+import net.sf.jasperreports.engine.JasperFillManager
+import net.sf.jasperreports.engine.JasperPrint
+import net.sf.jasperreports.engine.JasperReport
+import net.sf.jasperreports.engine.export.JRPdfExporter
+import net.sf.jasperreports.engine.JRDataSource
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
 
-class ReportingController {
+import org.springframework.core.io.FileSystemResource
+import org.springframework.core.io.Resource
 
-  def dataSource
+class JasperService {
+
+  def grailsApplication
 
   def generateReport(reportData) {
-    try {
-      String report_dir = grailsApplication.config.getProperty('jasper.dir.reports')
-      String reportName = grailsApplication.mainContext.getResource(report_dir + '/certificado.jrxml').file.getAbsoluteFile()
+    String name = reportData.nombreDelCertificado.first()
+    String report_dir = grailsApplication.config.getProperty('jasper.dir.reports')
+    String resourcePath = "${report_dir}/${name}"
 
-      JasperPrint print = JasperFillManager.fillReport(reportName, reportData, new JREmptyDataSource());
+    ByteArrayOutputStream byteArray = new ByteArrayOutputStream()
+    JRExporter exporter = new JRPdfExporter()
 
-      ByteArrayOutputStream  pdfStream = new ByteArrayOutputStream();
+    exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, byteArray)
+    exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8")
 
-      // exports report to pdf
-      JRExporter exporter = new JRPdfExporter();
-      exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
-      exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, pdfStream); // your output goes here
+    Resource resource = new FileSystemResource(resourcePath)
+    JRDataSource jrDataSource = new JRBeanCollectionDataSource(reportData)
+    JasperPrint jasperPrint = JasperFillManager.fillReport(JasperCompileManager.compileReport(resource.inputStream), [:], jrDataSource)
 
-      exporter.exportReport();
-      //println 'pdfStream = '+pdfStream.size()
+    exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint)
+    exporter.exportReport()
 
-    } catch (Exception e) {
-      throw new RuntimeException("It's not possible to generate the pdf report.", e);
-    } finally {
-      //render(file: pdfStream.toByteArray(), contentType: 'application/pdf')
-      // render(file: pdfStream.toByteArray(), fileName: 'DownloadReport.pdf', contentType: 'application/pdf')
-      pdfStream
-    }
+    byteArray
   }
 }
