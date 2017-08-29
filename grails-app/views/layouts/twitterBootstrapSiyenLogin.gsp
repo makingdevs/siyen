@@ -23,6 +23,9 @@
     <asset:javascript src='ember/ember-data-1.0.0.js' />
     <asset:javascript src='ember-localstorage/localstorage_adapter.js' />
 
+    <asset:javascript src='sockjs.min.js' />
+    <asset:javascript src='vertxbus.min.js' />
+
     <asset:javascript src='application.js' />
 
     <g:layoutHead/>
