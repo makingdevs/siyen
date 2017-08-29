@@ -67,7 +67,6 @@ dependencies {
   compile 'net.sf.jasperreports:jasperreports:6.4.1'
 
   compile 'net.sourceforge.jexcelapi:jxl:2.6.12'
-  compile 'org.grails.plugins:rendering:2.0.3'
 
   compile "io.vertx:vertx-core:3.4.2"
 
