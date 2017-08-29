@@ -49,9 +49,9 @@ class CertificadoController {
     def reporteByteArray = jasperService.generateReport(reportData, name).toByteArray()
 
     def tempFile = File.createTempFile(nombreDelCertificado, ".pdf")
-    FileOutputStream fos = new FileOutputStream(tempFile);
-    fos.write(reporteByteArray)
-    fos.close()
+    tempFile.withOutputStream { outputStream ->
+      tempFile << reporteByteArray
+    }
 
     render(file: tempFile, contentType: "application/pdf", fileName: "${nombreDelCertificado}.pdf")
   }

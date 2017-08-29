@@ -27,12 +27,12 @@ class OficioController {
     String templateFilled = g.render(template: "/pdfs/oficio", model: [data: data])
 
     def tempFile = File.createTempFile("oficio", ".pdf")
-    OutputStream os = new FileOutputStream(tempFile);
-    ITextRenderer renderer = new ITextRenderer()
-    renderer.setDocumentFromString(templateFilled)
-    renderer.layout()
-    renderer.createPDF(os)
-    os.close()
+    tempFile.withOutputStream { outputStream ->
+      ITextRenderer renderer = new ITextRenderer()
+      renderer.setDocumentFromString(templateFilled)
+      renderer.layout()
+      renderer.createPDF(outputStream)
+    }
 
     render(file: tempFile, contentType: "application/pdf", fileName: "oficio.pdf")
   }
