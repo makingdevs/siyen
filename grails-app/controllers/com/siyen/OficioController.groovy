@@ -1,10 +1,8 @@
 package com.siyen
 
-import grails.plugins.rendering.pdf.PdfRenderingService
+import org.xhtmlrenderer.pdf.ITextRenderer
 
 class OficioController {
-
-  // def pdfRenderingService
 
   def generarOficio() {
     def puerto = Puerto.get(params.puertoDeEnvio.toLong())
@@ -26,13 +24,17 @@ class OficioController {
     def consulta = CursoProgramado.findAllByFechaDeInicioBetweenAndPuerto(desde, hasta, puerto)
     data.cursos = consulta.groupBy({ "${it.curso.nombre}-${it.curso.clave}" })
 
-    // def tempFile = File.createTempFile("oficio", ".pdf")
-    // tempFile.withOutputStream { outputStream ->
-    //   pdfRenderingService.render(template: "/pdfs/oficio", model: [data: data], outputStream)
-    // }
+    String templateFilled = g.render(template: "/pdfs/oficio", model: [data: data])
 
-    // render(file: tempFile, contentType: "application/pdf", fileName: "oficio.pdf")
-    render([])
+    def tempFile = File.createTempFile("oficio", ".pdf")
+    OutputStream os = new FileOutputStream(tempFile);
+    ITextRenderer renderer = new ITextRenderer()
+    renderer.setDocumentFromString(templateFilled)
+    renderer.layout()
+    renderer.createPDF(os)
+    os.close()
+
+    render(file: tempFile, contentType: "application/pdf", fileName: "oficio.pdf")
   }
 
 }
