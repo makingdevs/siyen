@@ -4,12 +4,29 @@ import com.siyen.*
 import grails.converters.JSON
 import com.siyen.marshallers.*
 
+import io.vertx.core.Vertx
+import io.vertx.ext.web.*
+import io.vertx.ext.bridge.*
+import io.vertx.ext.web.handler.sockjs.*
+
+
 import grails.util.Environment
 
 class BootStrap {
 
+  def vertxService
+
   def init = { servletContext ->
-    Locale.setDefault(new Locale("es", "ES"))
+    java.util.Locale.setDefault(new java.util.Locale("es", "ES"))
+
+    def vertx = vertxService.vertx()
+
+    Router router = Router.router(vertx);
+    SockJSHandler sockJSHandler = SockJSHandler.create(vertx);
+    BridgeOptions options = new BridgeOptions();
+    sockJSHandler.bridge(options);
+    router.route("/eventbus/*").handler(sockJSHandler);
+
 
     JSON.createNamedConfig('siyen') {
       it.registerObjectMarshaller(new CursoProgramadoMarshaller())

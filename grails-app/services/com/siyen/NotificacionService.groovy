@@ -5,10 +5,10 @@ import io.vertx.core.json.JsonObject
 class NotificacionService {
 
   def springSecurityService
-  def defaultPlatformManager
+  def vertxService
 
   def enviarNotificacion(String bus, CursoProgramado cursoProgramado) {
-    def vertx = defaultPlatformManager.vertx()
+    def vertx = vertxService.vertx()
     def eventBus = vertx.eventBus()
 
     JsonObject mensaje = convertirCursoProgramadoAJsonObject(cursoProgramado, bus)
@@ -28,14 +28,14 @@ class NotificacionService {
 
   private JsonObject convertirCursoProgramadoAJsonObject(CursoProgramado cursoProgramado, String bus) {
     JsonObject jsonNotification = new JsonObject()
-    jsonNotification.putValue( "id", cursoProgramado.id )
-    jsonNotification.putString( "fechaDeAutorizacion", cursoProgramado.dateCreated.format("dd/MMMM/yyyy HH:mm") )
-    jsonNotification.putString( "fechaDeInicio", cursoProgramado.fechaDeInicio.format("dd/MMMM/yyyy") )
-    jsonNotification.putString( "puerto", "${cursoProgramado.puerto.clave} - ${cursoProgramado.puerto.puerto}" )
-    jsonNotification.putValue( "curso", cursoProgramado.curso.clave )
-    jsonNotification.putValue( "instructor", cursoProgramado.instructor.nombre )
-    jsonNotification.putValue( "alumnos", cursoProgramado.alumnos.size() )
-    jsonNotification.putValue( "creadoPor", springSecurityService.currentUser.username )
+    jsonNotification.put( "id", cursoProgramado.id )
+    jsonNotification.put( "fechaDeAutorizacion", cursoProgramado.dateCreated.format("dd/MMMM/yyyy HH:mm") )
+    jsonNotification.put( "fechaDeInicio", cursoProgramado.fechaDeInicio.format("dd/MMMM/yyyy") )
+    jsonNotification.put( "puerto", "${cursoProgramado.puerto.clave} - ${cursoProgramado.puerto.puerto}" )
+    jsonNotification.put( "curso", cursoProgramado.curso.clave )
+    jsonNotification.put( "instructor", cursoProgramado.instructor.nombre )
+    jsonNotification.put( "alumnos", cursoProgramado.alumnos.size() )
+    jsonNotification.put( "creadoPor", springSecurityService.currentUser.username )
 
     Accion accion = obtenerAccionRealizada(bus)
     jsonNotification.putString( "accion", accion.getValue() )
