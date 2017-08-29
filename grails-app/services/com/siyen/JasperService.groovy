@@ -19,8 +19,7 @@ class JasperService {
 
   def grailsApplication
 
-  def generateReport(reportData) {
-    String name = reportData.nombreDelCertificado.first()
+  def generateReport(reportData, name) {
     String report_dir = grailsApplication.config.getProperty('jasper.dir.reports')
     String resourcePath = "${report_dir}/${name}"
 

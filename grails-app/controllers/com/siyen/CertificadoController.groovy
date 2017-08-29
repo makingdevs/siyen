@@ -45,7 +45,8 @@ class CertificadoController {
   }
 
   private def frenteDelCertificado(def reportData, String nombreDelCertificado) {
-    def reporteByteArray = jasperService.generateReport(reportData).toByteArray()
+    String name = reportData.nombreDelCertificado.first()
+    def reporteByteArray = jasperService.generateReport(reportData, name).toByteArray()
 
     def tempFile = File.createTempFile(nombreDelCertificado, ".pdf")
     FileOutputStream fos = new FileOutputStream(tempFile);
