@@ -64,6 +64,7 @@ dependencies {
 
   compile 'org.olap4j:olap4j:1.2.0'
   compile 'com.lowagie:itext:2.1.7'
+  compile 'org.xhtmlrenderer:flying-saucer-pdf:9.0.9'
   compile 'net.sf.jasperreports:jasperreports:6.4.1'
 
   compile 'net.sourceforge.jexcelapi:jxl:2.6.12'
