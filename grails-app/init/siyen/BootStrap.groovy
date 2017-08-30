@@ -14,19 +14,15 @@ import grails.util.Environment
 
 class BootStrap {
 
-  def vertxService
-
   def init = { servletContext ->
     java.util.Locale.setDefault(new java.util.Locale("es", "ES"))
 
-    def vertx = vertxService.vertx()
-
+    def vertx = Vertx.vertx()
     Router router = Router.router(vertx);
     SockJSHandler sockJSHandler = SockJSHandler.create(vertx);
     BridgeOptions options = new BridgeOptions();
     sockJSHandler.bridge(options);
     router.route("/eventbus/*").handler(sockJSHandler);
-
 
     JSON.createNamedConfig('siyen') {
       it.registerObjectMarshaller(new CursoProgramadoMarshaller())
