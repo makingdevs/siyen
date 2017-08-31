@@ -23,6 +23,7 @@ class BootStrap {
     BridgeOptions options = new BridgeOptions();
     sockJSHandler.bridge(options);
     router.route("/eventbus/*").handler(sockJSHandler);
+    vertx.createHttpServer().requestHandler(router.&accept).listen(9091)
 
     JSON.createNamedConfig('siyen') {
       it.registerObjectMarshaller(new CursoProgramadoMarshaller())
