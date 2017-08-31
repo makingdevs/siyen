@@ -18,10 +18,20 @@ class BootStrap {
     java.util.Locale.setDefault(new java.util.Locale("es", "ES"))
 
     def vertx = Vertx.vertx()
-    Router router = Router.router(vertx);
-    SockJSHandler sockJSHandler = SockJSHandler.create(vertx);
-    BridgeOptions options = new BridgeOptions();
-    sockJSHandler.bridge(options);
+    def router = Router.router(vertx)
+    def sockJSHandler = SockJSHandler.create(vertx)
+
+    def inboundPermitted = [:]
+    def outboundPermitted = [
+      addressRegex:"cursoProgramado\\..+"
+    ]
+
+    def options = [
+      inboundPermitteds:[inboundPermitted],
+      outboundPermitteds:[outboundPermitted]
+    ]
+    sockJSHandler.bridge(options)
+
     router.route("/eventbus/*").handler(sockJSHandler);
     vertx.createHttpServer().requestHandler(router.&accept).listen(9091)
 

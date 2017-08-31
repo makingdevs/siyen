@@ -427,24 +427,24 @@ $(function() {
       eventBus = new EventBus(eventBusURL);
       eventBus.onopen = function() {
         console.log("Event Bus connected");
-        // eventBus.registerHandler('cursoProgramado.autorizado', function(jsonMessage) {
-        //   return crearNotificacionConRespuesta(jsonMessage);
-        // });
-        // eventBus.registerHandler('cursoProgramado.impresion', function(jsonMessage) {
-        //   return crearNotificacionConRespuesta(jsonMessage);
-        // });
-        // eventBus.registerHandler('cursoProgramado.impresion_de', function(jsonMessage) {
-        //   return crearNotificacionConRespuesta(jsonMessage);
-        // });
-        // eventBus.registerHandler('cursoProgramado.actualizado', function(jsonMessage) {
-        //   return crearNotificacionConRespuesta(jsonMessage);
-        // });
-        // eventBus.registerHandler('cursoProgramado.alumno_add', function(jsonMessage) {
-        //   return crearNotificacionConRespuesta(jsonMessage);
-        // });
-        // return eventBus.registerHandler('cursoProgramado.alumno_edit', function(jsonMessage) {
-        //   return crearNotificacionConRespuesta(jsonMessage);
-        // });
+        eventBus.registerHandler('cursoProgramado.autorizado', function(jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage);
+        });
+        eventBus.registerHandler('cursoProgramado.impresion', function(jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage);
+        });
+        eventBus.registerHandler('cursoProgramado.impresion_de', function(jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage);
+        });
+        eventBus.registerHandler('cursoProgramado.actualizado', function(jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage);
+        });
+        eventBus.registerHandler('cursoProgramado.alumno_add', function(jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage);
+        });
+        return eventBus.registerHandler('cursoProgramado.alumno_edit', function(jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage);
+        });
       }
       return crearNotificacionConRespuesta = (function(_this) {
         return function(jsonMessage) {
