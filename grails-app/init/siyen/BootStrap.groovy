@@ -14,10 +14,11 @@ import grails.util.Environment
 
 class BootStrap {
 
+  def vertx
+
   def init = { servletContext ->
     java.util.Locale.setDefault(new java.util.Locale("es", "ES"))
 
-    def vertx = Vertx.vertx()
     def router = Router.router(vertx)
     def sockJSHandler = SockJSHandler.create(vertx)
 

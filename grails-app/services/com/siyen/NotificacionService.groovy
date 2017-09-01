@@ -1,14 +1,14 @@
 package com.siyen
 
 import io.vertx.core.json.JsonObject
+import io.vertx.core.Vertx
 
 class NotificacionService {
 
   def springSecurityService
-  def vertxService
+  def vertx
 
   def enviarNotificacion(String bus, CursoProgramado cursoProgramado) {
-    def vertx = vertxService.vertx()
     def eventBus = vertx.eventBus()
 
     JsonObject mensaje = convertirCursoProgramadoAJsonObject(cursoProgramado, bus)
@@ -17,11 +17,10 @@ class NotificacionService {
   }
 
   def enviarNotificacionDeAlumno(String bus, Alumno alumno) {
-    def vertx = defaultPlatformManager.vertx()
     def eventBus = vertx.eventBus()
 
     JsonObject mensaje = convertirCursoProgramadoAJsonObject(alumno.cursoProgramado, bus)
-    mensaje.putString("accion", "${mensaje.getValue("accion")} ${alumno.numeroDeControl}")
+    mensaje.put("accion", "${mensaje.getValue("accion")} ${alumno.numeroDeControl}")
 
     eventBus.publish(bus, mensaje)
   }
@@ -38,7 +37,7 @@ class NotificacionService {
     jsonNotification.put( "creadoPor", springSecurityService.currentUser.username )
 
     Accion accion = obtenerAccionRealizada(bus)
-    jsonNotification.putString( "accion", accion.getValue() )
+    jsonNotification.put( "accion", accion.getValue() )
 
     jsonNotification
   }
