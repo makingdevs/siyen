@@ -427,29 +427,23 @@ $(function() {
       eventBus = new EventBus(eventBusURL);
       eventBus.onopen = function() {
         console.log("Event Bus connected");
-        eventBus.registerHandler('cursoProgramado.autorizado', function(jsonMessage) {
-          console.log("autorizado");
-          return crearNotificacionConRespuesta(jsonMessage);
+        eventBus.registerHandler('cursoProgramado.autorizado', function(error, jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage.body);
         });
-        eventBus.registerHandler('cursoProgramado.impresion', function(jsonMessage) {
-          console.log("impresion");
-          return crearNotificacionConRespuesta(jsonMessage);
+        eventBus.registerHandler('cursoProgramado.impresion', function(error, jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage.body);
         });
-        eventBus.registerHandler('cursoProgramado.impresion_de', function(jsonMessage) {
-          console.log("impresion_de");
-          return crearNotificacionConRespuesta(jsonMessage);
+        eventBus.registerHandler('cursoProgramado.impresion_de', function(error, jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage.body);
         });
-        eventBus.registerHandler('cursoProgramado.actualizado', function(jsonMessage) {
-          console.log("actualizado");
-          return crearNotificacionConRespuesta(jsonMessage);
+        eventBus.registerHandler('cursoProgramado.actualizado', function(error, jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage.body);
         });
-        eventBus.registerHandler('cursoProgramado.alumno_add', function(jsonMessage) {
-          console.log("alumno_add");
-          return crearNotificacionConRespuesta(jsonMessage);
+        eventBus.registerHandler('cursoProgramado.alumno_add', function(error, jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage.body);
         });
-        return eventBus.registerHandler('cursoProgramado.alumno_edit', function(jsonMessage) {
-          console.log("alumno_edit");
-          return crearNotificacionConRespuesta(jsonMessage);
+        return eventBus.registerHandler('cursoProgramado.alumno_edit', function(error, jsonMessage) {
+          return crearNotificacionConRespuesta(jsonMessage.body);
         });
       }
       return crearNotificacionConRespuesta = (function(_this) {
