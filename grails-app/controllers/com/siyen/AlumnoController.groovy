@@ -69,8 +69,8 @@ class AlumnoController {
       notificacionService.enviarNotificacion('cursoProgramado.alumno_edit', alumno.cursoProgramado)
       respuestaJson(alumno)
     }catch(ex) {
-      render(status:409, contentType: "text/json") {
-        [ message : ex.message ]
+      render(status: 409, contentType: "application/json") {
+        message(ex.message)
       }
       return
     }
